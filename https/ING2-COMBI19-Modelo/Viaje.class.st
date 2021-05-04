@@ -13,9 +13,17 @@ Class {
 }
 
 { #category : #initialization }
-Viaje class >> initializeCon: unChofer ruta: unaRuta combi: unaCombi fecha: unaFecha hora: unaHora precio: unPrecio [
+Viaje class >> initializeCon: unaRuta
+		combi: unaCombi
+		fecha: unaFecha
+		hora: unaHora
+		precio: unPrecio [
 	^ self
-		initializeCon: unaRuta combi: unaCombi fecha: unaFecha hora: unaHora precio: unPrecio
+		initializeCon: unaRuta
+		combi: unaCombi
+		fecha: unaFecha
+		hora: unaHora
+		precio: unPrecio
 ]
 
 { #category : #accessing }
@@ -31,6 +39,11 @@ Viaje >> initializeCon:  unaRuta combi: unaCombi fecha: unaFecha hora: unaHora p
 	fecha := unaFecha.
 	hora:= unaHora.
 	precio := unPrecio
+]
+
+{ #category : #accessing }
+Viaje >> ruta [ 
+^ ruta
 ]
 
 { #category : #accessing }

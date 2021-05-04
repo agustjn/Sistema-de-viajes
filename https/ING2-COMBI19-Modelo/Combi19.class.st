@@ -8,7 +8,8 @@ Class {
 		'administrador',
 		'combis',
 		'viajes',
-		'rutas'
+		'rutas',
+		'insumos'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -30,16 +31,47 @@ Combi19 >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsientos: un
 				^ true ]
 ]
 
+{ #category : #accessing }
+Combi19 >> agregarInsumo: unNombre tipo: unTipo precio: unPrecio [
+	"Si el nombre y el tipo de insumo no existe lo crea y agrega a la coleccion de insumos
+"
+	|unInsumo|
+	unInsumo := Insumo initializeCon: unNombre tipo:  unTipo  precio:  unPrecio.
+	(insumos anySatisfy: [ :insumo | insumo = unInsumo ]) ifTrue: [ ^false ] ifFalse: [ insumos add: unInsumo. ^ true ] 
+
+	
+]
+
+{ #category : #'as yet unclassified' }
+Combi19 >> agregarRuta: unOrigen destino: unDestino horario: unaHora combi: unaCombi distancia: unaDistancia [
+	"Chequea que la ruta no exista, en dicho caso agrega la ruta a la coleccion de rutas y devuelve un booleano confirmando o denegando la accion"
+
+	| unaRuta |
+	unaRuta := Ruta
+		initializeCon: unOrigen
+		destino: unDestino
+		horario: unaHora
+		combi: unaCombi
+		distancia: unaDistancia.
+	(rutas anySatisfy: [ :ruta | ruta = unaRuta ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ rutas add: unaRuta.
+			^ true ]
+]
+
 { #category : #'as yet unclassified' }
 Combi19 >> agregarViajeCon: unChofer ruta: unaRuta combi: unaCombi fecha: unaFecha hora: unaHora precio: unPrecio [
-"Falta terminar, y metodos relacionados"
+	"Crea un viaje y lo agrega a la coleccion de viajes "
+
 	| unViaje |
 	unViaje := Viaje
 		initializeCon: unaRuta
 		combi: unaCombi
 		fecha: unaFecha
 		hora: unaHora
-		precio: unPrecio
+		precio: unPrecio.
+	viajes add: unViaje.
+	^ unViaje
 ]
 
 { #category : #'as yet unclassified' }
@@ -114,6 +146,22 @@ Combi19 >> editarCombi: unaCombi modelo: unModelo cantidadAsientos: unaCantidad 
 ]
 
 { #category : #'as yet unclassified' }
+Combi19 >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: unPrecio [
+	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ unInsumo editarNombre: unNombre tipo: unTipo precio: unPrecio. ^true]
+]
+
+{ #category : #'as yet unclassified' }
+Combi19 >> editarRuta: unaRuta origen: unOrigen destino: unDestino horario: unHorario combi: unaCombi distancia: unaDistancia [
+"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
+	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ unaRuta editarOrigen: unOrigen destino: unDestino horario: unHorario combi: unaCombi distancia: unaDistancia.
+			^ true ]
+]
+
+{ #category : #'as yet unclassified' }
 Combi19 >> eliminarChofer: unChofer [
 "Si el usuario no esta ocupado y no tiene una combi asignada se elimina y devuelve true, caso contrario no hace nada y devuelve false."
 	unChofer ocupado
@@ -136,17 +184,46 @@ Combi19 >> eliminarCombi: unaCombi [
 			^ true ]
 ]
 
+{ #category : #'as yet unclassified' }
+Combi19 >> eliminarInsumo: unInsumo [
+"Chequea que los insumos exista en la coleccion, de ser asi lo elimina. Devuelve un booleano confirmando y denegando la accion."
+	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ insumos remove: unInsumo.
+			^ true ]
+]
+
+{ #category : #'as yet unclassified' }
+Combi19 >> eliminarRuta: unaRuta [
+	"Chequea que la ruta no tenga viajes pendientes, en ese caso elimna la ruta de la coleccion de rutas y devuelve un booleano confirmando o negando la accion"
+
+	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ rutas remove: unaRuta. ^ true ]
+]
+
 { #category : #initialization }
 Combi19 >> initialize [
 	clientes := OrderedCollection new.
 	choferes := OrderedCollection new.
 	combis := OrderedCollection new.
 	viajes := OrderedCollection new.
+	insumos := OrderedCollection new.
+]
+
+{ #category : #accessing }
+Combi19 >> insumos [
+	^insumos
 ]
 
 { #category : #accessing }
 Combi19 >> lugares [ 
  ^lugares
+]
+
+{ #category : #accessing }
+Combi19 >> rutas [
+	^rutas
 ]
 
 { #category : #'accessing - backend' }
@@ -158,4 +235,9 @@ Combi19 >> usuario: unEmail protegidoPor: unaClave [
 		elUsuario ifNil:  (administrador email = unEmail & (administrador contraseña = unaClave) ).
 		^ elUsuario 
 		
+]
+
+{ #category : #accessing }
+Combi19 >> viajes [ 
+	^viajes
 ]

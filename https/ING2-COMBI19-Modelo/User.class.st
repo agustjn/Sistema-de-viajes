@@ -35,3 +35,8 @@ User >> email [
 User >> nombre [ 
 	^nombre
 ]
+
+{ #category : #accessing }
+User >> viajes [
+	^viajes
+]

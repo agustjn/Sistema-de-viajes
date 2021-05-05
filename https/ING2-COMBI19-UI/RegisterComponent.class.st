@@ -78,6 +78,8 @@ RegisterComponent >> guardar: aCanvas [
 		ifFalse: [ advertise := AdvertiseComponent new.
 			mail := ''.
 			contraseña := '' ]
+		ifTrue: [ self registrarCliente.
+					self call: HomeClientComponent new ]
 ]
 
 { #category : #accessing }

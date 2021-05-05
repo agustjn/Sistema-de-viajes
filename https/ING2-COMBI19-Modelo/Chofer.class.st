@@ -9,8 +9,16 @@ Class {
 }
 
 { #category : #initialization }
-Chofer class >> initializeCon: unNombre apellido: unApellido email: unEmail contraseña: unaContraseña telefono: unTelefono [ 
-	^ self initializeCon: unNombre apellido: unApellido email: unEmail contraseña: unaContraseña telefono: unTelefono 
+Chofer class >> initializeCon: unNombre apellido: unApellido email: unEmail contraseña: unaContraseña telefono: unTelefono [
+	|instance|
+	instance := self new.
+	instance 
+		initializeCon: unNombre
+		apellido: unApellido
+		email: unEmail
+		contraseña: unaContraseña
+		telefono: unTelefono.
+	^instance.
 ]
 
 { #category : #comparing }
@@ -49,4 +57,19 @@ Chofer >> initializeCon: unNombre apellido: unApellido email: unEmail contraseñ
 { #category : #'as yet unclassified' }
 Chofer >> ocupado [
 	^ocupado
+]
+
+{ #category : #accessing }
+Chofer >> ocupado: anObject [
+	ocupado := anObject
+]
+
+{ #category : #accessing }
+Chofer >> telefono [
+	^ telefono
+]
+
+{ #category : #accessing }
+Chofer >> telefono: anObject [
+	telefono := anObject
 ]

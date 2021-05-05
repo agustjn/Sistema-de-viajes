@@ -15,7 +15,7 @@ LoginComponent >> mail [
 
 { #category : #accessing }
 LoginComponent >> mail: anObject [
-	mail := anObject
+	mail := anObject.
 ]
 
 { #category : #'event processing' }
@@ -48,18 +48,15 @@ LoginComponent >> password: anObject [
 
 { #category : #'event processing' }
 LoginComponent >> procederCon: anUser [
-	| q |
 	"Si el usuario existe en el sistema, se llama a este metodo para que se 
 	recuerde la sesion del usuario y se renderize el componente Home"
 	self session user: anUser.
 	(Administrador allInstances includes: anUser)
-		ifTrue:[ self call: HomeAdminComponent ].
+		ifTrue: [ self call: HomeAdminComponent new ].
 	(Chofer allInstances includes: anUser)
-		ifTrue:[ self call: HomeChoferComponent ].
+		ifTrue: [ self call: HomeChoferComponent new ].
 	(Cliente allInstances includes: anUser)
-		ifTrue:[ self call: HomeClientComponent ]
-		
-
+		ifTrue: [ self call: HomeClientComponent new ]
 ]
 
 { #category : #rendering }
@@ -67,29 +64,35 @@ LoginComponent >> renderContentOn: aCanvas [
 	aCanvas heading
 		level: 2;
 		with: 'COMBI-19'.
-	aCanvas form
-		class: 'container';
-		with: [ self renderizarFormularioOn: aCanvas ].
-	aCanvas div: [ self renderizarBotonesOn: aCanvas ]
+	aCanvas horizontalRule.
+	aCanvas
+		form: [ self renderizarFormularioOn: aCanvas.
+			self renderizarBotonesOn: aCanvas ]
 ]
 
 { #category : #rendering }
 LoginComponent >> renderizarBotonesOn: aCanvas [
-	aCanvas anchor 
-					callback:[ self manejarLogin ] ;
-					with: [aCanvas button:'Iniciar sesion'].
+	aCanvas submitButton
+		callback: [ self manejarLogin ];
+		with: 'Iniciar sesion'.
 	aCanvas space.
-	aCanvas anchor 
-							callback:[ self manejarRegistro]	;
-							with:[aCanvas button:'Registrarme!'].
-									
+	aCanvas submitButton
+		callback: [ self manejarRegistro ];
+		with: 'Registrarme!'.
 ]
 
 { #category : #rendering }
 LoginComponent >> renderizarFormularioOn: aCanvas [
-	aCanvas horizontalRule.
-	aCanvas label:'Correo electronico'.
-	aCanvas paragraph: [ aCanvas textInput on:#mail of:self ].
+	aCanvas label: 'Correo electronico'.
+	aCanvas break.
+	aCanvas break.
+	aCanvas textInput on: #mail of: self.
+	aCanvas break.
+	aCanvas break.
 	aCanvas label: 'Contraseña'.
-	aCanvas paragraph: [ aCanvas textInput on:#password of:self ].
+	aCanvas break.
+	aCanvas break.
+	aCanvas textInput on: #password of: self.
+	aCanvas break.
+	aCanvas break
 ]

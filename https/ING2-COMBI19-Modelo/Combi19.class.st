@@ -6,6 +6,9 @@ Class {
 		'choferes',
 		'administrador'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #'ING2-COMBI19-Modelo'
 }
 
@@ -14,10 +17,70 @@ Combi19 class >> clearSoleInstance [
 	soleInstance := nil.
 ]
 
+{ #category : #'instance creation' }
+Combi19 class >> instanciaDePrueba [
+	self soleInstance.
+	soleInstance
+		crearAdmin: 'ING'
+		apellido: 'SOFT 2'
+		mail: 'admin'
+		contraseña: 'admin'.
+	soleInstance
+		crearChofer: 'Esteban'
+		apellido: 'Perez'
+		email: 'esteban@hotmail.com'
+		contraseña: '123456'
+		telefono: '2218896545'.
+	soleInstance
+		crearChofer: 'Carlos'
+		apellido: 'Mansilla'
+		email: 'carlos@hotmail.com'
+		contraseña: '1234567'
+		telefono: '22215312'.
+	soleInstance administrador
+		agregarCombiModelo: 'Mercedes Benz Sprinter'
+		patente: 'CGF-412'
+		cantidadAsientos: 40
+		chofer: soleInstance choferes first
+		tipo: 'Media distancia'
+]
+
 { #category : #accessing }
 Combi19 class >> soleInstance [
-	^ soleInstance ifNil:[ soleInstance := self new]
-	
+	^ soleInstance ifNil: [ soleInstance := self new. ]
+]
+
+{ #category : #accessing }
+Combi19 >> administrador [
+	^ administrador
+]
+
+{ #category : #accessing }
+Combi19 >> administrador: anObject [
+	administrador := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Combi19 >> buscarAdminMail: unEmail pass: unaClave [
+	administrador email = unEmail & (administrador contraseña = unaClave)
+		ifTrue: [ ^ administrador ]
+		ifFalse: [ ^ nil ]
+]
+
+{ #category : #'as yet unclassified' }
+Combi19 >> buscarChoferMail: unEmail pass: unaClave [
+		(clientes
+		select:
+			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ])
+		ifEmpty: [ ^ nil ]
+]
+
+{ #category : #queries }
+Combi19 >> buscarClienteMail: unEmail pass: unaClave [
+	(clientes
+		select:
+			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ])
+		ifEmpty: [ ^ nil ]
 ]
 
 { #category : #accessing }
@@ -92,18 +155,18 @@ Combi19 >> eliminarChofer: unChofer [
 Combi19 >> initialize [
 	clientes := OrderedCollection new.
 	choferes := OrderedCollection new.
-
 ]
 
-{ #category : #'accessing - backend' }
+{ #category : #queries }
 Combi19 >> usuario: unEmail protegidoPor: unaClave [
-"Busca el usuario en las diferentes colecciones y en caso de exito lo devuelve, sino devuelve nil."
-		|elUsuario |
-		elUsuario := clientes detect: [ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave ) ].
-		elUsuario ifNil: (choferes detect: [ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave ) ]).
-		elUsuario ifNil:  (administrador email = unEmail & (administrador contraseña = unaClave) ).
-		^ elUsuario 
-		
+	"Busca el usuario en las diferentes colecciones y en caso de exito lo devuelve, sino devuelve nil."
+
+	| elUsuario |
+	elUsuario := nil.
+	elUsuario := (self buscarClienteMail: unEmail pass: unaClave)
+		ifNil: [ (self buscarChoferMail: unEmail pass: unaClave)
+				ifNil: (self buscarAdminMail: unEmail pass: unaClave) ].
+	^ elUsuario
 ]
 
 { #category : #queries }

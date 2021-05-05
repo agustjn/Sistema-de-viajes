@@ -11,25 +11,40 @@ Class {
 }
 
 { #category : #initialization }
-Administrador class >> initializeCon: unNombre apellido: unApellido  mail: unEmail contraseña: unaContraseña [ 
-	^ self initializeCon: unNombre apellido: unApellido  mail: unEmail contraseña: unaContraseña 
+Administrador class >> initializeCon: unNombre apellido: unApellido mail: unEmail contraseña: unaContraseña [
+	| instance |
+	instance := self new.
+	instance 
+		initializeCon: unNombre
+		apellido: unApellido
+		mail: unEmail
+		contraseña: unaContraseña.
+	^instance
 ]
 
 { #category : #'as yet unclassified' }
 Administrador >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsientos: unaCantidad chofer: unChofer tipo: unTipo [
 	"Chequea que no exista una combi con una patente igual, si no existe, crea la combi la agrega a la coleccion y devuelve un booleano confirmando."
 
-	(combis anySatisfy: [ :unaCombi | unaCombi patente = unaPatente ])
-		ifTrue: [ ^ false ];
-		ifFalse: [ combis
-					add:
-						(Combi
-							initializModelo: unModelo
-							patente: unaPatente
-							asientos: unaCantidad
-							chofer: unChofer
-							tipo: unTipo).
-				^ true ]
+	combis
+		ifNotNil: [ (combis anySatisfy: [ :unaCombi | unaCombi patente = unaPatente ])
+				ifTrue: [ ^ false ];
+				ifFalse: [ combis
+							add:
+								(Combi
+									initializeModelo: unModelo
+									patente: unaPatente
+									asientos: unaCantidad
+									chofer: unChofer
+									tipo: unTipo).
+						^ true ] ].
+	combis add: (Combi
+									initializeModelo: unModelo
+									patente: unaPatente
+									asientos: unaCantidad
+									chofer: unChofer
+									tipo: unTipo).
+	^true
 ]
 
 { #category : #accessing }
@@ -154,12 +169,15 @@ Administrador >> hayCombiConChofer: unChofer [
 ]
 
 { #category : #initialization }
-Administrador >> initializeCon: unNombre apellido: unApellido  mail: unEmail contraseña: unaContraseña [ 
-	nombre:= unNombre.
+Administrador >> initializeCon: unNombre apellido: unApellido mail: unEmail contraseña: unaContraseña [
+	nombre := unNombre.
 	apellido := unApellido.
 	email := unEmail.
 	contraseña := unaContraseña.
-	
+	lugares := OrderedCollection new.
+	insumos := OrderedCollection new .
+	combis:= OrderedCollection new .
+	rutas:= OrderedCollection new .
 ]
 
 { #category : #accessing }

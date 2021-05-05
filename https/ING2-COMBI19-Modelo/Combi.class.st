@@ -12,10 +12,18 @@ Class {
 }
 
 { #category : #initialization }
-Combi class >> initializModelo: unModelo patente: unaPatente asientos: unaCantidad chofer: unChofer tipo: unTipo [
-	^ self
-	initializModelo: unModelo patente: unaPatente  asientos: unaCantidad   chofer: unChofer  tipo: unTipo  
-	
+Combi class >> initializeModelo: unModelo patente: unaPatente asientos: unaCantidad chofer: unChofer tipo: unTipo [
+	^ (self new)
+		initializeConUn: unModelo
+		patente: unaPatente
+		asientos: unaCantidad
+		chofer: unChofer
+		tipo: unTipo
+]
+
+{ #category : #accessing }
+Combi >> cantidadAsientos: anObject [
+	cantidadAsientos := anObject
 ]
 
 { #category : #accessing }
@@ -26,6 +34,11 @@ Combi >> cantidadDeAsientos [
 { #category : #accessing }
 Combi >> chofer [
 	^chofer
+]
+
+{ #category : #accessing }
+Combi >> chofer: anObject [
+	chofer := anObject
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,11 +60,31 @@ Combi >> initializeConUn: unModelo patente: unaPatente asientos: unaCantidad cho
 ]
 
 { #category : #accessing }
+Combi >> modelo [
+	^ modelo
+]
+
+{ #category : #accessing }
+Combi >> modelo: anObject [
+	modelo := anObject
+]
+
+{ #category : #accessing }
 Combi >> patente [
 	^patente
 ]
 
 { #category : #accessing }
+Combi >> patente: anObject [
+	patente := anObject
+]
+
+{ #category : #accessing }
 Combi >> tipo [
 	^tipo
+]
+
+{ #category : #accessing }
+Combi >> tipo: anObject [
+	tipo := anObject
 ]

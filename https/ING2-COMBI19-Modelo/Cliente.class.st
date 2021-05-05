@@ -11,8 +11,18 @@ Class {
 }
 
 { #category : #initialization }
-Cliente class >> initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha  plan: unPlan [
-	^ self initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: unPlan.
+Cliente class >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre apellido: unApellido dni: unDni fecha: unaFecha plan: unPlan [
+	| instance |
+	instance := self new.
+	instance initializeCon: unEmail
+			contraseña: unaContraseña
+			nombre: unNombre
+			apellido: unApellido
+			dni: unDni
+			fecha: unaFecha
+			plan: unPlan.
+		^instance
+	
 ]
 
 { #category : #accessing }

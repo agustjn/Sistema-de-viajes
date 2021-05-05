@@ -49,17 +49,18 @@ Combi19 >> crearChofer: unNombre apellido: unApellido email: unEmail contraseña
 ]
 
 { #category : #'accessing - backend' }
-Combi19 >> crearClienteBasico: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha [   
-	|unCliente|
-	unCliente := Cliente initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: (Basico new).
+Combi19 >> crearClienteConMail: unEmail contraseña: unaContraseña nombre: unNombre apellido: unApellido dni: unDni fecha: unaFecha plan: unPlan [
+	| unCliente |
+	unCliente := Cliente
+		initializeCon: unEmail
+		contraseña: unaContraseña
+		nombre: unNombre
+		apellido: unApellido
+		dni: unDni
+		fecha: unaFecha
+		plan: unPlan.
 	clientes add: unCliente.
-]
-
-{ #category : #'accessing - backend' }
-Combi19 >> crearClienteGold: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha [   
-	|unCliente|
-	unCliente := Cliente initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: (Gold new).
-	clientes add: unCliente.
+	^unCliente
 ]
 
 { #category : #'as yet unclassified' }
@@ -107,14 +108,10 @@ Combi19 >> usuario: unEmail protegidoPor: unaClave [
 
 { #category : #queries }
 Combi19 >> validarRegistroConMail: mail Password: contraseña FechaNac: fechaNac [
-	^ ( (clientes anySatisfy:[ :client | client email = mail ]) 
-			and: (contraseña size >= 6 ) )
-
-		and:[((Date today)subtractDate: (fechaNac asDate)) > 6570  ].
-		"En la condicion de las fechas, el calculo que se realiza es el dia de hoy menos
+	^ ( ((clientes anySatisfy: [ :client | client email = mail ]) not)
+		and: contraseña size >= 6)
+		and:
+			[ "En la condicion de las fechas, el calculo que se realiza es el dia de hoy menos
 		la fecha ingresada por el usuario. Ese calculo se retorna en dias, y 6570 son la cantidad
-		de dias que hay en 18 años. Falta mejorarlo"
-		
-		
-				
+		de dias que hay en 18 años. Falta mejorarlo" (Date today subtractDate: fechaNac asDate) > 6570 ]
 ]

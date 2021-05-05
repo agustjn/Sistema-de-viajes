@@ -78,8 +78,17 @@ RegisterComponent >> guardar: aCanvas [
 		ifFalse: [ advertise := AdvertiseComponent new.
 			mail := ''.
 			contraseña := '' ]
-		ifTrue: [ self registrarCliente.
-					self call: HomeClientComponent new ]
+		ifTrue: [ self session
+				user:
+					(self model
+						crearClienteConMail: mail
+						contraseña: contraseña
+						nombre: nombre
+						apellido: apellido
+						dni: dni
+						fecha: fechaNac
+						plan: plan).
+			self call: HomeClientComponent new ]
 ]
 
 { #category : #accessing }

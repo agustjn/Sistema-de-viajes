@@ -20,9 +20,9 @@ LoginComponent >> mail: anObject [
 
 { #category : #'event processing' }
 LoginComponent >> manejarLogin [
-	(self model buscarUsuarioMail:mail Password:password)
-		ifNotNil:[ :it | self procederCon: it ]. 
-	mail := nil. 
+	(self model usuario: mail protegidoPor: password)
+		ifNotNil: [ :it | self procederCon: it ].
+	mail := nil.
 	password := nil
 ]
 

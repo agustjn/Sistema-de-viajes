@@ -52,12 +52,12 @@ Ruta >> horario [
 ]
 
 { #category : #initialization }
-Ruta >> initializeCon: unOrigen destino: unDestino horario: unaHora combi: unaCombi distancia: unaDistancia [ 
-	origen := unOrigen.
-	destino := unDestino.
+Ruta >> initializeCon: unOrigenLugar destino: unDestinoLugar horario: unaHora combi: unaCombi distancia: unaDistancia [
+	origen := unOrigenLugar.
+	destino := unDestinoLugar.
 	horario := unaHora.
 	combi := unaCombi.
-	kmDeDistancia := unaDistancia 
+	kmDeDistancia := unaDistancia
 ]
 
 { #category : #accessing }

@@ -15,6 +15,11 @@ Cliente class >> initializeCon: unEmail contraseña: unaContraseña  nombre: unN
 	^ self initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: unPlan.
 ]
 
+{ #category : #accessing }
+Cliente >> dni [
+	^dni
+]
+
 { #category : #initialization }
 Cliente >> initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: unPlan [
 	email := unEmail.
@@ -25,4 +30,19 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre 
 	fechaNac := unaFecha.
 	plan := unPlan.
 	viajes := OrderedCollection new.
+]
+
+{ #category : #accessing }
+Cliente >> nacimiento [
+	^ fechaNac 
+]
+
+{ #category : #accessing }
+Cliente >> plan [
+	^plan
+]
+
+{ #category : #accessing }
+Cliente >> telefono [
+	^telefono
 ]

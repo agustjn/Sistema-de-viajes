@@ -52,14 +52,24 @@ LoginComponent >> procederCon: anUser [
 	"Si el usuario existe en el sistema, se llama a este metodo para que se 
 	recuerde la sesion del usuario y se renderize el componente Home"
 	self session user: anUser.
-	q := self session user.
-	"self call: HomeComponente new."
+	(Administrador allInstances includes: anUser)
+		ifTrue:[ self call: HomeAdminComponent ].
+	(Chofer allInstances includes: anUser)
+		ifTrue:[ self call: HomeChoferComponent ].
+	(Cliente allInstances includes: anUser)
+		ifTrue:[ self call: HomeClientComponent ]
+		
+
 ]
 
 { #category : #rendering }
 LoginComponent >> renderContentOn: aCanvas [
-	aCanvas heading level:2; with: 'COMBI-19'.
-	aCanvas form: [ self renderizarFormularioOn: aCanvas ].
+	aCanvas heading
+		level: 2;
+		with: 'COMBI-19'.
+	aCanvas form
+		class: 'container';
+		with: [ self renderizarFormularioOn: aCanvas ].
 	aCanvas div: [ self renderizarBotonesOn: aCanvas ]
 ]
 

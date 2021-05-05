@@ -11,8 +11,22 @@ Class {
 		'rutas',
 		'insumos'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #'ING2-COMBI19-Modelo'
 }
+
+{ #category : #accessing }
+Combi19 class >> clearSoleInstance [
+	soleInstance := nil.
+]
+
+{ #category : #accessing }
+Combi19 class >> soleInstance [
+	^ soleInstance ifNil:[ soleInstance := self new]
+	
+]
 
 { #category : #'as yet unclassified' }
 Combi19 >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsientos: unaCantidad chofer: unChofer tipo: unTipo [
@@ -235,6 +249,20 @@ Combi19 >> usuario: unEmail protegidoPor: unaClave [
 		elUsuario ifNil:  (administrador email = unEmail & (administrador contraseña = unaClave) ).
 		^ elUsuario 
 		
+]
+
+{ #category : #queries }
+Combi19 >> validarRegistroConMail: mail Password: contraseña FechaNac: fechaNac [
+	^ ( (clientes anySatisfy:[ :client | client email = mail ]) 
+			and: (contraseña size >= 6 ) )
+
+		and:[((Date today)subtractDate: (fechaNac asDate)) > 6570  ].
+		"En la condicion de las fechas, el calculo que se realiza es el dia de hoy menos
+		la fecha ingresada por el usuario. Ese calculo se retorna en dias, y 6570 son la cantidad
+		de dias que hay en 18 años. Falta mejorarlo"
+		
+		
+				
 ]
 
 { #category : #accessing }

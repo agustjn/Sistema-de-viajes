@@ -1,6 +1,9 @@
 Class {
 	#name : #CombiView,
 	#superclass : #WAComponent,
+	#instVars : [
+		'parent'
+	],
 	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
 
@@ -15,6 +18,16 @@ CombiView class >> newWithParent: aParent [
 { #category : #accesing }
 CombiView >> model [
 	^Combi19 soleInstance
+]
+
+{ #category : #accessing }
+CombiView >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+CombiView >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #rendering }

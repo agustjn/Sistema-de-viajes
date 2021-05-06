@@ -8,7 +8,7 @@ Class {
 		'mail',
 		'password'
 	],
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
 
 { #category : #accessing }

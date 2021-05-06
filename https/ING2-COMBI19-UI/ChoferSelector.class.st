@@ -5,7 +5,7 @@ Class {
 		'chofer',
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
 
 { #category : #'instance creation' }

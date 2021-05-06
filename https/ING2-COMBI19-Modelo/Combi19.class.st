@@ -170,11 +170,24 @@ Combi19 >> usuario: unEmail protegidoPor: unaClave [
 ]
 
 { #category : #queries }
+Combi19 >> validarRegistroChoferConMail: unMail  Password: unPass [
+^ ( ( (choferes anySatisfy: [ :chofer | chofer email = unMail ]) not)
+		and: unPass size >= 6)
+]
+
+{ #category : #queries }
+Combi19 >> validarRegistroConMail: unMail  Password: unPass [
+( ( (clientes anySatisfy: [ :client | client email = unMail ]) not)
+		and: unPass size >= 6)
+]
+
+{ #category : #queries }
 Combi19 >> validarRegistroConMail: mail Password: contraseña FechaNac: fechaNac [
-	^ ( ((clientes anySatisfy: [ :client | client email = mail ]) not)
+	^ ( ( (clientes anySatisfy: [ :client | client email = mail ]) not)
 		and: contraseña size >= 6)
 		and:
-			[ "En la condicion de las fechas, el calculo que se realiza es el dia de hoy menos
+			[  (Date today subtractDate: fechaNac asDate) > 6570 ]
+		"En la condicion de las fechas, el calculo que se realiza es el dia de hoy menos
 		la fecha ingresada por el usuario. Ese calculo se retorna en dias, y 6570 son la cantidad
-		de dias que hay en 18 años. Falta mejorarlo" (Date today subtractDate: fechaNac asDate) > 6570 ]
+		de dias que hay en 18 años. Falta mejorarlo"
 ]

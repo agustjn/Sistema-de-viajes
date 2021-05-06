@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'telefono'
 	],
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
 
 { #category : #'instance creation' }

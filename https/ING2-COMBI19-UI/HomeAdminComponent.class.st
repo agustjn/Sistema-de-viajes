@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'choferView',
-		'combiView'
+		'combiView',
+		'choferCreationView'
 	],
 	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
@@ -11,15 +12,23 @@ Class {
 { #category : #event }
 HomeAdminComponent >> activarChofer [
 	"Si se activa cualquier componente, los demas se desactivan para evitar errores de render"
-
+	choferCreationView := nil.
 	combiView := nil.
-	choferView := ChoferView new.
+	choferView := (ChoferView newWithParent: self).
+]
+
+{ #category : #event }
+HomeAdminComponent >> activarChoferCreationView [
+	choferView := nil.
+	combiView := nil.
+	choferCreationView := (ChoferCreationView newWithParent: self).
 ]
 
 { #category : #event }
 HomeAdminComponent >> activarCombiView [
 	choferView := nil.
-	combiView := CombiView new.
+	choferCreationView := nil.
+	combiView := (CombiView newWithParent: self).
 ]
 
 { #category : #event }
@@ -40,4 +49,5 @@ HomeAdminComponent >> renderContentOn: aCanvas [
 	aCanvas render: (MenuAdminView newWithParent: self).
 	aCanvas render: choferView.
 	aCanvas render: combiView.
+	aCanvas render: choferCreationView.
 ]

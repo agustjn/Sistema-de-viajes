@@ -50,7 +50,7 @@ MenuAdminView >> renderizarAnchors: html [.
 		html
 		unorderedList: [ html
 				listItem: [ html anchor
-						callback: [ self parent activarChofer ];
+						callback: [ self parent activarChoferView ];
 						with: 'Choferes' ].
 			html
 				listItem: [ html anchor
@@ -66,6 +66,6 @@ MenuAdminView >> renderizarAnchors: html [.
 						with: 'Rutas' ].
 			html
 				listItem: [ html anchor
-						callback: [  ];
+						callback: [ self parent activarLugarView  ];
 						with: 'Lugares' ] ]
 ]

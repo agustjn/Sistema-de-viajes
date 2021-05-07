@@ -27,10 +27,20 @@ Chofer >> = unChofer [
 ]
 
 { #category : #accessing }
-Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTelefono [
-	email := unEmail.
-	contraseña := unaContraseña.
-	telefono := unTelefono
+Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastname [
+	"Desde el componente EditorChoferView se envia el formulario.
+	 Los campos que estan vacios no contengan vacio ('') , se modificaran"
+	(unEmail = '')
+		ifFalse:[ email := unEmail ].
+	(unaContraseña = '')
+		ifFalse:[ contraseña :=unaContraseña ].
+	(unTelefono = '')
+		ifFalse:[ telefono :=unTelefono ].
+		(aName = '')
+		ifFalse:[ nombre :=aName ].
+		(aLastname = '')
+		ifFalse:[ apellido :=aLastname ].
+	 
 ]
 
 { #category : #'as yet unclassified' }

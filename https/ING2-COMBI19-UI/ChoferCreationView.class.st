@@ -34,11 +34,10 @@ ChoferCreationView >> cellphone: anObject [
 
 { #category : #event }
 ChoferCreationView >> guardarChofer [
-	self halt.
 	(self model validarRegistroChoferConMail: mail Password: password)
 		ifFalse:[ advertiseView := AdvertiseRegisterChofer new. ]
 		ifTrue:[ self model crearChofer: name apellido: lastname email: mail contraseña: password telefono: cellphone. 
-					self answer.  ]
+					self parent desactivarChoferCreationView  ]
 	
 ]
 
@@ -103,14 +102,14 @@ ChoferCreationView >> renderContentOn: html [
 	html horizontalRule.
 	html form:[ self renderizarFormularioOn: html.
 					html break.
-					html anchor 
-								callback:[ self guardarChofer ];
-								with:'Guardar'.
+						html submitButton
+							callback: [ self guardarChofer ];
+							value: 'Guardar'.
 					html space. 
 					html space.
-					html anchor
-								callback:[ self answer  ];
-								with:[html submitButton with:'Cancelar' ].
+					html submitButton
+								callback:[ self parent desactivarChoferCreationView ];
+								with:'Cancelar' .
 					].
 	html render:advertiseView.
 	
@@ -133,7 +132,7 @@ ChoferCreationView >> renderizarFormularioOn: html [
 	html break.
 	html text: 'Contraseña'.
 	html break.
-	html textInput on: #password of: self.
+	html passwordInput on: #password of: self.
 	html break.
 	html text: 'Numero de telefono'.
 	html break.

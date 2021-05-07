@@ -58,6 +58,15 @@ Administrador >> agregarInsumo: unNombre tipo: unTipo precio: unPrecio [
 	
 ]
 
+{ #category : #accessing }
+Administrador >> agregarLugar: unLugar [
+	(lugares anySatisfy: [ :lugar | (lugar provincia = unLugar provincia) & (lugar localidad = unLugar localidad) ])
+		ifFalse:[ lugares add: unLugar.
+					 ^ true ] .
+		^false
+	
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> agregarProvincia: unaProvincia localidad: unaLocalidad [
 	| unLugar |
@@ -152,6 +161,11 @@ Administrador >> eliminarInsumo: unInsumo [
 		ifTrue: [ ^ false ]
 		ifFalse: [ insumos remove: unInsumo.
 			^ true ]
+]
+
+{ #category : #accessing }
+Administrador >> eliminarLugar: unLugar [
+	lugares remove: unLugar
 ]
 
 { #category : #'as yet unclassified' }

@@ -42,7 +42,17 @@ Combi19 class >> instanciaDePrueba [
 		patente: 'CGF-412'
 		cantidadAsientos: 40
 		chofer: soleInstance choferes first
-		tipo: 'Media distancia'
+		tipo: 'Media distancia'.
+	soleInstance administrador
+		agregarCombiModelo: 'Mercedes Benz Sprinter'
+		patente: 'CGF-412'
+		cantidadAsientos: 40
+		chofer: soleInstance choferes first
+		tipo: 'Media distancia'.
+	soleInstance administrador 
+		agregarLugar: (Lugar deProvincia:'Buenos Aires' yLocalidad: 'La Plata').
+	soleInstance administrador 
+		agregarLugar: (Lugar deProvincia:'Rio Negro' yLocalidad: 'Viedma').
 ]
 
 { #category : #accessing }
@@ -127,16 +137,18 @@ Combi19 >> crearClienteConMail: unEmail contraseña: unaContraseña nombre: unNo
 ]
 
 { #category : #'as yet unclassified' }
-Combi19 >> editarChofer: unChofer email: unEmail contraseña: unaContraseña telefono: unTelefono [ 
+Combi19 >> editarChofer: unChofer email: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastName [
 	"Chequea que el email que llega por parametro no lo tenga otro chofer asignado , edita , y devuelve un booleano confirmando o negando accion"
-
+	self halt.
 	(choferes anySatisfy: [ :chofer | chofer email = unEmail ])
 		ifTrue: [ ^ false ]
 		ifFalse: [ unChofer
 				editarDatosEmail: unEmail
 				contraseña: unaContraseña
-				telefono: unTelefono.
-			^ true ]
+				telefono: unTelefono
+				nombre: aName 
+				apellido: aLastName.
+				^ true ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -155,6 +167,40 @@ Combi19 >> eliminarChofer: unChofer [
 Combi19 >> initialize [
 	clientes := OrderedCollection new.
 	choferes := OrderedCollection new.
+]
+
+{ #category : #queries }
+Combi19 >> provinciasArgentinas [
+	^ #('Buenos Aires'
+'Catamarca'
+'Chaco'
+'Chubut'
+'Córdoba'
+'Corrientes'
+'Entre Ríos'
+'Formosa'
+'Jujuy'
+'La Pampa'
+'La Rioja'
+'Mendoza'
+'Misiones'
+'Neuquén'
+'Río Negro'
+'Salta'
+'San Juan'
+'Santa Cruz'
+'Santa Fe'
+'Santiago del Estero'
+'Tierra del Fuego'
+'Tucumán')
+]
+
+{ #category : #queries }
+Combi19 >> retornarChoferesAsString [
+	| q | 
+	q := OrderedCollection new.
+	(choferes do: [ :chof | q add: (chof nombre) ]).
+	^ q
 ]
 
 { #category : #queries }

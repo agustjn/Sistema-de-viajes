@@ -9,14 +9,12 @@ Class {
 }
 
 { #category : #initialization }
-Lugar class >> initializeCon: unaProvincia localidad: unaLocalidad [
-	^ self initializeCon: unaProvincia localidad: unaLocalidad
-]
-
-{ #category : #initialization }
-Lugar >> initializeCon: unaProvincia localidad: unaLocalidad [
-	provincia := unaProvincia.
-	localidad := unaLocalidad
+Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
+	| instance |
+	instance := self new.
+	instance provincia: unaProvincia.
+	instance localidad: unaLocalidad.
+	^ instance
 ]
 
 { #category : #initialization }
@@ -24,7 +22,17 @@ Lugar >> localidad [
 	^localidad
 ]
 
+{ #category : #accessing }
+Lugar >> localidad: anObject [
+	localidad := anObject
+]
+
 { #category : #initialization }
 Lugar >> provincia [ 
 	^ provincia
+]
+
+{ #category : #accessing }
+Lugar >> provincia: anObject [
+	provincia := anObject
 ]

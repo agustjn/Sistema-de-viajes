@@ -86,7 +86,7 @@ EditorComponent >> renderizarCamposOn: html [
 			html break.
 			html text:'Nueva contraseña'.
 			html break.
-			 (html textInput on:#password of:self) placeholder:'Nueva contraseña'.
+			 (html passwordInput on:#password of:self) placeholder:'Nueva contraseña'.
 			html break.
 				 ]
 ]

@@ -9,7 +9,8 @@ Class {
 		'contraseña',
 		'fechaNac',
 		'plan',
-		'advertise'
+		'advertise',
+		'tipoPlan'
 	],
 	#category : #'ING2-COMBI19-UI'
 }
@@ -78,7 +79,10 @@ RegisterComponent >> guardar: aCanvas [
 		ifFalse: [ advertise := AdvertiseComponent new.
 			mail := ''.
 			contraseña := '' ]
-		ifTrue: [ self session
+		ifTrue: [ (tipoPlan = #Basico)
+								ifTrue:[ plan := PlanBasico new ]
+								ifFalse:[ plan := PlanGold new ].
+				self session
 				user:
 					(self model
 						crearClienteConMail: mail
@@ -134,7 +138,9 @@ RegisterComponent >> renderContentOn: aCanvas [
 	aCanvas form:[	self renderizarNomApYMailOn: aCanvas.
 						self renderizarDniContraseñaOn: aCanvas.
 						self renderizarFechaNacimientoOn:aCanvas.
+						self renderizarOpcionDePlan: aCanvas.
 						self renderizarBotonesOn: aCanvas.
+						
 	].
 
 	aCanvas render: advertise.
@@ -185,4 +191,18 @@ RegisterComponent >> renderizarNomApYMailOn: aCanvas [
 	aCanvas text:'Correo electronico: '.
 	aCanvas textInput on:#mail of:self.
 	aCanvas break. aCanvas break.
+]
+
+{ #category : #rendering }
+RegisterComponent >> renderizarOpcionDePlan: html [
+		 html text:'Plan: '.
+        html select
+            list: #(#Basico #Gold ) ; 
+				selected: tipoPlan ; 
+				callback:[ :value | tipoPlan := value ].
+   html break.
+	html horizontalRule.
+
+	
+	
 ]

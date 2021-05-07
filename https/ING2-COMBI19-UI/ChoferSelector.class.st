@@ -28,6 +28,11 @@ ChoferSelector >> chofer: anObject [
 ]
 
 { #category : #accessing }
+ChoferSelector >> model [
+	^Combi19 soleInstance
+]
+
+{ #category : #accessing }
 ChoferSelector >> parent [
 	^ parent
 ]
@@ -47,9 +52,11 @@ ChoferSelector >> renderContentOn: html [
 { #category : #rendering }
 ChoferSelector >> renderizarBotonesABMOn: html [
 	html anchor
-		callback: [ self parent call: (EditorChoferView newOf:chofer) ];
-		with: [ html submitButton with: 'Editar' ].
-	html submitButton
-		callback: [  ];
-		with: 'Eliminar'
+		callback: [ self parent call: (ChoferEditorView newOf:chofer) ];
+		with:[html submitButton with:'Editar' ].
+	html space.
+	html anchor
+		callback: [ self model eliminarChofer: chofer.
+						self answer.  ];
+		with: [html submitButton with:'Eliminar']
 ]

@@ -116,9 +116,9 @@ ChoferEditorView >> renderizarBotonesOn: html [
 									self answer ] ;
 					value:'Confirmar!'.
 	html space.
-	html anchor
+	html submitButton
 		callback: [ self answer ];
-		with: [ html submitButton with: 'Cancelar' ]
+		value:'Cancelar' 
 ]
 
 { #category : #rendering }

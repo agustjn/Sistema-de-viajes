@@ -3,10 +3,16 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'mail',
-		'password'
+		'password',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI'
 }
+
+{ #category : #'event processing' }
+LoginComponent >> activarAdvertise [
+	advertiseView := (LoginAdvertiseView new).
+]
 
 { #category : #accessing }
 LoginComponent >> mail [
@@ -20,10 +26,13 @@ LoginComponent >> mail: anObject [
 
 { #category : #'event processing' }
 LoginComponent >> manejarLogin [
+
 	(self model usuario: mail protegidoPor: password)
 		ifNotNil: [ :it | self procederCon: it ].
+	self activarAdvertise.
 	mail := nil.
-	password := nil
+	password := nil.
+	
 ]
 
 { #category : #'event processing' }
@@ -65,16 +74,18 @@ LoginComponent >> renderContentOn: aCanvas [
 		level: 2;
 		with: 'COMBI-19'.
 	aCanvas horizontalRule.
+	aCanvas render:advertiseView. 
 	aCanvas
 		form: [ self renderizarFormularioOn: aCanvas.
-			self renderizarBotonesOn: aCanvas ]
+			self renderizarBotonesOn: aCanvas ].
+	
 ]
 
 { #category : #rendering }
 LoginComponent >> renderizarBotonesOn: aCanvas [
 	aCanvas submitButton
-		callback: [ self manejarLogin ];
-		with: 'Iniciar sesion'.
+		callback: [ self manejarLogin];
+		value: 'Iniciar sesion'.
 	aCanvas space.
 	aCanvas submitButton
 		callback: [ self manejarRegistro ];

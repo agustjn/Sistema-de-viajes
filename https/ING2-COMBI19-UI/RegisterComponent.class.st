@@ -10,7 +10,9 @@ Class {
 		'fechaNac',
 		'plan',
 		'advertise',
-		'tipoPlan'
+		'tipoPlan',
+		'cardPayView',
+		'client'
 	],
 	#category : #'ING2-COMBI19-UI'
 }
@@ -79,20 +81,39 @@ RegisterComponent >> guardar: aCanvas [
 		ifFalse: [ advertise := AdvertiseComponent new.
 			mail := ''.
 			contraseña := '' ]
-		ifTrue: [ (tipoPlan = #Basico)
-								ifTrue:[ plan := PlanBasico new ]
-								ifFalse:[ plan := PlanGold new ].
-				self session
-				user:
-					(self model
-						crearClienteConMail: mail
-						contraseña: contraseña
-						nombre: nombre
-						apellido: apellido
-						dni: dni
-						fecha: fechaNac
-						plan: plan).
-			self call: HomeClientComponent new ]
+		ifTrue: [ tipoPlan = #Basico
+				ifTrue: [ self guardarClienteBasico ] 
+				ifFalse: [  cardPayView isNotNil
+											ifTrue:[ self guardarClienteGold ].	
+								self renderizarPagoDeTarjeta.
+								advertise := nil.
+								cardPayView := CardPayComponent newWithParent:self ofClient:client.
+							]      
+					]
+
+]
+
+{ #category : #event }
+RegisterComponent >> guardarClienteBasico [
+	plan := PlanBasico new.
+					self session
+						user:
+							(self model
+								crearClienteConMail: mail
+								contraseña: contraseña
+								nombre: nombre
+								apellido: apellido
+								dni: dni
+								fecha: fechaNac
+								plan: plan).
+								self call: HomeClientComponent new 
+]
+
+{ #category : #'as yet unclassified' }
+RegisterComponent >> guardarClienteGold [
+					client plan: PlanGold new.
+					self session user: client.
+					self call: HomeClientComponent new 
 ]
 
 { #category : #accessing }
@@ -139,6 +160,7 @@ RegisterComponent >> renderContentOn: aCanvas [
 						self renderizarDniContraseñaOn: aCanvas.
 						self renderizarFechaNacimientoOn:aCanvas.
 						self renderizarOpcionDePlan: aCanvas.
+						aCanvas render: cardPayView.
 						self renderizarBotonesOn: aCanvas.
 						
 	].
@@ -199,10 +221,17 @@ RegisterComponent >> renderizarOpcionDePlan: html [
         html select
             list: #(#Basico #Gold ) ; 
 				selected: tipoPlan ; 
-				callback:[ :value | tipoPlan := value ].
+				callback:[ :value | tipoPlan := value].
    html break.
 	html horizontalRule.
 
 	
 	
+]
+
+{ #category : #event }
+RegisterComponent >> renderizarPagoDeTarjeta [
+		advertise := nil.
+		client := (Cliente initializeCon: mail contraseña: contraseña nombre: nombre apellido: apellido dni: dni fecha: fechaNac plan: nil).
+		cardPayView := CardPayComponent newWithParent:self ofClient: client.
 ]

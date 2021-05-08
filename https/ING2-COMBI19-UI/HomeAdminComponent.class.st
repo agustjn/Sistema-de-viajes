@@ -26,6 +26,7 @@ HomeAdminComponent >> activarChoferView [
 	choferCreationView := nil.
 	combiView := nil.
 	lugarView := nil.
+	lugarCreationView := nil.
 	choferView := (ChoferView newWithParent: self).
 ]
 
@@ -49,6 +50,7 @@ HomeAdminComponent >> activarLugarCreationView [
 HomeAdminComponent >> activarLugarView [
 	combiView := nil.
 	choferView := nil.
+	lugarCreationView := nil.
 	lugarView := (LugarView newWithParent: self)
 ]
 

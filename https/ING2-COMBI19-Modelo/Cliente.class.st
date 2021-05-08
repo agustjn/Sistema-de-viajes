@@ -5,7 +5,8 @@ Class {
 		'telefono',
 		'fechaNac',
 		'dni',
-		'plan'
+		'plan',
+		'tarjetas'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -26,8 +27,23 @@ Cliente class >> initializeCon: unEmail contraseña: unaContraseña nombre: unNo
 ]
 
 { #category : #accessing }
+Cliente >> agregarTarjeta: aCreditCard [
+	tarjetas add: aCreditCard
+]
+
+{ #category : #accessing }
 Cliente >> dni [
 	^dni
+]
+
+{ #category : #accessing }
+Cliente >> dni: anObject [
+	dni := anObject
+]
+
+{ #category : #accessing }
+Cliente >> fechaNac: anObject [
+	fechaNac := anObject
 ]
 
 { #category : #initialization }
@@ -40,6 +56,7 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre 
 	fechaNac := unaFecha.
 	plan := unPlan.
 	viajes := OrderedCollection new.
+	tarjetas := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -53,6 +70,16 @@ Cliente >> plan [
 ]
 
 { #category : #accessing }
+Cliente >> plan: anObject [
+	plan := anObject
+]
+
+{ #category : #accessing }
 Cliente >> telefono [
 	^telefono
+]
+
+{ #category : #accessing }
+Cliente >> telefono: anObject [
+	telefono := anObject
 ]

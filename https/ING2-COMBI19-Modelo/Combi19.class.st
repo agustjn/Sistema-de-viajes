@@ -139,7 +139,6 @@ Combi19 >> crearClienteConMail: unEmail contraseña: unaContraseña nombre: unNo
 { #category : #'as yet unclassified' }
 Combi19 >> editarChofer: unChofer email: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastName [
 	"Chequea que el email que llega por parametro no lo tenga otro chofer asignado , edita , y devuelve un booleano confirmando o negando accion"
-	self halt.
 	(choferes anySatisfy: [ :chofer | chofer email = unEmail ])
 		ifTrue: [ ^ false ]
 		ifFalse: [ unChofer

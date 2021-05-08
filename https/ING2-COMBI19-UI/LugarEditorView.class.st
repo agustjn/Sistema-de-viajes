@@ -2,7 +2,9 @@ Class {
 	#name : #LugarEditorView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'place'
+		'place',
+		'provincia',
+		'localidad'
 	],
 	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
@@ -16,6 +18,16 @@ LugarEditorView class >> newOf: aPlace [
 ]
 
 { #category : #accessing }
+LugarEditorView >> localidad [
+	^ localidad
+]
+
+{ #category : #accessing }
+LugarEditorView >> localidad: anObject [
+	localidad := anObject
+]
+
+{ #category : #accessing }
 LugarEditorView >> place [
 	^ place
 ]
@@ -23,6 +35,16 @@ LugarEditorView >> place [
 { #category : #accessing }
 LugarEditorView >> place: anObject [
 	place := anObject
+]
+
+{ #category : #accessing }
+LugarEditorView >> provincia [
+	^ provincia
+]
+
+{ #category : #accessing }
+LugarEditorView >> provincia: anObject [
+	provincia := anObject
 ]
 
 { #category : #rendering }

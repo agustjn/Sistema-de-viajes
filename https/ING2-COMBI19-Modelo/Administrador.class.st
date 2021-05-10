@@ -107,15 +107,15 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 	"Crea un viaje y lo agrega a la coleccion de viajes "
 
 	| unViaje |
-	(viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
-		ifTrue: [ ^ false ]
+	viajes ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
+		ifTrue: [ ^ false ];
 		ifFalse: [ unViaje := Viaje
 				initializeCon: unaRuta
 				fecha: unaFecha
 				hora: unaHora
 				precio: unPrecio.
 			viajes add: unViaje.
-			^ true ]
+			^ true ]. ^false]
 ]
 
 { #category : #accessing }

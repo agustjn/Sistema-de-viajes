@@ -10,7 +10,12 @@ Class {
 
 { #category : #'instance creation' }
 RutasView class >> newWithParent: aParent [
-	^self new parent: aParent 
+	| clase |
+	clase := self new.
+	clase parent: aParent.
+	^ clase
+	
+	"^ self new parent: aParent"
 ]
 
 { #category : #accessing }
@@ -30,6 +35,7 @@ RutasView >> parent: aParent [
 
 { #category : #rendering }
 RutasView >> renderContentOn: html [
+self halt.
 	html heading: 'Pantalla de CRUD Rutas'.
 	self renderizarRutas: html.
 	html anchor

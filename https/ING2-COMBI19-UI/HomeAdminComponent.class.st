@@ -75,6 +75,37 @@ HomeAdminComponent >> activarCombiView [
 ]
 
 { #category : #event }
+HomeAdminComponent >> activarInsumoView [
+	combiView := nil.
+	choferView := nil.
+	lugarView := nil.
+	rutasView := nil. 
+	insumosView := InsumoView newWithParent: self..
+	insumosCreationView := nil.
+	rutasCreationView := nil.
+	lugarCreationView := nil.
+	combiCreationView := nil.
+	choferCreationView := nil.
+	viajeView := nil.
+	viajeCreationView := nil
+]
+
+{ #category : #event }
+HomeAdminComponent >> activarInsumosCreationView [
+	choferView := nil.
+	combiView := nil.
+	lugarView := nil.
+	viajeView := nil.
+	rutasView := nil.
+	insumosView := nil.
+	insumosCreationView := InsumosCreationView newWithParent: self..
+	rutasCreationView := nil.
+	viajeCreationView := nil.
+	lugarCreationView := nil.
+	choferCreationView := nil
+]
+
+{ #category : #event }
 HomeAdminComponent >> activarLugarCreationView [
 	choferView := nil.
 	combiView := nil.
@@ -126,7 +157,7 @@ HomeAdminComponent >> activarRutasView [
 	combiView := nil.
 	choferView := nil.
 	lugarView := nil.
-	rutasView := rutasView newWithParent: self.
+	rutasView := RutasView newWithParent: self.
 	insumosView := nil.
 	insumosCreationView := nil.
 	rutasCreationView := nil.

@@ -217,7 +217,7 @@ HomeAdminComponent >> activarViajeView [
 { #category : #event }
 HomeAdminComponent >> cerrarSesion [
 	self session user: nil.
-	self answer.
+	self show:LoginComponent new.
 ]
 
 { #category : #event }

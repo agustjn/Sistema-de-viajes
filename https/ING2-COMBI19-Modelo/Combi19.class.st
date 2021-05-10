@@ -19,6 +19,7 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
+	|ruta1 ruta2 combi1 combi2|
 	self soleInstance.
 	soleInstance
 		crearAdmin: 'ING'
@@ -37,26 +38,12 @@ Combi19 class >> instanciaDePrueba [
 		email: 'carlos@hotmail.com'
 		contraseña: '1234567'
 		telefono: '22215312'.
-	soleInstance administrador
-		agregarCombiModelo: 'Mercedes Benz Sprinter'
-		patente: 'CGF-412'
-		cantidadAsientos: 40
-		chofer: (soleInstance buscarChoferNombre: 'Carlos')
-		tipo: 'Media distancia'.
-	soleInstance administrador
-		agregarCombiModelo: 'Mercedes Benz Sprinter'
-		patente: 'CGF-412'
-		cantidadAsientos: 40
-		chofer: (soleInstance buscarChoferNombre: 'Esteban')
-		tipo: 'Media distancia'.
-	soleInstance administrador
-		agregarLugar: (Lugar deProvincia: 'Buenos Aires' yLocalidad: 'La Plata').
-	soleInstance administrador
-		agregarLugar: (Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma').
-	soleInstance administrador
-		agregarInsumo: (Insumo newNombre: 'Gaseosa' marca: 'Cola-Cola' precio: 150).
-		soleInstance administrador
-		agregarInsumo: (Insumo newNombre: 'Galletitas' marca: 'Oreo' precio: 90).
+		combi1 := (Combi initializeModelo: 'Mercedes Benz Sprinter' patente: 'CGF-412' asientos: 40 chofer:(soleInstance buscarChoferNombre: 'Carlos') tipo: 'Semi-Cama').
+	soleInstance administrador agregarCombi:combi1.
+	combi2 := (Combi initializeModelo: 'Ford Transit' patente: 'PKP-359' asientos: 35 chofer:(soleInstance buscarChoferNombre: 'Esteban') tipo: 'Cama').
+	soleInstance administrador agregarCombi:combi2.
+
+	
 ]
 
 { #category : #accessing }
@@ -122,7 +109,14 @@ Combi19 >> choferes [
 Combi19 >> choferesDisponibles [
 	|dispChoferes|
 	 dispChoferes := choferes reject: [ :chofer | chofer ocupado ].
-	^ (dispChoferes  collect: [ :chof | chof nombre]) asArray .
+	^ (dispChoferes  collect: [ :chof | chof nombre]) asArray.
+]
+
+{ #category : #accessing }
+Combi19 >> choferesDisponiblesAsObjects [
+	|dispChoferes|
+	^choferes reject: [ :chofer | chofer ocupado ].
+
 ]
 
 { #category : #accessing }

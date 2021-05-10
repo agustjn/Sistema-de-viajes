@@ -29,11 +29,6 @@ CombiEditorView >> cantidad: unaCantidad [
 ]
 
 { #category : #accessing }
-CombiEditorView >> choferesDisponibles [
-	^ self model choferesDisponibles collect: [ :chofer | chofer nombre ]
-]
-
-{ #category : #accessing }
 CombiEditorView >> combi [
 	^combi
 ]
@@ -132,8 +127,8 @@ CombiEditorView >> renderizarCamposOn: html [
 	html text: 'Ingrese el chofer'.
 	html break.
 	html select
-		list: self choferesDisponibles;
-		selected: (self choferesDisponibles at: 2)
+		list: self model choferesDisponibles .
+		"selected: (self choferesDisponibles at: 2)"
 ]
 
 { #category : #accessing }

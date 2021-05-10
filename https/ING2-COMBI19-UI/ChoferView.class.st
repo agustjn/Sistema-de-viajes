@@ -19,9 +19,9 @@ ChoferView class >> newWithParent: aParent [
 { #category : #event }
 ChoferView >> activarDeleteErrorView [
 		deleteErrorView := (GenericAdvertiseView newWithParent: self 
-															 heading:'Error al eliminar chofer , posibles motivos: ' 
-															 item1:'El chofer esta asignado a un viaje pendiente.'
-															 item2:'El chofer esta asignado a una combi.' 
+															 heading:'Error al eliminar chofer , motivo: ' 
+															 item1:'El chofer esta asignado a una combi.' 
+															 item2:nil
 															 item3:nil )
 ]
 

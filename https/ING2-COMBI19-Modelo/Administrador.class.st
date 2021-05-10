@@ -22,6 +22,11 @@ Administrador class >> initializeCon: unNombre apellido: unApellido mail: unEmai
 	^instance
 ]
 
+{ #category : #accessing }
+Administrador >> agregarCombi: unaCombi [
+ 	combis add: unaCombi
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsientos: unaCantidad chofer: unChofer tipo: unTipo [
 	"Chequea que no exista una combi con una patente igual, si no existe, crea la combi la agrega a la coleccion y devuelve un booleano confirmando."

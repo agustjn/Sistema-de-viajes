@@ -33,7 +33,6 @@ ChoferEditorView >> chofer: anObject [
 
 { #category : #event }
 ChoferEditorView >> editarChofer [
-	self halt.
 	(self model editarChofer: chofer email: mail contraseña: password telefono: telefono nombre: name apellido:lastname)
 		ifFalse:[ errorView := GenericAdvertiseView newWithParent: self 
 																heading:'Error al editar chofer'  

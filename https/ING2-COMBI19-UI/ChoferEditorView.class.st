@@ -87,14 +87,10 @@ ChoferEditorView >> password: anObject [
 
 { #category : #rendering }
 ChoferEditorView >> renderContentOn: html [
-	html form:[	self renderizarCamposBasicosOn: html.
-	html text:'Telefono'.
-	html break.
-	(html textInput on:#telefono of:self)placeholder: chofer telefono .
-	html horizontalRule.
-	self renderizarBotonesOn: html]
-
-
+	html
+		form: [ self renderizarCamposBasicosOn: html.
+			html horizontalRule.
+			self renderizarBotonesOn: html ]
 ]
 
 { #category : #rendering }
@@ -131,25 +127,27 @@ ChoferEditorView >> renderizarCamposBasicosOn: html [
 
 { #category : #rendering }
 ChoferEditorView >> renderizarCamposOn: html [
-			html space.
-			html break.
-			html text:'Nombre'.
-			html break.
-			(html textInput on: #name of: self) placeholder: chofer nombre.
-			html break.
-			html text:'Apellido/s'.
-			html break.
-			(html textInput on: #lastname of: self)placeholder: chofer apellido.
-			html break.
-			html text:'Correo electronico'.
-			html break.
-			 (html textInput on:#mail of:self) placeholder: chofer email.
-			html break.
-			html text:'Nueva contraseña'.
-			html break.
-			 (html passwordInput on:#password of:self) placeholder:'Nueva contraseña'.
-			html break.
-				 
+	html space.
+	html break.
+	html text: 'Nombre'.
+	html break.
+	(html textInput on: #name of: self) placeholder: chofer nombre.
+	html break.
+	html text: 'Apellido/s'.
+	html break.
+	(html textInput on: #lastname of: self) placeholder: chofer apellido.
+	html break.
+	html text: 'Correo electronico'.
+	html break.
+	(html textInput on: #mail of: self) placeholder: chofer email.
+	html break.
+	html text: 'Nueva contraseña'.
+	html break.
+	(html passwordInput on: #password of: self)
+		placeholder: 'Nueva contraseña'.
+	html break. html text: 'Telefono'.
+	html break.
+	(html textInput on: #telefono of: self) placeholder: chofer telefono
 ]
 
 { #category : #accessing }

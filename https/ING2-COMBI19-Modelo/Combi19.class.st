@@ -196,10 +196,8 @@ Combi19 >> provinciasArgentinas [
 
 { #category : #queries }
 Combi19 >> retornarChoferesAsString [
-	| q | 
-	q := OrderedCollection new.
-	(choferes do: [ :chof | q add: (chof nombre) ]).
-	^ q
+
+	^ choferes  collect: [ :chof | chof nombre ].
 ]
 
 { #category : #queries }

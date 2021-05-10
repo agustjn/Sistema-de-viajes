@@ -28,6 +28,11 @@ CombiSelector >> combi: anObject [
 ]
 
 { #category : #accessing }
+CombiSelector >> model [
+	^ Combi19 soleInstance
+]
+
+{ #category : #accessing }
 CombiSelector >> parent [
 	^ parent
 ]
@@ -47,11 +52,11 @@ CombiSelector >> renderContentOn: html [
 
 { #category : #rendering }
 CombiSelector >> renderizarBotonesABMOn: html [
-	html submitButton
-		callback: [  ];
-		with: 'Editar'.
-	html submitButton
-		callback: [  ];
-		with: 'Eliminar'
-	
+	html anchor
+		callback: [ self parent call: (CombiEditorView newOf: self combi) ];
+		with: [ html submitButton with: 'Editar' ].
+	html anchor 
+		callback: [ self model eliminarCombi: self combi.
+			self answer ];
+		with: [html submitButton with: 'Eliminar']
 ]

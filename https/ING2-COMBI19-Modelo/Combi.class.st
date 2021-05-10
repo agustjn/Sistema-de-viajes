@@ -43,11 +43,13 @@ Combi >> chofer: anObject [
 
 { #category : #'as yet unclassified' }
 Combi >> editarModelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente [
-
-	modelo := unModelo.
-	cantidadAsientos := unaCantidad.
-	tipo := unTipo.
-	patente := unaPatente 
+	unModelo = ''
+		ifFalse: [ modelo := unModelo ].
+	unaCantidad = ''
+		ifFalse: [ cantidadAsientos := unaCantidad ].
+	unTipo = ''
+		ifFalse: [ tipo := unTipo ].
+	unaPatente = '' ifFalse: [patente := unaPatente]
 ]
 
 { #category : #initialization }

@@ -52,11 +52,11 @@ ChoferSelector >> renderContentOn: html [
 { #category : #rendering }
 ChoferSelector >> renderizarBotonesABMOn: html [
 	html anchor
-		callback: [ self parent call: (ChoferEditorView newOf:chofer) ];
-		with:[html submitButton with:'Editar' ].
+		callback: [ self parent call: (ChoferEditorView newOf: chofer) ];
+		with: [ html submitButton with: 'Editar'  ].
 	html space.
 	html anchor
 		callback: [ self model eliminarChofer: chofer.
-						self answer.  ];
-		with: [html submitButton with:'Eliminar']
+			self answer ];
+		with: [ html submitButton with: 'Eliminar' ]
 ]

@@ -1,10 +1,10 @@
 Class {
 	#name : #InsumosCreationView,
-	#superclass : #Object,
+	#superclass : #WAComponent,
 	#instVars : [
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Insumo-UI'
+	#category : #'ING2-COMBI19-UI-Insumo-CRUD-UI'
 }
 
 { #category : #'instance creation' }

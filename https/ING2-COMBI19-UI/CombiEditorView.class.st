@@ -9,7 +9,7 @@ Class {
 		'combi',
 		'chofer'
 	],
-	#category : #'ING2-COMBI19-UI-Combi-UI'
+	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
 
 { #category : #'instance creation' }

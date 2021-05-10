@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-ALL-UI'
 }
 
 { #category : #'instance creation' }

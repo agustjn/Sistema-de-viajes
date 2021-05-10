@@ -8,9 +8,10 @@ Class {
 		'tipo',
 		'parent',
 		'advertiseView',
+		'choferName',
 		'chofer'
 	],
-	#category : #'ING2-COMBI19-UI-Combi-UI'
+	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
 
 { #category : #'instance creation' }
@@ -28,9 +29,9 @@ CombiCreationView >> advertiseView: unaAdvertise [
 	advertiseView := unaAdvertise 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 CombiCreationView >> buscarChofer [
-	chofer :=  self model choferesDisponibles   detect: [ :chofi | chofi nombre = chofer ]
+	chofer :=  self model buscarChoferMail: chofer mail
 ]
 
 { #category : #accessing }
@@ -55,19 +56,30 @@ CombiCreationView >> chofer: unChofer [
 ]
 
 { #category : #accessing }
+CombiCreationView >> choferName [
+	^ choferName
+]
+
+{ #category : #accessing }
+CombiCreationView >> choferName: anObject [
+	choferName := anObject
+]
+
+{ #category : #accessing }
 CombiCreationView >> choferesDisponibles [
 	^ self model choferesDisponibles collect: [ :chofer | chofer nombre ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 CombiCreationView >> guardarCombi [
 	self model administrador
 		agregarCombiModelo: self modelo
 		patente: self patente
 		cantidadAsientos: self cantidad
-		chofer: self buscarChofer
+		chofer: (self model buscarChoferNombre: choferName)
 		tipo: self tipo.
-	self parent desactivarCombiCreationView
+	self parent desactivarCombiCreationView.
+
 ]
 
 { #category : #accessing }
@@ -113,6 +125,7 @@ CombiCreationView >> renderContentOn: html [
 	html
 		form: [ self renderizarFormularioOn: html.
 			html break.
+			html break.
 			html submitButton
 				callback: [ self guardarCombi ];
 				value: 'Guardar'.
@@ -124,7 +137,7 @@ CombiCreationView >> renderContentOn: html [
 	html render: advertiseView
 ]
 
-{ #category : #accessing }
+{ #category : #rendering }
 CombiCreationView >> renderizarFormularioOn: html [
 	html text: 'Modelo'.
 	html break.
@@ -142,9 +155,9 @@ CombiCreationView >> renderizarFormularioOn: html [
 	html break.
 	html textInput on: #tipo of: self.
 	html break.
-	html select
-		list: self choferesDisponibles;
-		callback: [ :value | self chofer: value ]
+	(html select on:#choferName of: self)
+		list: self model choferesDisponibles;
+		selected: choferName.
 ]
 
 { #category : #accessing }

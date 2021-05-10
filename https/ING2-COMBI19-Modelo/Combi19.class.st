@@ -77,12 +77,28 @@ Combi19 >> buscarAdminMail: unEmail pass: unaClave [
 		ifFalse: [ ^ nil ]
 ]
 
+{ #category : #queries }
+Combi19 >> buscarChoferMail: unEmail [
+	^ self choferes
+		detect:
+			[ :unUsuario | unUsuario email = unEmail ]
+		ifNone: [ ^nil ]
+]
+
 { #category : #'as yet unclassified' }
 Combi19 >> buscarChoferMail: unEmail pass: unaClave [
 	^ self choferes
 		detect:
 			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ]
 		ifNone: [ nil ]
+]
+
+{ #category : #queries }
+Combi19 >> buscarChoferNombre: unNombre [
+	^ self choferes
+		detect:
+			[ :unUsuario | unUsuario nombre = unNombre ]
+		ifNone: [ ^nil ]
 ]
 
 { #category : #queries }
@@ -100,7 +116,9 @@ Combi19 >> choferes [
 
 { #category : #accessing }
 Combi19 >> choferesDisponibles [
-	^ choferes reject: [ :chofer | chofer ocupado ]
+	|dispChoferes|
+	 dispChoferes := choferes reject: [ :chofer | chofer ocupado ].
+	^ (dispChoferes  collect: [ :chof | chof nombre]) asArray .
 ]
 
 { #category : #accessing }

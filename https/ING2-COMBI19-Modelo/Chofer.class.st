@@ -48,6 +48,11 @@ Chofer >> estaOcupado [
 	ocupado := true.
 ]
 
+{ #category : #accessing }
+Chofer >> estado [
+	^ ocupado 
+]
+
 { #category : #initialization }
 Chofer >> initializeCon: unNombre apellido: unApellido email: unEmail contraseña: unaContraseña telefono: unTelefono [
 	nombre := unNombre.

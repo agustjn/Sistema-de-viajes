@@ -1,6 +1,6 @@
 Class {
 	#name : #RutaEditorView,
-	#superclass : #Object,
+	#superclass : #WAComponent,
 	#instVars : [
 		'ruta',
 		'origen',
@@ -10,7 +10,7 @@ Class {
 		'combi',
 		'distancia'
 	],
-	#category : #'ING2-COMBI19-UI-Rutas-UI'
+	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
 
 { #category : #'instance creation' }

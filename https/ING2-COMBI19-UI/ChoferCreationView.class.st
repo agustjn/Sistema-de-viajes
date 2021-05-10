@@ -10,7 +10,7 @@ Class {
 		'parent',
 		'advertiseView'
 	],
-	#category : #'ING2-COMBI19-UI-Chofer-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-CRUD-UI'
 }
 
 { #category : #'instance creation' }

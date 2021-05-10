@@ -1,7 +1,7 @@
 Class {
 	#name : #AdvertiseComponent,
 	#superclass : #WAComponent,
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-ALL-UI'
 }
 
 { #category : #rendering }

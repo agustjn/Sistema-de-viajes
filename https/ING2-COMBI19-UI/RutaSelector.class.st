@@ -1,11 +1,11 @@
 Class {
 	#name : #RutaSelector,
-	#superclass : #Object,
+	#superclass : #WAComponent,
 	#instVars : [
 		'ruta',
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Rutas-UI'
+	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
 
 { #category : #'instance creation' }

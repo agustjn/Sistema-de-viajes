@@ -7,9 +7,10 @@ Class {
 		'lastname',
 		'mail',
 		'password',
-		'telefono'
+		'telefono',
+		'errorView'
 	],
-	#category : #'ING2-COMBI19-UI-Chofer-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-CRUD-UI'
 }
 
 { #category : #'instance creation' }
@@ -32,7 +33,14 @@ ChoferEditorView >> chofer: anObject [
 
 { #category : #event }
 ChoferEditorView >> editarChofer [
-	self model editarChofer: chofer email: mail contraseña: password telefono: telefono nombre: name apellido:lastname.
+	self halt.
+	(self model editarChofer: chofer email: mail contraseña: password telefono: telefono nombre: name apellido:lastname)
+		ifFalse:[ errorView := GenericAdvertiseView newWithParent: self 
+																heading:'Error al editar chofer'  
+																item1:'El correo ingresado ya existe en el sistema.'
+																item2: nil
+																item3: nil]
+		ifTrue:[ self answer ]
 ]
 
 { #category : #initialization }
@@ -90,7 +98,11 @@ ChoferEditorView >> renderContentOn: html [
 	html
 		form: [ self renderizarCamposBasicosOn: html.
 			html horizontalRule.
-			self renderizarBotonesOn: html ]
+			self renderizarBotonesOn: html.
+			html render: errorView.
+
+
+			 ]
 ]
 
 { #category : #rendering }
@@ -108,8 +120,7 @@ ChoferEditorView >> renderizarAdvertencia: html [
 ChoferEditorView >> renderizarBotonesOn: html [
 
 	html submitButton
-					callback: [ self model editarChofer: chofer email: mail contraseña: password telefono: telefono nombre: name apellido:lastname. .
-									self answer ] ;
+					callback: [ self editarChofer ] ;
 					value:'Confirmar!'.
 	html space.
 	html submitButton

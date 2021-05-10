@@ -5,7 +5,7 @@ Class {
 		'parent',
 		'chofer'
 	],
-	#category : #'ING2-COMBI19-UI-Chofer-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-CRUD-UI'
 }
 
 { #category : #'instance creation' }
@@ -15,6 +15,15 @@ ChoferSelector class >> of: aChofer andParent: aParent [
 
 { #category : #accessing }
 ChoferSelector >> chofer [ ^chofer
+]
+
+{ #category : #event }
+ChoferSelector >> eliminarChofer [
+	(self model eliminarChofer: chofer)
+		ifFalse:[ self parent activarDeleteErrorView ]
+	"self model eliminarChofer: chofer.
+			self answer "
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -34,8 +43,10 @@ ChoferSelector >> parent [
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderContentOn: html [ 
-	html text:'Chofer: ', chofer nombre , ' ' , chofer apellido.
+ChoferSelector >> renderContentOn: html [
+	
+	html text:'Chofer: ', chofer nombre , ' ' , chofer apellido , 
+	'  / Esta ocupado: ',(self renderizarEstadoChofer: html).
 	html space.
 	self renderizarBotonesABMOn: html.
 ]
@@ -47,7 +58,15 @@ ChoferSelector >> renderizarBotonesABMOn: html [
 		with: [ html submitButton with: 'Editar'  ].
 	html space.
 	html anchor
-		callback: [ self model eliminarChofer: chofer.
-			self answer ];
+		callback: [ self eliminarChofer
+			"self model eliminarChofer: chofer.
+			self answer "];
 		with: [ html submitButton with: 'Eliminar' ]
+]
+
+{ #category : #rendering }
+ChoferSelector >> renderizarEstadoChofer:html [
+	(chofer estado)
+			ifTrue:[ ^ 'Si' ]
+			ifFalse:[ ^'No']
 ]

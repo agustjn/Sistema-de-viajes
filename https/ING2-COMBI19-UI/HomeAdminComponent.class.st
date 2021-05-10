@@ -144,7 +144,7 @@ HomeAdminComponent >> activarRutaCreationView [
 	rutasView := nil.
 	insumosView := nil.
 	insumosCreationView := nil.
-	rutasCreationView := rutasCreationView newWithParent: self.
+	rutasCreationView := (RutaCreationView newWithParent: self).
 	lugarCreationView := nil.
 	combiCreationView := nil.
 	choferCreationView := nil.
@@ -180,7 +180,7 @@ HomeAdminComponent >> activarViajeCreationView [
 	lugarCreationView := nil.
 	choferCreationView := nil.
 	viajeView := nil.
-	viajeCreationView := ViajeCreationView newWithParent: self
+	viajeCreationView := (ViajeCreationView newWithParent: self)
 ]
 
 { #category : #event }

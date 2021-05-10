@@ -22,8 +22,18 @@ User >> apellido [
 ]
 
 { #category : #accessing }
+User >> apellido: anObject [
+	apellido := anObject
+]
+
+{ #category : #accessing }
 User >> contraseña [ 
 	^contraseña 
+]
+
+{ #category : #accessing }
+User >> contraseña: anObject [
+	contraseña := anObject
 ]
 
 { #category : #accessing }
@@ -32,11 +42,26 @@ User >> email [
 ]
 
 { #category : #accessing }
+User >> email: anObject [
+	email := anObject
+]
+
+{ #category : #accessing }
 User >> nombre [ 
 	^nombre
 ]
 
 { #category : #accessing }
+User >> nombre: anObject [
+	nombre := anObject
+]
+
+{ #category : #accessing }
 User >> viajes [
 	^viajes
+]
+
+{ #category : #accessing }
+User >> viajes: anObject [
+	viajes := anObject
 ]

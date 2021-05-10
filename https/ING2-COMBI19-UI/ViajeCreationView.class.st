@@ -1,6 +1,6 @@
 Class {
 	#name : #ViajeCreationView,
-	#superclass : #Object,
+	#superclass : #WAComponent,
 	#instVars : [
 		'parent',
 		'ruta',
@@ -8,7 +8,7 @@ Class {
 		'hora',
 		'precio'
 	],
-	#category : #'ING2-COMBI19-UI-Viaje-UI'
+	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
 
 { #category : #'instance creation' }

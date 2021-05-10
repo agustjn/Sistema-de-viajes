@@ -5,7 +5,7 @@ Class {
 		'parent',
 		'viaje'
 	],
-	#category : #'ING2-COMBI19-UI-Viaje-UI'
+	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
 
 { #category : #'instance creation' }

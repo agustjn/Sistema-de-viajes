@@ -1,11 +1,11 @@
 Class {
 	#name : #RutasView,
-	#superclass : #Object,
+	#superclass : #WAComponent,
 	#instVars : [
 		'parent',
 		'ruta'
 	],
-	#category : #'ING2-COMBI19-UI-Rutas-UI'
+	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
 
 { #category : #'instance creation' }
@@ -35,7 +35,7 @@ RutasView >> parent: aParent [
 
 { #category : #rendering }
 RutasView >> renderContentOn: html [
-self halt.
+	self halt.
 	html heading: 'Pantalla de CRUD Rutas'.
 	self renderizarRutas: html.
 	html anchor
@@ -43,14 +43,14 @@ self halt.
 		with: [ html submitButton with: 'Crear Ruta' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 RutasView >> renderizarRutas: html [
 	"Si no tiene choferes imprime que no tiene"
 
-	self model administrador rutas
-		ifNil:
-				[ html heading level4 with: 'No hay Rutas cargadados en el sistema' ];
-		ifNotNil: [ html
+	(self model administrador rutas)
+		isEmpty
+				ifTrue:[ html heading level4 with: 'No hay Rutas cargadados en el sistema' ]
+		ifFalse: [ html
 				unorderedList: [ self model administrador rutas
 						do: [ :rut | 
 							html

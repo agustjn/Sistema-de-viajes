@@ -2,14 +2,11 @@ Class {
 	#name : #CardPayComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'number',
-		'code',
-		'expirationDate',
 		'card',
 		'parent',
 		'client'
 	],
-	#category : #'ING2-COMBI19-UI'
+	#category : #'ING2-COMBI19-UI-ALL-UI'
 }
 
 { #category : #deprecated }
@@ -49,36 +46,6 @@ CardPayComponent >> client [
 { #category : #accessing }
 CardPayComponent >> client: anObject [
 	client := anObject
-]
-
-{ #category : #accessing }
-CardPayComponent >> code [
-	^ code
-]
-
-{ #category : #accessing }
-CardPayComponent >> code: anObject [
-	code := anObject
-]
-
-{ #category : #accessing }
-CardPayComponent >> expirationDate [
-	^ expirationDate
-]
-
-{ #category : #accessing }
-CardPayComponent >> expirationDate: anObject [
-	expirationDate := anObject
-]
-
-{ #category : #accessing }
-CardPayComponent >> number [
-	^ number
-]
-
-{ #category : #accessing }
-CardPayComponent >> number: anObject [
-	number := anObject
 ]
 
 { #category : #accessing }

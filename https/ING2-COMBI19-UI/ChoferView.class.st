@@ -2,9 +2,10 @@ Class {
 	#name : #ChoferView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'parent'
+		'parent',
+		'deleteErrorView'
 	],
-	#category : #'ING2-COMBI19-UI-Chofer-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-CRUD-UI'
 }
 
 { #category : #'instance creation' }
@@ -13,6 +14,15 @@ ChoferView class >> newWithParent: aParent [
 	instance := self new.
 	instance parent: aParent.
 	^instance
+]
+
+{ #category : #event }
+ChoferView >> activarDeleteErrorView [
+		deleteErrorView := (GenericAdvertiseView newWithParent: self 
+															 heading:'Error al eliminar chofer , posibles motivos: ' 
+															 item1:'El chofer esta asignado a un viaje pendiente.'
+															 item2:'El chofer esta asignado a una combi.' 
+															 item3:nil )
 ]
 
 { #category : #event }
@@ -40,9 +50,11 @@ ChoferView >> parent: anObject [
 ChoferView >> renderContentOn: html [
 	html heading: 'Pantalla de CRUD Choferes'.
 	self renderizarChoferes: html.
+	html render: deleteErrorView.
 	html anchor
 				callback:[ self parent activarChoferCreationView ] ; 
-				with:[ html submitButton with:'Crear chofer' ]
+				with:[ html submitButton with:'Crear chofer' ].
+
 ]
 
 { #category : #rendering }

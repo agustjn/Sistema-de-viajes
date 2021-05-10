@@ -72,13 +72,18 @@ CombiCreationView >> choferesDisponibles [
 
 { #category : #event }
 CombiCreationView >> guardarCombi [
-	self model administrador
+	((self model administrador
 		agregarCombiModelo: self modelo
 		patente: self patente
 		cantidadAsientos: self cantidad
 		chofer: (self model buscarChoferNombre: choferName)
-		tipo: self tipo.
-	self parent desactivarCombiCreationView.
+		tipo: self tipo) & (choferName isNotNil))
+		ifTrue:[self parent desactivarCombiCreationView ]
+		ifFalse:[ advertiseView := GenericAdvertiseView newWithParent:self  
+										   heading:'Error al agregar combi'
+										   item1:'La patente ingresada ya la posee otra combi'
+										   item2:nil
+										   item3:nil ]
 
 ]
 
@@ -126,6 +131,7 @@ CombiCreationView >> renderContentOn: html [
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html break.
+			html render: advertiseView.
 			html submitButton
 				callback: [ self guardarCombi ];
 				value: 'Guardar'.
@@ -134,7 +140,7 @@ CombiCreationView >> renderContentOn: html [
 			html submitButton
 				callback: [ self parent desactivarCombiCreationView ];
 				with: 'Cancelar' ].
-	html render: advertiseView
+
 ]
 
 { #category : #rendering }

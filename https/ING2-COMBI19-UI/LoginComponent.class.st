@@ -26,7 +26,6 @@ LoginComponent >> mail: anObject [
 
 { #category : #'event processing' }
 LoginComponent >> manejarLogin [
-	self halt.
 	(self model usuario: mail protegidoPor: password)
 		ifNotNil: [ :it | self procederCon: it ].
 	self activarAdvertise.

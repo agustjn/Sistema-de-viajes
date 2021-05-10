@@ -32,7 +32,11 @@ LugarCreationView >> advertiseView: anObject [
 { #category : #event }
 LugarCreationView >> guardarLugar [
 	(self model administrador agregarLugar:(Lugar deProvincia:provincia yLocalidad:localidad ))
-		ifFalse:[ advertiseView := 'Hi bitch' ]
+		ifFalse:[ advertiseView := GenericAdvertiseView newWithParent: self 
+																	  heading: 'Error al agregar lugar'  
+																	  item1:'La provincia y la localidad ingresadas ya existen en el sistema' 
+																	  item2:nil  
+																	  item3:nil  ]
 		ifTrue:[ self parent desactivarLugarCreationView  ]
 ]
 
@@ -110,9 +114,5 @@ LugarCreationView >> renderizarFormularioOn: html [
 	html text:'Localidad: '.
 	html textInput on:#localidad of:self.
 	html horizontalRule.
-	"html select list:
-				(self model provinciasArgentinas) ;
-				selected: provincia ;
-				callback:[ :value | provincia := value]"
 
 ]

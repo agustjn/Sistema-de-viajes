@@ -103,10 +103,10 @@ Combi19 >> buscarChoferNombre: unNombre [
 
 { #category : #queries }
 Combi19 >> buscarClienteMail: unEmail pass: unaClave [
-	(clientes
-		select:
-			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ])
-		ifEmpty: [ ^ nil ]
+	^clientes
+		detect:
+			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ]
+		ifNone: [ ^ nil ]
 ]
 
 { #category : #accessing }

@@ -27,10 +27,12 @@ LoginComponent >> mail: anObject [
 { #category : #'event processing' }
 LoginComponent >> manejarLogin [
 	(self model usuario: mail protegidoPor: password)
-		ifNotNil: [ :it | self procederCon: it ].
-	self activarAdvertise.
+		ifNotNil: [ :it | self procederCon: it ]
+	ifNil:[	self activarAdvertise.
 	mail := nil.
-	password := nil
+	password := nil]
+	
+
 ]
 
 { #category : #'event processing' }

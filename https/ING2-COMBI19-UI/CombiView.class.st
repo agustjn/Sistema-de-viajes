@@ -46,10 +46,10 @@ CombiView >> renderContentOn: html [
 
 { #category : #rendering }
 CombiView >> renderizarCombisOn: html [
-	self combis
-		ifNil:
+	(self model administrador combis) isEmpty
+		ifTrue:
 				[ html heading level4 with: 'No hay Combis cargadados en el sistema' ];
-		ifNotNil: [ html
+		ifFalse: [ html
 				unorderedList: [ self model administrador combis
 						do: [ :combi | 
 							html

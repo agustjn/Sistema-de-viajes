@@ -42,3 +42,8 @@ Lugar >> provincia [
 Lugar >> provincia: anObject [
 	provincia := anObject
 ]
+
+{ #category : #accessing }
+Lugar >> string [
+	^ self provincia ,  ' ', self localidad
+]

@@ -123,6 +123,11 @@ Administrador >> combis [
 	^combis
 ]
 
+{ #category : #accessing }
+Administrador >> combisNombresModelo [
+	^ combis collect: [ :combi | combi modelo ]
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> editarCombi: unaCombi modelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente [
 "Chequea que no exista una Combi con una patente igual a la que llega por parametrO, en caso de no existir edita la combi . Devuelve un booleano confirmando o denegando la accion"
@@ -155,9 +160,9 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino horario
 { #category : #'as yet unclassified' }
 Administrador >> eliminarCombi: unaCombi [
 	"Elimna una combi si no pertenece a ningun viaje y no pertenece a ninguna ruta, y devuelve un booleano confirmando o negando la accion"
-
-	((viajes anySatisfy: [ :unViaje | unViaje tiene: unaCombi ])
-		and: (rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ]))
+   
+	"((viajes anySatisfy: [ :unViaje | unViaje tiene: unaCombi ])
+		and:" (rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ])
 		ifTrue: [ ^ false ]
 		ifFalse: [ combis remove: unaCombi.
 			unaCombi chofer estaDesocupado.
@@ -218,6 +223,11 @@ Administrador >> insumos [
 { #category : #accessing }
 Administrador >> lugares [ 
  ^lugares
+]
+
+{ #category : #accessing }
+Administrador >> lugaresNombres [
+	^ lugares collect: [ :lugar | lugar string ]
 ]
 
 { #category : #accessing }

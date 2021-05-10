@@ -28,12 +28,13 @@ RutaEditorView >> combi: aCombi [
 ]
 
 { #category : #accessing }
-RutaEditorView >> desitno [ ^destino
+RutaEditorView >> destino [ 
+	^destino
 ]
 
 { #category : #accessing }
-RutaEditorView >> desitno: aDestino [
-	 destino := aDestino
+RutaEditorView >> destino: aDestino [
+	destino := aDestino
 ]
 
 { #category : #accessing }
@@ -56,7 +57,7 @@ RutaEditorView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	self ruta editarOrigen: self origen destino: self desitno   horario: self hora   combi: self combi  distancia: self distancia
+	self ruta editarOrigen: self origen destino: self destino   horario: self hora   combi: self combi  distancia: self distancia
 ]
 
 { #category : #accessing }
@@ -128,27 +129,35 @@ RutaEditorView >> renderizarCamposOn: html [
 	html space.
 	html break.
 	html text: 'Localidad de origen '.
-	html break.
+	html space.
 	(html select on: #origen of: self)
-		list: self model administrador lugares.
+		list: self model administrador lugaresNombres.
 	html break.
 	html text: 'Localidad de destino'.
+	html space.
 	(html select on: #destino of: self)
-		list: self model administrador lugares.
+		list: self model administrador lugaresNombres.
 	html break.
 	html text: 'Seleccionar la combi'.
+	html space.
 	(html select on: #combi of: self)
-		list: self model administrador combis.
+		list: self model administrador combisNombresModelo.
 	html break.
-	html text: 'Fecha del viaje '.
-	html dateInput on: #fecha of: self.
-	 html text: 'Ingrese un horario'.
-	(html textInput on: #hora of: self) placeholder: ruta horario.
+	html text: 'Ingrese un horario'.
+	html space.
+	html textInput on: #hora of: self.
+	html space.
 	html text: 'Ingrese la distancia '.
-	(html textInput on: #distancia of: self) placeholder: ruta distancia
+	html space.
+	html textInput on: #distancia of: self
 ]
 
 { #category : #accessing }
 RutaEditorView >> ruta [
 	^ruta
+]
+
+{ #category : #accessing }
+RutaEditorView >> ruta: aRuta [
+	ruta := aRuta
 ]

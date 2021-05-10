@@ -37,6 +37,11 @@ Ruta >> destino [
 	^destino
 ]
 
+{ #category : #accessing }
+Ruta >> distancia [ 
+ 	^ kmDeDistancia
+]
+
 { #category : #'as yet unclassified' }
 Ruta >> editarOrigen: unOrigen destino: unDestino horario: unHorario combi: unaCombi distancia: unaDistancia [
 	origen := unOrigen.

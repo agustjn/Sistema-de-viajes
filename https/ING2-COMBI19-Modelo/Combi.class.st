@@ -83,6 +83,11 @@ Combi >> patente: anObject [
 ]
 
 { #category : #accessing }
+Combi >> string [ 
+	^ self modelo, ' patente ', self patente, ' tipo: ', self tipo 
+]
+
+{ #category : #accessing }
 Combi >> tipo [
 	^tipo
 ]

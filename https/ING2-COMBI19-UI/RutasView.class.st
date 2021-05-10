@@ -35,8 +35,8 @@ RutasView >> parent: aParent [
 
 { #category : #rendering }
 RutasView >> renderContentOn: html [
-	
-	html heading: 'Pantalla de CRUD Rutas'.
+	self halt.
+	html heading: 'Rutas'.
 	self renderizarRutas: html.
 	html anchor
 		callback: [ self parent activarRutaCreationView ];

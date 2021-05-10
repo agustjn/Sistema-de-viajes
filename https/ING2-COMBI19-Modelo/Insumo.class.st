@@ -3,26 +3,25 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'nombre',
-		'tipo',
+		'marca',
 		'precio'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
 
 { #category : #initialization }
-Insumo class >> initializeCon: unNombre tipo: unTipo precio: unPrecio [
-	^ self new initializeCon: unNombre tipo: unTipo precio: unPrecio
-]
-
-{ #category : #initialization }
-Insumo >> = unInsumo [
-  ^ (unInsumo nombre = self nombre &(unInsumo tipo = self tipo))
+Insumo class >> newNombre: unNombre marca: unaMarca precio: unPrecio [
+	^ self new
+				nombre: unNombre ;
+				marca: unaMarca;
+				precio: unPrecio ;
+				yourself
 ]
 
 { #category : #'as yet unclassified' }
-Insumo >> editarNombre: unNombre tipo: unTipo precio: unPrecio [
+Insumo >> editarNombre: unNombre marca: unaMarca precio: unPrecio [
 	nombre := unNombre.
-	tipo := unTipo.
+	marca := unaMarca.
 	precio := unPrecio.
 ]
 
@@ -33,9 +32,24 @@ Insumo >> initializeCon: unNombre tipo: unTipo precio: unPrecio [
 	precio := unPrecio
 ]
 
+{ #category : #accessing }
+Insumo >> marca [
+	^ marca
+]
+
+{ #category : #accessing }
+Insumo >> marca: anObject [
+	marca := anObject
+]
+
 { #category : #initialization }
 Insumo >> nombre [ 	
 	^nombre
+]
+
+{ #category : #accessing }
+Insumo >> nombre: anObject [
+	nombre := anObject
 ]
 
 { #category : #initialization }
@@ -43,7 +57,7 @@ Insumo >> precio [
 	^precio
 ]
 
-{ #category : #initialization }
-Insumo >> tipo [
-	^tipo
+{ #category : #accessing }
+Insumo >> precio: anObject [
+	precio := anObject
 ]

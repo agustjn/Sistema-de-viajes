@@ -28,7 +28,7 @@ InsumoView >> parent: aParent [
 
 { #category : #rendering }
 InsumoView >> renderContentOn: html [ 	
-	html heading: 'Pantalla de CRUD Insumos'.
+	html heading: 'Insumos del sistema'.
 	self renderizarInsumos: html.
 	html anchor
 		callback: [ self parent activarInsumosCreationView ];
@@ -37,13 +37,13 @@ InsumoView >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 InsumoView >> renderizarInsumos: html [
-	self model administrador insumos
-		ifNil:
+	(self model administrador insumos) isEmpty
+		ifTrue:
 				[ html heading level4 with: 'No hay Insumos cargadados en el sistema' ];
-		ifNotNil: [ html
+		ifFalse: [ html
 				unorderedList: [ self model administrador insumos
 											do: [ :insumo | 
 							html
-								listItem: [ html render: (ChoferSelector of: self insumo andParent: self) ] ] ] ]
+								listItem: [ html render: (InsumoSelector of:insumo andParent: self) ] ] ] ]
 	
 ]

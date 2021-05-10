@@ -5,7 +5,7 @@ Class {
 		'combi',
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Combi-UI'
 }
 
 { #category : #'instance creation' }
@@ -55,8 +55,8 @@ CombiSelector >> renderizarBotonesABMOn: html [
 	html anchor
 		callback: [ self parent call: (CombiEditorView newOf: self combi) ];
 		with: [ html submitButton with: 'Editar' ].
-	html anchor 
-		callback: [ self model eliminarCombi: self combi.
+	html anchor
+		callback: [ self model administrador eliminarCombi: self combi.
 			self answer ];
-		with: [html submitButton with: 'Eliminar']
+		with: [ html submitButton with: 'Eliminar' ]
 ]

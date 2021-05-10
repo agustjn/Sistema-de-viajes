@@ -5,7 +5,7 @@ Class {
 		'place',
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Lugar-UI'
 }
 
 { #category : #'instance creation' }

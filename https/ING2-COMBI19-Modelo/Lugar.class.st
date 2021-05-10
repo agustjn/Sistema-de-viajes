@@ -10,11 +10,17 @@ Class {
 
 { #category : #initialization }
 Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
-	| instance |
-	instance := self new.
-	instance provincia: unaProvincia.
-	instance localidad: unaLocalidad.
-	^ instance
+	^self new 
+	 provincia: unaProvincia;
+	localidad: unaLocalidad.
+	
+]
+
+{ #category : #'as yet unclassified' }
+Lugar >> editarPronvincia: unaProvincia localidad: unaLocalidad [
+	unaProvincia = ''
+		ifFalse: [ provincia := unaProvincia ]. unaLocalidad = ''
+		ifFalse: [ localidad := unaLocalidad ]
 ]
 
 { #category : #initialization }

@@ -9,14 +9,9 @@ Class {
 	#category : #'ING2-COMBI19-Modelo'
 }
 
-{ #category : #'as yet unclassified' }
-Insumo class >> editarNombre: unNombre tipo: unTipo precio: unPrecio [
-	^ self editarNombre: unNombre tipo: unTipo precio: unPrecio
-]
-
 { #category : #initialization }
 Insumo class >> initializeCon: unNombre tipo: unTipo precio: unPrecio [
-	^ self initializeCon: unNombre tipo: unTipo precio: unPrecio
+	^ self new initializeCon: unNombre tipo: unTipo precio: unPrecio
 ]
 
 { #category : #initialization }

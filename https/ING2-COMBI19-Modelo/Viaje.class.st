@@ -6,39 +6,42 @@ Class {
 		'cantidadAsientosDisponibles',
 		'fecha',
 		'hora',
-		'precio',
-		'combi'
+		'precio'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
 
 { #category : #initialization }
-Viaje class >> initializeCon: unaRuta
-		combi: unaCombi
-		fecha: unaFecha
-		hora: unaHora
-		precio: unPrecio [
-	^ self
+Viaje class >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+	^ self new
 		initializeCon: unaRuta
-		combi: unaCombi
 		fecha: unaFecha
 		hora: unaHora
 		precio: unPrecio
 ]
 
 { #category : #accessing }
-Viaje >> combi [
-	^combi
+Viaje >> fecha [
+	^fecha
+]
+
+{ #category : #accessing }
+Viaje >> hora [
+	^hora
 ]
 
 { #category : #initialization }
-Viaje >> initializeCon:  unaRuta combi: unaCombi fecha: unaFecha hora: unaHora precio: unPrecio [
-	ruta:= unaRuta.
-	combi:= unaCombi.
-	ruta:= unaRuta.
+Viaje >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+	ruta := unaRuta.
+
 	fecha := unaFecha.
-	hora:= unaHora.
+	hora := unaHora.
 	precio := unPrecio
+]
+
+{ #category : #accessing }
+Viaje >> precio [
+	^precio
 ]
 
 { #category : #accessing }
@@ -48,5 +51,5 @@ Viaje >> ruta [
 
 { #category : #accessing }
 Viaje >> tiene: unaCombi [
-	^ combi = unaCombi
+	^ ruta combi = unaCombi
 ]

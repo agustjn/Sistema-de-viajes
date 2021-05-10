@@ -38,13 +38,15 @@ Administrador >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsient
 									chofer: unChofer
 									tipo: unTipo).
 						^ true ] ].
-	combis add: (Combi
-									initializeModelo: unModelo
-									patente: unaPatente
-									asientos: unaCantidad
-									chofer: unChofer
-									tipo: unTipo).
-	^true
+	"combis
+		add:
+			(Combi
+				initializeModelo: unModelo
+				patente: unaPatente
+				asientos: unaCantidad
+				chofer: unChofer
+				tipo: unTipo).
+	^ true"
 ]
 
 { #category : #accessing }
@@ -93,18 +95,19 @@ Administrador >> agregarRuta: unOrigen destino: unDestino horario: unaHora combi
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> agregarViajeCon: unChofer ruta: unaRuta combi: unaCombi fecha: unaFecha hora: unaHora precio: unPrecio [
+Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
 	"Crea un viaje y lo agrega a la coleccion de viajes "
 
 	| unViaje |
-	unViaje := Viaje
-		initializeCon: unaRuta
-		combi: unaCombi
-		fecha: unaFecha
-		hora: unaHora
-		precio: unPrecio.
-	viajes add: unViaje.
-	^ unViaje
+	(viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ unViaje := Viaje
+				initializeCon: unaRuta
+				fecha: unaFecha
+				hora: unaHora
+				precio: unPrecio.
+			viajes add: unViaje.
+			^ true ]
 ]
 
 { #category : #accessing }
@@ -145,12 +148,11 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino horario
 Administrador >> eliminarCombi: unaCombi [
 	"Elimna una combi si no pertenece a ningun viaje y no pertenece a ninguna ruta, y devuelve un booleano confirmando o negando la accion"
 
-	(viajes
-		anySatisfy:
-			[ :unViaje | unViaje tiene: unaCombi ]
-				& (rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ]))
+	((viajes anySatisfy: [ :unViaje | unViaje tiene: unaCombi ])
+		and: (rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ]))
 		ifTrue: [ ^ false ]
 		ifFalse: [ combis remove: unaCombi.
+			unaCombi chofer estaDesocupado.
 			^ true ]
 ]
 
@@ -175,6 +177,12 @@ Administrador >> eliminarRuta: unaRuta [
 	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
 		ifTrue: [ ^ false ]
 		ifFalse: [ rutas remove: unaRuta. ^ true ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> eliminarViaje: aViaje [
+"No chequea, hay que ver cual era la restriccion"
+	viajes remove: aViaje
 ]
 
 { #category : #'as yet unclassified' }

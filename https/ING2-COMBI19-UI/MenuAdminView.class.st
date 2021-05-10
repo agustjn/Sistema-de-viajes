@@ -26,7 +26,7 @@ MenuAdminView >> initialize [
 
 { #category : #accessing }
 MenuAdminView >> model [
-	^Combi19 soleInstance	
+	^ Combi19 soleInstance 
 ]
 
 { #category : #accessing }
@@ -46,8 +46,8 @@ MenuAdminView >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-MenuAdminView >> renderizarAnchors: html [.
-		html
+MenuAdminView >> renderizarAnchors: html [
+	html
 		unorderedList: [ html
 				listItem: [ html anchor
 						callback: [ self parent activarChoferView ];
@@ -58,14 +58,18 @@ MenuAdminView >> renderizarAnchors: html [.
 						with: 'Combis' ].
 			html
 				listItem: [ html anchor
-						callback: [  ];
+						callback: [ self parent activarViajeView ];
 						with: 'Viajes' ].
 			html
 				listItem: [ html anchor
-						callback: [  ];
+						callback: [  self parent activarRutasView ];
 						with: 'Rutas' ].
 			html
 				listItem: [ html anchor
-						callback: [ self parent activarLugarView  ];
-						with: 'Lugares' ] ]
+						callback: [ self parent activarLugarView ];
+						with: 'Lugares' ].
+			html
+				listItem: [ html anchor
+						callback: [ self parent activarInsumoView ];
+						with: 'Insumos' ] ]
 ]

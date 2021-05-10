@@ -26,13 +26,11 @@ LoginComponent >> mail: anObject [
 
 { #category : #'event processing' }
 LoginComponent >> manejarLogin [
-
 	(self model usuario: mail protegidoPor: password)
 		ifNotNil: [ :it | self procederCon: it ].
 	self activarAdvertise.
 	mail := nil.
-	password := nil.
-	
+	password := nil
 ]
 
 { #category : #'event processing' }
@@ -103,7 +101,7 @@ LoginComponent >> renderizarFormularioOn: aCanvas [
 	aCanvas label: 'Contraseña'.
 	aCanvas break.
 	aCanvas break.
-	aCanvas textInput on: #password of: self.
+	aCanvas passwordInput on: #password of: self.
 	aCanvas break.
 	aCanvas break
 ]

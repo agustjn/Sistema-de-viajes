@@ -21,11 +21,6 @@ Chofer class >> initializeCon: unNombre apellido: unApellido email: unEmail cont
 	^instance.
 ]
 
-{ #category : #comparing }
-Chofer >> = unChofer [
-	 ^ (self email = unChofer email) & (self nombre = unChofer nombre)
-]
-
 { #category : #accessing }
 Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastname [
 	"Desde el componente EditorChoferView se envia el formulario.

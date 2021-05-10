@@ -13,7 +13,7 @@ Class {
 
 { #category : #initialization }
 Ruta class >> initializeCon: unOrigen destino: unDestino horario: unaHora combi: unaCombi distancia: unaDistancia [
-	^ self
+	^ self new
 		initializeCon: unOrigen
 		destino: unDestino
 		horario: unaHora

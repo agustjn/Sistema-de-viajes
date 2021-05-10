@@ -41,18 +41,18 @@ Combi19 class >> instanciaDePrueba [
 		agregarCombiModelo: 'Mercedes Benz Sprinter'
 		patente: 'CGF-412'
 		cantidadAsientos: 40
-		chofer: soleInstance choferes first
+		chofer: soleInstance choferesDisponibles  first
 		tipo: 'Media distancia'.
 	soleInstance administrador
 		agregarCombiModelo: 'Mercedes Benz Sprinter'
 		patente: 'CGF-412'
 		cantidadAsientos: 40
-		chofer: soleInstance choferes first
+		chofer: soleInstance choferesDisponibles  first
 		tipo: 'Media distancia'.
-	soleInstance administrador 
-		agregarLugar: (Lugar deProvincia:'Buenos Aires' yLocalidad: 'La Plata').
-	soleInstance administrador 
-		agregarLugar: (Lugar deProvincia:'Rio Negro' yLocalidad: 'Viedma').
+	soleInstance administrador
+		agregarLugar: (Lugar deProvincia: 'Buenos Aires' yLocalidad: 'La Plata').
+	soleInstance administrador
+		agregarLugar: (Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma')
 ]
 
 { #category : #accessing }
@@ -79,10 +79,10 @@ Combi19 >> buscarAdminMail: unEmail pass: unaClave [
 
 { #category : #'as yet unclassified' }
 Combi19 >> buscarChoferMail: unEmail pass: unaClave [
-		(clientes
-		select:
-			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ])
-		ifEmpty: [ ^ nil ]
+	^ self choferes
+		detect:
+			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ]
+		ifNone: [ nil ]
 ]
 
 { #category : #queries }
@@ -96,6 +96,11 @@ Combi19 >> buscarClienteMail: unEmail pass: unaClave [
 { #category : #accessing }
 Combi19 >> choferes [
 	^choferes
+]
+
+{ #category : #accessing }
+Combi19 >> choferesDisponibles [
+	^ choferes reject: [ :chofer | chofer ocupado ]
 ]
 
 { #category : #accessing }

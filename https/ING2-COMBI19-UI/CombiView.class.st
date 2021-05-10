@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Combi-UI'
 }
 
 { #category : #'instance creation' }
@@ -13,6 +13,11 @@ CombiView class >> newWithParent: aParent [
 	instance := self new.
 	instance parent: aParent.
 	^instance
+]
+
+{ #category : #accessing }
+CombiView >> combis [
+	self model administrador combis
 ]
 
 { #category : #accesing }
@@ -33,14 +38,20 @@ CombiView >> parent: anObject [
 { #category : #rendering }
 CombiView >> renderContentOn: html [
 	html heading: 'Pantalla de CRUD Combis'.
-	self renderizarCombisOn: html
+	self renderizarCombisOn: html.
+	html anchor
+		callback: [ self parent activarCombiCreationView ];
+		with: [ html submitButton with: 'Crear Combi' ]
 ]
 
 { #category : #rendering }
 CombiView >> renderizarCombisOn: html [
-	html
-		unorderedList: [ self model administrador combis
-				do: [ :combi | 
-					html
-						listItem: [ html render: (CombiSelector of: combi andParent: self) ] ] ]
+	self combis
+		ifNil:
+				[ html heading level4 with: 'No hay Combis cargadados en el sistema' ];
+		ifNotNil: [ html
+				unorderedList: [ self model administrador combis
+						do: [ :combi | 
+							html
+								listItem: [ html render: (CombiSelector of: combi andParent: self) ] ] ] ]
 ]

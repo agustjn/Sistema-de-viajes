@@ -2,55 +2,46 @@ Class {
 	#name : #ChoferSelector,
 	#superclass : #WAComponent,
 	#instVars : [
-		'chofer',
-		'parent'
+		'parent',
+		'chofer'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-UI'
 }
 
 { #category : #'instance creation' }
-ChoferSelector class >> of: unChofer andParent: aParent [
-	| instance |
-	instance := self new.
-	instance parent: aParent.
-	instance chofer: unChofer.
-	^instance
+ChoferSelector class >> of: aChofer andParent: aParent [
+	^ self new inicializeCon: aChofer parent: aParent
 ]
 
 { #category : #accessing }
-ChoferSelector >> chofer [
-	^ chofer
+ChoferSelector >> chofer [ ^chofer
+]
+
+{ #category : #'as yet unclassified' }
+ChoferSelector >> inicializeCon: aChofer parent: aParent [
+ parent:= aParent.
+chofer := aChofer	
 ]
 
 { #category : #accessing }
-ChoferSelector >> chofer: anObject [
-	chofer := anObject
-]
-
-{ #category : #accessing }
-ChoferSelector >> model [
+ChoferSelector >> model [ 
 	^Combi19 soleInstance
 ]
 
 { #category : #accessing }
-ChoferSelector >> parent [
-	^ parent
-]
-
-{ #category : #accessing }
-ChoferSelector >> parent: anObject [
-	parent := anObject
+ChoferSelector >> parent [ 
+	^parent
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderContentOn: html [
+ChoferSelector >> renderContentOn: html [ 
 	html text:'Chofer: ', chofer nombre , ' ' , chofer apellido.
 	html space.
 	self renderizarBotonesABMOn: html.
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderizarBotonesABMOn: html [
+ChoferSelector >> renderizarBotonesABMOn: html [ 
 	html anchor
 		callback: [ self parent call: (ChoferEditorView newOf: chofer) ];
 		with: [ html submitButton with: 'Editar'  ].

@@ -6,9 +6,10 @@ Class {
 		'cantidadAsientos',
 		'tipo',
 		'patente',
-		'combi'
+		'combi',
+		'chofer'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Combi-UI'
 }
 
 { #category : #'instance creation' }
@@ -25,6 +26,11 @@ CombiEditorView >> cantidad [
 { #category : #accessing }
 CombiEditorView >> cantidad: unaCantidad [
 	cantidadAsientos := unaCantidad 
+]
+
+{ #category : #accessing }
+CombiEditorView >> choferesDisponibles [
+	^ self model choferesDisponibles collect: [ :chofer | chofer nombre ]
 ]
 
 { #category : #accessing }
@@ -108,21 +114,26 @@ CombiEditorView >> renderizarCamposOn: html [
 	html break.
 	html text: 'Modelo'.
 	html break.
-	(html textInput on: #modelo of: self) placeholder: combi modelo .
+	(html textInput on: #modelo of: self) placeholder: combi modelo.
 	html break.
 	html text: 'Patente '.
 	html break.
-	(html textInput on: #patente of: self) placeholder: combi patente .
+	(html textInput on: #patente of: self) placeholder: combi patente.
 	html break.
 	html text: 'Cantidad de asientos '.
 	html break.
-	(html textInput on: #cantidad of: self) placeholder: combi cantidadDeAsientos.
+	(html textInput on: #cantidad of: self)
+		placeholder: combi cantidadDeAsientos.
 	html break.
 	html text: 'Tipo de asiento'.
 	html break.
-	(html textInput on: #tipo of: self) placeholder: combi tipo .
+	(html textInput on: #tipo of: self) placeholder: combi tipo.
 	html break.
-
+	html text: 'Ingrese el chofer'.
+	html break.
+	html select
+		list: self choferesDisponibles;
+		selected: (self choferesDisponibles at: 2)
 ]
 
 { #category : #accessing }

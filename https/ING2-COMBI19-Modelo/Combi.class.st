@@ -54,11 +54,12 @@ Combi >> editarModelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo paten
 
 { #category : #initialization }
 Combi >> initializeConUn: unModelo patente: unaPatente asientos: unaCantidad chofer: unChofer tipo: unTipo [
-	modelo:= unModelo.
+	modelo := unModelo.
 	patente := unaPatente.
 	cantidadAsientos := unaCantidad.
 	chofer := unChofer.
-	tipo := unTipo
+	tipo := unTipo.
+	chofer estaOcupado.
 ]
 
 { #category : #accessing }

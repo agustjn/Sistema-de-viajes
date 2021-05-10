@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'parent'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-UI'
 }
 
 { #category : #'instance creation' }
@@ -13,6 +13,12 @@ ChoferView class >> newWithParent: aParent [
 	instance := self new.
 	instance parent: aParent.
 	^instance
+]
+
+{ #category : #event }
+ChoferView >> cerrarSesion [
+	self session user: nil.
+	self answer
 ]
 
 { #category : #accessing }
@@ -41,9 +47,13 @@ ChoferView >> renderContentOn: html [
 
 { #category : #rendering }
 ChoferView >> renderizarChoferes: html [
-	html
-		unorderedList: [ self model choferes
-				do: [ :chofer | 
-					html
-						listItem: [ html render: (ChoferSelector of: chofer andParent: self) ] ] ]
+	"Si no tiene choferes imprime que no tiene"
+
+	self model choferes
+		ifNil: [ html heading level4 with: 'No hay Choferes cargadados en el sistema' ];
+		ifNotNil: [ html
+				unorderedList: [ self model choferes
+						do: [ :chofer | 
+							html
+								listItem: [ html render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
 ]

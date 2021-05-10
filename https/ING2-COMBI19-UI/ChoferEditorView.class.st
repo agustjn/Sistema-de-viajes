@@ -9,7 +9,7 @@ Class {
 		'password',
 		'telefono'
 	],
-	#category : #'ING2-COMBI19-UI-Admin-UI'
+	#category : #'ING2-COMBI19-UI-Chofer-UI'
 }
 
 { #category : #'instance creation' }

@@ -35,7 +35,6 @@ RutasView >> parent: aParent [
 
 { #category : #rendering }
 RutasView >> renderContentOn: html [
-	self halt.
 	html heading: 'Rutas'.
 	self renderizarRutas: html.
 	html anchor

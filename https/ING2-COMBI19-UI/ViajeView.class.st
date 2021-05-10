@@ -72,9 +72,9 @@ ViajeView >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 ViajeView >> renderizarViaje: html [
-	self viajes
-		ifNil: [ html heading level4 with: 'No hay viajes pendientes' ]
-		ifNotNil: [ html
+	(self viajes) isEmpty 
+		ifTrue: [ html heading level4 with: 'No hay viajes pendientes' ]
+		ifFalse: [ html
 				unorderedList: [ self viajes
 						do: [ :viaje | 
 							html

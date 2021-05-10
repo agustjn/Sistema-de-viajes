@@ -107,15 +107,16 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 	"Crea un viaje y lo agrega a la coleccion de viajes "
 
 	| unViaje |
-	viajes ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
-		ifTrue: [ ^ false ];
-		ifFalse: [ unViaje := Viaje
+	unViaje := Viaje
 				initializeCon: unaRuta
 				fecha: unaFecha
 				hora: unaHora
 				precio: unPrecio.
-			viajes add: unViaje.
-			^ true ]. ^false]
+	viajes ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ viajes add: unViaje.
+			^ true ]].
+	viajes add: unViaje
 ]
 
 { #category : #accessing }
@@ -187,9 +188,12 @@ Administrador >> eliminarLugar: unLugar [
 Administrador >> eliminarRuta: unaRuta [
 	"Chequea que la ruta no tenga viajes pendientes, en ese caso elimna la ruta de la coleccion de rutas y devuelve un booleano confirmando o negando la accion"
 
-	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ rutas remove: unaRuta. ^ true ]
+	viajes
+		ifNotNil: [ (viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+				ifTrue: [ ^ false ]
+				ifFalse: [ rutas remove: unaRuta.
+					^ true ].
+			^ true ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -210,9 +214,10 @@ Administrador >> initializeCon: unNombre apellido: unApellido mail: unEmail cont
 	email := unEmail.
 	contraseña := unaContraseña.
 	lugares := OrderedCollection new.
-	insumos := OrderedCollection new .
-	combis:= OrderedCollection new .
-	rutas:= OrderedCollection new .
+	insumos := OrderedCollection new.
+	combis := OrderedCollection new.
+	rutas := OrderedCollection new.
+	viajes := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -233,4 +238,9 @@ Administrador >> lugaresNombres [
 { #category : #accessing }
 Administrador >> rutas [
 	^rutas
+]
+
+{ #category : #accessing }
+Administrador >> rutasNombre [
+	^ rutas collect: [  :ruta | ruta string ]
 ]

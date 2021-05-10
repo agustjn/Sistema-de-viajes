@@ -71,6 +71,12 @@ Ruta >> origen [
 ]
 
 { #category : #accessing }
+Ruta >> string [
+	^ 'Desde: ' , self origen , ' hasta ' , self destino , '  horario:  '
+		, self horario
+]
+
+{ #category : #accessing }
 Ruta >> tiene: unaCombi [
 	^ combi = unaCombi
 ]

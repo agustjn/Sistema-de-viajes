@@ -28,11 +28,13 @@ ViajeCreationView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 ViajeCreationView >> guardarViaje [
+
 	self model administrador
 		agregarViajeConRuta: self ruta
 		fecha: self fecha
 		hora: self hora
 		precio: self precio
+		
 ]
 
 { #category : #rendering }
@@ -75,21 +77,20 @@ ViajeCreationView >> renderContentOn: html [
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html submitButton
-				callback: [ self guardarViaje ];
+				callback: [ self guardarViaje. self parent activarViajeView  ];
 				value: 'Guardar'.
 			html space.
 			html space.
 			html submitButton
 				callback: [ self parent desactivarViajeCreationView ];
-				with: 'Cancelar' ].
-	self halt
+				with: 'Cancelar' ]
 ]
 
 { #category : #rendering }
 ViajeCreationView >> renderizarFormularioOn: html [
 	html heading level4 with: 'Seleccione la ruta del viaje'.
 	html select
-		list: self model administrador rutas;
+		list: self model administrador rutasNombre;
 		callback: [ :value | self ruta: value ].
 	html break.
 	html text: 'Precio del boleto'.
@@ -101,8 +102,7 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html textInput on: #hora of: self.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
-	html dateInput on: #fecha of: self.
-	
+	html dateInput on: #fecha of: self
 ]
 
 { #category : #rendering }

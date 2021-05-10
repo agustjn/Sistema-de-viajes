@@ -5,7 +5,6 @@ Class {
 		'parent',
 		'origen',
 		'destino',
-		'fecha',
 		'hora',
 		'combi',
 		'distancia'
@@ -45,21 +44,11 @@ RutaCreationView >> distancia: aDistancia [
 	 distancia := aDistancia 
 ]
 
-{ #category : #accessing }
-RutaCreationView >> fecha [
-	^fecha
-]
-
-{ #category : #accessing }
-RutaCreationView >> fecha: aFecha [ 	
-	fecha:= aFecha
-]
-
 { #category : #'as yet unclassified' }
 RutaCreationView >> guardarRuta [
-	self ruta
-		editarOrigen: self origen
-		destino: self desitno
+	self model administrador
+		agregarRuta: self origen
+		destino: self destino
 		horario: self hora
 		combi: self combi
 		distancia: self distancia
@@ -116,25 +105,28 @@ RutaCreationView >> renderContentOn: html [
 
 { #category : #rendering }
 RutaCreationView >> renderizarFormularioOn: html [
-html space.
+	html space.
 	html break.
 	html text: 'Localidad de origen '.
-	html break.
+	html space.
 	(html select on: #origen of: self)
-		list: self model administrador lugares.
+		list: self model administrador lugaresNombres.
 	html break.
 	html text: 'Localidad de destino'.
+	html space.
 	(html select on: #destino of: self)
-		list: self model administrador lugares.
+		list: self model administrador lugaresNombres.
 	html break.
 	html text: 'Seleccionar la combi'.
+	html space.
 	(html select on: #combi of: self)
-		list: self model administrador combis.
+		list: self model administrador combisNombresModelo.
 	html break.
-	html text: 'Fecha del viaje '.
-	html dateInput on: #fecha of: self.
 	html text: 'Ingrese un horario'.
-	(html textInput on: #hora of: self) .
+	html space.
+	html textInput on: #hora of: self.
+	html space.
 	html text: 'Ingrese la distancia '.
-	(html textInput on: #distancia of: self).
+	html space.
+	html textInput on: #distancia of: self
 ]

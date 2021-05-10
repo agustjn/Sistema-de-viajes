@@ -94,13 +94,14 @@ RutaCreationView >> renderContentOn: html [
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html submitButton
-				callback: [ self guardarRuta ];
+				callback: [ self guardarRuta.
+					self parent activarRutasView  ];
 				value: 'Guardar'.
 			html space.
 			html space.
 			html submitButton
 				callback: [ self parent desactivarRutaCreationView ];
-				with: 'Cancelar' ].
+				with: 'Cancelar' ]
 ]
 
 { #category : #rendering }

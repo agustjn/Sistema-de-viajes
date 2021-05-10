@@ -41,18 +41,22 @@ Combi19 class >> instanciaDePrueba [
 		agregarCombiModelo: 'Mercedes Benz Sprinter'
 		patente: 'CGF-412'
 		cantidadAsientos: 40
-		chofer: soleInstance choferesDisponibles  first
+		chofer: (soleInstance buscarChoferNombre: 'Carlos')
 		tipo: 'Media distancia'.
 	soleInstance administrador
 		agregarCombiModelo: 'Mercedes Benz Sprinter'
 		patente: 'CGF-412'
 		cantidadAsientos: 40
-		chofer: soleInstance choferesDisponibles  first
+		chofer: (soleInstance buscarChoferNombre: 'Esteban')
 		tipo: 'Media distancia'.
 	soleInstance administrador
 		agregarLugar: (Lugar deProvincia: 'Buenos Aires' yLocalidad: 'La Plata').
 	soleInstance administrador
-		agregarLugar: (Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma')
+		agregarLugar: (Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma').
+	soleInstance administrador
+		agregarInsumo: (Insumo newNombre: 'Gaseosa' marca: 'Cola-Cola' precio: 150).
+		soleInstance administrador
+		agregarInsumo: (Insumo newNombre: 'Galletitas' marca: 'Oreo' precio: 90).
 ]
 
 { #category : #accessing }

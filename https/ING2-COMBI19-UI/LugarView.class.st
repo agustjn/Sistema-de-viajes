@@ -32,7 +32,7 @@ LugarView >> parent: anObject [
 
 { #category : #rendering }
 LugarView >> renderContentOn: html [
-	html heading: 'Pantalla de CRUD Lugares'.
+	html heading: 'Lugares del sistema'.
 	self renderizarLugares: html.
 	html anchor
 				callback:[ self parent activarLugarCreationView ] ; 

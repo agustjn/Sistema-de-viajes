@@ -63,7 +63,7 @@ ViajeView >> parent: aParent [
 
 { #category : #rendering }
 ViajeView >> renderContentOn: html [
-	html heading: 'Pantalla de CRUD Viajes'.
+	html heading: 'Viajes'.
 	self renderizarViaje: html.
 	html anchor
 		callback: [ self parent activarViajeCreationView ];

@@ -37,7 +37,7 @@ CombiView >> parent: anObject [
 
 { #category : #rendering }
 CombiView >> renderContentOn: html [
-	html heading: 'Pantalla de CRUD Combis'.
+	html heading: 'Combis'.
 	self renderizarCombisOn: html.
 	html anchor
 		callback: [ self parent activarCombiCreationView ];

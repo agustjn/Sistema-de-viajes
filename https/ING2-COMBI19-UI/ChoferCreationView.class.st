@@ -35,10 +35,14 @@ ChoferCreationView >> cellphone: anObject [
 { #category : #event }
 ChoferCreationView >> guardarChofer [
 	(self model validarRegistroChoferConMail: mail Password: password)
-		ifFalse:[ advertiseView := AdvertiseRegisterChofer new. ]
-		ifTrue:[ self model crearChofer: name apellido: lastname email: mail contraseña: password telefono: cellphone. 
-					self parent desactivarChoferCreationView  ]
-	
+		ifFalse: [ advertiseView := AdvertiseRegisterChofer new ]
+		ifTrue: [ self model
+				crearChofer: name
+				apellido: lastname
+				email: mail
+				contraseña: password
+				telefono: cellphone.
+			self parent desactivarChoferCreationView ]
 ]
 
 { #category : #accessing }

@@ -72,19 +72,17 @@ CombiCreationView >> choferesDisponibles [
 
 { #category : #event }
 CombiCreationView >> guardarCombi [
-	((self model administrador
-		agregarCombiModelo: self modelo
-		patente: self patente
-		cantidadAsientos: self cantidad
-		chofer: (self model buscarChoferNombre: choferName)
-		tipo: self tipo) & (choferName isNotNil))
-		ifTrue:[self parent desactivarCombiCreationView ]
-		ifFalse:[ advertiseView := GenericAdvertiseView newWithParent:self  
-										   heading:'Error al agregar combi'
-										   item1:'La patente ingresada ya la posee otra combi'
-										   item2:nil
-										   item3:nil ]
-
+	choferName
+		ifNil: [ self renderAdvertencia: 'Seleccione un chofer' ]
+		ifNotNil: [ (self model administrador
+				agregarCombiModelo: self modelo
+				patente: self patente
+				cantidadAsientos: self cantidad
+				chofer: (self model buscarChoferNombre: choferName)
+				tipo: self tipo)
+				ifTrue: [ self parent desactivarCombiCreationView ]
+				ifFalse: [ self
+						renderAdvertencia: 'La patente' , self patente , ' ya existe' ] ]
 ]
 
 { #category : #accessing }
@@ -124,23 +122,37 @@ CombiCreationView >> patente: unaPatente [
 ]
 
 { #category : #rendering }
-CombiCreationView >> renderContentOn: html [
-	html heading level2 with: 'Creacion de nueva combi'.
-	html horizontalRule.
-	html
-		form: [ self renderizarFormularioOn: html.
-			html break.
-			html break.
-			html render: advertiseView.
-			html submitButton
-				callback: [ self guardarCombi ];
-				value: 'Guardar'.
-			html space.
-			html space.
-			html submitButton
-				callback: [ self parent desactivarCombiCreationView ];
-				with: 'Cancelar' ].
+CombiCreationView >> renderAdvertencia: text [ 
+advertiseView := GenericAdvertiseView
+						newWithParent: self
+						heading: 'Error al agregar combi'
+						item1: text
+						item2: nil
+						item3: nil 
+]
 
+{ #category : #rendering }
+CombiCreationView >> renderContentOn: html [
+	self model choferesDisponibles
+		ifNil: [ self
+				renderAdvertencia:
+					'No hay choferes disponibles, por favor agregue un chofer para continuar'.
+					html render: advertiseView]
+		ifNotNil: [ html heading level2 with: 'Creacion de nueva combi'.
+			html horizontalRule.
+			html
+				form: [ self renderizarFormularioOn: html.
+					html break.
+					html break.
+					html render: advertiseView.
+					html submitButton
+						callback: [ self guardarCombi ];
+						value: 'Guardar'.
+					html space.
+					html space.
+					html submitButton
+						callback: [ self parent desactivarCombiCreationView ];
+						with: 'Cancelar' ] ]
 ]
 
 { #category : #rendering }
@@ -159,11 +171,11 @@ CombiCreationView >> renderizarFormularioOn: html [
 	html break.
 	html text: 'Tipo de asientos'.
 	html break.
-	html textInput on: #tipo of: self.
-	html break.
-	(html select on:#choferName of: self)
+	(html select on: #tipo of: self) list: self tiposDeAsientos.
+	html break.	
+	(html select on: #choferName of: self)
 		list: self model choferesDisponibles;
-		selected: choferName.
+		selected: choferName
 ]
 
 { #category : #accessing }
@@ -174,4 +186,12 @@ CombiCreationView >> tipo [
 { #category : #accessing }
 CombiCreationView >> tipo: unTipo [
 	tipo := unTipo 
+]
+
+{ #category : #'as yet unclassified' }
+CombiCreationView >> tiposDeAsientos [
+	|tipos|
+	tipos := OrderedCollection new.
+	tipos add: 'Cama'; add: 'Semi-Cama'.
+	^tipos
 ]

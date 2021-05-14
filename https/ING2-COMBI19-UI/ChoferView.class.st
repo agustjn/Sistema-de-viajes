@@ -52,9 +52,8 @@ ChoferView >> renderContentOn: html [
 	self renderizarChoferes: html.
 	html render: deleteErrorView.
 	html anchor
-				callback:[ self parent activarChoferCreationView ] ; 
-				with:[ html submitButton with:'Crear chofer' ].
-
+		callback: [ self parent activarChoferCreationView ];
+		with: [ html submitButton with: 'Crear chofer' ]
 ]
 
 { #category : #rendering }

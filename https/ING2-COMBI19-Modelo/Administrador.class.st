@@ -208,6 +208,15 @@ Administrador >> eliminarViaje: aViaje [
 ]
 
 { #category : #'as yet unclassified' }
+Administrador >> existeCombi: unaPatente [
+	unaPatente
+		ifEmpty: [ ^ false ]
+		ifNotEmpty: [ (combis detect: [ :unaCombi | unaCombi patente = unaPatente ])
+				ifNil: [ ^ true ]
+				ifNotNil: [ ^ false ] ]
+]
+
+{ #category : #'as yet unclassified' }
 Administrador >> hayCombiConChofer: unChofer [
 	^( combis anySatisfy: [ :unaCombi | unaCombi chofer = unChofer ])
 ]

@@ -12,15 +12,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-GenericAdvertiseView class >> newWithParent: aParent heading: head andText: aText [
-	^ self new 
-					parent:aParent ;
-					heading: head ;
-					text: aText ; 
-					yourself
-]
-
-{ #category : #'instance creation' }
 GenericAdvertiseView class >> newWithParent: aParent heading: head item1:aText1 item2: aText2 item3: aText3 [
 	^ self new 
 					parent:aParent ;

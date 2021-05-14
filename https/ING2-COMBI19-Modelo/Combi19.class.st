@@ -107,9 +107,10 @@ Combi19 >> choferes [
 
 { #category : #accessing }
 Combi19 >> choferesDisponibles [
-	|dispChoferes|
-	 dispChoferes := choferes reject: [ :chofer | chofer ocupado ].
-	^ (dispChoferes  collect: [ :chof | chof nombre]) asArray.
+	| dispChoferes |
+	dispChoferes := choferes reject: [ :chofer | chofer ocupado ].
+	dispChoferes ifEmpty: [ ^ nil ] ifNotEmpty: [ 
+	^ (dispChoferes collect: [ :chof | chof nombre ]) asArray]
 ]
 
 { #category : #accessing }

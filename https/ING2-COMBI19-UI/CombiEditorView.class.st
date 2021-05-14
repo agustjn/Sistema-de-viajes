@@ -7,7 +7,9 @@ Class {
 		'tipo',
 		'patente',
 		'combi',
-		'chofer'
+		'chofer',
+		'choferName',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
@@ -29,6 +31,25 @@ CombiEditorView >> cantidad: unaCantidad [
 ]
 
 { #category : #accessing }
+CombiEditorView >> choferName [ 
+	^choferName 
+]
+
+{ #category : #accessing }
+CombiEditorView >> choferName: aName [
+	choferName:= aName 
+]
+
+{ #category : #accessing }
+CombiEditorView >> choferes [
+	| choferes |
+	choferes := OrderedCollection new.
+	choferes addAll: self model choferesDisponibles.
+	choferes add: combi chofer nombre.
+	^ choferes
+]
+
+{ #category : #accessing }
 CombiEditorView >> combi [
 	^combi
 ]
@@ -36,6 +57,20 @@ CombiEditorView >> combi [
 { #category : #accessing }
 CombiEditorView >> combi: unaCombi [	
 	combi:= unaCombi
+]
+
+{ #category : #'as yet unclassified' }
+CombiEditorView >> editarCombi [
+	"Pregunta si  el chofer"
+	(self model administrador existeCombi: self patente)
+		ifTrue: [ self
+				renderAdvertencia: 'La patente ' , self patente , ' ya esta registrada' ]
+		ifFalse: [ self combi
+				editarModelo: self modelo
+				cantidadAsientos: self cantidad
+				tipo: self tipo
+				patente: self patente
+				chofer: (self model buscarChoferNombre: choferName) ]
 ]
 
 { #category : #accessing }
@@ -64,11 +99,28 @@ CombiEditorView >> patente: aPatente [
 ]
 
 { #category : #rendering }
+CombiEditorView >> renderAdvertencia: text [
+	advertiseView := GenericAdvertiseView
+		newWithParent: self heading: 'Error en la carga de combi' item1: text  item2: nil item3:nil  
+		
+		
+		
+		
+		
+	
+
+
+]
+
+{ #category : #rendering }
 CombiEditorView >> renderContentOn: html [
 	html
-		form: [ self renderizarCamposBasicosOn: html.
+		form:
+			[ self renderizarCamposBasicosOn: html.
 			html horizontalRule.
-			self renderizarBotonesOn: html ]
+			self renderizarBotonesOn: html ].
+		 html
+		render: advertiseView
 ]
 
 { #category : #rendering }
@@ -86,8 +138,7 @@ CombiEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 CombiEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self combi editarModelo: self modelo cantidadAsientos: self cantidad  tipo: self tipo  patente: self patente .
-			self answer ];
+		callback: [ self editarCombi. self answer ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton
@@ -126,9 +177,9 @@ CombiEditorView >> renderizarCamposOn: html [
 	html break.
 	html text: 'Ingrese el chofer'.
 	html break.
-	html select
-		list: self model choferesDisponibles .
-		"selected: (self choferesDisponibles at: 2)"
+	(html select on: #choferName of: self)
+		list: self choferes;
+		selected: combi chofer nombre
 ]
 
 { #category : #accessing }

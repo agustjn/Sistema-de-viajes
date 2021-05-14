@@ -42,14 +42,17 @@ Combi >> chofer: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-Combi >> editarModelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente [
-	unModelo = ''
-		ifFalse: [ modelo := unModelo ].
-	unaCantidad = ''
-		ifFalse: [ cantidadAsientos := unaCantidad ].
-	unTipo = ''
-		ifFalse: [ tipo := unTipo ].
-	unaPatente = '' ifFalse: [patente := unaPatente]
+Combi >> editarModelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente chofer: aChofer [
+	 unModelo = ''
+				ifFalse: [ modelo := unModelo ].
+			unaCantidad = ''
+				ifFalse: [ cantidadAsientos := unaCantidad ].
+			unTipo = ''
+				ifFalse: [ tipo := unTipo ].
+			chofer estaDesocupado.
+			chofer := aChofer.
+			chofer estaOcupado.
+			^ true 
 ]
 
 { #category : #initialization }

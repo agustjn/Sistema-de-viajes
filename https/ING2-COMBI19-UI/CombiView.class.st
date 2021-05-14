@@ -37,6 +37,7 @@ CombiView >> parent: anObject [
 
 { #category : #rendering }
 CombiView >> renderContentOn: html [
+self parent desactivarCombiCreationView.
 	html heading: 'Combis'.
 	self renderizarCombisOn: html.
 	html anchor

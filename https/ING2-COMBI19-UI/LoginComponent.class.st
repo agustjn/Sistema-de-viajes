@@ -83,27 +83,48 @@ LoginComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 LoginComponent >> renderizarBotonesOn: aCanvas [
+aCanvas div
+class: 'ml-3';
+	with:[
 	aCanvas submitButton
+		class:'btn btn-success';
 		callback: [ self manejarLogin];
 		value: 'Iniciar sesion'.
 	aCanvas space.
 	aCanvas submitButton
+		class:'btn btn-primary';
 		callback: [ self manejarRegistro ];
 		with: 'Registrarme!'.
+		]
 ]
 
 { #category : #rendering }
 LoginComponent >> renderizarFormularioOn: aCanvas [
-	aCanvas label: 'Correo electronico'.
-	aCanvas break.
-	aCanvas break.
-	aCanvas textInput on: #mail of: self.
-	aCanvas break.
-	aCanvas break.
-	aCanvas label: 'Contraseña'.
-	aCanvas break.
-	aCanvas break.
-	aCanvas passwordInput on: #password of: self.
-	aCanvas break.
-	aCanvas break
+
+	aCanvas div
+			class: 'form-group col-2';
+			with:[
+			aCanvas label: 'Correo electronico'.	
+			aCanvas textInput 
+			placeholder:'Pedro@correo.com';
+			class: 'form-control required ml-4';
+			on: #mail of: self.].
+	
+	aCanvas div
+			class: 'form-group col-2';
+			with:[
+			aCanvas label: 'Contraseña'.
+			aCanvas passwordInput 
+			placeholder:'Ingrese su clave';
+			class: 'form-control required ml-4';
+			on: #password of: self.].
+	
+	
+	
+]
+
+{ #category : #updating }
+LoginComponent >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

@@ -7,7 +7,7 @@ Class {
 { #category : #rendering }
 AdvertiseComponent >> renderContentOn: aCanvas [
 	aCanvas horizontalRule.
-	aCanvas heading: 'Hubo un error en su intento de registro'.
+	aCanvas heading level:4; with:'Hubo un error con su intento de registro'.
 	aCanvas
 		text: 'Su error pudo haber sido cualquiera de los siguientes:'.
 	aCanvas

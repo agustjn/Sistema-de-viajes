@@ -59,23 +59,44 @@ CardPayComponent >> parent: anObject [
 ]
 
 { #category : #rendering }
-CardPayComponent >> renderContentOn: html [
+CardPayComponent >> renderContentOn: aCanvas [
 	client agregarTarjeta: self card.
-	html heading:'Ingrese los datos de su tarjeta de credito'.
-	html break.
-	html text:'Numero de tarjeta : '.
-	html textInput on:#nro of:self card.
-	html space.
-	html text:'Codigo de seguridad: ' .
-	(html textInput on:#codSeguridad of:self card)size:1.
-	html break.
-	html break.
-	html text:'Fecha de vencimiento: '.
-	html select 
-			list:Date monthNames ;
-			selected: self card mesVencimiento.
-	html space.
-	(html textInput on:#añoVencimiento of:self card) placeholder:'Año'.
-	html break.
-	html horizontalRule.
+	
+	aCanvas div
+			class: 'form-group col-12';
+			with:[
+			aCanvas label: 'Numero de tarjeta : '.
+			aCanvas numberInput 
+			placeholder:'Ingrese los 16 digitos de su tarjeta';
+			class: 'form-control required ';
+			on: #nro of: self card].
+		
+	aCanvas div
+			class: 'form-group col-4';
+			with:[
+			aCanvas label: 'Codigo de seguridad:  '.
+			aCanvas passwordInput 
+			class: 'form-control required ';
+			placeholder:'123';
+			on: #codSeguridad of: self card].
+		
+		aCanvas div
+			class: 'form-group row';
+			with:[
+			aCanvas label:'Fecha de vencimiento'
+.				
+			aCanvas select 
+			class: 'form-control ml-3 col-3 required';
+			list: Date monthNames ; 
+				selected:self card mesVencimiento.
+			aCanvas numberInput 
+			placeholder: '2021';
+			class: 'form-control col-2 ml-2 required ';
+			on:#añoVencimiento of:self card].
+					  
+		
+			
+			
+	
+
 ]

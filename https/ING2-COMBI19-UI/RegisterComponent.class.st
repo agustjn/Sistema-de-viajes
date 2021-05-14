@@ -154,9 +154,32 @@ RegisterComponent >> plan: anObject [
 
 { #category : #rendering }
 RegisterComponent >> renderContentOn: aCanvas [
-	aCanvas heading level:1; with:'COMBI-19'.
-	aCanvas heading level:2; with:'Registro'.
-	aCanvas form:[	self renderizarNomApYMailOn: aCanvas.
+	aCanvas heading 
+	level:1;
+	class:'ml-5';
+	style:'color: red';
+	 with:'COMBI-19'.
+	aCanvas break.
+	aCanvas heading 
+	level:2;
+	
+	style:'margin-left: 5%';
+	 with:'Registro'.
+	aCanvas div 
+	class: 'container';
+	with:[ 
+		aCanvas div 
+			class: 'row';
+			with:
+			[
+			aCanvas div
+				class: 'col-5';
+				with: [ 
+					
+					aCanvas render: advertise.
+					
+					aCanvas form:
+					 [ self renderizarNomApYMailOn: aCanvas.
 						self renderizarDniContraseñaOn: aCanvas.
 						self renderizarFechaNacimientoOn:aCanvas.
 						self renderizarOpcionDePlan: aCanvas.
@@ -165,65 +188,121 @@ RegisterComponent >> renderContentOn: aCanvas [
 						
 	].
 
-	aCanvas render: advertise.
 
 
+		].
+	].
+].
 
- 
-	
 ]
 
 { #category : #rendering }
 RegisterComponent >> renderizarBotonesOn: aCanvas [
 	aCanvas space.
 	aCanvas submitButton
+		class: 'btn btn-success mr-4';
+		style:'background-color: blue';
 		callback: [ self guardar: aCanvas ];
 		value: 'Confirmar'.
 	aCanvas space.
-	aCanvas submitButton on: #cancelar of: self
+	
+	aCanvas submitButton 
+	class: 'btn btn-danger ml-4';
+	on: #cancelar of: self
 ]
 
 { #category : #rendering }
 RegisterComponent >> renderizarDniContraseñaOn: aCanvas [
-	aCanvas text:'DNI:  '.
-	aCanvas textInput on:#dni of: self.
-	aCanvas break. aCanvas break.
-	aCanvas text:'Contraseña:  '.
-	aCanvas passwordInput on:#contraseña of: self.
-	aCanvas break. aCanvas break.
+
+	aCanvas div
+			class: 'form-group col-12';
+			with:[
+			aCanvas label: 'DNI'.	
+			aCanvas numberInput 
+			placeholder:'12345678';
+			class: 'form-control required ';
+			on: #dni of: self.].
+
+aCanvas div
+			class: 'form-group col-12';
+			with:[
+			aCanvas label: 'Contraseña'.	
+			aCanvas passwordInput 
+			class: 'form-control required ';
+			on: #contraseña of: self.].
+
+
+	
 	
 	
 ]
 
 { #category : #rendering }
 RegisterComponent >> renderizarFechaNacimientoOn: aCanvas [
-	aCanvas text: 'Fecha de nacimiento: '.
-	aCanvas dateInput on:#fechaNac of:self.
-   aCanvas break. aCanvas break.
+
+aCanvas div
+			class: 'form-group col-12';
+			
+			with:[
+			aCanvas label: 'Fecha de nacimiento'.
+			aCanvas break.	
+			aCanvas dateInput 
+			
+			on: #fechaNac of: self.].
+		
+	
 ]
 
 { #category : #rendering }
 RegisterComponent >> renderizarNomApYMailOn: aCanvas [
-	aCanvas text:'Nombre: '.
-	aCanvas textInput on:#nombre of:self.
-	aCanvas space.
-	aCanvas text:'Apellido: '.
-	aCanvas textInput on:#apellido of:self.
-	aCanvas break. aCanvas break.
-	aCanvas text:'Correo electronico: '.
-	aCanvas textInput on:#mail of:self.
-	aCanvas break. aCanvas break.
+	aCanvas div
+			class: 'form-group col-12 mx-0';
+			with:[
+			aCanvas label: 'Nombre'.	
+			aCanvas textInput 
+			placeholder:'Pedro';
+			class: 'form-control required';
+			on: #nombre of: self.].
+	aCanvas div
+			class: 'form-group col-12 mx-0';
+			with:[	
+			aCanvas label: 'Apellido'.	
+			aCanvas textInput 
+			placeholder:'Perez';
+			class: 'form-control required';
+			on: #apellido of: self.						
+			].
+		
+		aCanvas div
+			class: 'form-group col-12';
+			with:[
+			aCanvas label: 'Correo electronico'.	
+			aCanvas textInput 
+			placeholder:'pedro_perez@correo.com';
+			class: 'form-control required';
+			on: #mail of: self.].
+	
+
+	
+	
 ]
 
 { #category : #rendering }
-RegisterComponent >> renderizarOpcionDePlan: html [
-		 html text:'Plan: '.
-        html select
-            list: #(#Basico #Gold ) ; 
+RegisterComponent >> renderizarOpcionDePlan: aCanvas [
+
+	aCanvas div
+			class: 'form-group col-5';
+			with:[
+			aCanvas label: 'Plan'.	
+			aCanvas select 
+			class: 'form-control required';
+			list: #(#Basico #Gold ) ; 
 				selected: tipoPlan ; 
 				callback:[ :value | tipoPlan := value].
-   html break.
-	html horizontalRule.
+			].
+		aCanvas break .
+		aCanvas horizontalRule.
+		 
 
 	
 	
@@ -234,4 +313,10 @@ RegisterComponent >> renderizarPagoDeTarjeta [
 		advertise := nil.
 		client := (Cliente initializeCon: mail contraseña: contraseña nombre: nombre apellido: apellido dni: dni fecha: fechaNac plan: nil).
 		cardPayView := CardPayComponent newWithParent:self ofClient: client.
+]
+
+{ #category : #updating }
+RegisterComponent >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

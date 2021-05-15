@@ -19,3 +19,9 @@ HomeChoferComponent >> renderContentOn: aCanvas [
 		callback: [ self cerrarSesion ];
 		with: 'Cerrar sesion'
 ]
+
+{ #category : #updating }
+HomeChoferComponent >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
+]

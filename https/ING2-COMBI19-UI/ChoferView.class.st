@@ -47,24 +47,32 @@ ChoferView >> parent: anObject [
 ]
 
 { #category : #rendering }
-ChoferView >> renderContentOn: html [
-	html heading: 'Pantalla de CRUD Choferes'.
-	self renderizarChoferes: html.
-	html render: deleteErrorView.
-	html anchor
+ChoferView >> renderContentOn: aCanvas [
+	aCanvas heading
+	level:4;
+	with: 'Lista de choferes activos '.
+	self renderizarChoferes: aCanvas.
+	aCanvas render: deleteErrorView.
+	aCanvas anchor
 		callback: [ self parent activarChoferCreationView ];
-		with: [ html submitButton with: 'Crear chofer' ]
+		with: [ aCanvas submitButton with: 'Crear chofer' ]
 ]
 
 { #category : #rendering }
-ChoferView >> renderizarChoferes: html [
+ChoferView >> renderizarChoferes: aCanvas [
 	"Si no tiene choferes imprime que no tiene"
 
 	self model choferes
-		ifNil: [ html heading level4 with: 'No hay Choferes cargadados en el sistema' ];
-		ifNotNil: [ html
+		ifNil: [ aCanvas heading level2 with: 'No hay Choferes cargadados en el sistema' ];
+		ifNotNil: [ aCanvas
 				unorderedList: [ self model choferes
 						do: [ :chofer | 
-							html
-								listItem: [ html render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
+							aCanvas
+								listItem: [ aCanvas render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
+]
+
+{ #category : #updating }
+ChoferView >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

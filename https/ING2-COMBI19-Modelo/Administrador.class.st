@@ -124,6 +124,13 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 	viajes add: unViaje
 ]
 
+{ #category : #'as yet unclassified' }
+Administrador >> buscarLugar: unLugar [
+	^ lugares detect: [ :lugar | lugar string = unLugar ].
+	
+
+]
+
 { #category : #accessing }
 Administrador >> combis [
 	^combis
@@ -211,9 +218,13 @@ Administrador >> eliminarViaje: aViaje [
 Administrador >> existeCombi: unaPatente [
 	unaPatente
 		ifEmpty: [ ^ false ]
-		ifNotEmpty: [ (combis detect: [ :unaCombi | unaCombi patente = unaPatente ])
-				ifNil: [ ^ true ]
-				ifNotNil: [ ^ false ] ]
+		ifNotEmpty: [ ^ (combis anySatisfy:  [ :unaCombi | unaCombi patente = unaPatente ])
+				]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> existeViajeConRuta: unaRuta [
+	^viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ] 
 ]
 
 { #category : #'as yet unclassified' }

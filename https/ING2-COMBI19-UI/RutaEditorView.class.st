@@ -8,7 +8,8 @@ Class {
 		'fecha',
 		'hora',
 		'combi',
-		'distancia'
+		'distancia',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -57,7 +58,14 @@ RutaEditorView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	self ruta editarOrigen: self origen destino: self destino   horario: self hora   combi: self combi  distancia: self distancia
+	(self ruta
+		editarOrigen: self origen
+		destino: self destino
+		horario: self hora
+		combi: self combi
+		distancia: self distancia)
+		ifTrue: [ self answer ]
+		ifFalse: [ self renderAdvertencia ]
 ]
 
 { #category : #accessing }
@@ -85,6 +93,19 @@ RutaEditorView >> origen: anOrigen [
 ]
 
 { #category : #rendering }
+RutaEditorView >> renderAdvertencia [
+	advertencia :=
+			(GenericAdvertiseView
+				newWithParent: self
+				heading: 'No se puede agregar ruta '
+				item1:
+					'La ruta con origen ' , self origen , ' y destino ' , self destino
+						, ' ya existe'
+				item2: nil
+				item3: nil)
+]
+
+{ #category : #rendering }
 RutaEditorView >> renderContentOn: html [
 	html
 		form: [ self renderizarCamposBasicosOn: html.
@@ -107,13 +128,13 @@ RutaEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 RutaEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self guardarDatos.
-			self answer ];
+		callback: [ self guardarDatos ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton
 		callback: [ self answer ];
-		value: 'Cancelar'
+		value: 'Cancelar'.
+	advertencia ifNotNil: [ html render: advertencia  ]
 ]
 
 { #category : #rendering }

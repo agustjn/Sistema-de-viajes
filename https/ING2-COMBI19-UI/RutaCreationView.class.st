@@ -7,7 +7,8 @@ Class {
 		'destino',
 		'hora',
 		'combi',
-		'distancia'
+		'distancia',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -15,6 +16,11 @@ Class {
 { #category : #'instance creation' }
 RutaCreationView class >> newWithParent: aParent [
 	^ self new parent: aParent
+]
+
+{ #category : #accessing }
+RutaCreationView >> advertencia [
+	^advertencia 
 ]
 
 { #category : #accessing }
@@ -46,12 +52,14 @@ RutaCreationView >> distancia: aDistancia [
 
 { #category : #'as yet unclassified' }
 RutaCreationView >> guardarRuta [
-	self model administrador
-		agregarRuta: self origen
-		destino: self destino
+	(self model administrador
+		agregarRuta: (self model administrador buscarLugar: self origen)
+		destino: (self model administrador buscarLugar: self destino)
 		horario: self hora
 		combi: self combi
-		distancia: self distancia
+		distancia: self distancia)
+		ifTrue: [ self parent activarRutasView ]
+		ifFalse: [ self renderAdvertencia ]
 ]
 
 { #category : #accessing }
@@ -87,6 +95,17 @@ RutaCreationView >> parent: aParent [
 ]
 
 { #category : #rendering }
+RutaCreationView >> renderAdvertencia [
+	advertencia := 
+			(GenericAdvertiseView
+				newWithParent: self
+				heading: 'No se puede agregar ruta '
+				item1: 'La ruta seleccionada ya tiene un viaje pendiente'
+				item2: nil
+				item3: nil)
+]
+
+{ #category : #rendering }
 RutaCreationView >> renderContentOn: html [
 	html heading level2 with: 'Creacion de una nueva ruta'.
 	html horizontalRule.
@@ -94,14 +113,14 @@ RutaCreationView >> renderContentOn: html [
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html submitButton
-				callback: [ self guardarRuta.
-					self parent activarRutasView  ];
+				callback: [ self guardarRuta ];
 				value: 'Guardar'.
 			html space.
 			html space.
 			html submitButton
 				callback: [ self parent desactivarRutaCreationView ];
-				with: 'Cancelar' ]
+				with: 'Cancelar' ].
+	advertencia ifNotNil: [ html render: advertencia ]
 ]
 
 { #category : #rendering }

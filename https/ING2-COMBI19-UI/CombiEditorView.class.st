@@ -179,7 +179,7 @@ CombiEditorView >> renderizarCamposOn: html [
 	html break.
 	(html select on: #choferName of: self)
 		list: self choferes;
-		selected: combi chofer nombre
+		selected: choferName
 ]
 
 { #category : #accessing }

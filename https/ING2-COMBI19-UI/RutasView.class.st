@@ -37,6 +37,7 @@ RutasView >> parent: aParent [
 RutasView >> renderContentOn: html [
 	html heading: 'Rutas'.
 	self renderizarRutas: html.
+	
 	html anchor
 		callback: [ self parent activarRutaCreationView ];
 		with: [ html submitButton with: 'Crear Ruta' ]

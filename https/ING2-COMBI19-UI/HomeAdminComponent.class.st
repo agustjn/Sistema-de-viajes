@@ -52,7 +52,7 @@ HomeAdminComponent >> activarCombiCreationView [
 	viajeView := nil.
 	rutasView := nil.
 	insumosView := nil.
-	insumosCreationView := nil.
+	insumoCreationView := nil.
 	rutasCreationView := nil.
 	viajeCreationView := nil.
 	lugarCreationView := nil.
@@ -169,6 +169,7 @@ HomeAdminComponent >> activarRutaCreationView [
 
 { #category : #event }
 HomeAdminComponent >> activarRutasView [
+
 	combiView := nil.
 	choferView := nil.
 	lugarView := nil.

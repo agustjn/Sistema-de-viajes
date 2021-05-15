@@ -67,7 +67,7 @@ CombiCreationView >> choferName: anObject [
 
 { #category : #accessing }
 CombiCreationView >> choferesDisponibles [
-	^ self model choferesDisponibles collect: [ :chofer | chofer nombre ]
+	^ self model choferesDisponibles collect: [ :unChofer | unChofer  ]
 ]
 
 { #category : #event }
@@ -134,11 +134,11 @@ advertiseView := GenericAdvertiseView
 { #category : #rendering }
 CombiCreationView >> renderContentOn: html [
 	self model choferesDisponibles
-		ifNil: [ self
+		ifEmpty: [ self
 				renderAdvertencia:
 					'No hay choferes disponibles, por favor agregue un chofer para continuar'.
-					html render: advertiseView]
-		ifNotNil: [ html heading level2 with: 'Creacion de nueva combi'.
+			html render: advertiseView ]
+		ifNotEmpty: [ html heading level2 with: 'Creacion de nueva combi'.
 			html horizontalRule.
 			html
 				form: [ self renderizarFormularioOn: html.
@@ -172,9 +172,12 @@ CombiCreationView >> renderizarFormularioOn: html [
 	html text: 'Tipo de asientos'.
 	html break.
 	(html select on: #tipo of: self) list: self tiposDeAsientos.
-	html break.	
+	html break.
+
+	html text: 'Seleccione un chofer'.
+	html break.
 	(html select on: #choferName of: self)
-		list: self model choferesDisponibles;
+		list: self choferesDisponibles;
 		selected: choferName
 ]
 

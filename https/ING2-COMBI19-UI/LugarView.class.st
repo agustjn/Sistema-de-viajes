@@ -32,11 +32,16 @@ LugarView >> parent: anObject [
 
 { #category : #rendering }
 LugarView >> renderContentOn: html [
-	html heading: 'Lugares del sistema'.
-	self renderizarLugares: html.
+html heading: 'Lugares del sistema'.
+	(self model administrador lugares) isEmpty
+		ifTrue:
+				[ html heading level4 with: 'No hay lugares cargadados en el sistema' ];
+		ifFalse:[	
+	self renderizarLugares: html] .
 	html anchor
 				callback:[ self parent activarLugarCreationView ] ; 
 				with:[ html submitButton with:'Crear lugar' ]
+
 				
 
 ]

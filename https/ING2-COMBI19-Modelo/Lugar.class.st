@@ -23,6 +23,13 @@ Lugar >> editarPronvincia: unaProvincia localidad: unaLocalidad [
 		ifFalse: [ localidad := unaLocalidad ]
 ]
 
+{ #category : #'as yet unclassified' }
+Lugar >> editarProvincia: unaProvincia localidad: unaLocalidad [
+	unaProvincia = ''
+		ifFalse: [ provincia := unaProvincia ]. unaLocalidad = ''
+		ifFalse: [ localidad := unaLocalidad ]
+]
+
 { #category : #initialization }
 Lugar >> localidad [ 
 	^localidad

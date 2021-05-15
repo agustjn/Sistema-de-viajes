@@ -17,9 +17,9 @@ LugarEditorView class >> newOf: aPlace [
 	^ instance
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 LugarEditorView >> guardarDatos [
-	place editarPronvincia: self provincia localidad: self localidad  
+	place editarProvincia: (self provincia) localidad: (self localidad)
 ]
 
 { #category : #accessing }
@@ -30,6 +30,11 @@ LugarEditorView >> localidad [
 { #category : #accessing }
 LugarEditorView >> localidad: anObject [
 	localidad := anObject
+]
+
+{ #category : #accessing }
+LugarEditorView >> model [
+	^Combi19 soleInstance
 ]
 
 { #category : #accessing }
@@ -57,12 +62,14 @@ LugarEditorView >> renderContentOn: html [
 	html heading: 'Editar lugar'.
 	html break.
 	html text:'Provincia : '.
-	(html textInput on:#provincia of:self)placeholder: place provincia.
+	(html select on:#provincia of:self) list:(self model provinciasArgentinas).
 	html break. 
 	html break.
 	html text:'Localidad: '.
 	(html textInput on:#localidad of:self)placeholder: place localidad.
 	html break.
+	html break.
+	self renderizarBotonesOn: html.
 	
 	
 ]
@@ -81,10 +88,10 @@ LugarEditorView >> renderizarAdvertencia: html [
 
 { #category : #rendering }
 LugarEditorView >> renderizarBotonesOn: html [
-html submitButton
+	html anchor
 		callback: [ self guardarDatos.
 			self answer ];
-		value: 'Confirmar!'.
+		with: [html submitButton with:'Confirmar'].
 	html space.
 	html submitButton
 		callback: [ self answer ];

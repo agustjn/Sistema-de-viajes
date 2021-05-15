@@ -56,21 +56,11 @@ Administrador >> agregarCombiModelo: unModelo patente: unaPatente cantidadAsient
 
 { #category : #accessing }
 Administrador >> agregarInsumo: unInsumo [
-	(insumos includes: unInsumo)
+
+(insumos anySatisfy: [ :supply | ( supply nombre = unInsumo nombre ) & (supply marca = unInsumo marca)])
 		ifFalse:[ insumos add: unInsumo.
 					 ^true ].
 		^false
-]
-
-{ #category : #deprecated }
-Administrador >> agregarInsumo: unNombre tipo: unTipo precio: unPrecio [
-	"Si el nombre y el tipo de insumo no existe lo crea y agrega a la coleccion de insumos
-"
-	|unInsumo|
-	unInsumo := Insumo initializeCon: unNombre tipo:  unTipo  precio:  unPrecio.
-	(insumos anySatisfy: [ :insumo | insumo = unInsumo ]) ifTrue: [ ^false ] ifFalse: [ insumos add: unInsumo. ^ true ] 
-
-	
 ]
 
 { #category : #accessing }

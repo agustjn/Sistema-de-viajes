@@ -46,30 +46,55 @@ MenuAdminView >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-MenuAdminView >> renderizarAnchors: html [
-	html
-		unorderedList: [ html
-				listItem: [ html anchor
+MenuAdminView >> renderizarAnchors: aCanvas [
+aCanvas navigation
+	class:'navbar navbar-expand-lg navbar-light bg-light mb-4';
+	with: [
+		aCanvas div 
+			class: 'collapse navbar-collapse';
+			with:[
+				aCanvas unorderedList
+				class:'navbar-nav mr-auto';
+					with:[ aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
 						callback: [ self parent activarChoferView ];
 						with: 'Choferes' ].
-			html
-				listItem: [ html anchor
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with:[ aCanvas anchor
 						callback: [ self parent activarCombiView ];
 						with: 'Combis' ].
-			html
-				listItem: [ html anchor
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
 						callback: [ self parent activarViajeView ];
 						with: 'Viajes' ].
-			html
-				listItem: [ html anchor
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
 						callback: [  self parent activarRutasView ];
 						with: 'Rutas' ].
-			html
-				listItem: [ html anchor
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
 						callback: [ self parent activarLugarView ];
 						with: 'Lugares' ].
-			html
-				listItem: [ html anchor
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
 						callback: [ self parent activarInsumoView ];
 						with: 'Insumos' ] ]
+				
+				].
+		
+		].
+		
+
 ]

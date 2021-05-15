@@ -256,23 +256,26 @@ aCanvas div
 { #category : #rendering }
 RegisterComponent >> renderizarNomApYMailOn: aCanvas [
 	aCanvas div
-			class: 'form-group col-12 mx-0';
+			class: 'row';
 			with:[
-			aCanvas label: 'Nombre'.	
-			aCanvas textInput 
-			placeholder:'Pedro';
-			class: 'form-control required';
-			on: #nombre of: self.].
-	aCanvas div
-			class: 'form-group col-12 mx-0';
-			with:[	
-			aCanvas label: 'Apellido'.	
-			aCanvas textInput 
-			placeholder:'Perez';
-			class: 'form-control required';
-			on: #apellido of: self.						
+				aCanvas div
+					class: 'form-group col ml-3';
+					with:[
+					aCanvas label: 'Nombre'.	
+					aCanvas textInput 
+					placeholder:'Pedro';
+					class: 'form-control required';
+					on: #nombre of: self.].
+				aCanvas div
+					class: 'form-group col ml-3';
+					with:[	
+					aCanvas label: 'Apellido'.	
+					aCanvas textInput 
+					placeholder:'Perez';
+					class: 'form-control required';
+					on: #apellido of: self.						
+					].
 			].
-		
 		aCanvas div
 			class: 'form-group col-12';
 			with:[

@@ -5,7 +5,6 @@ Class {
 		'parent',
 		'origen',
 		'destino',
-		'hora',
 		'combi',
 		'distancia',
 		'advertencia'
@@ -52,23 +51,16 @@ RutaCreationView >> distancia: aDistancia [
 
 { #category : #'as yet unclassified' }
 RutaCreationView >> guardarRuta [
+	| origenObj destinoObj |
+	origenObj := self model administrador buscarLugar: self origen.
+	destinoObj := self model administrador buscarLugar: self destino.
 	(self model administrador
-		agregarRuta: (self model administrador buscarLugar: self origen)
-		destino: (self model administrador buscarLugar: self destino)
-		horario: self hora
+		agregarRuta: origenObj
+		destino: destinoObj
 		combi: self combi
 		distancia: self distancia)
 		ifTrue: [ self parent activarRutasView ]
 		ifFalse: [ self renderAdvertencia ]
-]
-
-{ #category : #accessing }
-RutaCreationView >> hora [ ^hora
-]
-
-{ #category : #accessing }
-RutaCreationView >> hora: aHora [
-	hora := aHora
 ]
 
 { #category : #accessing }
@@ -96,13 +88,22 @@ RutaCreationView >> parent: aParent [
 
 { #category : #rendering }
 RutaCreationView >> renderAdvertencia [
-	advertencia := 
-			(GenericAdvertiseView
-				newWithParent: self
-				heading: 'No se puede agregar ruta '
-				item1: 'La ruta seleccionada ya tiene un viaje pendiente'
-				item2: nil
-				item3: nil)
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Ruta existente '
+		item1: 'No se puede agregar la ruta '
+		item2: 'La ruta   desde ' , origen , ' hasta ' , destino , ' ya existe '
+		item3: nil
+]
+
+{ #category : #rendering }
+RutaCreationView >> renderAdvertencia: ruta [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'No se puede agregar ruta '
+		item1: 'La ruta  ' , ruta string , ' ya existe '
+		item2: nil
+		item3: nil
 ]
 
 { #category : #rendering }
@@ -142,9 +143,6 @@ RutaCreationView >> renderizarFormularioOn: html [
 	(html select on: #combi of: self)
 		list: self model administrador combisNombresModelo.
 	html break.
-	html text: 'Ingrese un horario'.
-	html space.
-	html textInput on: #hora of: self.
 	html space.
 	html text: 'Ingrese la distancia '.
 	html space.

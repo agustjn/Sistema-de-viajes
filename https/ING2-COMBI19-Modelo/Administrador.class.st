@@ -92,17 +92,17 @@ Administrador >> agregarRuta: unaRuta [
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> agregarRuta: unOrigen destino: unDestino horario: unaHora combi: unaCombi distancia: unaDistancia [
+Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [
 	"Chequea que la ruta no exista, en dicho caso agrega la ruta a la coleccion de rutas y devuelve un booleano confirmando o denegando la accion"
 
 	| unaRuta |
 	unaRuta := Ruta
 		initializeCon: unOrigen
 		destino: unDestino
-		horario: unaHora
 		combi: unaCombi
 		distancia: unaDistancia.
-	(rutas anySatisfy: [ :ruta | ruta = unaRuta ])
+	(self
+		existeRuta: unaRuta)
 		ifTrue: [ ^ false ]
 		ifFalse: [ rutas add: unaRuta.
 			^ true ]
@@ -126,10 +126,21 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> buscarLugar: unLugar [
-	^ lugares detect: [ :lugar | lugar string = unLugar ].
-	
+Administrador >> buscarCombi: unaCombiString [
+	^ combis detect: [ :unaCombi | unaCombi string = unaCombiString ]
+]
 
+{ #category : #'as yet unclassified' }
+Administrador >> buscarLugar: unLugarString [
+	"Le llega el string de un lugar, y obtiene el objeto lugar"
+
+	^ lugares detect: [ :lugar | lugar string = unLugarString ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> buscarRuta: unaRutaString [
+"Recibe el string de la ruta y obtiene el objeto ruta"
+	^ rutas detect: [ :unaRuta | unaRuta string = unaRutaString ]
 ]
 
 { #category : #accessing }
@@ -138,8 +149,8 @@ Administrador >> combis [
 ]
 
 { #category : #accessing }
-Administrador >> combisNombresModelo [
-	^ combis collect: [ :combi | combi modelo ]
+Administrador >> combisNombres [
+	^ combis collect: [ :combi | combi string ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -163,11 +174,17 @@ Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: un
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino horario: unHorario combi: unaCombi distancia: unaDistancia [
-"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
-	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [
+	"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
+
+	((viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+		| (self existeRuta: unaRuta))
 		ifTrue: [ ^ false ]
-		ifFalse: [ unaRuta editarOrigen: unOrigen destino: unDestino horario: unHorario combi: unaCombi distancia: unaDistancia.
+		ifFalse: [ unaRuta
+				editarOrigen: unOrigen
+				destino: unDestino
+				combi: unaCombi
+				distancia: unaDistancia.
 			^ true ]
 ]
 
@@ -221,6 +238,11 @@ Administrador >> existeCombi: unaPatente [
 		ifEmpty: [ ^ false ]
 		ifNotEmpty: [ ^ (combis anySatisfy:  [ :unaCombi | unaCombi patente = unaPatente ])
 				]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> existeRuta: unaRuta [
+	^ rutas anySatisfy: [ :laRuta | laRuta = unaRuta ]
 ]
 
 { #category : #'as yet unclassified' }

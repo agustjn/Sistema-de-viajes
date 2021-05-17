@@ -6,7 +6,6 @@ Class {
 		'origen',
 		'destino',
 		'fecha',
-		'hora',
 		'combi',
 		'distancia',
 		'advertencia'
@@ -58,24 +57,15 @@ RutaEditorView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	(self ruta
-		editarOrigen: self origen
+	self halt.
+	(self model administrador
+		editarRuta: self ruta
+		origen: self origen
 		destino: self destino
-		horario: self hora
-		combi: self combi
+		combi: (self model administrador buscarCombi: self combi)
 		distancia: self distancia)
 		ifTrue: [ self answer ]
 		ifFalse: [ self renderAdvertencia ]
-]
-
-{ #category : #accessing }
-RutaEditorView >> hora [ 	
-	^hora
-]
-
-{ #category : #accessing }
-RutaEditorView >> hora: aHora [
-	hora := aHora
 ]
 
 { #category : #accessing }
@@ -94,15 +84,14 @@ RutaEditorView >> origen: anOrigen [
 
 { #category : #rendering }
 RutaEditorView >> renderAdvertencia [
-	advertencia :=
-			(GenericAdvertiseView
-				newWithParent: self
-				heading: 'No se puede agregar ruta '
-				item1:
-					'La ruta con origen ' , self origen , ' y destino ' , self destino
-						, ' ya existe'
-				item2: nil
-				item3: nil)
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'No se puede editar ruta '
+		item1:
+			'La ruta con origen ' , self origen , ' y destino ' , self destino , ' combi ', combi 
+				, ' ya existe'
+		item2: nil
+		item3: nil
 ]
 
 { #category : #rendering }
@@ -162,15 +151,13 @@ RutaEditorView >> renderizarCamposOn: html [
 	html text: 'Seleccionar la combi'.
 	html space.
 	(html select on: #combi of: self)
-		list: self model administrador combisNombresModelo.
+		list: self model administrador combisNombres.
 	html break.
-	html text: 'Ingrese un horario'.
-	html space.
-	html textInput on: #hora of: self.
 	html space.
 	html text: 'Ingrese la distancia '.
 	html space.
-	html textInput on: #distancia of: self
+	html textInput on: #distancia of: self.
+	html text: 'km'
 ]
 
 { #category : #accessing }

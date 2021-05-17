@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'ruta',
-		'parent'
+		'parent',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -14,9 +15,20 @@ RutaSelector class >> of: aRuta andParent: aParent [
 ]
 
 { #category : #'as yet unclassified' }
+RutaSelector >> eliminarRuta [
+	(self model administrador eliminarRuta: self ruta) ifFalse: [  advertiseView := GenericAdvertiseView
+				newWithParent: self
+				heading: 'Error al eliminar Ruta'
+				item1: 'La ruta ', self ruta string, ' no se puede eliminar por esta a un viaje asociado '
+				item2: nil
+				item3: nil  ]
+]
+
+{ #category : #'as yet unclassified' }
 RutaSelector >> inicializeCon: aRuta parent: aParent [
 	ruta := aRuta.
-	parent :=aParent
+	parent := aParent.
+	advertiseView  := nil.
 ]
 
 { #category : #'as yet unclassified' }
@@ -33,11 +45,12 @@ RutaSelector >> parent [
 RutaSelector >> renderContentOn: html [
 	html
 		text:
-			'Ruta desde  ' , ruta origen string , '    hasta  ' , ruta destino string
-				, '    combi ' , ruta combi string , '    distancia: '
-				, ruta distancia , 'km'.
+			'Ruta desde  ' , ruta origen string , '    hasta  '
+				, ruta destino string , '    combi ' , ruta combi string
+				, '    distancia: ' , ruta distancia , 'km'.
 	html space.
-	self renderizarBotonesABMOn: html
+	self renderizarBotonesABMOn: html.
+	html render: advertiseView
 ]
 
 { #category : #'as yet unclassified' }
@@ -47,8 +60,7 @@ RutaSelector >> renderizarBotonesABMOn: html [
 		with: [ html submitButton with: 'Editar' ].
 	html space.
 	html anchor
-		callback: [ self model administrador eliminarRuta: self ruta.
-			self answer ];
+		callback: [ self eliminarRuta.self answer ];
 		with: [ html submitButton with: 'Eliminar' ]
 ]
 

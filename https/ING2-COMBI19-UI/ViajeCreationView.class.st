@@ -28,13 +28,11 @@ ViajeCreationView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 ViajeCreationView >> guardarViaje [
-
 	self model administrador
-		agregarViajeConRuta: self ruta
+		agregarViajeConRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
 		hora: self hora
 		precio: self precio
-		
 ]
 
 { #category : #rendering }

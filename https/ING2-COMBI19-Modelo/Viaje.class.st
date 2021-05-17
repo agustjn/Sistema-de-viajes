@@ -20,6 +20,11 @@ Viaje class >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPr
 		precio: unPrecio
 ]
 
+{ #category : #comparing }
+Viaje >> = unViaje [
+	  ^ ((self ruta = unViaje ruta ) & (self fecha = unViaje fecha ) & ( self hora = unViaje hora ))
+]
+
 { #category : #accessing }
 Viaje >> fecha [
 	^fecha

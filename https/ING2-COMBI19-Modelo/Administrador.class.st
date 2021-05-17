@@ -114,14 +114,15 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 
 	| unViaje |
 	unViaje := Viaje
-				initializeCon: unaRuta
-				fecha: unaFecha
-				hora: unaHora
-				precio: unPrecio.
-	viajes ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje ruta = unaRuta ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ viajes add: unViaje.
-			^ true ]].
+		initializeCon: unaRuta
+		fecha: unaFecha
+		hora: unaHora
+		precio: unPrecio.
+	viajes
+		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje  ])
+				ifTrue: [ ^ false ]
+				ifFalse: [ viajes add: unViaje.
+					^ true ] ].
 	viajes add: unViaje
 ]
 

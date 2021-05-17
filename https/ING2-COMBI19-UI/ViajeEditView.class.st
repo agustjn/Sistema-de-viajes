@@ -29,6 +29,7 @@ ViajeEditView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 ViajeEditView >> guardarViaje [
+self halt.
 	self model administrador
 		agregarViajeConRuta: self ruta
 		fecha: self fecha

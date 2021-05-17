@@ -33,8 +33,8 @@ RutaSelector >> parent [
 RutaSelector >> renderContentOn: html [
 	html
 		text:
-			 'Ruta desde  ' , ruta origen , '    hasta  '
-				, ruta destino , '    combi ' , ruta combi string , '    distancia: '
+			 'Ruta desde  ' , ruta origen string , ' , hasta '
+				, ruta destino string , '    combi ' , ruta combi string , '    distancia: '
 				, ruta distancia , 'km'.
 	html space.
 	self renderizarBotonesABMOn: html

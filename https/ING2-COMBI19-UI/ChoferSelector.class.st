@@ -44,28 +44,44 @@ ChoferSelector >> parent [
 
 { #category : #rendering }
 ChoferSelector >> renderContentOn: html [
+	html div
+		with: [ html div
+				class: 'car';
+				with: [ html div
+						class: 'card-body';
+						with: [ html
+								heading level5 class:'card-header' ; 
+								with:'Chofer ', chofer nombre , ' ' , chofer apellido.
+								html paragraph class:'card-text' ;
+													with:[html text:'Email : ' , chofer email.
+														   html break.
+														   html text:'Telefono: ' , chofer telefono.
+														   html break.
+														   html text:'Esta activo: ', self renderizarEstadoChofer].
+								] ] ].
+	html space.
+	self renderizarBotonesABMOn: html
+]
+
+{ #category : #rendering }
+ChoferSelector >> renderizarBotonesABMOn: html [
+	html div
+		with: [ html anchor
+				callback: [ self parent call: (ChoferEditorView newOf: chofer) ];
+				with: [ html submitButton class:'btn-dark'; with: 'Editar' ].
+			html space.
+			html anchor
+				callback: [ self eliminarChofer
+					"self model eliminarChofer: chofer.
+			self answer " ];
+				with: [ html submitButton class:'btn-dark'; with: 'Eliminar'.
+					html break.
+					html space. ] ].
 	
-	html text:'Chofer: ', chofer nombre , ' ' , chofer apellido , 
-	'  / Esta ocupado: ',(self renderizarEstadoChofer: html).
-	html space.
-	self renderizarBotonesABMOn: html.
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderizarBotonesABMOn: html [ 
-	html anchor
-		callback: [ self parent call: (ChoferEditorView newOf: chofer) ];
-		with: [ html submitButton with: 'Editar'  ].
-	html space.
-	html anchor
-		callback: [ self eliminarChofer
-			"self model eliminarChofer: chofer.
-			self answer "];
-		with: [ html submitButton with: 'Eliminar' ]
-]
-
-{ #category : #rendering }
-ChoferSelector >> renderizarEstadoChofer:html [
+ChoferSelector >> renderizarEstadoChofer [
 	(chofer estado)
 			ifTrue:[ ^ 'Si' ]
 			ifFalse:[ ^'No']

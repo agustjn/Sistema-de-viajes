@@ -63,12 +63,15 @@ ChoferView >> renderizarChoferes: aCanvas [
 	"Si no tiene choferes imprime que no tiene"
 
 	self model choferes
-		ifNil: [ aCanvas heading level2 with: 'No hay Choferes cargadados en el sistema' ];
-		ifNotNil: [ aCanvas
-				unorderedList: [ self model choferes
-						do: [ :chofer | 
-							aCanvas
-								listItem: [ aCanvas render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
+		ifNil: [ aCanvas heading level2
+				with: 'No hay Choferes cargadados en el sistema' ];
+		ifNotNil: [ aCanvas unorderedList
+				class: 'row';
+				with: [ self model choferes
+						do: [ :chofer | aCanvas space.
+							aCanvas listItem
+								class: 'card col-sm-3 bg-primary';
+								with: [ aCanvas render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
 ]
 
 { #category : #updating }

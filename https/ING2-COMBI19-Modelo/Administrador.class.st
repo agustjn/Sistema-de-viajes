@@ -24,7 +24,10 @@ Administrador class >> initializeCon: unNombre apellido: unApellido mail: unEmai
 
 { #category : #accessing }
 Administrador >> agregarCombi: unaCombi [
- 	combis add: unaCombi
+	(combis anySatisfy: [ :vehiculo | vehiculo == unaCombi ])
+		ifFalse:[ combis add: unaCombi.
+					 ^ true ] .
+		^false
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,6 +81,14 @@ Administrador >> agregarProvincia: unaProvincia localidad: unaLocalidad [
 	unLugar := Lugar initializeCon: unaProvincia localidad: unaLocalidad.
 	lugares add: unLugar.
 	^unLugar
+]
+
+{ #category : #accessing }
+Administrador >> agregarRuta: unaRuta [
+	(rutas anySatisfy: [ :rute | rute == unaRuta ])
+		ifFalse:[ rutas add: unaRuta.
+					 ^ true ] .
+		^false
 ]
 
 { #category : #'as yet unclassified' }

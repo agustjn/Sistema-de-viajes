@@ -121,7 +121,8 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 	viajes
 		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje  ])
 				ifTrue: [ ^ false ]
-				ifFalse: [ viajes add: unViaje.
+				ifFalse: [ 
+					viajes add: unViaje.
 					^ true ] ].
 	viajes add: unViaje
 ]
@@ -142,6 +143,7 @@ Administrador >> buscarLugar: unLugarString [
 Administrador >> buscarRuta: unaRutaString [
 "Recibe el string de la ruta y obtiene el objeto ruta"
 	^ rutas detect: [ :unaRuta | unaRuta string = unaRutaString ]
+			ifNone:[ ^false ]
 ]
 
 { #category : #accessing }
@@ -190,6 +192,21 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: 
 ]
 
 { #category : #'as yet unclassified' }
+Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+"Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
+	| unViaje | "Los datos nuevos recibidos por parametro"
+	unViaje := Viaje
+		initializeCon: unaRuta
+		fecha: unaFecha
+		hora: unaHora
+		precio: unPrecio.
+	(viajes anySatisfy: [ :viaje | viaje = unViaje ])
+				ifTrue: [ ^ false ]
+				ifFalse: [ aTravel modificarDatosConRuta: unaRuta fecha: unaFecha  hora: unaHora precio: unPrecio.
+					^ true ] 
+]
+
+{ #category : #deprecated }
 Administrador >> editarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
 "Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
 	| unViaje |

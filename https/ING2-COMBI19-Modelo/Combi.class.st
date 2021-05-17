@@ -22,6 +22,11 @@ Combi class >> initializeModelo: unModelo patente: unaPatente asientos: unaCanti
 ]
 
 { #category : #accessing }
+Combi >> cantidadAsientos [
+	^cantidadAsientos 
+]
+
+{ #category : #accessing }
 Combi >> cantidadAsientos: anObject [
 	cantidadAsientos := anObject
 ]

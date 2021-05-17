@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'ruta',
-		'cantidadAsientosDisponibles',
+		'cantAsientosDisponibles',
 		'fecha',
 		'hora',
 		'precio'
@@ -26,6 +26,16 @@ Viaje >> = unViaje [
 ]
 
 { #category : #accessing }
+Viaje >> cantAsientosDisponibles [
+	^ cantAsientosDisponibles
+]
+
+{ #category : #accessing }
+Viaje >> cantAsientosDisponibles: anObject [
+	cantAsientosDisponibles := anObject
+]
+
+{ #category : #accessing }
 Viaje >> fecha [
 	^fecha
 ]
@@ -38,10 +48,22 @@ Viaje >> hora [
 { #category : #initialization }
 Viaje >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
 	ruta := unaRuta.
-
+	cantAsientosDisponibles := unaRuta combi cantidadAsientos.
 	fecha := unaFecha.
 	hora := unaHora.
 	precio := unPrecio
+]
+
+{ #category : #accessing }
+Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+	ruta := unaRuta .
+	
+	unaFecha = ''
+		ifFalse: [ fecha := unaFecha ].
+	unaHora = ''
+		ifFalse: [ hora := unaHora ].
+	unPrecio = ''
+		ifFalse: [ precio := unPrecio ]
 ]
 
 { #category : #accessing }

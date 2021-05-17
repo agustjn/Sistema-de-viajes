@@ -5,11 +5,9 @@ Class {
 		'parent',
 		'viaje',
 		'ruta',
-		'horario',
 		'fecha',
 		'hora',
 		'precio',
-		'tile',
 		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
@@ -17,10 +15,10 @@ Class {
 
 { #category : #'instance creation' }
 ViajeEditView class >> newOf: aViaje [
-	self new viaje: aViaje
+	^ self new viaje: aViaje
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 ViajeEditView >> advertencia: title con: text [ 
 advertiseView := GenericAdvertiseView
 				newWithParent: self
@@ -28,6 +26,16 @@ advertiseView := GenericAdvertiseView
 				item1: text
 				item2: nil
 				item3: nil 
+]
+
+{ #category : #accessing }
+ViajeEditView >> advertiseView [
+	^ advertiseView
+]
+
+{ #category : #accessing }
+ViajeEditView >> advertiseView: anObject [
+	advertiseView := anObject
 ]
 
 { #category : #accessing }
@@ -39,11 +47,11 @@ ViajeEditView >> fecha: aFecha [
 	fecha:= aFecha
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 ViajeEditView >> guardarViaje [
 	self halt.
 	(self model administrador
-		editarViajeConRuta: (self model administrador buscarRuta: self ruta)
+		editarViaje: self viaje conRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
 		hora: self hora
 		precio: self precio) ifFalse: [ self advertencia: 'Error al querer editar' con: 'El viaje ingresado ya existe' ]
@@ -61,6 +69,16 @@ ViajeEditView >> hora: aHora [
 { #category : #accessing }
 ViajeEditView >> model [
  ^Combi19 soleInstance 
+]
+
+{ #category : #accessing }
+ViajeEditView >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+ViajeEditView >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #accessing }
@@ -117,29 +135,31 @@ ViajeEditView >> renderizarCamposBasicosOn: html [
 { #category : #rendering }
 ViajeEditView >> renderizarCamposOn: html [
 	html heading level4 with: 'Seleccione la ruta del viaje'.
-	html select
+	(html select on:#ruta of:self)
 		list: (self model administrador rutasNombre);
-		callback: [ :value | self ruta: value ].
+		selected:ruta.
 	html break.
 	html text: 'Precio del boleto'.
 	html break.
-	html textInput on: #precio of: self.
+	(html textInput on: #precio of: self)placeholder:self viaje precio .
 	html break.
 	html text: 'Horario del viaje '.
 	html break.
-	html textInput on: #hora of: self.
+	(html textInput on: #hora of: self)placeholder:self viaje hora.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
-	html dateInput on: #fecha of: self
+	html break.
+	html dateInput on: #fecha of: self.
 ]
 
 { #category : #accessing }
-ViajeEditView >> ruta [ ^ruta
+ViajeEditView >> ruta [
+	^ ruta
 ]
 
 { #category : #accessing }
-ViajeEditView >> ruta: aRuta [
-	ruta := ruta
+ViajeEditView >> ruta: anObject [
+	ruta := anObject
 ]
 
 { #category : #accessing }

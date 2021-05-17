@@ -57,7 +57,6 @@ RutaEditorView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	self halt.
 	(self model administrador
 		editarRuta: self ruta
 		origen: self origen

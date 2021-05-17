@@ -63,7 +63,7 @@ Ruta >> origen [
 
 { #category : #accessing }
 Ruta >> string [
-	^ 'Desde: ' , self origen string , ' hasta ' , self destino string 
+	^ 'Desde: ' , self origen string , ' Hasta: ' , self destino string 
 ]
 
 { #category : #accessing }

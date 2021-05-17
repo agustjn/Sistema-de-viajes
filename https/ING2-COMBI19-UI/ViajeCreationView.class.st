@@ -6,7 +6,8 @@ Class {
 		'ruta',
 		'fecha',
 		'hora',
-		'precio'
+		'precio',
+		'errorView'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -26,7 +27,7 @@ ViajeCreationView >> fecha: aFecha [
 	fecha:= aFecha
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 ViajeCreationView >> guardarViaje [
 	self model administrador
 		agregarViajeConRuta: (self model administrador buscarRuta: self ruta)
@@ -81,7 +82,9 @@ ViajeCreationView >> renderContentOn: html [
 			html space.
 			html submitButton
 				callback: [ self parent desactivarViajeCreationView ];
-				with: 'Cancelar' ]
+				with: 'Cancelar' ].
+	html render: errorView.
+	 
 ]
 
 { #category : #rendering }
@@ -100,7 +103,9 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html textInput on: #hora of: self.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
-	html dateInput on: #fecha of: self
+	html break.
+	html dateInput on: #fecha of: self.
+	html break.
 ]
 
 { #category : #rendering }

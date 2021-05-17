@@ -19,30 +19,35 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	|ruta1 ruta2 combi1 combi2|
+	| chofer1 chofer2 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 combi1 combi2|
 	self soleInstance.
+	"---------------------------Usuarios-----------------"
+	chofer1 := Chofer initializeCon: 'Esteban' apellido: 'Perez' email: 'esteban@hotmail.com' contraseña: '123456' telefono: '2218896545'.
+	chofer2 := Chofer initializeCon: 'Carlos' apellido: 'Mansilla' email: 'carlos@hotmail.com' contraseña: '1234567' telefono: '22215312'.
 	soleInstance
 		crearAdmin: 'ING'
 		apellido: 'SOFT 2'
 		mail: 'admin'
-		contraseña: 'admin'.
-	soleInstance
-		crearChofer: 'Esteban'
-		apellido: 'Perez'
-		email: 'esteban@hotmail.com'
-		contraseña: '123456'
-		telefono: '2218896545'.
-	soleInstance
-		crearChofer: 'Carlos'
-		apellido: 'Mansilla'
-		email: 'carlos@hotmail.com'
-		contraseña: '1234567'
-		telefono: '22215312'.
-		combi1 := (Combi initializeModelo: 'Mercedes Benz Sprinter' patente: 'CGF-412' asientos: 40 chofer:(soleInstance buscarChoferNombre: 'Carlos') tipo: 'Semi-Cama').
+		contraseña: 'admin'.	
+	soleInstance agregarChofer: chofer1.
+	soleInstance agregarChofer: chofer2.
+	"---------------------------Combis-----------------"
+		combi1 := (Combi initializeModelo: 'Mercedes Benz Sprinter' patente: 'CGF-412' asientos: 40 chofer:chofer1 tipo: 'Semi-Cama').
 	soleInstance administrador agregarCombi:combi1.
-	combi2 := (Combi initializeModelo: 'Ford Transit' patente: 'PKP-359' asientos: 35 chofer:(soleInstance buscarChoferNombre: 'Esteban') tipo: 'Cama').
+	combi2 := (Combi initializeModelo: 'Ford Transit' patente: 'PKP-359' asientos: 35 chofer:chofer2 tipo: 'Cama').
 	soleInstance administrador agregarCombi:combi2.
-
+	"---------------------------Lugares-----------------"
+	lugar1 := (Lugar deProvincia:'Buenos Aires' yLocalidad:'La Plata').
+	lugar2 := (Lugar deProvincia:'Rio Negro' yLocalidad:'Viedma' ).
+	lugar3 := (Lugar deProvincia:'Córdoba' yLocalidad:'Villa Carlos Paz').
+	lugar4 := (Lugar deProvincia:'Jujuy' yLocalidad:'San Salvador de Jujuy').
+	soleInstance administrador agregarLugar: lugar1 ; agregarLugar: lugar2 ; agregarLugar: lugar3 ; agregarLugar: lugar4.
+	
+	"---------------------------Rutas-----------------"
+	ruta1 := Ruta initializeCon: lugar1 destino: lugar2 horario: '15:00' combi: combi1 distancia: '700 KM'.
+	ruta2 := Ruta initializeCon: lugar3 destino: lugar4 horario: '05:00' combi: combi2 distancia: '650 KM'.
+	soleInstance administrador agregarRuta: ruta1 ; agregarRuta: ruta2.
+	
 	
 ]
 
@@ -59,6 +64,11 @@ Combi19 >> administrador [
 { #category : #accessing }
 Combi19 >> administrador: anObject [
 	administrador := anObject
+]
+
+{ #category : #accessing }
+Combi19 >> agregarChofer: unChofer [
+	choferes add: unChofer
 ]
 
 { #category : #'as yet unclassified' }

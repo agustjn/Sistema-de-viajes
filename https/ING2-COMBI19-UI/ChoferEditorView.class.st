@@ -105,59 +105,84 @@ ChoferEditorView >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-ChoferEditorView >> renderizarAdvertencia: html [
-	html
-		div: [ html heading level2 with: 'Aviso'.
-			html
+ChoferEditorView >> renderizarAdvertencia: aCanvas [
+	aCanvas
+		div: [ aCanvas heading level5 with: 'Aviso'.
+		 aCanvas
 				unorderedList: [ 
-					html
+					aCanvas
 						listItem: 'Los campos que no se quieran modificar, se deben dejar vacios.'.
-					html listItem: 'Los caracteres en transparente indican los datos previos a la edicion.' ] ]
+					aCanvas listItem: 'Los caracteres en transparente indican los datos previos a la edicion.' ] ]
 ]
 
 { #category : #rendering }
-ChoferEditorView >> renderizarBotonesOn: html [
+ChoferEditorView >> renderizarBotonesOn: aCanvas [
 
-	html submitButton
+	aCanvas submitButton
+					class:'btn btn-primary';
 					callback: [ self editarChofer ] ;
 					value:'Confirmar!'.
-	html space.
-	html submitButton
+	aCanvas space.
+	aCanvas submitButton
+		class:'btn btn-danger';
 		callback: [ self answer ];
 		value:'Cancelar' 
 ]
 
 { #category : #rendering }
-ChoferEditorView >> renderizarCamposBasicosOn: html [
-	html horizontalRule.
-	html heading: 'Editar datos'.	
-	self renderizarAdvertencia: html.
-	self renderizarCamposOn: html.
+ChoferEditorView >> renderizarCamposBasicosOn: aCanvas [
+	aCanvas horizontalRule.
+	aCanvas heading
+	level:4;
+	with: 'Editar datos'.	
+	self renderizarAdvertencia: aCanvas.
+	self renderizarCamposOn: aCanvas.
 ]
 
 { #category : #rendering }
-ChoferEditorView >> renderizarCamposOn: html [
-	html space.
-	html break.
-	html text: 'Nombre'.
-	html break.
-	(html textInput on: #name of: self) placeholder: chofer nombre.
-	html break.
-	html text: 'Apellido/s'.
-	html break.
-	(html textInput on: #lastname of: self) placeholder: chofer apellido.
-	html break.
-	html text: 'Correo electronico'.
-	html break.
-	(html textInput on: #mail of: self) placeholder: chofer email.
-	html break.
-	html text: 'Nueva contraseña'.
-	html break.
-	(html passwordInput on: #password of: self)
-		placeholder: 'Nueva contraseña'.
-	html break. html text: 'Telefono'.
-	html break.
-	(html textInput on: #telefono of: self) placeholder: chofer telefono
+ChoferEditorView >> renderizarCamposOn: aCanvas [
+	aCanvas div
+			class: 'form-group col-5';
+			with:[
+			aCanvas label: 'Nombre'.	
+			aCanvas textInput 
+			placeholder:chofer nombre ;
+			class: 'form-control required ml-4';
+			on: #name of: self.].
+		aCanvas div
+			class: 'form-group col-5';
+			with:[
+			aCanvas label: 'Apellido/s'.	
+			aCanvas textInput 
+			placeholder: chofer apellido;
+			class: 'form-control required ml-4';
+			on: #lastname of: self.].
+	
+	aCanvas div
+			class: 'form-group col-5';
+			with:[
+			aCanvas label: 'Correo Electronico'.	
+			aCanvas textInput 
+			placeholder:chofer email;
+			class: 'form-control required ml-4';
+			on: #mail of: self.].
+	aCanvas div
+			class: 'form-group col-4';
+			with:[
+			aCanvas label: 'Contraseña'.	
+			aCanvas passwordInput 
+			placeholder:'Contraseña';
+			class: 'form-control required ml-4';
+			on: #password of: self.].
+	aCanvas div
+			class: 'form-group col-4';
+			with:[
+			aCanvas label: 'Telefono'.	
+			aCanvas numberInput 
+			placeholder:chofer telefono;
+			class: 'form-control required ml-4';
+			on: #telefono of: self.].
+	
 ]
 
 { #category : #accessing }

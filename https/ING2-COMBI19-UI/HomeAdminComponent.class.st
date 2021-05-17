@@ -253,24 +253,34 @@ HomeAdminComponent >> desactivarViajeCreationView [
 
 { #category : #rendering }
 HomeAdminComponent >> renderContentOn: aCanvas [
-	aCanvas heading level1 with: 'Combi-19'.
-	aCanvas text: 'Bienvenido admin: ' , self session user nombre.
-	aCanvas break.
-	aCanvas anchor
-		callback: [ self cerrarSesion ];
-		with: 'Cerrar sesion'.
-	aCanvas horizontalRule.
-	aCanvas render: (MenuAdminView newWithParent: self).
-	aCanvas render: choferView.
-	aCanvas render: choferCreationView.
-	aCanvas render: combiView.
-	aCanvas render: combiCreationView.
-	aCanvas render: lugarView.
-	aCanvas render: lugarCreationView.
-	aCanvas render: viajeView.
-	aCanvas render: viajeCreationView.
-	aCanvas render: rutasView.
-	aCanvas render: rutasCreationView.
-	aCanvas render: insumosView.
-	aCanvas render: insumoCreationView
+	aCanvas div 
+	class:'container';
+	with:[		
+		aCanvas heading level1 with: 'Combi-19'.
+		aCanvas text: 'Bienvenido admin: ' , self session user nombre.
+		aCanvas break.
+		aCanvas anchor
+			callback: [ self cerrarSesion ];
+			with: 'Cerrar sesion'.
+		aCanvas horizontalRule.
+		aCanvas render: (MenuAdminView newWithParent: self).
+		aCanvas render: choferView.
+		aCanvas render: choferCreationView.
+		aCanvas render: combiView.
+		aCanvas render: combiCreationView.
+		aCanvas render: lugarView.
+		aCanvas render: lugarCreationView.
+		aCanvas render: viajeView.
+		aCanvas render: viajeCreationView.
+		aCanvas render: rutasView.
+		aCanvas render: rutasCreationView.
+		aCanvas render: insumosView.
+		aCanvas render: insumoCreationView
+		].
+]
+
+{ #category : #updating }
+HomeAdminComponent >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

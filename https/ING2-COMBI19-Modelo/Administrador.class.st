@@ -190,6 +190,22 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: 
 ]
 
 { #category : #'as yet unclassified' }
+Administrador >> editarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+"Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
+	| unViaje |
+	unViaje := Viaje
+		initializeCon: unaRuta
+		fecha: unaFecha
+		hora: unaHora
+		precio: unPrecio.
+	viajes
+		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
+				ifTrue: [ ^ false ]
+				ifFalse: [ viajes add: unViaje.
+					^ true ] ]
+]
+
+{ #category : #'as yet unclassified' }
 Administrador >> eliminarCombi: unaCombi [
 	"Elimna una combi si no pertenece a ningun viaje y no pertenece a ninguna ruta, y devuelve un booleano confirmando o negando la accion"
    

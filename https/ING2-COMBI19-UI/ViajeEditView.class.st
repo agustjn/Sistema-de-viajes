@@ -8,7 +8,9 @@ Class {
 		'horario',
 		'fecha',
 		'hora',
-		'precio'
+		'precio',
+		'tile',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -16,6 +18,16 @@ Class {
 { #category : #'instance creation' }
 ViajeEditView class >> newOf: aViaje [
 	self new viaje: aViaje
+]
+
+{ #category : #'as yet unclassified' }
+ViajeEditView >> advertencia: title con: text [ 
+advertiseView := GenericAdvertiseView
+				newWithParent: self
+				heading: title
+				item1: text
+				item2: nil
+				item3: nil 
 ]
 
 { #category : #accessing }
@@ -29,12 +41,12 @@ ViajeEditView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 ViajeEditView >> guardarViaje [
-self halt.
-	self model administrador
-		agregarViajeConRuta: self ruta
+	self halt.
+	(self model administrador
+		editarViajeConRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
 		hora: self hora
-		precio: self precio
+		precio: self precio) ifFalse: [ self advertencia: 'Error al querer editar' con: 'El viaje ingresado ya existe' ]
 ]
 
 { #category : #accessing }
@@ -62,10 +74,12 @@ ViajeEditView >> precio: aPrecio [
 
 { #category : #rendering }
 ViajeEditView >> renderContentOn: html [
+
 	html
 		form: [ self renderizarCamposBasicosOn: html.
 			html horizontalRule.
-			self renderizarBotonesOn: html ]
+			self renderizarBotonesOn: html ].
+	advertiseView ifNotNil: [ html render: advertiseView ]
 ]
 
 { #category : #rendering }

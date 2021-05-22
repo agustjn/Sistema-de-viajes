@@ -19,6 +19,12 @@ LugarEditorView class >> newOf: aPlace [
 
 { #category : #event }
 LugarEditorView >> guardarDatos [
+	| lugarTipeado |
+	lugarTipeado := (Lugar deProvincia: self provincia yLocalidad: self localidad).
+	( self model administrador existeLugar: lugarTipeado ) "Devuelve true si existe previamente el lugar editado"
+		| "Los 2 deben ser falsos para que se pueda editar el Lugar"
+	( self model administrador lugarPerteneceAUnViaje: lugarTipeado ) "Devuelve true si el lugar tipeado pertenece a un viaje"
+		ifFalse:[  ].
 	place editarProvincia: (self provincia) localidad: (self localidad)
 ]
 

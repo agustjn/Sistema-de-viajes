@@ -33,9 +33,11 @@ ViajeSelector >> parent [
 ViajeSelector >> renderContentOn: html [
 	"Hay que preguntar por el origen y el destino  viaje ruta origen , ' hasta  ' , viaje ruta destino."
 
-	html text: 'Viaje con ruta ' , viaje ruta string.
-	html text: 'El dia: ' , viaje fecha asString , ' a las ' , viaje hora.
-	html space.
+	html text: 'Viaje con ruta:  ' ; break.
+	html text: viaje ruta string.
+	html break.
+	html text: 'El dia: ' , viaje fecha asString , ' a las ' , viaje ruta horario.
+	html break.
 	self renderizarBotonesABMOn: html
 ]
 

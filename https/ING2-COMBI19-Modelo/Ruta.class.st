@@ -5,24 +5,26 @@ Class {
 		'origen',
 		'destino',
 		'combi',
-		'kmDeDistancia'
+		'kmDeDistancia',
+		'horario'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
 
 { #category : #initialization }
-Ruta class >> initializeCon: unOrigen destino: unDestino  combi: unaCombi distancia: unaDistancia [
+Ruta class >> newCon: unOrigen destino: unDestino  combi: unaCombi distancia: unaDistancia horario:unHorario [
 	^ self new
 		initializeCon: unOrigen
 		destino: unDestino
 		combi: unaCombi
 		distancia: unaDistancia
+		horario:unHorario
 ]
 
 { #category : #initialization }
 Ruta >> = unaRuta [
-	^ unaRuta origen = self origen & (unaRuta destino = self destino)
-	 & (unaRuta combi = self combi)
+	^ (unaRuta origen = self origen) & (unaRuta destino = self destino)
+	 & (unaRuta combi = self combi) "& (unaRuta horario = self horario) - Esta comparacion iria?"
 ]
 
 { #category : #accessing }
@@ -31,8 +33,18 @@ Ruta >> combi [
 ]
 
 { #category : #accessing }
+Ruta >> combi: anObject [
+	combi := anObject
+]
+
+{ #category : #accessing }
 Ruta >> destino [
 	^destino
+]
+
+{ #category : #accessing }
+Ruta >> destino: anObject [
+	destino := anObject
 ]
 
 { #category : #accessing }
@@ -40,7 +52,7 @@ Ruta >> distancia [
  	^ kmDeDistancia
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #deprecated }
 Ruta >> editarOrigen: unOrigen destino: unDestino  combi: unaCombi distancia: unaDistancia [
 	origen := unOrigen.
 	destino := unDestino.
@@ -48,7 +60,26 @@ Ruta >> editarOrigen: unOrigen destino: unDestino  combi: unaCombi distancia: un
 	kmDeDistancia := unaDistancia
 ]
 
-{ #category : #initialization }
+{ #category : #'as yet unclassified' }
+Ruta >> editarOrigen: unOrigen destino: unDestino  combi: unaCombi distancia: unaDistancia horario:unHorario [
+	origen := unOrigen.
+	destino := unDestino.
+	combi := unaCombi.
+	kmDeDistancia := unaDistancia.
+	horario := unHorario
+]
+
+{ #category : #accessing }
+Ruta >> horario [
+	^ horario
+]
+
+{ #category : #accessing }
+Ruta >> horario: anObject [
+	horario := anObject
+]
+
+{ #category : #deprecated }
 Ruta >> initializeCon: unOrigenLugar destino: unDestinoLugar  combi: unaCombi distancia: unaDistancia [
 	origen := unOrigenLugar.
 	destino := unDestinoLugar.
@@ -56,9 +87,28 @@ Ruta >> initializeCon: unOrigenLugar destino: unDestinoLugar  combi: unaCombi di
 	kmDeDistancia := unaDistancia
 ]
 
+{ #category : #initialization }
+Ruta >> initializeCon: unOrigenLugar destino: unDestinoLugar  combi: unaCombi distancia: unaDistancia horario:unHorario [
+	origen := unOrigenLugar.
+	destino := unDestinoLugar.
+	combi := unaCombi.
+	kmDeDistancia := unaDistancia.
+	horario:=unHorario
+]
+
+{ #category : #accessing }
+Ruta >> kmDeDistancia: anObject [
+	kmDeDistancia := anObject
+]
+
 { #category : #accessing }
 Ruta >> origen [
 	^origen
+]
+
+{ #category : #accessing }
+Ruta >> origen: anObject [
+	origen := anObject
 ]
 
 { #category : #accessing }

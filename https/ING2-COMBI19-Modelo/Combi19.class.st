@@ -71,15 +71,17 @@ Combi19 class >> instanciaDePrueba [
 
 	"---------------------------Rutas-----------------"
 	ruta1 := Ruta
-		initializeCon: lugar1
+		newCon: lugar1
 		destino: lugar2
 		combi: combi1
-		distancia: '700 KM'.
+		distancia: '700'
+		horario:'5 PM'.
 	ruta2 := Ruta
-		initializeCon: lugar3
+		newCon: lugar3
 		destino: lugar4
 		combi: combi2
-		distancia: '650 KM'.
+		distancia: '650'
+		horario:'3 AM'.
 	soleInstance administrador
 		agregarRuta: ruta1;
 		agregarRuta: ruta2

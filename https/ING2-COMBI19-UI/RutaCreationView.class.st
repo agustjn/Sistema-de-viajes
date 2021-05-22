@@ -7,7 +7,9 @@ Class {
 		'destino',
 		'combi',
 		'distancia',
-		'advertencia'
+		'advertencia',
+		'horario',
+		'rangoHorario'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -49,7 +51,12 @@ RutaCreationView >> distancia: aDistancia [
 	 distancia := aDistancia 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #formatting }
+RutaCreationView >> formatearHorario [
+	^ (horario , ' ' , rangoHorario) asTime
+]
+
+{ #category : #event }
 RutaCreationView >> guardarRuta [
 	| origenObj destinoObj |
 	origenObj := self model administrador buscarLugar: self origen.
@@ -58,9 +65,20 @@ RutaCreationView >> guardarRuta [
 		agregarRuta: origenObj
 		destino: destinoObj
 		combi: self combi
-		distancia: self distancia)
+		distancia: self distancia
+		horario: self formatearHorario)
 		ifTrue: [ self parent activarRutasView ]
 		ifFalse: [ self renderAdvertencia ]
+]
+
+{ #category : #accessing }
+RutaCreationView >> horario [
+	^ horario
+]
+
+{ #category : #accessing }
+RutaCreationView >> horario: anObject [
+	horario := anObject
 ]
 
 { #category : #accessing }
@@ -84,6 +102,16 @@ RutaCreationView >> parent [ ^parent
 { #category : #accessing }
 RutaCreationView >> parent: aParent [
 	parent := aParent
+]
+
+{ #category : #accessing }
+RutaCreationView >> rangoHorario [
+	^ rangoHorario
+]
+
+{ #category : #accessing }
+RutaCreationView >> rangoHorario: anObject [
+	rangoHorario := anObject
 ]
 
 { #category : #rendering }
@@ -126,25 +154,40 @@ RutaCreationView >> renderContentOn: html [
 
 { #category : #rendering }
 RutaCreationView >> renderizarFormularioOn: html [
-	html space.
-	html break.
-	html text: 'Localidad de origen '.
-	html space.
-	(html select on: #origen of: self)
-		list: self model administrador lugaresNombres.
-	html break.
-	html text: 'Localidad de destino'.
-	html space.
-	(html select on: #destino of: self)
-		list: self model administrador lugaresNombres.
-	html break.
-	html text: 'Seleccionar la combi'.
-	html space.
-	(html select on: #combi of: self)
-		list: self model administrador combisNombresModelo.
-	html break.
-	html space.
-	html text: 'Ingrese la distancia '.
-	html space.
-	html textInput on: #distancia of: self
+html space.
+			html break.
+			html text: 'Localidad de origen '.
+			html space.
+			(html select on: #origen of: self)
+				list: self model administrador lugaresNombres.
+			html
+				break;
+				break.
+			html text: 'Localidad de destino'.
+			html space.
+			(html select on: #destino of: self)
+				list: self model administrador lugaresNombres.
+			html
+				break;
+				break.
+			html text: 'Seleccionar la combi'.
+			html space.
+			(html select on: #combi of: self)
+				list: self model administrador combisNombres.
+			html
+				break;
+				break.
+			html space.
+			html text: 'Ingrese la distancia '.
+			html space.
+			(html textInput on: #distancia of: self) placeholder:'En KM' ; size:4.
+			html break ; break. html space.
+			html text: 'Horario'.
+			html space.
+			(html textInput on: #horario of: self)
+				size: 1;
+				maxLength: 2.
+			html space.
+			(html select on: #rangoHorario of: self) list: #(#PM 'AM') .
+			html break.
 ]

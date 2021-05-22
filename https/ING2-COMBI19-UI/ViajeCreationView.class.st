@@ -7,7 +7,8 @@ Class {
 		'fecha',
 		'hora',
 		'precio',
-		'errorView'
+		'errorView',
+		'rangoHorario'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -68,6 +69,16 @@ ViajeCreationView >> precio: aPrecio [
 	precio := aPrecio
 ]
 
+{ #category : #accessing }
+ViajeCreationView >> rangoHorario [
+	^ rangoHorario
+]
+
+{ #category : #accessing }
+ViajeCreationView >> rangoHorario: anObject [
+	rangoHorario := anObject
+]
+
 { #category : #rendering }
 ViajeCreationView >> renderContentOn: html [
 	html heading level2 with: 'Creacion de nuevo Viaje'.
@@ -96,11 +107,7 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html break.
 	html text: 'Precio del boleto'.
 	html break.
-	html textInput on: #precio of: self.
-	html break.
-	html text: 'Horario del viaje '.
-	html break.
-	html textInput on: #hora of: self.
+	(html textInput on: #precio of: self).
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
 	html break.

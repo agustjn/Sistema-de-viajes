@@ -97,10 +97,28 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 
 	| unaRuta |
 	unaRuta := Ruta
-		initializeCon: unOrigen
+		newCon: unOrigen
 		destino: unDestino
 		combi: unaCombi
 		distancia: unaDistancia.
+	(self
+		existeRuta: unaRuta)
+		ifTrue: [ ^ false ]
+		ifFalse: [ rutas add: unaRuta.
+			^ true ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario:unHorario [
+	"Chequea que la ruta no exista, en dicho caso agrega la ruta a la coleccion de rutas y devuelve un booleano confirmando o denegando la accion"
+
+	| unaRuta |
+	unaRuta := Ruta
+		newCon: unOrigen
+		destino: unDestino
+		combi: unaCombi
+		distancia: unaDistancia
+		horario:unHorario.
 	(self
 		existeRuta: unaRuta)
 		ifTrue: [ ^ false ]
@@ -274,6 +292,11 @@ Administrador >> existeCombi: unaPatente [
 				]
 ]
 
+{ #category : #queries }
+Administrador >> existeLugar: lugar [
+	^ lugares anySatisfy:[ :place | (place provincia = lugar provincia) & (place localidad = lugar localidad)  ]
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> existeRuta: unaRuta [
 	^ rutas anySatisfy: [ :laRuta | laRuta = unaRuta ]
@@ -305,6 +328,12 @@ Administrador >> initializeCon: unNombre apellido: unApellido mail: unEmail cont
 { #category : #accessing }
 Administrador >> insumos [
 	^insumos
+]
+
+{ #category : #queries }
+Administrador >> lugarPerteneceAUnViaje: lugar [
+	^ viajes anySatisfy:[ :viaje | (viaje origen == lugar) | (viaje destino == lugar)  ] 
+	
 ]
 
 { #category : #accessing }

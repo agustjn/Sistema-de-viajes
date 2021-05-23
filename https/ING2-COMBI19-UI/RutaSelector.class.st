@@ -50,7 +50,7 @@ RutaSelector >> renderContentOn: html [
 				, '    distancia: ' , ruta distancia , 'km'.
 	html space.
 	self renderizarBotonesABMOn: html.
-	html render: advertiseView
+	html render: advertiseView 
 ]
 
 { #category : #'as yet unclassified' }

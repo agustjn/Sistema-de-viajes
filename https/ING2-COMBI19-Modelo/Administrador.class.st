@@ -263,7 +263,11 @@ Administrador >> eliminarInsumo: unInsumo [
 
 { #category : #accessing }
 Administrador >> eliminarLugar: unLugar [
-	lugares remove: unLugar
+	(rutas
+		anySatisfy: [ :unaRuta | unaRuta seAsociaCon: unLugar ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ lugares remove: unLugar.
+			^ true ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -294,7 +298,9 @@ Administrador >> existeCombi: unaPatente [
 
 { #category : #queries }
 Administrador >> existeLugar: lugar [
-	^ lugares anySatisfy:[ :place | (place provincia = lugar provincia) & (place localidad = lugar localidad)  ]
+	^ lugares
+		anySatisfy: [ :place | 
+			place esIgualA: lugar ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -332,8 +338,8 @@ Administrador >> insumos [
 
 { #category : #queries }
 Administrador >> lugarPerteneceAUnViaje: lugar [
-	^ viajes anySatisfy:[ :viaje | (viaje origen == lugar) | (viaje destino == lugar)  ] 
-	
+"Devuelve si un lugar pertenece a un viaje o no "
+	^ viajes anySatisfy: [ :viaje | viaje seAsociaCon: lugar ]
 ]
 
 { #category : #accessing }

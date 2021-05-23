@@ -30,6 +30,12 @@ Lugar >> editarProvincia: unaProvincia localidad: unaLocalidad [
 		ifFalse: [ localidad := unaLocalidad ]
 ]
 
+{ #category : #'as yet unclassified' }
+Lugar >> esIgualA: unLugar [
+
+	^ (provincia = unLugar provincia) or: (localidad = unLugar localidad )
+]
+
 { #category : #initialization }
 Lugar >> localidad [ 
 	^localidad

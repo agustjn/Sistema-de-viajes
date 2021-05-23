@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'place',
 		'provincia',
-		'localidad'
+		'localidad',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Lugar-CRUD-UI'
 }
@@ -20,12 +21,15 @@ LugarEditorView class >> newOf: aPlace [
 { #category : #event }
 LugarEditorView >> guardarDatos [
 	| lugarTipeado |
-	lugarTipeado := (Lugar deProvincia: self provincia yLocalidad: self localidad).
-	( self model administrador existeLugar: lugarTipeado ) "Devuelve true si existe previamente el lugar editado"
-		| "Los 2 deben ser falsos para que se pueda editar el Lugar"
-	( self model administrador lugarPerteneceAUnViaje: lugarTipeado ) "Devuelve true si el lugar tipeado pertenece a un viaje"
-		ifFalse:[  ].
-	place editarProvincia: (self provincia) localidad: (self localidad)
+	lugarTipeado := Lugar
+		deProvincia: self provincia
+		yLocalidad: self localidad.
+	(self model administrador existeLugar: lugarTipeado)
+		| (self model administrador lugarPerteneceAUnViaje: lugarTipeado)
+		ifTrue: [ 
+			self answer ]
+		ifFalse: [ place editarProvincia: self provincia localidad: self localidad.
+		]
 ]
 
 { #category : #accessing }
@@ -65,19 +69,10 @@ LugarEditorView >> provincia: anObject [
 
 { #category : #rendering }
 LugarEditorView >> renderContentOn: html [
-	html heading: 'Editar lugar'.
-	html break.
-	html text:'Provincia : '.
-	(html select on:#provincia of:self) list:(self model provinciasArgentinas).
-	html break. 
-	html break.
-	html text:'Localidad: '.
-	(html textInput on:#localidad of:self)placeholder: place localidad.
-	html break.
-	html break.
-	self renderizarBotonesOn: html.
-	
-	
+	html
+		form: [ self renderizarCamposBasicosOn: html.
+			html horizontalRule.
+			self renderizarBotonesOn: html ]
 ]
 
 { #category : #rendering }
@@ -94,10 +89,10 @@ LugarEditorView >> renderizarAdvertencia: html [
 
 { #category : #rendering }
 LugarEditorView >> renderizarBotonesOn: html [
-	html anchor
+html submitButton
 		callback: [ self guardarDatos.
 			self answer ];
-		with: [html submitButton with:'Confirmar'].
+		value: 'Confirmar'.
 	html space.
 	html submitButton
 		callback: [ self answer ];
@@ -110,18 +105,21 @@ LugarEditorView >> renderizarCamposBasicosOn: html [
 	html heading: 'Editar datos'.
 	self renderizarAdvertencia: html.
 	self renderizarCamposOn: html
-	
 ]
 
 { #category : #rendering }
-LugarEditorView >> renderizarCamposOn: html [ 	
+LugarEditorView >> renderizarCamposOn: html [
 	html heading: 'Editar lugar'.
 	html break.
 	html text: 'Provincia : '.
-	(html textInput on: #provincia of: self) placeholder: place provincia.
+	(html select on: #provincia of: self)
+		list: self model provinciasArgentinas;
+		selected: self place provincia.
 	html break.
 	html break.
 	html text: 'Localidad: '.
-	(html textInput on: #localidad of: self) placeholder: place localidad.
-	html break
+	(html textInput on: #localidad of: self)
+		placeholder: self place localidad.
+	html break.
+	html break.
 ]

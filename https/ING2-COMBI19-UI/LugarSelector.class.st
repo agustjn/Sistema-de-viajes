@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'place',
-		'parent'
+		'parent',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Lugar-CRUD-UI'
 }
@@ -16,6 +17,15 @@ LugarSelector class >> of: lugar andParent: aParent [
 	instance parent: aParent.
 	^instance
 
+]
+
+{ #category : #accessing }
+LugarSelector >> eliminarLugar [
+	(self model administrador eliminarLugar: place)
+		ifTrue: [ self parent  renderAdvertencia: 'El lugar se elimino con exito' ]
+		ifFalse: [ self parent 
+				renderAdvertencia:
+					'No se puede eliminar el lugar ya que esta asociado a una ruta , por favor elimine la ruta para seguir.' ]
 ]
 
 { #category : #accessing }
@@ -45,19 +55,23 @@ LugarSelector >> place: anObject [
 
 { #category : #rendering }
 LugarSelector >> renderContentOn: html [
-	html text:'Lugar / Provincia: ', place provincia , ' - Localidad: ' , place localidad.
+	html
+		text:
+			'Lugar / Provincia: ' , place provincia , ' - Localidad: '
+				, place localidad.
 	html space.
 	self renderizarBotonesABMOn: html.
+	html render: advertiseView
 ]
 
 { #category : #rendering }
 LugarSelector >> renderizarBotonesABMOn: html [
 	html anchor
-		callback: [ self parent call: (LugarEditorView newOf:place) ];
-		with:[html submitButton with:'Editar' ].
+		callback: [ self parent call: (LugarEditorView newOf: place) ];
+		with: [ html submitButton with: 'Editar' ].
 	html space.
 	html anchor
-		callback: [ self model administrador eliminarLugar: place.
-						self answer.  ];
-		with: [html submitButton with:'Eliminar']
+		callback: [ self eliminarLugar.
+			self answer ];
+		with: [ html submitButton with: 'Eliminar' ]
 ]

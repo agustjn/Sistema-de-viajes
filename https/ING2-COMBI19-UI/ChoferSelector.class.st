@@ -20,10 +20,7 @@ ChoferSelector >> chofer [ ^chofer
 { #category : #event }
 ChoferSelector >> eliminarChofer [
 	(self model eliminarChofer: chofer)
-		ifFalse:[ self parent activarDeleteErrorView ]
-	"self model eliminarChofer: chofer.
-			self answer "
-
+		ifFalse: [  self parent activarDeleteErrorView ]
 ]
 
 { #category : #'as yet unclassified' }

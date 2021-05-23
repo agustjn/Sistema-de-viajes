@@ -2,7 +2,8 @@ Class {
 	#name : #LugarView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'parent'
+		'parent',
+		'deleteErrorView'
 	],
 	#category : #'ING2-COMBI19-UI-Lugar-CRUD-UI'
 }
@@ -30,20 +31,27 @@ LugarView >> parent: anObject [
 	parent := anObject
 ]
 
+{ #category : #event }
+LugarView >> renderAdvertencia: text [ 
+	deleteErrorView := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Eliminacion del lugar '
+		item1: text
+		item2: nil
+		item3: nil
+]
+
 { #category : #rendering }
 LugarView >> renderContentOn: html [
-html heading: 'Lugares del sistema'.
-	(self model administrador lugares) isEmpty
+	html heading: 'Lugares del sistema'.
+	self model administrador lugares isEmpty
 		ifTrue:
 				[ html heading level4 with: 'No hay lugares cargadados en el sistema' ];
-		ifFalse:[	
-	self renderizarLugares: html] .
+		ifFalse: [ self renderizarLugares: html ].
+	html render: deleteErrorView.
 	html anchor
-				callback:[ self parent activarLugarCreationView ] ; 
-				with:[ html submitButton with:'Crear lugar' ]
-
-				
-
+		callback: [ self parent activarLugarCreationView ];
+		with: [ html submitButton with: 'Crear lugar' ]
 ]
 
 { #category : #rendering }

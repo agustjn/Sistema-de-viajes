@@ -9,7 +9,8 @@ Class {
 		'combi',
 		'chofer',
 		'choferName',
-		'advertiseView'
+		'advertiseView',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
@@ -62,9 +63,15 @@ CombiEditorView >> combi: unaCombi [
 { #category : #'as yet unclassified' }
 CombiEditorView >> editarCombi [
 	"Pregunta si  el chofer"
+
+	"self halt.
+	self modelo ifEmpty: [ self modelo: self combi modelo ].
+	self cantidad
+		ifEmpty: [ self cantidad: self combi cantidadDeAsientos ].
+	self tipo ifEmpty: [ self tipo: self combi tipo ]."
+
 	(self model administrador existeCombi: self patente)
-		ifTrue: [ self
-				renderAdvertencia: 'La patente ' , self patente , ' ya esta registrada' ]
+		ifTrue: [ self renderAdvertencia ]
 		ifFalse: [ self combi
 				editarModelo: self modelo
 				cantidadAsientos: self cantidad
@@ -99,17 +106,14 @@ CombiEditorView >> patente: aPatente [
 ]
 
 { #category : #rendering }
-CombiEditorView >> renderAdvertencia: text [
-	advertiseView := GenericAdvertiseView
-		newWithParent: self heading: 'Error en la carga de combi' item1: text  item2: nil item3:nil  
-		
-		
-		
-		
-		
-	
-
-
+CombiEditorView >> renderAdvertencia [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'No se puede editar la combi '
+		item1:
+			'La combi con la patente:  ', self patente, ' Le pertenece a otra combi'
+		item2: nil
+		item3: nil
 ]
 
 { #category : #rendering }
@@ -151,7 +155,8 @@ CombiEditorView >> renderizarCamposBasicosOn: html [
 	html horizontalRule.
 	html heading: 'Editar datos'.
 	self renderizarAdvertencia: html.
-	self renderizarCamposOn: html
+	self renderizarCamposOn: html.
+	advertencia ifNotNil: [ html render: advertencia ]
 ]
 
 { #category : #rendering }

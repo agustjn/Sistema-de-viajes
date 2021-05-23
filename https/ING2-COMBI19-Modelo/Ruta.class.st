@@ -112,6 +112,12 @@ Ruta >> origen: anObject [
 ]
 
 { #category : #accessing }
+Ruta >> seAsociaCon: unLugar [
+"Devuelve un booleano dependiendo si el lugar es el origen-destino o no de la ruta"
+	^ self origen = unLugar or: (self destino = unLugar)
+]
+
+{ #category : #accessing }
 Ruta >> string [
 	^ 'Desde: ' , self origen string , ' Hasta: ' , self destino string 
 ]

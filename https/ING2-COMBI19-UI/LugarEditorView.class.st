@@ -116,20 +116,23 @@ LugarEditorView >> renderizarCamposBasicosOn: html [
 	html heading: 'Editar datos'.
 	self renderizarAdvertencia: html.
 	self renderizarCamposOn: html
-	
 ]
 
 { #category : #rendering }
-LugarEditorView >> renderizarCamposOn: html [ 	
+LugarEditorView >> renderizarCamposOn: html [
 	html heading: 'Editar lugar'.
 	html break.
 	html text: 'Provincia : '.
-	(html textInput on: #provincia of: self) placeholder: place provincia.
+	(html select on: #provincia of: self)
+		list: self model provinciasArgentinas;
+		selected: self place provincia.
 	html break.
 	html break.
 	html text: 'Localidad: '.
-	(html textInput on: #localidad of: self) placeholder: place localidad.
-	html break
+	(html textInput on: #localidad of: self)
+		placeholder: self place localidad.
+	html break.
+	html break.
 ]
 
 { #category : #rendering }

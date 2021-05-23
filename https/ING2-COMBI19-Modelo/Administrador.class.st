@@ -256,14 +256,18 @@ Administrador >> eliminarCombi: unaCombi [
 Administrador >> eliminarInsumo: unInsumo [
 "Chequea que los insumos exista en la coleccion, de ser asi lo elimina. Devuelve un booleano confirmando y denegando la accion."
 	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ insumos remove: unInsumo.
-			^ true ]
+		ifTrue: [  insumos remove: unInsumo.^ true ]
+		ifFalse: [ ^ false.
+			]
 ]
 
 { #category : #accessing }
 Administrador >> eliminarLugar: unLugar [
-	lugares remove: unLugar
+	(rutas
+		anySatisfy: [ :unaRuta | unaRuta seAsociaCon: unLugar ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ lugares remove: unLugar.
+			^ true ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -294,7 +298,9 @@ Administrador >> existeCombi: unaPatente [
 
 { #category : #queries }
 Administrador >> existeLugar: lugar [
-	^ lugares anySatisfy:[ :place | (place provincia = lugar provincia) & (place localidad = lugar localidad)  ]
+	^ lugares
+		anySatisfy: [ :place | 
+			place esIgualA: lugar ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -16,6 +16,11 @@ InsumoSelector class >> of:anInsumo andParent: aParent [
 					yourself
 ]
 
+{ #category : #'as yet unclassified' }
+InsumoSelector >> eliminarInsumo [
+	self model administrador eliminarInsumo: self insumo
+]
+
 { #category : #accessing }
 InsumoSelector >> insumo [
 	^ insumo
@@ -24,6 +29,11 @@ InsumoSelector >> insumo [
 { #category : #accessing }
 InsumoSelector >> insumo: anObject [
 	insumo := anObject
+]
+
+{ #category : #accessing }
+InsumoSelector >> model [
+	^ Combi19 soleInstance 
 ]
 
 { #category : #accessing }
@@ -38,8 +48,21 @@ InsumoSelector >> parent: anObject [
 
 { #category : #rendering }
 InsumoSelector >> renderContentOn: html [
-	
-	html text:'Insumo: ', insumo nombre , ' - Marca: ' , insumo marca , ' - Precio: $' , (insumo precio) asString. 
+	html
+		text:
+			'Insumo: ' , insumo nombre , ' - Marca: ' , insumo marca
+				, ' - Precio: $' , insumo precio asString.
+	html space. self renderizarBotonesABMOn: html
+]
+
+{ #category : #'as yet unclassified' }
+InsumoSelector >> renderizarBotonesABMOn: html [
+	html anchor
+		callback: [ self parent call: (InsumoEditorView newOf: insumo) ];
+		with: [ html submitButton with: 'Editar' ].
 	html space.
-	"self renderizarBotonesABMOn: html."
+	html anchor
+		callback: [ self eliminarInsumo.
+			self answer ];
+		with: [ html submitButton with: 'Eliminar' ]
 ]

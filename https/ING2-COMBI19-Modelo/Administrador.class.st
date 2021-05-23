@@ -256,9 +256,9 @@ Administrador >> eliminarCombi: unaCombi [
 Administrador >> eliminarInsumo: unInsumo [
 "Chequea que los insumos exista en la coleccion, de ser asi lo elimina. Devuelve un booleano confirmando y denegando la accion."
 	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ insumos remove: unInsumo.
-			^ true ]
+		ifTrue: [  insumos remove: unInsumo.^ true ]
+		ifFalse: [ ^ false.
+			]
 ]
 
 { #category : #accessing }

@@ -60,7 +60,8 @@ RutaSelector >> renderizarBotonesABMOn: html [
 		with: [ html submitButton with: 'Editar' ].
 	html space.
 	html anchor
-		callback: [ self eliminarRuta.self answer ];
+		callback: [ self eliminarRuta.
+			self answer ];
 		with: [ html submitButton with: 'Eliminar' ]
 ]
 

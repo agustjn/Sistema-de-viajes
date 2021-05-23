@@ -332,7 +332,7 @@ Administrador >> insumos [
 
 { #category : #queries }
 Administrador >> lugarPerteneceAUnViaje: lugar [
-	^ viajes anySatisfy:[ :viaje | (viaje origen == lugar) | (viaje destino == lugar)  ] 
+	^ viajes anySatisfy:[ :viaje | (viaje ruta origen == lugar) | (viaje ruta destino == lugar)  ] 
 	
 ]
 

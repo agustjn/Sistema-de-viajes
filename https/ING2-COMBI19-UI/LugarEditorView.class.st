@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'place',
 		'provincia',
-		'localidad'
+		'localidad',
+		'errorView'
 	],
 	#category : #'ING2-COMBI19-UI-Lugar-CRUD-UI'
 }
@@ -20,12 +21,15 @@ LugarEditorView class >> newOf: aPlace [
 { #category : #event }
 LugarEditorView >> guardarDatos [
 	| lugarTipeado |
-	lugarTipeado := (Lugar deProvincia: self provincia yLocalidad: self localidad).
-	( self model administrador existeLugar: lugarTipeado ) "Devuelve true si existe previamente el lugar editado"
+	self halt.
+	lugarTipeado := (Lugar deProvincia: (self provincia) yLocalidad: (self localidad)).
+	( ( self model administrador existeLugar: lugarTipeado )
 		| "Los 2 deben ser falsos para que se pueda editar el Lugar"
-	( self model administrador lugarPerteneceAUnViaje: lugarTipeado ) "Devuelve true si el lugar tipeado pertenece a un viaje"
-		ifFalse:[  ].
-	place editarProvincia: (self provincia) localidad: (self localidad)
+	( self model administrador lugarPerteneceAUnViaje: lugarTipeado ) )
+		ifFalse:[ place editarProvincia: (self provincia) localidad: (self localidad).
+					 self answer]
+		ifTrue:[  self renderizarError ]
+
 ]
 
 { #category : #accessing }
@@ -65,7 +69,7 @@ LugarEditorView >> provincia: anObject [
 
 { #category : #rendering }
 LugarEditorView >> renderContentOn: html [
-	html heading: 'Editar lugar'.
+html form:[	html heading: 'Editar lugar'.
 	html break.
 	html text:'Provincia : '.
 	(html select on:#provincia of:self) list:(self model provinciasArgentinas).
@@ -76,7 +80,9 @@ LugarEditorView >> renderContentOn: html [
 	html break.
 	html break.
 	self renderizarBotonesOn: html.
-	
+	html render:errorView.
+	].
+
 	
 ]
 
@@ -94,10 +100,10 @@ LugarEditorView >> renderizarAdvertencia: html [
 
 { #category : #rendering }
 LugarEditorView >> renderizarBotonesOn: html [
-	html anchor
+	html submitButton
 		callback: [ self guardarDatos.
-			self answer ];
-		with: [html submitButton with:'Confirmar'].
+						self answer ];
+		value:'Confirmar'.
 	html space.
 	html submitButton
 		callback: [ self answer ];
@@ -124,4 +130,13 @@ LugarEditorView >> renderizarCamposOn: html [
 	html text: 'Localidad: '.
 	(html textInput on: #localidad of: self) placeholder: place localidad.
 	html break
+]
+
+{ #category : #rendering }
+LugarEditorView >> renderizarError [
+	errorView := GenericAdvertiseView newWithParent: self 
+											   heading:'Error al editar lugar, posibles causas:'  
+											   item1:'El lugar ingresado ya existe en el sistema'  
+											   item2:'El lugar que esta queriendo editar, esta asignado a un viaje activo'
+											   item3: nil
 ]

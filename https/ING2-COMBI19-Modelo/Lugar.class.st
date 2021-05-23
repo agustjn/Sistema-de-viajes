@@ -12,7 +12,8 @@ Class {
 Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
 	^self new 
 	 provincia: unaProvincia;
-	localidad: unaLocalidad.
+	 localidad: unaLocalidad ;
+		yourself.
 	
 ]
 

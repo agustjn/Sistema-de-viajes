@@ -53,7 +53,6 @@ ViajeEditView >> guardarViaje [
 	(self model administrador
 		editarViaje: self viaje conRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
-		hora: self hora
 		precio: self precio) ifFalse: [ self advertencia: 'Error al querer editar' con: 'El viaje ingresado ya existe' ]
 ]
 
@@ -144,8 +143,6 @@ ViajeEditView >> renderizarCamposOn: html [
 	(html textInput on: #precio of: self)placeholder:self viaje precio .
 	html break.
 	html text: 'Horario del viaje '.
-	html break.
-	(html textInput on: #hora of: self)placeholder:self viaje hora.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
 	html break.

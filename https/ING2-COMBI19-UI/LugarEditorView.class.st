@@ -22,13 +22,15 @@ LugarEditorView class >> newOf: aPlace [
 LugarEditorView >> guardarDatos [
 	| lugarTipeado |
 	self halt.
+	
 	lugarTipeado := (Lugar deProvincia: (self provincia) yLocalidad: (self localidad)).
 	( ( self model administrador existeLugar: lugarTipeado )
 		| "Los 2 deben ser falsos para que se pueda editar el Lugar"
-	( self model administrador lugarPerteneceAUnViaje: lugarTipeado ) )
+	( self model administrador lugarPerteneceAUnViaje: place ) )
 		ifFalse:[ place editarProvincia: (self provincia) localidad: (self localidad).
 					 self answer]
-		ifTrue:[  self renderizarError ]
+		ifTrue:[  self renderizarError ].
+		
 
 ]
 
@@ -101,8 +103,7 @@ LugarEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 LugarEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self guardarDatos.
-						self answer ];
+		callback: [ self guardarDatos.];
 		value:'Confirmar'.
 	html space.
 	html submitButton

@@ -132,9 +132,8 @@ Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora prec
 
 	| unViaje |
 	unViaje := Viaje
-		initializeCon: unaRuta
+		newCon: unaRuta
 		fecha: unaFecha
-		hora: unaHora
 		precio: unPrecio.
 	viajes
 		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje  ])
@@ -214,13 +213,12 @@ Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha hora: una
 "Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
 	| unViaje | "Los datos nuevos recibidos por parametro"
 	unViaje := Viaje
-		initializeCon: unaRuta
+		newCon: unaRuta
 		fecha: unaFecha
-		hora: unaHora
 		precio: unPrecio.
 	(viajes anySatisfy: [ :viaje | viaje = unViaje ])
 				ifTrue: [ ^ false ]
-				ifFalse: [ aTravel modificarDatosConRuta: unaRuta fecha: unaFecha  hora: unaHora precio: unPrecio.
+				ifFalse: [ aTravel modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio.
 					^ true ] 
 ]
 
@@ -231,7 +229,6 @@ Administrador >> editarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora preci
 	unViaje := Viaje
 		initializeCon: unaRuta
 		fecha: unaFecha
-		hora: unaHora
 		precio: unPrecio.
 	viajes
 		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
@@ -360,4 +357,36 @@ Administrador >> rutas [
 { #category : #accessing }
 Administrador >> rutasNombre [
 	^ rutas collect: [  :ruta | ruta string ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio [
+	"Crea un viaje y lo agrega a la coleccion de viajes "
+	| unViaje |
+	unViaje := Viaje
+		newCon: unaRuta
+		fecha: unaFecha
+		precio: unPrecio.
+	viajes
+		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje  ])
+				ifTrue: [ ^ false ]
+				ifFalse: [ 
+					viajes add: unViaje.
+					^ true ] ].
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidadDeAsientos [
+	"Crea un viaje y lo agrega a la coleccion de viajes "
+
+	| unViaje |
+	unViaje := Viaje newCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidadDeAsientos .
+	(unaCantidadDeAsientos asInteger < unaRuta combi cantidadDeAsientos)
+	"Si la cantidad ingresada de asientos no supera la capacidad de la combi, entonces verifico si existe un viaje identico, sino retorno false"
+		ifTrue: [ viajes
+				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
+						ifTrue: [ ^ false ]
+						ifFalse: [ viajes add: unViaje.
+							^ true ] ] ]
+		ifFalse: [ ^ false ]
 ]

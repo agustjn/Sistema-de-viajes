@@ -7,6 +7,7 @@ Class {
 		'fecha',
 		'hora',
 		'precio',
+		'cantAsientos',
 		'errorView',
 		'rangoHorario'
 	],
@@ -15,7 +16,18 @@ Class {
 
 { #category : #'instance creation' }
 ViajeCreationView class >> newWithParent: aParent [
-	^ self new parent: aParent
+	^ self new 
+		parent: aParent.
+]
+
+{ #category : #accessing }
+ViajeCreationView >> cantAsientos [
+	^ cantAsientos
+]
+
+{ #category : #accessing }
+ViajeCreationView >> cantAsientos: anObject [
+	cantAsientos := anObject
 ]
 
 { #category : #rendering }
@@ -30,11 +42,15 @@ ViajeCreationView >> fecha: aFecha [
 
 { #category : #event }
 ViajeCreationView >> guardarViaje [
-	self model administrador
-		agregarViajeConRuta: (self model administrador buscarRuta: self ruta)
+	self halt.
+	( self model administrador validarViajeRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
-		hora: self hora
 		precio: self precio
+		asientos: self cantAsientos )
+	"Si el viaje es invalido, se retorna false, de lo contrario se agrega al sistema y retorna true"
+	ifTrue: [ self parent desactivarViajeCreationView ]
+	ifFalse: [ self renderizarError ]
+
 ]
 
 { #category : #rendering }
@@ -82,12 +98,13 @@ ViajeCreationView >> rangoHorario: anObject [
 { #category : #rendering }
 ViajeCreationView >> renderContentOn: html [
 	html heading level2 with: 'Creacion de nuevo Viaje'.
+	self renderizarAviso: html.
 	html horizontalRule.
 	html
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html submitButton
-				callback: [ self guardarViaje. self parent activarViajeView  ];
+				callback: [ self guardarViaje. ];
 				value: 'Guardar'.
 			html space.
 			html space.
@@ -96,6 +113,22 @@ ViajeCreationView >> renderContentOn: html [
 				with: 'Cancelar' ].
 	html render: errorView.
 	 
+]
+
+{ #category : #rendering }
+ViajeCreationView >> renderizarAviso: html [
+	html horizontalRule.
+	html strong: 'Aviso' ; break.
+	html text:'Si la cantidad de asientos disponibles se deja vacia, se asigna la capacidad maxima de la combi al viaje.' ; break.
+]
+
+{ #category : #rendering }
+ViajeCreationView >> renderizarError [
+	errorView := GenericAdvertiseView newWithParent: self
+											   heading:'Error al crear nuevo viaje debido a alguno de los siguientes motivos: '
+											  	item1:'Se repite la misma ruta y fecha que posee otro viaje creado'  
+												item2:'Se ingreso una cantidad de asientos que excede la capacidad de la combi'  
+												item3: nil
 ]
 
 { #category : #rendering }
@@ -113,6 +146,10 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html break.
 	html dateInput on: #fecha of: self.
 	html break.
+	html text:'Cantidad de asientos disponibles' ; break.
+	(html textInput on:#cantAsientos of: self) size:2.
+	html break.
+	
 ]
 
 { #category : #rendering }

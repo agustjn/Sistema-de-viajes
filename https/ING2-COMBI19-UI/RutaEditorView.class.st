@@ -57,6 +57,7 @@ RutaEditorView >> fecha: aFecha [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
+	self halt.
 	(self model administrador
 		editarRuta: self ruta
 		origen: self origen
@@ -141,22 +142,21 @@ RutaEditorView >> renderizarCamposOn: html [
 	html space.
 	(html select on: #origen of: self)
 		list: self model administrador lugaresNombres.
-	html break.
+	html break ; break.
 	html text: 'Localidad de destino'.
 	html space.
 	(html select on: #destino of: self)
 		list: self model administrador lugaresNombres.
-	html break.
+	html break ; break.
 	html text: 'Seleccionar la combi'.
 	html space.
 	(html select on: #combi of: self)
 		list: self model administrador combisNombres.
-	html break.
-	html space.
+	html break ; break.
 	html text: 'Ingrese la distancia '.
 	html space.
-	html textInput on: #distancia of: self.
-	html text: 'km'
+	(html textInput on: #distancia of: self) placeholder: (ruta distancia) , ' KM '.
+	html text: ''
 ]
 
 { #category : #accessing }

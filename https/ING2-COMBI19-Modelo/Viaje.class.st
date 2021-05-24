@@ -5,24 +5,23 @@ Class {
 		'ruta',
 		'cantAsientosDisponibles',
 		'fecha',
-		'hora',
 		'precio'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
 
 { #category : #initialization }
-Viaje class >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+Viaje class >> newCon: unaRuta fecha: unaFecha precio: unPrecio asientos:cantDeAsientos [
 	^ self new
 		initializeCon: unaRuta
 		fecha: unaFecha
-		hora: unaHora
 		precio: unPrecio
+		asientos: cantDeAsientos
 ]
 
 { #category : #comparing }
 Viaje >> = unViaje [
-	  ^ ((self ruta = unViaje ruta ) & (self fecha = unViaje fecha ) & ( self hora = unViaje hora ))
+	  ^ ((self ruta = unViaje ruta ) & (self fecha = unViaje fecha ) )
 ]
 
 { #category : #accessing }
@@ -40,28 +39,21 @@ Viaje >> fecha [
 	^fecha
 ]
 
-{ #category : #accessing }
-Viaje >> hora [
-	^hora
-]
-
 { #category : #initialization }
-Viaje >> initializeCon: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos:unaCantDeAsientosIngresada [
 	ruta := unaRuta.
-	cantAsientosDisponibles := unaRuta combi cantidadAsientos.
+	unaCantDeAsientosIngresada = '' "Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
+		ifTrue:[ cantAsientosDisponibles :=  unaRuta combi cantidadAsientos]
+		ifFalse:[cantAsientosDisponibles := unaCantDeAsientosIngresada].
 	fecha := unaFecha.
-	hora := unaHora.
 	precio := unPrecio
 ]
 
 { #category : #accessing }
-Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio [
 	ruta := unaRuta .
-	
 	unaFecha = ''
 		ifFalse: [ fecha := unaFecha ].
-	unaHora = ''
-		ifFalse: [ hora := unaHora ].
 	unPrecio = ''
 		ifFalse: [ precio := unPrecio ]
 ]

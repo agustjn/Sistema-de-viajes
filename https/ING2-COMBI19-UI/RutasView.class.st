@@ -36,11 +36,13 @@ RutasView >> parent: aParent [
 { #category : #rendering }
 RutasView >> renderContentOn: html [
 	html heading: 'Rutas'.
+		html anchor
+		callback: [ self parent activarRutaCreationView ];
+		with: [ html submitButton class:'btn btn-dark'; with: 'Crear Ruta' ].
+	html horizontalRule.
 	self renderizarRutas: html.
 	
-	html anchor
-		callback: [ self parent activarRutaCreationView ];
-		with: [ html submitButton with: 'Crear Ruta' ]
+
 ]
 
 { #category : #rendering }
@@ -54,6 +56,6 @@ RutasView >> renderizarRutas: html [
 				with: [ self model administrador rutas
 						do: [ :rut | 
 							html listItem
-								class: 'card col-sm-12 bg-success border-warning';
+								class: 'card col-sm-6 bg-success border-warning';
 								with: [ html render: (RutaSelector of: rut andParent: self) ] ] ] ]
 ]

@@ -88,34 +88,27 @@ RutaSelector >> renderizarBotonesABMOn: html [
 { #category : #rendering }
 RutaSelector >> renderizarItems: html [
 	html listItem
-		class: 'card col-sm-3 bg-info border-warning';
-		with: [ html heading level3
-				class: 'text-center';
-				with: 'Origen'.
+		class: 'card col-sm-6 bg-info border-warning ratio ratio-4x3';
+		with: [ html div class:'text-center' ; with:[html strong:'Origen'].
 			html break.
 			html render: (LugarSelector of: ruta origen withButtons: false) ].
 	html listItem
-		class: 'card col-sm-3 bg-info border-warning';
-		with: [ html heading level3
-				class: 'text-center';
-				with: 'Destino'.
+		class: 'card col-sm-6 bg-info border-warning ratio ratio-1x1';
+		with: [ html div class:'text-center' ; with:[html strong:'Destino'].
 				 html break.
 			html render: (LugarSelector of: ruta destino withButtons: false) ].
 	html listItem
-			class:'card col-sm-3 bg-info border-warning';
-			with:[ html heading level3 class:'text-center';
-					 with:'Combi encargada'.
-					 html break.
+			class:'card col-sm-6 bg-info border-warning';
+			with:[ html div class:'text-center' ; with:[html strong:'Combi encargada'] .
 					 html render: (CombiSelector of:(ruta combi) withButtons:false)].
 	html listItem
-			class:'card col-sm-3 bg-info border-warning';
-			with:[ html heading level3 class:'text-center';
-					 with:'Organizacion'.
-					 html break.
-					 html heading level2 class:''; 
+			class:'card col-sm-6 bg-info border-warning';
+			with:[ html div class:'text-center' ; with:[html strong:'Organizacion'].
+				html break.
+					 html heading level4 class:''; 
 					              with: 'Horario de salida: ' , ruta horario asString.
 				    html break.
-					 html heading level2 class:'';
+					 html heading level4 class:'';
 					with: 'Distancia del viaje: ' , ruta distancia , ' KM'
 					 ].
 	

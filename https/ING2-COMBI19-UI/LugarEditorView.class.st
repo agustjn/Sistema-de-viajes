@@ -21,7 +21,6 @@ LugarEditorView class >> newOf: aPlace [
 { #category : #event }
 LugarEditorView >> guardarDatos [
 	| lugarTipeado |
-	self halt.
 	
 	lugarTipeado := (Lugar deProvincia: (self provincia) yLocalidad: (self localidad)).
 	( ( self model administrador existeLugar: lugarTipeado )

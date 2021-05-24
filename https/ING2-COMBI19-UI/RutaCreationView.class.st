@@ -120,18 +120,8 @@ RutaCreationView >> rangoHorario: anObject [
 RutaCreationView >> renderAdvertencia [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'Ruta existente '
-		item1: 'No se puede agregar la ruta '
-		item2: 'La ruta   desde ' , origen , ' hasta ' , destino , ' ya existe '
-		item3: nil
-]
-
-{ #category : #rendering }
-RutaCreationView >> renderAdvertencia: ruta [
-	advertencia := GenericAdvertiseView
-		newWithParent: self
-		heading: 'No se puede agregar ruta '
-		item1: 'La ruta  ' , ruta string , ' ya existe '
+		heading: 'Error al agregar ruta'
+		item1: 'La ruta ingresada repite el origen, destino y combi de otra ruta'
 		item2: nil
 		item3: nil
 ]

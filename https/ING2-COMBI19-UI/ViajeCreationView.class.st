@@ -42,7 +42,6 @@ ViajeCreationView >> fecha: aFecha [
 
 { #category : #event }
 ViajeCreationView >> guardarViaje [
-	self halt.
 	( self model administrador validarViajeRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
 		precio: self precio

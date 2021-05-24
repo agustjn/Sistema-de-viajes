@@ -5,7 +5,8 @@ Class {
 		'ruta',
 		'cantAsientosDisponibles',
 		'fecha',
-		'precio'
+		'precio',
+		'estaActivo'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }

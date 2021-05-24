@@ -32,11 +32,6 @@ Combi >> cantidadAsientos: anObject [
 ]
 
 { #category : #accessing }
-Combi >> cantidadDeAsientos [
-	^cantidadAsientos 
-]
-
-{ #category : #accessing }
 Combi >> chofer [
 	^chofer
 ]
@@ -46,7 +41,7 @@ Combi >> chofer: anObject [
 	chofer := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Combi >> editarModelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente chofer: aChofer [
 	unModelo = ''
 		ifFalse: [ modelo := unModelo ].

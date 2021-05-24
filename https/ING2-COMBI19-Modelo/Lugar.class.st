@@ -17,6 +17,12 @@ Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
 	
 ]
 
+{ #category : #comparing }
+Lugar >> = unLugar [
+	self provincia = unLugar provincia & (self localidad
+		= unLugar localidad)
+]
+
 { #category : #'as yet unclassified' }
 Lugar >> editarPronvincia: unaProvincia localidad: unaLocalidad [
 	unaProvincia = ''

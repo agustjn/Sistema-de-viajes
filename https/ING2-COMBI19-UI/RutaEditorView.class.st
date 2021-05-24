@@ -8,7 +8,9 @@ Class {
 		'fecha',
 		'combi',
 		'distancia',
-		'advertencia'
+		'advertencia',
+		'horario',
+		'rangoHorario'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -55,17 +57,33 @@ RutaEditorView >> fecha: aFecha [
 	fecha:= aFecha
 ]
 
+{ #category : #formatting }
+RutaEditorView >> formatearHorario [
+	^ (horario , ' ' , rangoHorario) asTime
+]
+
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	self halt.
+self halt.
 	(self model administrador
 		editarRuta: self ruta
 		origen: self origen
 		destino: self destino
 		combi: (self model administrador buscarCombi: self combi)
-		distancia: self distancia)
+		distancia: self distancia
+		horario: self formatearHorario)
 		ifTrue: [ self answer ]
 		ifFalse: [ self renderAdvertencia ]
+]
+
+{ #category : #accessing }
+RutaEditorView >> horario [
+	^ horario
+]
+
+{ #category : #accessing }
+RutaEditorView >> horario: unHorario [
+	horario := unHorario 
 ]
 
 { #category : #accessing }
@@ -82,16 +100,24 @@ RutaEditorView >> origen: anOrigen [
 	origen := anOrigen 
 ]
 
+{ #category : #accessing }
+RutaEditorView >> rangoHorario [
+	^ rangoHorario 
+]
+
+{ #category : #accessing }
+RutaEditorView >> rangoHorario: anObject [
+	rangoHorario := anObject
+]
+
 { #category : #rendering }
 RutaEditorView >> renderAdvertencia [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'No se puede editar ruta '
-		item1:
-			'La ruta con origen ' , self origen , ' y destino ' , self destino , ' combi ', combi 
-				, ' ya existe'
-		item2: nil
-		item3: nil
+		heading: 'Error al editar, ruta existente '
+		item1: 'La ruta   desde ' , origen , ' hasta ' , destino
+		item2: 'Con combi: ' ,combi
+		item3: 'a las ' , self horario , ' ' , self rangoHorario , ' ya existe'
 ]
 
 { #category : #rendering }
@@ -141,22 +167,42 @@ RutaEditorView >> renderizarCamposOn: html [
 	html text: 'Localidad de origen '.
 	html space.
 	(html select on: #origen of: self)
-		list: self model administrador lugaresNombres.
-	html break ; break.
+		list: self model administrador lugaresNombres;
+		selected: self ruta origen string.
+	html
+		break;
+		break.
 	html text: 'Localidad de destino'.
 	html space.
 	(html select on: #destino of: self)
-		list: self model administrador lugaresNombres.
-	html break ; break.
+		list: self model administrador lugaresNombres;
+		selected: self ruta destino string.
+	html
+		break;
+		break.
 	html text: 'Seleccionar la combi'.
 	html space.
 	(html select on: #combi of: self)
-		list: self model administrador combisNombres.
-	html break ; break.
+		list: self model administrador combisNombres;
+		selected: self ruta combi string.
+	html
+		break;
+		break.
 	html text: 'Ingrese la distancia '.
 	html space.
-	(html textInput on: #distancia of: self) placeholder: (ruta distancia) , ' KM '.
-	html text: ''
+	(html textInput on: #distancia of: self)
+		placeholder: ruta distancia , ' KM '.
+	html text: ''.
+	html break.
+	html space.
+	html text: 'Horario'.
+	html space.
+	(html textInput on: #horario of: self)
+		size: 1;
+		maxLength: 2.
+	html space.
+	(html select on: #rangoHorario of: self) list: #(#PM 'AM').
+	html break
 ]
 
 { #category : #accessing }

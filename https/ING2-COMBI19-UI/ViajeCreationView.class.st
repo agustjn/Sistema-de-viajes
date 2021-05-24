@@ -139,16 +139,19 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html break.
 	html text: 'Precio del boleto'.
 	html break.
-	(html textInput on: #precio of: self).
+	html textInput on: #precio of: self.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
 	html break.
 	html dateInput on: #fecha of: self.
 	html break.
-	html text:'Cantidad de asientos disponibles' ; break.
-	(html textInput on:#cantAsientos of: self) size:2.
-	html break.
-	
+	html
+		text: 'Cantidad de asientos disponibles';
+		break.
+	(html textInput on: #cantAsientos of: self)
+		"placeholder: self placeholderAsientos;   QUERIA VER LA MANERA DE AGREGARLE UN MAXIMO"  
+		size: 2.
+	html break
 ]
 
 { #category : #rendering }

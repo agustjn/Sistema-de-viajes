@@ -23,8 +23,8 @@ Ruta class >> newCon: unOrigen destino: unDestino  combi: unaCombi distancia: un
 
 { #category : #initialization }
 Ruta >> = unaRuta [
-	^ (unaRuta origen = self origen) & (unaRuta destino = self destino)
-	 & (unaRuta combi = self combi) "& (unaRuta horario = self horario) - Esta comparacion iria?"
+	^ unaRuta origen = self origen & (unaRuta destino = self destino)
+		& (unaRuta combi = self combi)	& (unaRuta horario = self horario) 
 ]
 
 { #category : #accessing }
@@ -50,14 +50,6 @@ Ruta >> destino: anObject [
 { #category : #accessing }
 Ruta >> distancia [ 
  	^ kmDeDistancia
-]
-
-{ #category : #deprecated }
-Ruta >> editarOrigen: unOrigen destino: unDestino  combi: unaCombi distancia: unaDistancia [
-	origen := unOrigen.
-	destino := unDestino.
-	combi := unaCombi.
-	kmDeDistancia := unaDistancia
 ]
 
 { #category : #'as yet unclassified' }

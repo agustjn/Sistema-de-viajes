@@ -41,11 +41,12 @@ Viaje >> fecha [
 ]
 
 { #category : #initialization }
-Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos:unaCantDeAsientosIngresada [
+Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientosIngresada [
 	ruta := unaRuta.
-	unaCantDeAsientosIngresada = '' "Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
-		ifTrue:[ cantAsientosDisponibles :=  unaRuta combi cantidadAsientos]
-		ifFalse:[cantAsientosDisponibles := unaCantDeAsientosIngresada].
+	unaCantDeAsientosIngresada
+		ifEmpty: [ cantAsientosDisponibles := unaRuta combi cantidadAsientos ]
+		ifNotEmpty: [ cantAsientosDisponibles := unaCantDeAsientosIngresada ].	
+			"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
 	fecha := unaFecha.
 	precio := unPrecio
 ]

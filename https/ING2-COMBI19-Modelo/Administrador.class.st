@@ -158,9 +158,11 @@ Administrador >> buscarLugar: unLugarString [
 
 { #category : #'as yet unclassified' }
 Administrador >> buscarRuta: unaRutaString [
-"Recibe el string de la ruta y obtiene el objeto ruta"
-	^ rutas detect: [ :unaRuta | unaRuta string = unaRutaString ]
-			ifNone:[ ^false ]
+	"Recibe el string de la ruta y obtiene el objeto ruta"
+
+	^ rutas
+		detect: [ :unaRuta | unaRuta string = unaRutaString ]
+		ifNone: [  false ]
 ]
 
 { #category : #accessing }
@@ -194,17 +196,18 @@ Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: un
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [
+Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
 	"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
 
-	((viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
-		| (self existeRuta: unaRuta))
+	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
+		| (self existeRuta: unaRuta)
 		ifTrue: [ ^ false ]
 		ifFalse: [ unaRuta
 				editarOrigen: unOrigen
 				destino: unDestino
 				combi: unaCombi
-				distancia: unaDistancia.
+				distancia: unaDistancia
+				horario: unHorario .
 			^ true ]
 ]
 
@@ -220,21 +223,6 @@ Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha hora: una
 				ifTrue: [ ^ false ]
 				ifFalse: [ aTravel modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio.
 					^ true ] 
-]
-
-{ #category : #deprecated }
-Administrador >> editarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
-"Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
-	| unViaje |
-	unViaje := Viaje
-		initializeCon: unaRuta
-		fecha: unaFecha
-		precio: unPrecio.
-	viajes
-		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
-				ifTrue: [ ^ false ]
-				ifFalse: [ viajes add: unViaje.
-					^ true ] ]
 ]
 
 { #category : #'as yet unclassified' }

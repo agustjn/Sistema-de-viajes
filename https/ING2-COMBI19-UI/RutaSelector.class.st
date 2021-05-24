@@ -72,14 +72,17 @@ RutaSelector >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 RutaSelector >> renderizarBotonesABMOn: html [
-	html anchor
-		callback: [ self parent call: (RutaEditorView newOf: ruta) ];
-		with: [ html submitButton with: 'Editar' ].
-	html space.
-	html anchor
-		callback: [ self eliminarRuta.
-			self answer ];
-		with: [ html submitButton with: 'Eliminar' ]
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self parent call: (RutaEditorView newOf: ruta) ];
+				with: [ html submitButton class:'btn btn-dark'; with: 'Editar' ].
+			html space.
+			html anchor
+				callback: [ self eliminarRuta.
+					self answer ];
+				with: [ html submitButton class:'btn btn-dark'; with: 'Eliminar' ].
+				html break ; break. ]
 ]
 
 { #category : #rendering }
@@ -90,14 +93,32 @@ RutaSelector >> renderizarItems: html [
 				class: 'text-center';
 				with: 'Origen'.
 			html break.
-			html render: (LugarSelector of: ruta origen andParent: self) ].
+			html render: (LugarSelector of: ruta origen withButtons: false) ].
 	html listItem
 		class: 'card col-sm-3 bg-info border-warning';
 		with: [ html heading level3
 				class: 'text-center';
 				with: 'Destino'.
 				 html break.
-			html render: (LugarSelector of: ruta destino andParent: self) ]
+			html render: (LugarSelector of: ruta destino withButtons: false) ].
+	html listItem
+			class:'card col-sm-3 bg-info border-warning';
+			with:[ html heading level3 class:'text-center';
+					 with:'Combi encargada'.
+					 html break.
+					 html render: (CombiSelector of:(ruta combi) withButtons:false)].
+	html listItem
+			class:'card col-sm-3 bg-info border-warning';
+			with:[ html heading level3 class:'text-center';
+					 with:'Organizacion'.
+					 html break.
+					 html heading level2 class:''; 
+					              with: 'Horario de salida: ' , ruta horario asString.
+				    html break.
+					 html heading level2 class:'';
+					with: 'Distancia del viaje: ' , ruta distancia , ' KM'
+					 ].
+	
 ]
 
 { #category : #'as yet unclassified' }

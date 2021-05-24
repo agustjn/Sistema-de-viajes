@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'place',
 		'parent',
-		'advertiseView'
+		'advertiseView',
+		'buttonsOff'
 	],
 	#category : #'ING2-COMBI19-UI-Lugar-CRUD-UI'
 }
@@ -15,8 +16,29 @@ LugarSelector class >> of: lugar andParent: aParent [
 	instance := self new.
 	instance place: lugar.
 	instance parent: aParent.
+	instance buttonsOff:false.
 	^instance
 
+]
+
+{ #category : #'instance creation' }
+LugarSelector class >> of: lugar withButtons: falseBoolean [
+	| instance |
+	instance := self new.
+	instance place: lugar.
+   instance buttonsOff: true.
+	^instance
+
+]
+
+{ #category : #accessing }
+LugarSelector >> buttonsOff [
+	^ buttonsOff
+]
+
+{ #category : #accessing }
+LugarSelector >> buttonsOff: anObject [
+	buttonsOff := anObject
 ]
 
 { #category : #accessing }
@@ -83,19 +105,22 @@ LugarSelector >> renderContentOn: html [
 
 { #category : #rendering }
 LugarSelector >> renderizarBotonesABMOn: html [
-	html div
-		class: 'text-center';
-		with: [ html anchor
-				callback: [ self parent call: (LugarEditorView newOf: place) ];
-				with: [ html submitButton
-						class: 'btn btn-warning';
-						with: 'Editar' ].
-			html space.
-			html anchor
-				callback: [ self eliminarLugar.
-					self answer ];
-				with: [ html submitButton
-						class: 'btn btn-danger';
-						with: 'Eliminar' ].
-			html break ; break .]
+	buttonsOff
+		ifFalse: [ html div
+				class: 'text-center';
+				with: [ html anchor
+						callback: [ self parent call: (LugarEditorView newOf: place) ];
+						with: [ html submitButton
+								class: 'btn btn-warning';
+								with: 'Editar' ].
+					html space.
+					html anchor
+						callback: [ self eliminarLugar.
+							self answer ];
+						with: [ html submitButton
+								class: 'btn btn-danger';
+								with: 'Eliminar' ].
+					html
+						break;
+						break ] ]
 ]

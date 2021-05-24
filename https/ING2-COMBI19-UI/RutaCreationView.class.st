@@ -58,13 +58,15 @@ RutaCreationView >> formatearHorario [
 
 { #category : #event }
 RutaCreationView >> guardarRuta [
+
 	| origenObj destinoObj |
+		self halt.
 	origenObj := self model administrador buscarLugar: self origen.
 	destinoObj := self model administrador buscarLugar: self destino.
 	(self model administrador
 		agregarRuta: origenObj
 		destino: destinoObj
-		combi: self combi
+		combi: (self model administrador buscarCombi:(self combi))
 		distancia: self distancia
 		horario: self formatearHorario)
 		ifTrue: [ self parent activarRutasView ]

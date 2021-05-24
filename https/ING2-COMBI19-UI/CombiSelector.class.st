@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'combi',
-		'parent'
+		'parent',
+		'buttonsOff'
 	],
 	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
@@ -14,7 +15,27 @@ CombiSelector class >> of: aCombi andParent: aParent [
 	instance := self new.
 	instance parent: aParent.
 	instance combi: aCombi.
+	instance buttonsOff:false.
 	^ instance
+]
+
+{ #category : #'instance creation' }
+CombiSelector class >> of: aCombi withButtons: aBooleanFalse [
+	| instance |
+	instance := self new.
+	instance combi: aCombi.
+	instance buttonsOff: true.
+	^ instance
+]
+
+{ #category : #accessing }
+CombiSelector >> buttonsOff [
+	^ buttonsOff
+]
+
+{ #category : #accessing }
+CombiSelector >> buttonsOff: anObject [
+	buttonsOff := anObject
 ]
 
 { #category : #accessing }
@@ -69,21 +90,23 @@ CombiSelector >> renderContentOn: html [
 
 { #category : #rendering }
 CombiSelector >> renderizarBotonesABMOn: html [
-	html div
-		class: 'text-center';
-		with: [ html anchor
-				callback: [ self parent call: (CombiEditorView newOf: self combi) ];
-				with: [ html submitButton
-						class: 'btn btn-warning';
-						with: 'Editar' ].
-			html space.
-			html anchor
-				callback: [ self model administrador eliminarCombi: self combi.
-					self answer ];
-				with: [ html submitButton
-						class: 'btn btn-danger';
-						with: 'Eliminar' ].
-			html
-				break;
-				break ]
+	buttonsOff
+		ifFalse:[				html div
+				class: 'text-center';
+				with: [ html anchor
+						callback: [ self parent call: (CombiEditorView newOf: self combi) ];
+						with: [ html submitButton
+								class: 'btn btn-warning';
+								with: 'Editar' ].
+					html space.
+					html anchor
+						callback: [ self model administrador eliminarCombi: self combi.
+							self answer ];
+						with: [ html submitButton
+								class: 'btn btn-danger';
+								with: 'Eliminar' ].
+					html
+						break;
+						break ].]
+ 
 ]

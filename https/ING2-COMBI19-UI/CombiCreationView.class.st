@@ -72,17 +72,15 @@ CombiCreationView >> choferesDisponibles [
 
 { #category : #event }
 CombiCreationView >> guardarCombi [
-	choferName
-		ifNil: [ self renderAdvertencia: 'Seleccione un chofer' ]
-		ifNotNil: [ (self model administrador
+ (self model administrador
 				agregarCombiModelo: self modelo
 				patente: self patente
 				cantidadAsientos: self cantidad
 				chofer: (self model buscarChoferNombre: choferName)
 				tipo: self tipo)
 				ifTrue: [ self parent desactivarCombiCreationView ]
-				ifFalse: [ self
-						renderAdvertencia: 'La patente' , self patente , ' ya existe' ] ]
+				ifFalse:
+					[ self renderAdvertencia: 'La patente' , self patente , ' ya existe' ] 
 ]
 
 { #category : #accessing }

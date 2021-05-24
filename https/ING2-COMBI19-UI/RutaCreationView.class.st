@@ -61,14 +61,16 @@ RutaCreationView >> guardarRuta [
 	| origenObj destinoObj |
 	origenObj := self model administrador buscarLugar: self origen.
 	destinoObj := self model administrador buscarLugar: self destino.
+	self validarHorario
+		ifTrue: [ 
 	(self model administrador
 		agregarRuta: origenObj
 		destino: destinoObj
-		combi: (self model administrador buscarCombi: self combi)
+		combi: self combi
 		distancia: self distancia
 		horario: self formatearHorario)
 		ifTrue: [ self parent activarRutasView ]
-		ifFalse: [ self renderAdvertencia ]
+		ifFalse: [ self renderAdvertencia ]]
 ]
 
 { #category : #accessing }
@@ -118,9 +120,19 @@ RutaCreationView >> rangoHorario: anObject [
 RutaCreationView >> renderAdvertencia [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'Error al agregar ruta'
-		item1: 'La ruta ingresada repite el origen, destino y combi de otra ruta'
-		item2: nil
+		heading: 'Error al crear, ruta existente '
+		item1: 'La ruta   desde ' , origen , ' hasta ' , destino
+		item2: 'Con combi: ' , combi
+		item3: 'a las ' , self horario , ' ' , self rangoHorario , ' ya existe'
+]
+
+{ #category : #rendering }
+RutaCreationView >> renderAdvertencia2 [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al editar, Ingrese un horario '
+		item1: 'Ingrese un horario dentro de los parametros'
+		item2: ' Minimo 1 maximo 12 '
 		item3: nil
 ]
 
@@ -180,4 +192,15 @@ html space.
 			html space.
 			(html select on: #rangoHorario of: self) list: #(#PM 'AM') .
 			html break.
+]
+
+{ #category : #'as yet unclassified' }
+RutaCreationView >> validarHorario [
+	self horario
+		ifEmpty: [ self renderAdvertencia2.
+			^ false ]
+		ifNotEmpty: [ (self horario asInteger between: 1 and: 12)
+				ifTrue: [ ^ true ]
+				ifFalse: [ self renderAdvertencia2.
+					^ false ] ]
 ]

@@ -60,15 +60,9 @@ CombiEditorView >> combi: unaCombi [
 	combi:= unaCombi
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 CombiEditorView >> editarCombi [
-	"Pregunta si  el chofer"
-
-	"self halt.
-	self modelo ifEmpty: [ self modelo: self combi modelo ].
-	self cantidad
-		ifEmpty: [ self cantidad: self combi cantidadDeAsientos ].
-	self tipo ifEmpty: [ self tipo: self combi tipo ]."
+	"Le manda al administrador para editar tal combi, el administrador hace la comparacion a ver si existe o no, y devuelve un booleano dependiendo si se pudo o no"
 
 	(self model administrador existeCombi: self patente)
 		ifTrue: [ self renderAdvertencia ]
@@ -77,7 +71,7 @@ CombiEditorView >> editarCombi [
 				cantidadAsientos: self cantidad
 				tipo: self tipo
 				patente: self patente
-				chofer: (self model buscarChoferNombre: choferName) ]
+				chofer: (self model buscarChoferNombre: choferName). self answer  ]
 ]
 
 { #category : #accessing }
@@ -142,12 +136,13 @@ CombiEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 CombiEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self editarCombi. self answer ];
+		callback: [ self editarCombi ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton
 		callback: [ self answer ];
-		value: 'Cancelar'
+		value: 'Cancelar'.
+
 ]
 
 { #category : #rendering }
@@ -174,7 +169,7 @@ CombiEditorView >> renderizarCamposOn: html [
 	html text: 'Cantidad de asientos '.
 	html break.
 	(html textInput on: #cantidad of: self)
-		placeholder: combi cantidadDeAsientos.
+		placeholder: combi cantidadAsientos.
 	html break.
 	html text: 'Tipo de asiento'.
 	html break.

@@ -19,8 +19,7 @@ Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
 
 { #category : #comparing }
 Lugar >> = unLugar [
-	self provincia = unLugar provincia & (self localidad
-		= unLugar localidad)
+	^ self string = unLugar string
 ]
 
 { #category : #'as yet unclassified' }

@@ -92,35 +92,19 @@ Administrador >> agregarRuta: unaRuta [
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [
+Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
 	"Chequea que la ruta no exista, en dicho caso agrega la ruta a la coleccion de rutas y devuelve un booleano confirmando o denegando la accion"
 
-	| unaRuta |
+	| origenObj destinoObj unaRuta  |
+	origenObj := self buscarLugar: unOrigen.
+	destinoObj := self  buscarLugar: unDestino .
 	unaRuta := Ruta
-		newCon: unOrigen
-		destino: unDestino
-		combi: unaCombi
-		distancia: unaDistancia.
-	(self
-		existeRuta: unaRuta)
-		ifTrue: [ ^ false ]
-		ifFalse: [ rutas add: unaRuta.
-			^ true ]
-]
-
-{ #category : #'as yet unclassified' }
-Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario:unHorario [
-	"Chequea que la ruta no exista, en dicho caso agrega la ruta a la coleccion de rutas y devuelve un booleano confirmando o denegando la accion"
-
-	| unaRuta |
-	unaRuta := Ruta
-		newCon: unOrigen
-		destino: unDestino
-		combi: unaCombi
+		newCon: origenObj
+		destino: destinoObj
+		combi: (self buscarCombi: unaCombi)
 		distancia: unaDistancia
-		horario:unHorario.
-	(self
-		existeRuta: unaRuta)
+		horario: unHorario.
+	(self existeRuta: unaRuta)
 		ifTrue: [ ^ false ]
 		ifFalse: [ rutas add: unaRuta.
 			^ true ]
@@ -153,7 +137,7 @@ Administrador >> buscarCombi: unaCombiString [
 Administrador >> buscarLugar: unLugarString [
 	"Le llega el string de un lugar, y obtiene el objeto lugar"
 
-	^ lugares detect: [ :lugar | lugar string = unLugarString ]
+	^ lugares detect: [ :lugar | lugar string = unLugarString string ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -176,19 +160,6 @@ Administrador >> combisNombres [
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarCombi: unaCombi modelo: unModelo cantidadAsientos: unaCantidad tipo: unTipo patente: unaPatente [
-"Chequea que no exista una Combi con una patente igual a la que llega por parametrO, en caso de no existir edita la combi . Devuelve un booleano confirmando o denegando la accion"
-	(combis anySatisfy: [ :combi | combi patente = unaPatente ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ unaCombi
-				editarModelo: unModelo
-				cantidadAsientos: unaCantidad
-				tipo: unTipo
-				patente: unaPatente.
-			^ true ]
-]
-
-{ #category : #'as yet unclassified' }
 Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: unPrecio [
 	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
 		ifTrue: [ ^ false ]
@@ -198,16 +169,26 @@ Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: un
 { #category : #'as yet unclassified' }
 Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
 	"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
-
+	| origenObj destinoObj   |
+	origenObj := self buscarLugar: unOrigen.
+	destinoObj := self buscarLugar: unDestino.
+	
 	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
-		| (self existeRuta: unaRuta)
+		|
+			(self
+				existeRuta: unaRuta
+				Origen: origenObj 
+				destino: destinoObj
+				combi: (self buscarCombi: unaCombi )
+				distancia: unaDistancia
+				horario: unHorario)
 		ifTrue: [ ^ false ]
 		ifFalse: [ unaRuta
-				editarOrigen: unOrigen
-				destino: unDestino
-				combi: unaCombi
+				editarOrigen: origenObj 
+				destino: destinoObj 
+				combi: (self buscarCombi: unaCombi )
 				distancia: unaDistancia
-				horario: unHorario .
+				horario: unHorario.
 			^ true ]
 ]
 
@@ -290,7 +271,22 @@ Administrador >> existeLugar: lugar [
 
 { #category : #'as yet unclassified' }
 Administrador >> existeRuta: unaRuta [
-	^ rutas anySatisfy: [ :laRuta | laRuta = unaRuta ]
+	^ self rutas anySatisfy: [ :laRuta | laRuta = unaRuta ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> existeRuta: unaRuta Origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
+	| dis rutaPrueba |
+	unaDistancia
+		ifEmpty: [ dis := unaRuta distancia ]
+		ifNotEmpty: [ dis := unaDistancia ].
+	rutaPrueba := Ruta
+		newCon: unOrigen
+		destino: unDestino
+		combi: unaCombi
+		distancia: dis
+		horario: unHorario.
+	^ self existeRuta: rutaPrueba
 ]
 
 { #category : #'as yet unclassified' }

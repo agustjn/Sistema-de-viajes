@@ -64,16 +64,16 @@ RutaEditorView >> formatearHorario [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-self halt.
-	(self model administrador
-		editarRuta: self ruta
-		origen: self origen
-		destino: self destino
-		combi: (self model administrador buscarCombi: self combi)
-		distancia: self distancia
-		horario: self formatearHorario)
-		ifTrue: [ self answer ]
-		ifFalse: [ self renderAdvertencia ]
+	self validarHorario
+		ifTrue: [ (self model administrador
+				editarRuta: self ruta
+				origen: self origen
+				destino: self destino
+				combi: self combi
+				distancia: self distancia
+				horario: self formatearHorario)
+				ifTrue: [ self answer ]
+				ifFalse: [ self renderAdvertencia ] ]
 ]
 
 { #category : #accessing }
@@ -116,8 +116,18 @@ RutaEditorView >> renderAdvertencia [
 		newWithParent: self
 		heading: 'Error al editar, ruta existente '
 		item1: 'La ruta   desde ' , origen , ' hasta ' , destino
-		item2: 'Con combi: ' ,combi
+		item2: 'Con combi: ' , combi
 		item3: 'a las ' , self horario , ' ' , self rangoHorario , ' ya existe'
+]
+
+{ #category : #rendering }
+RutaEditorView >> renderAdvertencia2 [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al editar, Ingrese un horario '
+		item1: 'Ingrese un horario dentro de los parametros'
+		item2: ' Minimo 1 maximo 12 '
+		item3:  nil
 ]
 
 { #category : #rendering }
@@ -213,4 +223,16 @@ RutaEditorView >> ruta [
 { #category : #accessing }
 RutaEditorView >> ruta: aRuta [
 	ruta := aRuta
+]
+
+{ #category : #'as yet unclassified' }
+RutaEditorView >> validarHorario [
+
+	self horario
+		ifEmpty: [ self renderAdvertencia2.
+			^ false ]
+		ifNotEmpty: [((self horario asInteger) between: 1 and: 12)
+				ifTrue: [ ^ true ]
+				ifFalse: [ self renderAdvertencia2.
+					^ false ] ]
 ]

@@ -40,61 +40,65 @@ MenuAdminView >> parent: anObject [
 ]
 
 { #category : #rendering }
-MenuAdminView >> renderContentOn: html [
-	self renderizarAnchors: html.
+MenuAdminView >> renderContentOn: aCanvas [
+	self renderizarAnchors: aCanvas.
 		
 ]
 
 { #category : #rendering }
 MenuAdminView >> renderizarAnchors: aCanvas [
-aCanvas navigation
-	class:'navbar navbar-expand-lg navbar-light bg-light mb-4';
-	with: [
-		aCanvas div 
-			class: 'collapse navbar-collapse';
-			with:[
+	
 				aCanvas unorderedList
-				class:'navbar-nav mr-auto';
+				class:'nav justify-content-center nav-tabs mb-4';
 					with:[ aCanvas
-				listItem
-				class:'nav-item ml-4';
-				with: [ aCanvas anchor
-						callback: [ self parent activarChoferView ];
-						with: 'Choferes' ].
+							listItem
+							class:'nav-item ml-4 ';
+				
+							with: [ aCanvas anchor
+								class: 'nav-link';
+								callback: [ self parent activarChoferView ];
+								with: 'Choferes' ].
+						aCanvas
+						listItem
+						class:'nav-item ml-4';
+							with:[ aCanvas anchor
+							class: 'nav-link';
+							callback: [ self parent activarCombiView ];
+							with: 'Combis' ].
 			aCanvas
 				listItem
 				class:'nav-item ml-4';
-				with:[ aCanvas anchor
-						callback: [ self parent activarCombiView ];
-						with: 'Combis' ].
-			aCanvas
-				listItem
-				class:'nav-item ml-4';
 				with: [ aCanvas anchor
+						class: 'nav-link';
 						callback: [ self parent activarViajeView ];
 						with: 'Viajes' ].
 			aCanvas
 				listItem
 				class:'nav-item ml-4';
 				with: [ aCanvas anchor
+						class: 'nav-link';
 						callback: [  self parent activarRutasView ];
 						with: 'Rutas' ].
 			aCanvas
 				listItem
 				class:'nav-item ml-4';
 				with: [ aCanvas anchor
+						class: 'nav-link';
 						callback: [ self parent activarLugarView ];
 						with: 'Lugares' ].
 			aCanvas
 				listItem
 				class:'nav-item ml-4';
 				with: [ aCanvas anchor
+						class: 'nav-link';
 						callback: [ self parent activarInsumoView ];
 						with: 'Insumos' ] ]
 				
-				].
-		
-		].
-		
+			
+]
 
+{ #category : #updating }
+MenuAdminView >> updateRoot: anHtmlRoot [ 
+    super updateRoot: anHtmlRoot.
+    anHtmlRoot stylesheet url: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

@@ -70,7 +70,7 @@ ChoferView >> renderizarChoferes: aCanvas [
 				with: [ self model choferes
 						do: [ :chofer | aCanvas space.
 							aCanvas listItem
-								class: 'card col-md-4 border-color:green';
+								class: 'card col-sm-3 bg-info border-warning';
 								with: [ aCanvas render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
 ]
 

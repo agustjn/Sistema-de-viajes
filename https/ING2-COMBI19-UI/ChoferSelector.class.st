@@ -40,40 +40,45 @@ ChoferSelector >> parent [
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderContentOn: html [
-	html div
-		with: [ html div
-				class: 'car';
-				with: [ html div
+ChoferSelector >> renderContentOn: aCanvas [
+	aCanvas div
+		with: [ aCanvas div
+				class: 'card col-md-12 mt-3';
+				
+				with: [ aCanvas div
 						class: 'card-body';
-						with: [ html
-								heading level5 class:'card-header' ; 
+						with: [ aCanvas
+								heading level5 class:'card-header bg-white' ; 
 								with:'Chofer ', chofer nombre , ' ' , chofer apellido.
-								html paragraph class:'card-text' ;
-													with:[html text:'Email : ' , chofer email.
-														   html break.
-														   html text:'Telefono: ' , chofer telefono.
-														   html break.
-														   html text:'Esta activo: ', self renderizarEstadoChofer].
+									
+								aCanvas break.
+								aCanvas paragraph class:'card-text' ;
+													with:[aCanvas text:'Email : ' , chofer email.
+														   aCanvas break.
+														   aCanvas text:'Telefono: ' , chofer telefono.
+														   aCanvas break.
+														   aCanvas text:'Esta activo: ', self renderizarEstadoChofer].
 								] ] ].
-	html space.
-	self renderizarBotonesABMOn: html
+	aCanvas space.
+
+	self renderizarBotonesABMOn: aCanvas
 ]
 
 { #category : #rendering }
-ChoferSelector >> renderizarBotonesABMOn: html [
-	html div
-		with: [ html anchor
+ChoferSelector >> renderizarBotonesABMOn: aCanvas [
+	aCanvas div 
+		
+		with: [ aCanvas anchor
 				callback: [ self parent call: (ChoferEditorView newOf: chofer) ];
-				with: [ html submitButton class:'btn-dark'; with: 'Editar' ].
-			html space.
-			html anchor
+				with: [ aCanvas submitButton class:'btn btn-dark'; with: 'Editar' ].
+			aCanvas space.
+			aCanvas anchor
 				callback: [ self eliminarChofer
 					"self model eliminarChofer: chofer.
 			self answer " ];
-				with: [ html submitButton class:'btn-dark'; with: 'Eliminar'.
-					html break.
-					html space. ] ].
+				with: [ aCanvas submitButton class:'btn btn-dark'; with: 'Eliminar'.
+					aCanvas break.
+					aCanvas space. ] ].
 	
 ]
 

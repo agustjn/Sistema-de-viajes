@@ -55,7 +55,7 @@ ChoferView >> renderContentOn: aCanvas [
 	aCanvas render: deleteErrorView.
 	aCanvas anchor
 		callback: [ self parent activarChoferCreationView ];
-		with: [ aCanvas submitButton with: 'Crear chofer' ]
+		with: [ aCanvas submitButton class:'btn btn-ligth'; with: 'Crear chofer' ].
 ]
 
 { #category : #rendering }
@@ -70,7 +70,7 @@ ChoferView >> renderizarChoferes: aCanvas [
 				with: [ self model choferes
 						do: [ :chofer | aCanvas space.
 							aCanvas listItem
-								class: 'card col-sm-3 bg-primary';
+								class: 'card col-md-4 border-color:green';
 								with: [ aCanvas render: (ChoferSelector of: chofer andParent: self) ] ] ] ]
 ]
 

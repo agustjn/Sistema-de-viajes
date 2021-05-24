@@ -47,12 +47,13 @@ RutasView >> renderContentOn: html [
 RutasView >> renderizarRutas: html [
 	"Si no tiene choferes imprime que no tiene"
 
-	(self model administrador rutas)
-		isEmpty
-				ifTrue:[ html heading level4 with: 'No hay Rutas cargadados en el sistema' ]
-		ifFalse: [ html
-				unorderedList: [ self model administrador rutas
+	self model administrador rutas isEmpty
+		ifTrue: [ html heading level4 with: 'No hay Rutas cargadados en el sistema' ]
+		ifFalse: [ html unorderedList
+				class: 'row';
+				with: [ self model administrador rutas
 						do: [ :rut | 
-							html
-								listItem: [ html render: (RutaSelector of: rut andParent: self) ] ] ] ]
+							html listItem
+								class: 'card col-sm-12 bg-success border-warning';
+								with: [ html render: (RutaSelector of: rut andParent: self) ] ] ] ]
 ]

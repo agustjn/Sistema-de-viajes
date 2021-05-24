@@ -43,14 +43,31 @@ RutaSelector >> parent [
 
 { #category : #rendering }
 RutaSelector >> renderContentOn: html [
-	html
+	html div
+		with: [ html div
+				class: '';
+				with: [ html div
+						class: 'card-body';
+						with: [ html heading level5
+								class: 'card-header text-center border-secondary';
+								with: 'Ruta'.
+							html paragraph
+								class: 'card-text';
+								with: [ html unorderedList
+										class: 'row';
+										with: [ self renderizarItems: html. ] ] ] ] ].
+	html space.
+	self renderizarBotonesABMOn: html
+
+
+	"	html
 		text:
 			'Ruta desde  ' , ruta origen string , '    hasta  '
 				, ruta destino string , '    combi ' , ruta combi string
 				, '    distancia: ' , ruta distancia , 'km'.
 	html space.
 	self renderizarBotonesABMOn: html.
-	html render: advertiseView 
+	html render: advertiseView "
 ]
 
 { #category : #'as yet unclassified' }
@@ -63,6 +80,24 @@ RutaSelector >> renderizarBotonesABMOn: html [
 		callback: [ self eliminarRuta.
 			self answer ];
 		with: [ html submitButton with: 'Eliminar' ]
+]
+
+{ #category : #rendering }
+RutaSelector >> renderizarItems: html [
+	html listItem
+		class: 'card col-sm-3 bg-info border-warning';
+		with: [ html heading level3
+				class: 'text-center';
+				with: 'Origen'.
+			html break.
+			html render: (LugarSelector of: ruta origen andParent: self) ].
+	html listItem
+		class: 'card col-sm-3 bg-info border-warning';
+		with: [ html heading level3
+				class: 'text-center';
+				with: 'Destino'.
+				 html break.
+			html render: (LugarSelector of: ruta destino andParent: self) ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -55,23 +55,47 @@ LugarSelector >> place: anObject [
 
 { #category : #rendering }
 LugarSelector >> renderContentOn: html [
-	html
+	html div
+		with: [ html div
+				class: '';
+				with: [ html div
+						class: 'card-body';
+						with: [ html heading level5
+								class: 'card-header text-center border-secondary';
+								with: 'Lugar'.
+							html paragraph
+								class: 'card-text';
+								with: [ html strong: 'Provincia: ' ; text: place provincia.
+									html break.
+									html strong:'Localidad: ' ; text: place localidad] ] ] ].
+	html space.
+	self renderizarBotonesABMOn: html.
+	html render: advertiseView.
+	""""""""""
+"	html
 		text:
 			'Lugar / Provincia: ' , place provincia , ' - Localidad: '
 				, place localidad.
 	html space.
 	self renderizarBotonesABMOn: html.
-	html render: advertiseView
+	html render: advertiseView"
 ]
 
 { #category : #rendering }
 LugarSelector >> renderizarBotonesABMOn: html [
-	html anchor
-		callback: [ self parent call: (LugarEditorView newOf: place) ];
-		with: [ html submitButton with: 'Editar' ].
-	html space.
-	html anchor
-		callback: [ self eliminarLugar.
-			self answer ];
-		with: [ html submitButton with: 'Eliminar' ]
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self parent call: (LugarEditorView newOf: place) ];
+				with: [ html submitButton
+						class: 'btn btn-warning';
+						with: 'Editar' ].
+			html space.
+			html anchor
+				callback: [ self eliminarLugar.
+					self answer ];
+				with: [ html submitButton
+						class: 'btn btn-danger';
+						with: 'Eliminar' ].
+			html break ; break .]
 ]

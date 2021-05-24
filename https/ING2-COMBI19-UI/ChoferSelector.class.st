@@ -43,7 +43,7 @@ ChoferSelector >> parent [
 ChoferSelector >> renderContentOn: html [
 	html div
 		with: [ html div
-				class: 'car';
+				class: '';
 				with: [ html div
 						class: 'card-body';
 						with: [ html

@@ -47,12 +47,14 @@ self parent desactivarCombiCreationView.
 
 { #category : #rendering }
 CombiView >> renderizarCombisOn: html [
-	(self model administrador combis) isEmpty
-		ifTrue:
-				[ html heading level4 with: 'No hay Combis cargadados en el sistema' ];
-		ifFalse: [ html
-				unorderedList: [ self model administrador combis
-						do: [ :combi | 
-							html
-								listItem: [ html render: (CombiSelector of: combi andParent: self) ] ] ] ]
+	self model administrador combis isEmpty
+		ifTrue: [ html heading level4 with: 'No hay Combis cargadados en el sistema' ];
+		ifFalse: [ html unorderedList
+					class: 'row';
+					with: [ self model administrador combis
+							do: [ :combi | 								
+								html listItem
+									class: 'card col-sm-3 bg-info border-warning';
+									with: [ html render: (CombiSelector of: combi andParent: self).
+										 ] ] ] ]
 ]

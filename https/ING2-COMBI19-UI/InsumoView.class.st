@@ -37,13 +37,14 @@ InsumoView >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 InsumoView >> renderizarInsumos: html [
-	(self model administrador insumos) isEmpty
+	self model administrador insumos isEmpty
 		ifTrue:
 				[ html heading level4 with: 'No hay Insumos cargadados en el sistema' ];
-		ifFalse: [ html
-				unorderedList: [ self model administrador insumos
-											do: [ :insumo | 
-							html
-								listItem: [ html render: (InsumoSelector of:insumo andParent: self) ] ] ] ]
-	
+		ifFalse: [ html unorderedList
+					class: 'row';
+					with: [ self model administrador insumos
+							do: [ :insumo | 
+								html listItem
+									class: 'card col-sm-3 bg-info border-warning';
+									with: [ html render: (InsumoSelector of: insumo andParent: self) ] ] ] ]
 ]

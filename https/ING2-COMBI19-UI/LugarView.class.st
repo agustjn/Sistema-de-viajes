@@ -56,9 +56,11 @@ LugarView >> renderContentOn: html [
 
 { #category : #rendering }
 LugarView >> renderizarLugares: html [
-	html
-		unorderedList: [ (self model administrador lugares)
+	html unorderedList
+		class: 'row';
+		with: [ self model administrador lugares
 				do: [ :lugar | 
-					html
-						listItem: [ html render: (LugarSelector of: lugar andParent: self) ] ] ]
+					html listItem
+						class: 'card col-sm-3 bg-info border-warning';
+						with: [ html render: (LugarSelector of: lugar andParent: self) ] ] ]
 ]

@@ -44,19 +44,46 @@ CombiSelector >> parent: anObject [
 
 { #category : #rendering }
 CombiSelector >> renderContentOn: html [
-	html
-		text: 'Combi / Modelo: ' , combi modelo , ' Patente: ' , combi patente.
+	html div
+		with: [ html div
+				class: '';
+				with: [ html div
+						class: 'card-body';
+						with: [ html heading level5
+								class: 'card-header text-center border-secondary';
+								with: 'Combi'.
+							html paragraph
+								class: 'card-text';
+								with: [ html strong: 'Modelo : ' ; text: combi modelo.
+									html break.
+									html strong:'Patente: ' ; text:combi patente.
+									html break.
+									html strong:'Capacidad maxima de asientos: ' ; text: combi cantidadAsientos asString.
+									html break.
+									html strong:'Chofer asignado: ' ; text:combi chofer nombre , ' ' , combi chofer apellido.
+									html break.
+									html strong:'Tipo: ' ; text: combi tipo] ] ] ].
 	html space.
 	self renderizarBotonesABMOn: html
 ]
 
 { #category : #rendering }
 CombiSelector >> renderizarBotonesABMOn: html [
-	html anchor
-		callback: [ self parent call: (CombiEditorView newOf: self combi) ];
-		with: [ html submitButton with: 'Editar' ].
-	html anchor
-		callback: [ self model administrador eliminarCombi: self combi.
-			self answer ];
-		with: [ html submitButton with: 'Eliminar' ]
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self parent call: (CombiEditorView newOf: self combi) ];
+				with: [ html submitButton
+						class: 'btn btn-warning';
+						with: 'Editar' ].
+			html space.
+			html anchor
+				callback: [ self model administrador eliminarCombi: self combi.
+					self answer ];
+				with: [ html submitButton
+						class: 'btn btn-danger';
+						with: 'Eliminar' ].
+			html
+				break;
+				break ]
 ]

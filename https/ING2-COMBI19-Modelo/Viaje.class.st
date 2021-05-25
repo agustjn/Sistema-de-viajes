@@ -42,22 +42,24 @@ Viaje >> fecha [
 
 { #category : #initialization }
 Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientosIngresada [
-	ruta := unaRuta.
+	"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
+	ruta:= unaRuta.
 	unaCantDeAsientosIngresada
 		ifEmpty: [ cantAsientosDisponibles := unaRuta combi cantidadAsientos ]
-		ifNotEmpty: [ cantAsientosDisponibles := unaCantDeAsientosIngresada ].	
-			"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
+		ifNotEmpty: [ cantAsientosDisponibles := unaCantDeAsientosIngresada ].
 	fecha := unaFecha.
 	precio := unPrecio
 ]
 
 { #category : #accessing }
-Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio [
-	ruta := unaRuta .
+Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidad [
+	ruta := unaRuta.
 	unaFecha = ''
 		ifFalse: [ fecha := unaFecha ].
 	unPrecio = ''
-		ifFalse: [ precio := unPrecio ]
+		ifFalse: [ precio := unPrecio ].
+	unaCantidad = ''
+		ifFalse: [ self cantAsientosDisponibles: unaCantidad ]
 ]
 
 { #category : #accessing }

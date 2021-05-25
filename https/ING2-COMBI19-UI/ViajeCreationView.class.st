@@ -41,14 +41,18 @@ ViajeCreationView >> fecha: aFecha [
 
 { #category : #event }
 ViajeCreationView >> guardarViaje [
-	( self model administrador validarViajeRuta: (self model administrador buscarRuta: self ruta)
+|rutaObj|
+"Recupero el obj ruta desde un string, y consulto si esta vacio la cantidad , de ser asi le seteo la por defecto y  guardo el viaje."
+rutaObj  :=  self model administrador buscarRuta: self ruta.
+ self cantAsientos ifEmpty: [ self cantAsientos: rutaObj cantidadAsientos   ].
+	(self model administrador
+		validarViajeRuta: rutaObj
 		fecha: self fecha
 		precio: self precio
-		asientos: self cantAsientos )
-	"Si el viaje es invalido, se retorna false, de lo contrario se agrega al sistema y retorna true"
-	ifTrue: [ self parent desactivarViajeCreationView ]
-	ifFalse: [ self renderizarError ]
-
+		asientos: self cantAsientos)
+		ifTrue: [ self parent desactivarViajeCreationView ]
+		ifFalse:
+			[ "Si el viaje es invalido, se retorna false, de lo contrario se agrega al sistema y retorna true" self renderizarError ]
 ]
 
 { #category : #rendering }
@@ -113,11 +117,17 @@ ViajeCreationView >> renderizarAviso: html [
 
 { #category : #rendering }
 ViajeCreationView >> renderizarError [
-	errorView := GenericAdvertiseView newWithParent: self
-											   heading:'Error al crear nuevo viaje debido a alguno de los siguientes motivos: '
-											  	item1:'Se repite la misma ruta y fecha que posee otro viaje creado'  
-												item2:'Se ingreso una cantidad de asientos que excede la capacidad de la combi'  
-												item3: nil
+	| cantidadAsientos |
+	cantidadAsientos := (self model administrador buscarRuta: self ruta)
+		combi cantidadAsientos.
+	errorView := GenericAdvertiseView
+		newWithParent: self
+		heading:
+			'Error al crear nuevo viaje debido a alguno de los siguientes motivos: '
+		item1: 'Se repite la misma ruta y fecha que posee otro viaje creado'
+		item2:
+			'Se ingreso una cantidad de asientos que excede la capacidad de la combi'
+		item3: 'La capacidad de la combi seleccionada es de:   ', 	(cantidadAsientos asString )
 ]
 
 { #category : #rendering }

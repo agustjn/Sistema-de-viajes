@@ -59,16 +59,26 @@ ViajeEditView >> fecha: aFecha [
 
 { #category : #event }
 ViajeEditView >> guardarViaje [
-
-	(self model administrador
-		editarViaje: self viaje
-		conRuta: (self model administrador buscarRuta: self ruta)
-		fecha: self fecha
-		precio: self precio
-		asientos: self cantAsientos)
-		ifFalse: [ self
-				advertencia: 'Error al querer editar'
-				con: 'El viaje ingresado ya existe' ]
+	| rutaObj |
+	rutaObj := self model administrador buscarRuta: self ruta.
+	self cantAsientos
+		ifNotEmpty: [ self cantAsientos asInteger <= rutaObj combi cantidadAsientos
+				ifTrue: [ (self model administrador
+						editarViaje: self viaje
+						conRuta: rutaObj
+						fecha: self fecha
+						precio: self precio
+						asientos: self cantAsientos)
+						ifTrue: [ advertiseView := nil.
+							self answer ]
+						ifFalse: [ self
+								advertencia: 'Error al querer editar'
+								con: 'El viaje ingresado ya existe' ] ]
+				ifFalse: [ self
+						advertencia: 'Error al querer editar'
+						con:
+							'La cantidad de asientos ingresada supera el maximo de la combi: '
+								, rutaObj combi cantidadAsientos asString ] ]
 ]
 
 { #category : #accessing }
@@ -120,20 +130,20 @@ ViajeEditView >> renderizarAdvertencia: html [
 { #category : #rendering }
 ViajeEditView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self guardarViaje.
-			self answer ];
+		callback: [ self guardarViaje ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton
 		callback: [ self answer ];
-		value: 'Cancelar'
+		value: 'Cancelar'.
+
 ]
 
 { #category : #rendering }
 ViajeEditView >> renderizarCamposBasicosOn: html [
 	html horizontalRule.
 	html heading: 'Editar datos'.
-	"self renderizarAdvertencia: html."
+	self renderizarAdvertencia: html.
 	self renderizarCamposOn: html
 ]
 
@@ -151,6 +161,7 @@ ViajeEditView >> renderizarCamposOn: html [
 	html text: 'Ingrese la fecha del viaje'.
 	html break.
 	html dateInput on: #fecha of: self.
+	html break.
 	html
 		text: 'Cantidad de asientos disponibles';
 		break.

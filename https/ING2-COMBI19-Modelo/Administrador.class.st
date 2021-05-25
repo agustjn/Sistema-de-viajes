@@ -111,19 +111,15 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
+Administrador >> agregarViajeConRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio asientos: unaCantidad [
 	"Crea un viaje y lo agrega a la coleccion de viajes "
 
 	| unViaje |
-	unViaje := Viaje
-		newCon: unaRuta
-		fecha: unaFecha
-		precio: unPrecio.
+	unViaje := Viaje newCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidad.
 	viajes
-		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje  ])
+		ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
 				ifTrue: [ ^ false ]
-				ifFalse: [ 
-					viajes add: unViaje.
+				ifFalse: [ viajes add: unViaje.
 					^ true ] ].
 	viajes add: unViaje
 ]
@@ -167,51 +163,57 @@ Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: un
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
+Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [ 
 	"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
-	| origenObj destinoObj   |
+
+	| origenObj destinoObj |
 	origenObj := self buscarLugar: unOrigen.
 	destinoObj := self buscarLugar: unDestino.
-	
 	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
 		|
 			(self
 				existeRuta: unaRuta
-				Origen: origenObj 
+				Origen: origenObj
 				destino: destinoObj
-				combi: (self buscarCombi: unaCombi )
-				distancia: unaDistancia
-				horario: unHorario)
+				combi: (self buscarCombi: unaCombi)
+				distancia: unaDistancia)
 		ifTrue: [ ^ false ]
 		ifFalse: [ unaRuta
-				editarOrigen: origenObj 
-				destino: destinoObj 
-				combi: (self buscarCombi: unaCombi )
-				distancia: unaDistancia
-				horario: unHorario.
+				editarOrigen: origenObj
+				destino: destinoObj
+				combi: (self buscarCombi: unaCombi)
+				distancia: unaDistancia.
 			^ true ]
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha hora: unaHora precio: unPrecio [
-"Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
-	| unViaje | "Los datos nuevos recibidos por parametro"
+Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha  precio: unPrecio asientos: unaCantidad [
+	"Crea un viaje, si viajes no es una coleccion vacia y el nuevo viaje no existe en el sistema lo agrega"
+
+	| unViaje |
+	"Los datos nuevos recibidos por parametro"
 	unViaje := Viaje
 		newCon: unaRuta
 		fecha: unaFecha
-		precio: unPrecio.
+		precio: unPrecio
+		asientos: unaCantidad.
 	(viajes anySatisfy: [ :viaje | viaje = unViaje ])
-				ifTrue: [ ^ false ]
-				ifFalse: [ aTravel modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio.
-					^ true ] 
+		ifTrue: [ ^ false ]
+		ifFalse: [ aTravel
+				modificarDatosConRuta: unaRuta
+				fecha: unaFecha
+				precio: unPrecio.
+			^ true ]
 ]
 
 { #category : #'as yet unclassified' }
 Administrador >> eliminarCombi: unaCombi [
 	"Elimna una combi si no pertenece a ningun viaje y no pertenece a ninguna ruta, y devuelve un booleano confirmando o negando la accion"
-   
+
 	"((viajes anySatisfy: [ :unViaje | unViaje tiene: unaCombi ])
-		and:" (rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ])
+		and:"
+
+	(rutas anySatisfy: [ :unaRuta | unaRuta tiene: unaCombi ])
 		ifTrue: [ ^ false ]
 		ifFalse: [ combis remove: unaCombi.
 			unaCombi chofer estaDesocupado.
@@ -264,9 +266,12 @@ Administrador >> existeCombi: unaPatente [
 
 { #category : #queries }
 Administrador >> existeLugar: lugar [
+
+
 	^ lugares
-		anySatisfy: [ :place | 
-			place esIgualA: lugar ]
+		anySatisfy:
+			[ :place | place = lugar ]
+				
 ]
 
 { #category : #'as yet unclassified' }
@@ -317,12 +322,6 @@ Administrador >> insumos [
 	^insumos
 ]
 
-{ #category : #queries }
-Administrador >> lugarPerteneceAUnViaje: lugar [
-	^ viajes anySatisfy:[ :viaje | (viaje ruta origen == lugar) | (viaje ruta destino == lugar)  ] 
-	
-]
-
 { #category : #accessing }
 Administrador >> lugares [ 
  ^lugares
@@ -331,6 +330,11 @@ Administrador >> lugares [
 { #category : #accessing }
 Administrador >> lugaresNombres [
 	^ lugares collect: [ :lugar | lugar string ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> perteneceAunaRuta: unLugar [
+	^ rutas anySatisfy: [ :unaRuta | unaRuta seAsociaCon: unLugar ]
 ]
 
 { #category : #accessing }
@@ -365,7 +369,7 @@ Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asie
 
 	| unViaje |
 	unViaje := Viaje newCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidadDeAsientos .
-	(unaCantidadDeAsientos asInteger < unaRuta combi cantidadDeAsientos)
+	(unaCantidadDeAsientos asInteger < unaRuta combi cantidadAsientos)
 	"Si la cantidad ingresada de asientos no supera la capacidad de la combi, entonces verifico si existe un viaje identico, sino retorno false"
 		ifTrue: [ viajes
 				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])

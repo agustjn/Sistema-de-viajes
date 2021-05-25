@@ -19,6 +19,7 @@ Lugar class >> deProvincia: unaProvincia yLocalidad: unaLocalidad [
 
 { #category : #comparing }
 Lugar >> = unLugar [
+
 	^ self string = unLugar string
 ]
 

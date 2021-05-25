@@ -2,7 +2,8 @@ Class {
 	#name : #CombiView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'parent'
+		'parent',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Combi-CRUD-UI'
 }
@@ -36,13 +37,29 @@ CombiView >> parent: anObject [
 ]
 
 { #category : #rendering }
+CombiView >> renderAdvertenciaFinish [
+	advertencia := nil
+]
+
+{ #category : #rendering }
+CombiView >> renderAdvertenciaNew [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'No se puede eliminar'
+		item1: 'La combi seleccionada pertenece a una ruta '
+		item2: 'Elimine la ruta para poder seguir'
+		item3: nil
+]
+
+{ #category : #rendering }
 CombiView >> renderContentOn: html [
-self parent desactivarCombiCreationView.
+	self parent desactivarCombiCreationView.
 	html heading: 'Combis'.
 	self renderizarCombisOn: html.
 	html anchor
 		callback: [ self parent activarCombiCreationView ];
-		with: [ html submitButton with: 'Crear Combi' ]
+		with: [ html submitButton with: 'Crear Combi' ].
+	 advertencia ifNotNil: [ html render: advertencia ]
 ]
 
 { #category : #rendering }

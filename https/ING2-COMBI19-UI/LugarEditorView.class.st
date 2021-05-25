@@ -20,17 +20,17 @@ LugarEditorView class >> newOf: aPlace [
 
 { #category : #event }
 LugarEditorView >> guardarDatos [
+	"Chequea la localidad para saber con que quedarse, se fija si existe este lugar y lo agrega o no"
+	(self model administrador perteneceAunaRuta: place ) ifTrue: [  self renderizarError ] ifFalse: [ 
 	| lugarTipeado |
-	
-	lugarTipeado := (Lugar deProvincia: (self provincia) yLocalidad: (self localidad)).
-	( ( self model administrador existeLugar: lugarTipeado )
-		| "Los 2 deben ser falsos para que se pueda editar el Lugar"
-	( self model administrador lugarPerteneceAUnViaje: place ) )
-		ifFalse:[ place editarProvincia: (self provincia) localidad: (self localidad).
-					 self answer]
-		ifTrue:[  self renderizarError ].
-		
-
+	self localidad ifEmpty: [ self localidad: place localidad ].
+	lugarTipeado := Lugar
+		deProvincia: self provincia
+		yLocalidad: self localidad.
+	(self model administrador existeLugar: lugarTipeado)
+		ifFalse: [ place editarProvincia: self provincia localidad: self localidad.
+			self answer ]
+		ifTrue: [ self renderizarError ]]
 ]
 
 { #category : #accessing }
@@ -70,21 +70,10 @@ LugarEditorView >> provincia: anObject [
 
 { #category : #rendering }
 LugarEditorView >> renderContentOn: html [
-html form:[	html heading: 'Editar lugar'.
-	html break.
-	html text:'Provincia : '.
-	(html select on:#provincia of:self) list:(self model provinciasArgentinas).
-	html break. 
-	html break.
-	html text:'Localidad: '.
-	(html textInput on:#localidad of:self)placeholder: place localidad.
-	html break.
-	html break.
-	self renderizarBotonesOn: html.
-	html render:errorView.
-	].
-
-	
+	html
+		form: [ self renderizarCamposBasicosOn: html.
+			self renderizarBotonesOn: html.
+			html render: errorView ]
 ]
 
 { #category : #rendering }
@@ -120,7 +109,7 @@ LugarEditorView >> renderizarCamposBasicosOn: html [
 
 { #category : #rendering }
 LugarEditorView >> renderizarCamposOn: html [
-	html heading: 'Editar lugar'.
+html heading: 'Editar lugar'.
 	html break.
 	html text: 'Provincia : '.
 	(html select on: #provincia of: self)
@@ -132,7 +121,7 @@ LugarEditorView >> renderizarCamposOn: html [
 	(html textInput on: #localidad of: self)
 		placeholder: self place localidad.
 	html break.
-	html break.
+	html break
 ]
 
 { #category : #rendering }

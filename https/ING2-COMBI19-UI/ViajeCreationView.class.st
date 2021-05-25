@@ -5,7 +5,6 @@ Class {
 		'parent',
 		'ruta',
 		'fecha',
-		'hora',
 		'precio',
 		'cantAsientos',
 		'errorView',
@@ -50,15 +49,6 @@ ViajeCreationView >> guardarViaje [
 	ifTrue: [ self parent desactivarViajeCreationView ]
 	ifFalse: [ self renderizarError ]
 
-]
-
-{ #category : #rendering }
-ViajeCreationView >> hora [ ^hora
-]
-
-{ #category : #rendering }
-ViajeCreationView >> hora: aHora [
-	hora := aHora
 ]
 
 { #category : #rendering }

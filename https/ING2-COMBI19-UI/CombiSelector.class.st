@@ -48,6 +48,14 @@ CombiSelector >> combi: anObject [
 	combi := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+CombiSelector >> eliminar [
+	self parent renderAdvertenciaFinish.
+	(self model administrador eliminarCombi: self combi)
+		ifTrue: [ self answer ]
+		ifFalse: [ self parent renderAdvertenciaNew ]
+]
+
 { #category : #accessing }
 CombiSelector >> model [
 	^ Combi19 soleInstance
@@ -91,7 +99,7 @@ CombiSelector >> renderContentOn: html [
 { #category : #rendering }
 CombiSelector >> renderizarBotonesABMOn: html [
 	buttonsOff
-		ifFalse:[				html div
+		ifFalse: [ html div
 				class: 'text-center';
 				with: [ html anchor
 						callback: [ self parent call: (CombiEditorView newOf: self combi) ];
@@ -100,13 +108,11 @@ CombiSelector >> renderizarBotonesABMOn: html [
 								with: 'Editar' ].
 					html space.
 					html anchor
-						callback: [ self model administrador eliminarCombi: self combi.
-							self answer ];
+						callback: [ self eliminar ];
 						with: [ html submitButton
 								class: 'btn btn-danger';
 								with: 'Eliminar' ].
 					html
 						break;
-						break ].]
- 
+						break ] ]
 ]

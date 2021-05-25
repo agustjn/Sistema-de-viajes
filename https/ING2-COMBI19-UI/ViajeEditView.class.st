@@ -6,9 +6,9 @@ Class {
 		'viaje',
 		'ruta',
 		'fecha',
-		'hora',
 		'precio',
-		'advertiseView'
+		'advertiseView',
+		'cantidad'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -39,6 +39,16 @@ ViajeEditView >> advertiseView: anObject [
 ]
 
 { #category : #accessing }
+ViajeEditView >> cantAsientos [ 
+	^ cantidad
+]
+
+{ #category : #accessing }
+ViajeEditView >> cantAsientos: unaCantidad [
+	cantidad := unaCantidad
+]
+
+{ #category : #accessing }
 ViajeEditView >> fecha [ ^fecha
 ]
 
@@ -49,20 +59,16 @@ ViajeEditView >> fecha: aFecha [
 
 { #category : #event }
 ViajeEditView >> guardarViaje [
-	self halt.
+
 	(self model administrador
-		editarViaje: self viaje conRuta: (self model administrador buscarRuta: self ruta)
+		editarViaje: self viaje
+		conRuta: (self model administrador buscarRuta: self ruta)
 		fecha: self fecha
-		precio: self precio) ifFalse: [ self advertencia: 'Error al querer editar' con: 'El viaje ingresado ya existe' ]
-]
-
-{ #category : #accessing }
-ViajeEditView >> hora [ ^hora
-]
-
-{ #category : #accessing }
-ViajeEditView >> hora: aHora [
-	hora := aHora
+		precio: self precio
+		asientos: self cantAsientos)
+		ifFalse: [ self
+				advertencia: 'Error al querer editar'
+				con: 'El viaje ingresado ya existe' ]
 ]
 
 { #category : #accessing }
@@ -134,19 +140,23 @@ ViajeEditView >> renderizarCamposBasicosOn: html [
 { #category : #rendering }
 ViajeEditView >> renderizarCamposOn: html [
 	html heading level4 with: 'Seleccione la ruta del viaje'.
-	(html select on:#ruta of:self)
-		list: (self model administrador rutasNombre);
-		selected:ruta.
+	(html select on: #ruta of: self)
+		list: self model administrador rutasNombre;
+		selected: ruta.
 	html break.
 	html text: 'Precio del boleto'.
 	html break.
-	(html textInput on: #precio of: self)placeholder:self viaje precio .
-	html break.
-	html text: 'Horario del viaje '.
+	(html textInput on: #precio of: self) placeholder: self viaje precio.
 	html break.
 	html text: 'Ingrese la fecha del viaje'.
 	html break.
 	html dateInput on: #fecha of: self.
+	html
+		text: 'Cantidad de asientos disponibles';
+		break.
+	(html textInput on: #cantAsientos of: self)
+		placeholder: self viaje ruta combi cantidadAsientos;
+		size: 2
 ]
 
 { #category : #accessing }

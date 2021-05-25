@@ -55,19 +55,18 @@ RutaSelector >> renderContentOn: html [
 								class: 'card-text';
 								with: [ html unorderedList
 										class: 'row';
-										with: [ self renderizarItems: html. ] ] ] ] ].
+										with: [ self renderizarItems: html ] ] ] ] ].
 	html space.
-	self renderizarBotonesABMOn: html
-
-
-	"	html
+	self renderizarBotonesABMOn: html.
+	advertiseView
+		ifNotNil: [html render: advertiseView ]. "	html
 		text:
 			'Ruta desde  ' , ruta origen string , '    hasta  '
 				, ruta destino string , '    combi ' , ruta combi string
 				, '    distancia: ' , ruta distancia , 'km'.
 	html space.
 	self renderizarBotonesABMOn: html.
-	html render: advertiseView "
+	" 
 ]
 
 { #category : #'as yet unclassified' }

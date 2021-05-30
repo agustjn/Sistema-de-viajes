@@ -44,7 +44,7 @@ ViajeCreationView >> guardarViaje [
 |rutaObj|
 "Recupero el obj ruta desde un string, y consulto si esta vacio la cantidad , de ser asi le seteo la por defecto y  guardo el viaje."
 rutaObj  :=  self model administrador buscarRuta: self ruta.
- self cantAsientos ifEmpty: [ self cantAsientos: rutaObj cantidadAsientos   ].
+ self cantAsientos ifEmpty: [ self cantAsientos: rutaObj combi cantidadAsientos   ]. 
 	(self model administrador
 		validarViajeRuta: rutaObj
 		fecha: self fecha

@@ -34,8 +34,8 @@ CombiSelector >> buttonsOff [
 ]
 
 { #category : #accessing }
-CombiSelector >> buttonsOff: anObject [
-	buttonsOff := anObject
+CombiSelector >> buttonsOff: aBoolean [
+	buttonsOff := aBoolean
 ]
 
 { #category : #accessing }

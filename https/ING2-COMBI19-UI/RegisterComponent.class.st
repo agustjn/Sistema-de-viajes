@@ -246,9 +246,7 @@ aCanvas div
 			with:[
 			aCanvas label: 'Fecha de nacimiento'.
 			aCanvas break.	
-			aCanvas dateInput 
-			
-			on: #fechaNac of: self.].
+			aCanvas dateInput on: #fechaNac of: self].
 		
 	
 ]

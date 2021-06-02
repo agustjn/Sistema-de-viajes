@@ -129,6 +129,6 @@ LugarEditorView >> renderizarError [
 	errorView := GenericAdvertiseView newWithParent: self 
 											   heading:'Error al editar lugar, posibles causas:'  
 											   item1:'El lugar ingresado ya existe en el sistema'  
-											   item2:'El lugar que esta queriendo editar, esta asignado a un viaje activo'
+											   item2:'El lugar que esta queriendo editar, esta asignado a una ruta'
 											   item3: nil
 ]

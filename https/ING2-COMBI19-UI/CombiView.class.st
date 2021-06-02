@@ -45,9 +45,9 @@ CombiView >> renderAdvertenciaFinish [
 CombiView >> renderAdvertenciaNew [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'No se puede eliminar'
-		item1: 'La combi seleccionada pertenece a una ruta '
-		item2: 'Elimine la ruta para poder seguir'
+		heading: 'Error al eliminar combi'
+		item1: 'La combi seleccionada esta asignada a una ruta '
+		item2: nil
 		item3: nil
 ]
 

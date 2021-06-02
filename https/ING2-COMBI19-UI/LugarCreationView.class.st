@@ -31,23 +31,30 @@ LugarCreationView >> advertiseView: anObject [
 
 { #category : #event }
 LugarCreationView >> guardarLugar [
-	(self model administrador agregarLugar:(Lugar deProvincia:provincia yLocalidad:localidad ))
+	( (self model administrador agregarLugar:( Lugar deProvincia:provincia yLocalidad:localidad content ) ) & ( localidad esValido ) )
 		ifFalse:[ advertiseView := GenericAdvertiseView newWithParent: self 
 																	  heading: 'Error al agregar lugar'  
 																	  item1:'La provincia y la localidad ingresadas ya existen en el sistema' 
-																	  item2:nil  
+																	  item2:'Algun campo pudo haber quedado vacio' 
 																	  item3:nil  ]
 		ifTrue:[ self parent desactivarLugarCreationView  ]
 ]
 
-{ #category : #accessing }
-LugarCreationView >> localidad [
-	^ localidad
+{ #category : #initialization }
+LugarCreationView >> initialize [
+	super initialize.
+	localidad := InputField newWithStrategy: EmptyValidator new.
 ]
 
 { #category : #accessing }
-LugarCreationView >> localidad: anObject [
-	localidad := anObject
+LugarCreationView >> localidad [
+	^ localidad content
+]
+
+{ #category : #accessing }
+LugarCreationView >> localidad: aString [
+	"Para setear la v.i. content de localidad (que es instancia de InputField) y no cambiar mucho codigo en los textInput on:#localidad... directamente el texto se sigue seteando con el 'localidad: ' , solo que internamente en este metodo, le asigna a localidad content: el string ingresado "
+	localidad content: aString
 ]
 
 { #category : #accessing }
@@ -112,7 +119,7 @@ LugarCreationView >> renderizarFormularioOn: html [
 	html break.
 	html break.
 	html text:'Localidad: '.
-	html textInput on:#localidad of:self.
+	html textInput on:#content of:localidad.
 	html horizontalRule.
 
 ]

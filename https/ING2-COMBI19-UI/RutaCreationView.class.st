@@ -61,16 +61,16 @@ RutaCreationView >> guardarRuta [
 	| origenObj destinoObj |
 	origenObj := self model administrador buscarLugar: self origen.
 	destinoObj := self model administrador buscarLugar: self destino.
+	(self destino = self origen ) ifTrue: [ self renderAdvertencia3  ] ifFalse: [ 
 	self validarHorario
-		ifTrue: [ 
-	(self model administrador
-		agregarRuta: origenObj
-		destino: destinoObj
-		combi: self combi
-		distancia: self distancia
-		horario: self formatearHorario)
-		ifTrue: [ self parent activarRutasView ]
-		ifFalse: [ self renderAdvertencia ]]
+		ifTrue: [ (self model administrador
+				agregarRuta: origenObj
+				destino: destinoObj
+				combi: self combi
+				distancia: self distancia
+				horario: self formatearHorario)
+				ifTrue: [ self parent activarRutasView ]
+				ifFalse: [ self renderAdvertencia ] ]].
 ]
 
 { #category : #accessing }
@@ -130,9 +130,19 @@ RutaCreationView >> renderAdvertencia [
 RutaCreationView >> renderAdvertencia2 [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'Error al editar, Ingrese un horario '
+		heading: 'Error al Crear, Ingrese un horario '
 		item1: 'Ingrese un horario dentro de los parametros'
 		item2: ' Minimo 1 maximo 12 '
+		item3: nil
+]
+
+{ #category : #rendering }
+RutaCreationView >> renderAdvertencia3 [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al Crear '
+		item1: 'El origen y el destino deben ser distintos'
+		item2: (' origen:  ' ,self origen , ' destino: ' , self destino)
 		item3: nil
 ]
 

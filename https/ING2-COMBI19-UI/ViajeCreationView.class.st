@@ -117,9 +117,7 @@ ViajeCreationView >> renderizarAviso: html [
 
 { #category : #rendering }
 ViajeCreationView >> renderizarError [
-	| cantidadAsientos |
-	cantidadAsientos := (self model administrador buscarRuta: self ruta)
-		combi cantidadAsientos.
+
 	errorView := GenericAdvertiseView
 		newWithParent: self
 		heading:
@@ -127,7 +125,7 @@ ViajeCreationView >> renderizarError [
 		item1: 'Se repite la misma ruta y fecha que posee otro viaje creado'
 		item2:
 			'Se ingreso una cantidad de asientos que excede la capacidad de la combi'
-		item3: 'La capacidad de la combi seleccionada es de:   ', 	(cantidadAsientos asString )
+		item3: 'No se completo el campo "Precio del boleto "'
 ]
 
 { #category : #rendering }
@@ -148,10 +146,9 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html
 		text: 'Cantidad de asientos disponibles';
 		break.
-	(html textInput on: #cantAsientos of: self)
-		"placeholder: self placeholderAsientos;   QUERIA VER LA MANERA DE AGREGARLE UN MAXIMO"  
-		size: 2.
-	html break
+	(html textInput on: #cantAsientos of: self) size: 2.
+	 html break
+	"placeholder: self placeholderAsientos;   QUERIA VER LA MANERA DE AGREGARLE UN MAXIMO"
 ]
 
 { #category : #rendering }

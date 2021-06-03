@@ -142,10 +142,11 @@ Administrador >> combisNombres [
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarInsumo: unInsumo nombre: unNombre tipo: unTipo precio: unPrecio [
+Administrador >> editarInsumo: unInsumo nombre: unNombre marca: unaMarca precio: unPrecio [
 	(insumos anySatisfy: [ :insumo | insumo = unInsumo ])
-		ifTrue: [ ^ false ]
-		ifFalse: [ unInsumo editarNombre: unNombre tipo: unTipo precio: unPrecio. ^true]
+		ifTrue: [  unInsumo editarNombre: unNombre marca: unaMarca precio: unPrecio.
+			^ true ]
+		ifFalse: [ ^ false]
 ]
 
 { #category : #'as yet unclassified' }

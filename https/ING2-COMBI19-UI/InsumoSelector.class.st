@@ -80,7 +80,7 @@ InsumoSelector >> renderizarBotonesABMOn: html [
 	html div
 		class: 'text-center';
 		with: [ html anchor
-				callback: [ self parent call: (InsumoEditorView newOf: insumo) ];
+				callback: [ self parent call: (InsumoEditorView newOf: self insumo) ];
 				with: [ html submitButton
 						class: 'btn btn-warning';
 						with: 'Editar' ].
@@ -91,5 +91,7 @@ InsumoSelector >> renderizarBotonesABMOn: html [
 				with: [ html submitButton
 						class: 'btn btn-danger';
 						with: 'Eliminar' ].
-			html break ; break. ]
+			html
+				break;
+				break ]
 ]

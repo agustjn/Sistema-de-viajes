@@ -1,6 +1,6 @@
 Class {
 	#name : #InsumoEditorView,
-	#superclass : #WAAdmin,
+	#superclass : #WAComponent,
 	#instVars : [
 		'insumo',
 		'nombre',
@@ -16,8 +16,13 @@ InsumoEditorView class >> newOf: unInsumo [
 ]
 
 { #category : #event }
-InsumoEditorView >> guardarDatos [ 
-	self model administrador editarInsumo: self insumo  nombre: self nombre  tipo: self tipo precio: self precio
+InsumoEditorView >> guardarDatos [
+
+	self model administrador
+		editarInsumo: self insumo
+		nombre: self nombre
+		marca: self marca
+		precio: self precio
 ]
 
 { #category : #accessing }
@@ -88,7 +93,8 @@ InsumoEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 InsumoEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self guardarDatos ];
+		callback: [ self guardarDatos.
+			self answer ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton
@@ -106,14 +112,15 @@ InsumoEditorView >> renderizarCamposBasicosOn: html [
 
 { #category : #rendering }
 InsumoEditorView >> renderizarCamposOn: html [
-html text: 'Nombre del producto'.
+	html text: 'Nombre del producto'.
 	html break.
-	(html textInput on: #nombre  of: self)placeholder:self insumo nombre .
+	(html textInput on: #nombre of: self) placeholder: self insumo nombre.
 	html break.
 	html text: 'Marca del producto '.
 	html break.
-	(html textInput on: #marca  of: self)placeholder:self insumo marca.
+	(html textInput on: #marca of: self) placeholder: self insumo marca.
+	html break.
 	html text: 'precio'.
 	html break.
-	(html textInput on: #precio  of: self)placeholder:self insumo precio.
+	(html textInput on: #precio of: self) placeholder: self insumo precio
 ]

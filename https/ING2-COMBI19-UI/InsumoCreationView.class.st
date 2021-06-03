@@ -16,14 +16,26 @@ InsumoCreationView class >> newWithParent: aParent [
 		insumo:Insumo new.
 ]
 
+{ #category : #'as yet unclassified' }
+InsumoCreationView >> advertencia: item1 [
+advertiseView := GenericAdvertiseView
+				newWithParent: self
+				heading: 'Error al agregar insumo'
+				item1:
+					item1
+				item2: nil
+				item3: nil 
+]
+
 { #category : #event }
 InsumoCreationView >> guardarInsumo [
-	(self model administrador agregarInsumo: insumo)
-		ifFalse:[ advertiseView := GenericAdvertiseView newWithParent: self 
-																	  heading:'Error al agregar insumo'  
-																	  item1:'El nombre y marca de producto son identicos a otro producto existente en el sistema'  
-																	  item2:nil  item3:nil   ]
-		ifTrue:[ self parent desactivarInsumoCreationView  ]
+	self insumo estaCompleto
+		ifTrue: [ (self model administrador agregarInsumo: insumo)
+				ifFalse: [ self
+						advertencia:
+							'El nombre y marca de producto son identicos a otro producto existente en el sistema' ]
+				ifTrue: [ self parent desactivarInsumoCreationView ] ]
+		ifFalse: [ self advertencia: 'Complete todos los campos' ]
 ]
 
 { #category : #accessing }

@@ -18,18 +18,22 @@ Insumo class >> newNombre: unNombre marca: unaMarca precio: unPrecio [
 				yourself
 ]
 
-{ #category : #'as yet unclassified' }
-Insumo >> editarNombre: unNombre marca: unaMarca precio: unPrecio [
-	nombre := unNombre.
-	marca := unaMarca.
-	precio := unPrecio.
+{ #category : #comparing }
+Insumo >> = unInsumo [
+ ^ unInsumo marca = self marca & (unInsumo nombre = self nombre ) & (unInsumo precio = precio)
 ]
 
-{ #category : #initialization }
-Insumo >> initializeCon: unNombre tipo: unTipo precio: unPrecio [
-	nombre := unNombre.
-	tipo:= unTipo.
-	precio := unPrecio
+{ #category : #'as yet unclassified' }
+Insumo >> editarNombre: unNombre marca: unaMarca precio: unPrecio [
+	unNombre  ifNotEmpty: [  nombre := unNombre].
+	unaMarca ifNotEmpty: [ 
+	marca := unaMarca].
+	unPrecio ifNotEmpty: [precio := unPrecio]
+]
+
+{ #category : #'as yet unclassified' }
+Insumo >> estaCompleto [
+	^ (nombre isNotEmpty & marca isNotEmpty & precio isNotEmpty)
 ]
 
 { #category : #accessing }

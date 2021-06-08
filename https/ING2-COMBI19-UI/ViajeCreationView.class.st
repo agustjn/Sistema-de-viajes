@@ -8,7 +8,8 @@ Class {
 		'precio',
 		'cantAsientos',
 		'errorView',
-		'rangoHorario'
+		'rangoHorario',
+		'rutaObj'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -17,6 +18,27 @@ Class {
 ViajeCreationView class >> newWithParent: aParent [
 	^ self new 
 		parent: aParent.
+]
+
+{ #category : #'as yet unclassified' }
+ViajeCreationView >> advertenciaCampoVacio [
+	errorView := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al seguir   '
+		item1: 'Por favor complete todos los campos '
+		item2: nil
+		item3: nil
+]
+
+{ #category : #'as yet unclassified' }
+ViajeCreationView >> advertenciaSinRuta [
+	errorView := GenericAdvertiseView
+		newWithParent: self
+		heading:
+			'No existen rutas creadas  '
+		item1: 'Por favor cree una ruta para poder crear un viaje '
+		item2: nil
+		item3:nil
 ]
 
 { #category : #accessing }
@@ -40,16 +62,14 @@ ViajeCreationView >> fecha: aFecha [
 ]
 
 { #category : #event }
-ViajeCreationView >> guardarViaje [
-|rutaObj|
-"Recupero el obj ruta desde un string, y consulto si esta vacio la cantidad , de ser asi le seteo la por defecto y  guardo el viaje."
-rutaObj  :=  self model administrador buscarRuta: self ruta.
- self cantAsientos ifEmpty: [ self cantAsientos: rutaObj combi cantidadAsientos   ]. 
+ViajeCreationView >> guardarViaje: unaCantidad [ 
+	"self cantAsientos
+		ifEmpty: [ self cantAsientos: self rutaObj combi cantidadAsientos ]."
 	(self model administrador
-		validarViajeRuta: rutaObj
+		validarViajeRuta: self rutaObj
 		fecha: self fecha
 		precio: self precio
-		asientos: self cantAsientos)
+		asientos: unaCantidad )
 		ifTrue: [ self parent desactivarViajeCreationView ]
 		ifFalse:
 			[ "Si el viaje es invalido, se retorna false, de lo contrario se agrega al sistema y retorna true" self renderizarError ]
@@ -90,22 +110,23 @@ ViajeCreationView >> rangoHorario: anObject [
 
 { #category : #rendering }
 ViajeCreationView >> renderContentOn: html [
-	html heading level2 with: 'Creacion de nuevo Viaje'.
-	self renderizarAviso: html.
-	html horizontalRule.
-	html
-		form: [ self renderizarFormularioOn: html.
-			html break.
-			html submitButton
-				callback: [ self guardarViaje. ];
-				value: 'Guardar'.
-			html space.
-			html space.
-			html submitButton
-				callback: [ self parent desactivarViajeCreationView ];
-				with: 'Cancelar' ].
-	html render: errorView.
-	 
+	self model administrador rutasNombre
+		ifEmpty: [ self advertenciaSinRuta ]
+		ifNotEmpty: [ html heading level2 with: 'Creacion de nuevo Viaje'.
+			self renderizarAviso: html.
+			html horizontalRule.
+			html
+				form: [ self renderizarFormularioOn: html.
+					html break.
+					html submitButton
+						callback: [ self siguiente: html ];
+						value: 'Siguiente'.
+					html space.
+					html space.
+					html submitButton
+						callback: [ self parent desactivarViajeCreationView ];
+						with: 'Cancelar' ] ].
+	html render: errorView
 ]
 
 { #category : #rendering }
@@ -143,12 +164,7 @@ ViajeCreationView >> renderizarFormularioOn: html [
 	html break.
 	html dateInput on: #fecha of: self.
 	html break.
-	html
-		text: 'Cantidad de asientos disponibles';
-		break.
-	(html textInput on: #cantAsientos of: self) size: 2.
-	 html break
-	"placeholder: self placeholderAsientos;   QUERIA VER LA MANERA DE AGREGARLE UN MAXIMO"
+	
 ]
 
 { #category : #rendering }
@@ -158,4 +174,28 @@ ViajeCreationView >> ruta [ ^ruta
 { #category : #rendering }
 ViajeCreationView >> ruta: aRuta [
 	ruta := aRuta
+]
+
+{ #category : #accessing }
+ViajeCreationView >> rutaObj [
+	^rutaObj 
+]
+
+{ #category : #accessing }
+ViajeCreationView >> rutaObj: unaRuta [
+	rutaObj := unaRuta
+]
+
+{ #category : #'as yet unclassified' }
+ViajeCreationView >> siguiente: html [
+	| cantidad |
+	self rutaObj: (self model administrador buscarRuta: self ruta).
+	self precio
+		ifEmpty: [ self advertenciaCampoVacio.
+			self answer ]
+		ifNotEmpty:
+			[ cantidad := html
+				render: (FormularioCantidadAsientos con: self rutaObj) ]. cantidad
+		ifNil: [ self parent desactivarViajeCreationView ]
+		ifNotNil: [ self guardarViaje: cantidad ]
 ]

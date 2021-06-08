@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'parent',
-		'ruta'
+		'ruta',
+		'advertiseView'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -16,6 +17,11 @@ RutasView class >> newWithParent: aParent [
 	^ clase
 	
 	"^ self new parent: aParent"
+]
+
+{ #category : #'as yet unclassified' }
+RutasView >> advertencia: unaAdvertencia [
+	advertiseView := unaAdvertencia 
 ]
 
 { #category : #accessing }
@@ -36,13 +42,14 @@ RutasView >> parent: aParent [
 { #category : #rendering }
 RutasView >> renderContentOn: html [
 	html heading: 'Rutas'.
-		html anchor
+	html anchor
 		callback: [ self parent activarRutaCreationView ];
-		with: [ html submitButton class:'btn btn-dark'; with: 'Crear Ruta' ].
+		with: [ html submitButton
+				class: 'btn btn-dark';
+				with: 'Crear Ruta' ].
 	html horizontalRule.
 	self renderizarRutas: html.
-	
-
+	advertiseView ifNotNil: [ html render: advertiseView  ]
 ]
 
 { #category : #rendering }

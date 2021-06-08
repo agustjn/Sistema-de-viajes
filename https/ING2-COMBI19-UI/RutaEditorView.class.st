@@ -64,6 +64,9 @@ RutaEditorView >> formatearHorario [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
+	self origen = self destino 
+	ifTrue: [ self renderAdvertencia3  ]
+	ifFalse: [ 
 	self validarHorario
 		ifTrue: [ (self model administrador
 				editarRuta: self ruta
@@ -73,7 +76,7 @@ RutaEditorView >> guardarDatos [
 				distancia: self distancia
 				horario: self formatearHorario)
 				ifTrue: [ self answer ]
-				ifFalse: [ self renderAdvertencia ] ]
+				ifFalse: [ self renderAdvertencia ] ]]
 ]
 
 { #category : #accessing }
@@ -128,6 +131,16 @@ RutaEditorView >> renderAdvertencia2 [
 		item1: 'Ingrese un horario dentro de los parametros'
 		item2: ' Minimo 1 maximo 12 '
 		item3:  nil
+]
+
+{ #category : #rendering }
+RutaEditorView >> renderAdvertencia3 [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al Crear '
+		item1: 'El origen y el destino deben ser distintos'
+		item2: ' origen:  ' , self origen , ' destino: ' , self destino
+		item3: nil
 ]
 
 { #category : #rendering }

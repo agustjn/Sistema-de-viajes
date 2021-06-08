@@ -39,8 +39,8 @@ ViajeSelector >> renderContentOn: html [
 	html text: viaje ruta string.
 	html break.
 	html
-		text: 'El dia: ' , viaje fecha asString , ' a las ' , viaje ruta horario.
-	html break.
+		text: 'El dia: ' , viaje fecha asString , ' a las ' , viaje ruta horario asString .
+	html break. 
 	self renderizarBotonesABMOn: html
 ]
 

@@ -150,7 +150,7 @@ Administrador >> editarInsumo: unInsumo nombre: unNombre marca: unaMarca precio:
 ]
 
 { #category : #'as yet unclassified' }
-Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia [ 
+Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: unaCombi distancia: unaDistancia horario: unHorario [
 	"Chequea que la ruta no tenga un viaje pendiente, en dicho caso edita la ruta  y devuelve un booleanos confirmando o denegando la accion."
 
 	| origenObj destinoObj |
@@ -163,13 +163,15 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: 
 				Origen: origenObj
 				destino: destinoObj
 				combi: (self buscarCombi: unaCombi)
-				distancia: unaDistancia)
+				distancia: unaDistancia
+				horario: unHorario)
 		ifTrue: [ ^ false ]
 		ifFalse: [ unaRuta
 				editarOrigen: origenObj
 				destino: destinoObj
 				combi: (self buscarCombi: unaCombi)
-				distancia: unaDistancia.
+				distancia: unaDistancia
+				horario: unHorario.
 			^ true ]
 ]
 

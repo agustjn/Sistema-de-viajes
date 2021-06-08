@@ -15,13 +15,22 @@ RutaSelector class >> of: aRuta andParent: aParent [
 ]
 
 { #category : #'as yet unclassified' }
+RutaSelector >> advertencia1 [
+	^ (GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al eliminar Ruta'
+		item1:
+			'La ruta ' , self ruta string
+				, ' no se puede eliminar por esta a un viaje asociado '
+		item2: nil
+		item3: nil)
+]
+
+{ #category : #'as yet unclassified' }
 RutaSelector >> eliminarRuta [
-	(self model administrador eliminarRuta: self ruta) ifFalse: [  advertiseView := GenericAdvertiseView
-				newWithParent: self
-				heading: 'Error al eliminar Ruta'
-				item1: 'La ruta ', self ruta string, ' no se puede eliminar por esta a un viaje asociado '
-				item2: nil
-				item3: nil  ]
+	(self model administrador eliminarRuta: self ruta)
+		ifTrue:  [ self parent advertencia:  nil ]
+		ifFalse: [ self parent advertencia:  self advertencia1 ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -58,15 +67,7 @@ RutaSelector >> renderContentOn: html [
 										with: [ self renderizarItems: html ] ] ] ] ].
 	html space.
 	self renderizarBotonesABMOn: html.
-	advertiseView
-		ifNotNil: [html render: advertiseView ]. "	html
-		text:
-			'Ruta desde  ' , ruta origen string , '    hasta  '
-				, ruta destino string , '    combi ' , ruta combi string
-				, '    distancia: ' , ruta distancia , 'km'.
-	html space.
-	self renderizarBotonesABMOn: html.
-	" 
+
 ]
 
 { #category : #'as yet unclassified' }

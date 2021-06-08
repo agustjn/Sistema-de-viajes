@@ -166,8 +166,14 @@ ViajeEditView >> renderizarCamposOn: html [
 		text: 'Cantidad de asientos disponibles';
 		break.
 	(html textInput on: #cantAsientos of: self)
-		placeholder: self viaje ruta combi cantidadAsientos;
-		size: 2
+		placeholder: self viaje cantAsientosDisponibles asString;
+		size: 2.
+	html space.
+	html space.
+	html
+		text:
+			'EL maxima cantidad de asientos de la combi es de: '
+				, self viaje ruta combi cantidadAsientos asString
 ]
 
 { #category : #accessing }

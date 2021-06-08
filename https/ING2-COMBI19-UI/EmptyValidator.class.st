@@ -5,7 +5,8 @@ Class {
 }
 
 { #category : #validations }
-EmptyValidator >> esValido: unString [
-	"Si el string recibido esta vacio, retorno falso como informe de error en la validacion"
-	unString = '' ifTrue:[ ^ false ]
+EmptyValidator >> verificar: unString [
+	"Ya que este no tiene ningun comportamiento en particular, retorna true y el padre es el que valida el vacio (class Validator)"
+
+	^ true
 ]

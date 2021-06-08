@@ -59,18 +59,21 @@ RutaCreationView >> formatearHorario [
 { #category : #event }
 RutaCreationView >> guardarRuta [
 	| origenObj destinoObj |
-	origenObj := self model administrador buscarLugar: self origen.
-	destinoObj := self model administrador buscarLugar: self destino.
-	(self destino = self origen ) ifTrue: [ self renderAdvertencia3  ] ifFalse: [ 
-	self validarHorario
-		ifTrue: [ (self model administrador
-				agregarRuta: origenObj
-				destino: destinoObj
-				combi: self combi
-				distancia: self distancia
-				horario: self formatearHorario)
-				ifTrue: [ self parent activarRutasView ]
-				ifFalse: [ self renderAdvertencia ] ]].
+	self distancia
+		ifEmpty: [ self renderAdvertencia4 ]
+		ifNotEmpty: [ origenObj := self model administrador buscarLugar: self origen.
+			destinoObj := self model administrador buscarLugar: self destino.
+			self destino = self origen
+				ifTrue: [ self renderAdvertencia3 ]
+				ifFalse: [ self validarHorario
+						ifTrue: [ (self model administrador
+								agregarRuta: origenObj
+								destino: destinoObj
+								combi: self combi
+								distancia: self distancia
+								horario: self formatearHorario)
+								ifTrue: [ self parent activarRutasView ]
+								ifFalse: [ self renderAdvertencia ] ] ] ]
 ]
 
 { #category : #accessing }
@@ -143,6 +146,16 @@ RutaCreationView >> renderAdvertencia3 [
 		heading: 'Error al Crear '
 		item1: 'El origen y el destino deben ser distintos'
 		item2: (' origen:  ' ,self origen , ' destino: ' , self destino)
+		item3: nil
+]
+
+{ #category : #rendering }
+RutaCreationView >> renderAdvertencia4 [
+		advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al Crear '
+		item1: 'Se a detectado que ha dejado campos vacios'
+		item2: ' Por favor complete todos los campos para seguir'
 		item3: nil
 ]
 

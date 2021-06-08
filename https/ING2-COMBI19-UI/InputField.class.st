@@ -13,6 +13,14 @@ InputField class >> newWithStrategy: validatorInstance [
 	^ self new validationStrategy: validatorInstance.
 ]
 
+{ #category : #initialization }
+InputField class >> newWithStrategy: validatorInstance andContent: aContent [.
+	^ self new 
+			validationStrategy: validatorInstance new;
+			content: aContent ;
+			yourself
+]
+
 { #category : #accessing }
 InputField >> content [
 	^ content
@@ -26,7 +34,7 @@ InputField >> content: anObject [
 { #category : #queries }
 InputField >> esValido [
 	"Se le envia un mensaje a la instancia que contenga de Validator con el contenido del string para que lo verifique"
-	validationStrategy esValido: content
+	^ (validationStrategy esValido: content)
 ]
 
 { #category : #accessing }

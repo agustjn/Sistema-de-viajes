@@ -31,20 +31,25 @@ FormularioCantidadAsientos >> renderContentOn: html [
 
 { #category : #rendering }
 FormularioCantidadAsientos >> renderFormulario: html [
-html
-		text: 'Cantidad de asientos disponibles';
+	html heading level3
+		with: 'Ingrese la cantidad de asientos disponibles de la combi'.
+	html
+		text:
+			'Aviso : La cantidad que se ve en la caja de texto es la capacidad maxima de la combi asignada';
 		break.
+	html break.
 	(html textInput on: #cantAsientos of: self)
 		placeholder: self ruta combi cantidadAsientos asString;
 		size: 2.
-	html break html submitButton
+	html horizontalRule
+	"	html submitButton
 		callback: [ self answer: self cantAsientos ];
 		value: 'Guardar'.
 	html space.
 	html space.
 	html submitButton
 		callback: [ self answer: nil ];
-		with: 'Cancelar'
+		with: 'Cancelar'"
 ]
 
 { #category : #accessing }

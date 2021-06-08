@@ -9,7 +9,8 @@ Class {
 		'cantAsientos',
 		'errorView',
 		'rangoHorario',
-		'rutaObj'
+		'rutaObj',
+		'formCantidadAsientos'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -118,6 +119,8 @@ ViajeCreationView >> renderContentOn: html [
 			html
 				form: [ self renderizarFormularioOn: html.
 					html break.
+					html render: formCantidadAsientos.
+					html break.
 					html submitButton
 						callback: [ self siguiente: html ];
 						value: 'Siguiente'.
@@ -188,14 +191,24 @@ ViajeCreationView >> rutaObj: unaRuta [
 
 { #category : #'as yet unclassified' }
 ViajeCreationView >> siguiente: html [
-	| cantidad |
-	self rutaObj: (self model administrador buscarRuta: self ruta).
+	formCantidadAsientos isNil "Verifico si el formulario de los asientos ya se renderizo"
+		ifTrue: [ self rutaObj: (self model administrador buscarRuta: self ruta).
+			formCantidadAsientos := FormularioCantidadAsientos
+				con: self rutaObj ]
+		ifFalse:[ "Valido los campos vacios" 
+					  precio := InputField newWithStrategy: EmptyValidator andContent: precio.
+					  precio esValido
+								ifTrue:[ self guardarViaje: formCantidadAsientos cantAsientos.
+											self parent desactivarViajeCreationView ]  ]
+
+	"	| cantidad |
+	
 	self precio
 		ifEmpty: [ self advertenciaCampoVacio.
 			self answer ]
-		ifNotEmpty:
-			[ cantidad := html
-				render: (FormularioCantidadAsientos con: self rutaObj) ]. cantidad
+		ifNotEmpty: [ cantidad := html
+				render: (FormularioCantidadAsientos con: self rutaObj) ].
+	cantidad
 		ifNil: [ self parent desactivarViajeCreationView ]
-		ifNotNil: [ self guardarViaje: cantidad ]
+		ifNotNil: [ self guardarViaje: cantidad ]"
 ]

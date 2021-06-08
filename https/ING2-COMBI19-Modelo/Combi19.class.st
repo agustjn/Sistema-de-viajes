@@ -19,7 +19,7 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 combi1 combi2 |
+	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 |
 	self soleInstance.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
@@ -34,6 +34,12 @@ Combi19 class >> instanciaDePrueba [
 		email: 'carlos@hotmail.com'
 		contraseña: '1234567'
 		telefono: '22215312'.
+	chofer3 := Chofer
+		initializeCon: 'Pedro'
+		apellido: 'Fonsek'
+		email: 'pedro@hotmail.com'
+		contraseña: '654321'
+		telefono: '2216688388'.
 	soleInstance
 		crearAdmin: 'ING'
 		apellido: 'SOFT 2'
@@ -41,6 +47,7 @@ Combi19 class >> instanciaDePrueba [
 		contraseña: 'admin'.
 	soleInstance agregarChofer: chofer1.
 	soleInstance agregarChofer: chofer2.
+	soleInstance agregarChofer: chofer3.
 	"---------------------------Combis-----------------"
 	combi1 := Combi
 		initializeModelo: 'Mercedes Benz Sprinter'
@@ -63,11 +70,19 @@ Combi19 class >> instanciaDePrueba [
 	lugar4 := Lugar
 		deProvincia: 'Jujuy'
 		yLocalidad: 'San Salvador de Jujuy'.
+	lugar5:= Lugar
+		deProvincia: 'La Rioja'
+		yLocalidad: 'Rioja City'.
+	lugar6 := Lugar
+		deProvincia: 'Chaco'
+		yLocalidad: 'Resistencia'.
 	soleInstance administrador
 		agregarLugar: lugar1;
 		agregarLugar: lugar2;
 		agregarLugar: lugar3;
-		agregarLugar: lugar4.
+		agregarLugar: lugar4;
+		agregarLugar: lugar5;
+		agregarLugar: lugar6.
 
 	"---------------------------Rutas-----------------"
 	ruta1 := Ruta
@@ -75,13 +90,13 @@ Combi19 class >> instanciaDePrueba [
 		destino: lugar2
 		combi: combi1
 		distancia: '700'
-		horario:'5 PM'.
+		horario:'5 pm' asTime.
 	ruta2 := Ruta
 		newCon: lugar3
 		destino: lugar4
 		combi: combi2
 		distancia: '650'
-		horario:'3 AM'.
+		horario:'3 pm' asTime.
 	soleInstance administrador
 		agregarRuta: ruta1;
 		agregarRuta: ruta2

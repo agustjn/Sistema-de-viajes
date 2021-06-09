@@ -340,14 +340,15 @@ Administrador >> rutasNombre [
 { #category : #'as yet unclassified' }
 Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidadDeAsientos [
 	"Crea un viaje y lo agrega a la coleccion de viajes "
-
-	| unViaje |
+	| unViaje asientosAux|
+	asientosAux := unaCantidadDeAsientos . "Parche ya que si la cantidad de asientos quedaba vacia, daba error."
+	unaCantidadDeAsientos ifEmpty:[ asientosAux := unaRuta combi cantidadAsientos ].		
 	unViaje := Viaje
 		newCon: unaRuta
 		fecha: unaFecha
 		precio: unPrecio
-		asientos: unaCantidadDeAsientos.
-	unaCantidadDeAsientos asInteger <= unaRuta combi cantidadAsientos
+		asientos: asientosAux.
+	asientosAux asInteger <= unaRuta combi cantidadAsientos
 		ifTrue: [ viajes
 				ifNil: [ viajes add: unViaje ]
 				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])

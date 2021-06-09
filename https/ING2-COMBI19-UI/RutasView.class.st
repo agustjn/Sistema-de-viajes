@@ -47,9 +47,10 @@ RutasView >> renderContentOn: html [
 		with: [ html submitButton
 				class: 'btn btn-dark';
 				with: 'Crear Ruta' ].
+	advertiseView ifNotNil: [ html render: advertiseView  ].
 	html horizontalRule.
 	self renderizarRutas: html.
-	advertiseView ifNotNil: [ html render: advertiseView  ]
+	
 ]
 
 { #category : #rendering }

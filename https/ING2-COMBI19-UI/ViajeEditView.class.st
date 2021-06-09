@@ -61,8 +61,8 @@ ViajeEditView >> fecha: aFecha [
 ViajeEditView >> guardarViaje [
 	| rutaObj |
 	rutaObj := self model administrador buscarRuta: self ruta.
-	self cantAsientos
-		ifNotEmpty: [ self cantAsientos asInteger <= rutaObj combi cantidadAsientos
+	self cantAsientos ifEmpty:[ self cantAsientos:  (self viaje cantAsientosDisponibles)].
+	 self cantAsientos asInteger <= rutaObj combi cantidadAsientos
 				ifTrue: [ (self model administrador
 						editarViaje: self viaje
 						conRuta: rutaObj
@@ -77,8 +77,9 @@ ViajeEditView >> guardarViaje [
 				ifFalse: [ self
 						advertencia: 'Error al querer editar'
 						con:
-							'La cantidad de asientos ingresada supera el maximo de la combi: '
-								, rutaObj combi cantidadAsientos asString ] ]
+							'La cantidad de asientos ingresada supera el maximo permitido de la combi.'].
+					 
+				
 ]
 
 { #category : #accessing }
@@ -172,7 +173,7 @@ ViajeEditView >> renderizarCamposOn: html [
 	html space.
 	html
 		text:
-			'EL maxima cantidad de asientos de la combi es de: '
+			'La maxima cantidad de asientos de la combi es de: '
 				, self viaje ruta combi cantidadAsientos asString
 ]
 

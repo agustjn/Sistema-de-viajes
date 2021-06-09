@@ -167,7 +167,7 @@ RutaEditorView >> renderizarAdvertencia: html [
 RutaEditorView >> renderizarBotonesOn: html [
 	html submitButton
 		callback: [ self guardarDatos ];
-		value: 'Confirmar!'.
+		value: 'Confirmar'.
 	html space.
 	html submitButton
 		callback: [ self answer ];

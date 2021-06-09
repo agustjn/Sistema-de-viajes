@@ -91,7 +91,10 @@ ViajeCreationView >> parent: aParent [
 ]
 
 { #category : #rendering }
-ViajeCreationView >> precio [ ^precio
+ViajeCreationView >> precio [ 
+	(InputField allInstances includes: precio)
+		ifTrue:[ ^precio content ].
+	^precio 
 ]
 
 { #category : #rendering }
@@ -199,7 +202,7 @@ ViajeCreationView >> siguiente: html [
 					  precio := InputField newWithStrategy: EmptyValidator andContent: precio.
 					  precio esValido
 								ifTrue:[ self guardarViaje: formCantidadAsientos cantAsientos.
-											self parent desactivarViajeCreationView ]  ]
+											"self parent desactivarViajeCreationView" ]  ]
 
 	"	| cantidad |
 	

@@ -51,13 +51,14 @@ ChoferView >> renderContentOn: aCanvas [
 	aCanvas heading
 	level:4;
 	with: 'Lista de choferes activos '.
-	self renderizarChoferes: aCanvas.
-	aCanvas render: deleteErrorView.
 	aCanvas anchor
 		callback: [ self parent activarChoferCreationView ];
 		with: [ aCanvas submitButton
 				class: 'btn btn-dark mx-4 my-4' ;
 				with: 'Crear Chofer' ].
+	self renderizarChoferes: aCanvas.
+	aCanvas render: deleteErrorView.
+	
 ]
 
 { #category : #rendering }

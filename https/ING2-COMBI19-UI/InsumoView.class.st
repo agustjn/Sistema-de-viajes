@@ -29,12 +29,13 @@ InsumoView >> parent: aParent [
 { #category : #rendering }
 InsumoView >> renderContentOn: html [ 	
 	html heading level4 with:'Listado de Insumos del sistema'.
-	self renderizarInsumos: html.
 	html anchor
 		callback: [ self parent activarInsumosCreationView ];
 		with: [ html submitButton
 				class: 'btn btn-dark mx-4 my-4' ;
 				with: 'Crear Insumo' ].
+	self renderizarInsumos: html.
+	
 ]
 
 { #category : #'as yet unclassified' }

@@ -88,7 +88,12 @@ Combi >> patente: anObject [
 
 { #category : #accessing }
 Combi >> string [ 
-	^ self modelo, ' patente ', self patente, ' tipo: ', self tipo 
+	^  ' Modelo y patente: ', self modelo,' ', self patente. 
+]
+
+{ #category : #'as yet unclassified' }
+Combi >> stringChofer [
+	^' Chofer: ', self chofer nombre, ' ', self chofer apellido.
 ]
 
 { #category : #accessing }

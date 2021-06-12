@@ -55,12 +55,13 @@ CombiView >> renderAdvertenciaNew [
 CombiView >> renderContentOn: html [
 	self parent desactivarCombiCreationView.
 	html heading level4 with:'Listado de Combis activas'.
-	self renderizarCombisOn: html.
 	html anchor
 		callback: [ self parent activarCombiCreationView ];
 		with: [ html submitButton
 				class: 'btn btn-dark mx-4 my-4' ;
 				with: 'Crear Combi' ].
+	self renderizarCombisOn: html.
+	
 	 advertencia ifNotNil: [ html render: advertencia ]
 ]
 

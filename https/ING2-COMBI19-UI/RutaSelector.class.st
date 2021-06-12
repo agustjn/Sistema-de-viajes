@@ -53,8 +53,9 @@ RutaSelector >> parent [
 { #category : #rendering }
 RutaSelector >> renderContentOn: html [
 	html div
+		class: 'row';
 		with: [ html div
-				class: '';
+				class: 'col-md-9.5';
 				with: [ html div
 						class: 'card-body';
 						with: [ html heading level5
@@ -64,53 +65,78 @@ RutaSelector >> renderContentOn: html [
 								class: 'card-text';
 								with: [ html unorderedList
 										class: 'row';
-										with: [ self renderizarItems: html ] ] ] ] ].
+										with: [ self renderizarItems: html ] ] ] ]. 
 	html space.
-	self renderizarBotonesABMOn: html.
+	self renderizarBotonesABMOn: html].
 
 ]
 
 { #category : #'as yet unclassified' }
 RutaSelector >> renderizarBotonesABMOn: html [
 	html div
-		class: 'text-center';
+		class: 'mx-4 text-center';
 		with: [ html anchor
 				callback: [ self parent call: (RutaEditorView newOf: ruta) ];
-				with: [ html submitButton class:'btn btn-dark'; with: 'Editar' ].
+				with: [ html submitButton class:'btn btn-warning'; with: 'Editar' ].
 			html space.
 			html anchor
 				callback: [ self eliminarRuta.
 					self answer ];
-				with: [ html submitButton class:'btn btn-dark'; with: 'Eliminar' ].
+				with: [ html submitButton class:'btn btn-danger'; with: 'Eliminar' ].
 				html break ; break. ]
 ]
 
 { #category : #rendering }
 RutaSelector >> renderizarItems: html [
+html div 
+  class:'col-md-12';
+	with:[
+	html heading level6 class:' my-4'; 
+		with: 'Horario de salida: ' , ruta horario asString.
+	html heading level6 class:' my-4';
+					with: 'Distancia del viaje: ' , ruta distancia , ' KM'.
+	html heading level6 class:' my-4';
+					with: 'Origen: ' , ruta origen string.
+	html heading level6 class:' my-4';
+					with: 'Destino: ' , ruta destino string.
+	html heading level6 class:' my-4';
+					with: 'Combi: ' , ruta combi string.
+	html heading level6 class:' my-4';
+					with: 'Chofer: ' , ruta combi stringChofer].
+		
+		 
+	
+
+]
+
+{ #category : #'as yet unclassified' }
+RutaSelector >> renderizarItemsAnterior: html [
+html div 
+  class:'col-md-12';
+	with:[
+	html heading level6 class:' my-4'; 
+		with: 'Horario de salida: ' , ruta horario asString.
+	html heading level6 class:' my-4';
+					with: 'Distancia del viaje: ' , ruta distancia , ' KM'].
 	html listItem
-		class: 'card col-sm-6 bg-info border-warning ratio ratio-4x3';
-		with: [ html div class:'text-center' ; with:[html strong:'Origen'].
-			html break.
-			html render: (LugarSelector of: ruta origen withButtons: false) ].
+		class: 'card col-md-3 bg-white border-warning mx-4';
+		with: [ html div class:'text-center mt-3' ; with:[html paragraph class: 'text-dark'; with:[html strong:'Origen']].
+			html render: (ruta origen string ).
+	"html render: (LugarSelector of: ruta origen withButtons: false)" ].
+
 	html listItem
-		class: 'card col-sm-6 bg-info border-warning ratio ratio-1x1';
-		with: [ html div class:'text-center' ; with:[html strong:'Destino'].
-				 html break.
-			html render: (LugarSelector of: ruta destino withButtons: false) ].
+		class: 'card col-md-3 bg-white border-warning mx-4';
+		with: [ html div class:'text-center mt-3' ; with:[html paragraph class: 'text-dark'; with:[html strong:'Destino']].
+			html render: (ruta destino string ).	 
+			"html render: (LugarSelector of: ruta destino withButtons: false)"].
+
 	html listItem
-			class:'card col-sm-6 bg-info border-warning';
-			with:[ html div class:'text-center' ; with:[html strong:'Combi encargada'] .
-					 html render: (CombiSelector of:(ruta combi) withButtons:false)].
-	html listItem
-			class:'card col-sm-6 bg-info border-warning';
-			with:[ html div class:'text-center' ; with:[html strong:'Organizacion'].
-				html break.
-					 html heading level4 class:''; 
-					              with: 'Horario de salida: ' , ruta horario asString.
-				    html break.
-					 html heading level4 class:'';
-					with: 'Distancia del viaje: ' , ruta distancia , ' KM'
-					 ].
+			class:' card col-md-4 bg-white border-warning mx-4 mb-0';
+		with: [ html div class:'text-center mt-3' ; with:[html paragraph class: 'text-dark'; with:[html strong:'Combi asignada']].
+					html render: (ruta combi string ).
+					html break.
+					html render: (ruta combi stringChofer )].
+					"html render: (CombiSelector of:(ruta combi) withButtons:false)]."
 	
 ]
 

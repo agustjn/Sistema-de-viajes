@@ -64,24 +64,28 @@ ViajeView >> parent: aParent [
 { #category : #rendering }
 ViajeView >> renderContentOn: html [
 	html heading level4 with:'Listado de Viajes'.
-	
-	self renderizarViaje: html.
 	html anchor
 		callback: [ self parent activarViajeCreationView ];
 		with: [ html submitButton
 				class: 'btn btn-dark mx-4 my-4' ;
 				with: 'Crear Viaje' ].
+	self renderizarViaje: html.
+	
 ]
 
 { #category : #'as yet unclassified' }
 ViajeView >> renderizarViaje: html [
 	(self viajes) isEmpty 
 		ifTrue: [ html heading level4 with: 'No hay viajes pendientes' ]
-		ifFalse: [ html
-				unorderedList: [ self viajes
-						do: [ :viaje | 
-							html
-								listItem: [ html render: (ViajeSelector of: viaje andParent: self) ] ] ] ]
+		ifFalse: [ html unorderedList
+				class: 'row';
+				with: [ self model administrador viajes
+						do: [ :viajes | 
+							html listItem
+								class: 'card col-md-4 bg-white border-warning mx-5 my-4';
+								with: [ html render: (ViajeSelector of: viajes andParent: self) ] ] ] ]
+				
+			
 ]
 
 { #category : #accessing }

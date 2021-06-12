@@ -10,7 +10,7 @@ Class {
 
 { #category : #initialization }
 InputField class >> newWithStrategy: validatorInstance [
-	^ self new validationStrategy: validatorInstance new.
+	^ self new validationStrategy: validatorInstance .
 ]
 
 { #category : #initialization }

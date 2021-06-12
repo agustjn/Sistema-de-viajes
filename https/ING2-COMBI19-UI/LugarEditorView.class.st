@@ -21,7 +21,7 @@ LugarEditorView class >> newOf: aPlace [
 { #category : #event }
 LugarEditorView >> guardarDatos [
 	"Chequea la localidad para saber con que quedarse, se fija si existe este lugar y lo agrega o no"
-	self halt.
+
 	(self model administrador perteneceAunaRuta: place)
 		ifTrue: [ self renderizarError ]
 		ifFalse: [ | lugarTipeado |

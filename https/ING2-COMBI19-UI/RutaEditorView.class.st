@@ -64,19 +64,19 @@ RutaEditorView >> formatearHorario [
 
 { #category : #'as yet unclassified' }
 RutaEditorView >> guardarDatos [
-	self origen = self destino 
-	ifTrue: [ self renderAdvertencia3  ]
-	ifFalse: [ 
-	self validarHorario
-		ifTrue: [ (self model administrador
-				editarRuta: self ruta
-				origen: self origen
-				destino: self destino
-				combi: self combi
-				distancia: self distancia
-				horario: self formatearHorario)
-				ifTrue: [ self answer ]
-				ifFalse: [ self renderAdvertencia ] ]]
+
+	self origen = self destino
+		ifTrue: [ self renderAdvertencia3 ]
+		ifFalse: [ self validarHorario
+				ifTrue: [ (self model administrador
+						editarRuta: self ruta
+						origen: self origen
+						destino: self destino
+						combi: self combi
+						distancia: self distancia
+						horario: self formatearHorario)
+						ifTrue: [ self answer ]
+						ifFalse: [ self renderAdvertencia ] ] ]
 ]
 
 { #category : #accessing }
@@ -117,10 +117,14 @@ RutaEditorView >> rangoHorario: anObject [
 RutaEditorView >> renderAdvertencia [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'Error al editar, ruta existente '
-		item1: 'La ruta   desde ' , origen , ' hasta ' , destino
-		item2: 'Con combi: ' , combi
-		item3: 'a las ' , self horario , ' ' , self rangoHorario , ' ya existe'
+		heading: 'Error al editar'
+		item1:'A continuacion se listan los posibles errores: '
+			
+		item2:'La ruta   desde ' , origen , ' hasta ' , destino , ' Con combi: '
+				, combi , ' a las ' , self horario , ' ' , self rangoHorario
+				, ' ya existe'
+			
+		item3: 'La ruta esta asociada a un viaje existente, por favor finalice el viaje antes de continuar'
 ]
 
 { #category : #rendering }

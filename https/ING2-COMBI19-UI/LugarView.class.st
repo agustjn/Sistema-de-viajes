@@ -43,7 +43,8 @@ LugarView >> renderAdvertencia: text [
 
 { #category : #rendering }
 LugarView >> renderContentOn: html [
-	html heading level4 with:'Listado de Lugares del sistema'.
+	deleteErrorView := nil.
+	html heading level4 with: 'Listado de Lugares del sistema'.
 	self model administrador lugares isEmpty
 		ifTrue:
 				[ html heading level4 with: 'No hay lugares cargadados en el sistema' ];
@@ -52,8 +53,8 @@ LugarView >> renderContentOn: html [
 	html anchor
 		callback: [ self parent activarLugarCreationView ];
 		with: [ html submitButton
-				class: 'btn btn-dark mx-4 my-4' ;
-				with: 'Crear Lugar' ].
+				class: 'btn btn-dark mx-4 my-4';
+				with: 'Crear Lugar' ]
 ]
 
 { #category : #rendering }

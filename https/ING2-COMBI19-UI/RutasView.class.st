@@ -41,16 +41,16 @@ RutasView >> parent: aParent [
 
 { #category : #rendering }
 RutasView >> renderContentOn: html [
-	html heading: 'Rutas'.
-	html anchor
-		callback: [ self parent activarRutaCreationView ];
-		with: [ html submitButton
-				class: 'btn btn-dark';
-				with: 'Crear Ruta' ].
+	html heading level4 with:'Listado de Rutas activas'.
+
 	advertiseView ifNotNil: [ html render: advertiseView  ].
 	html horizontalRule.
 	self renderizarRutas: html.
-	
+		html anchor
+		callback: [ self parent activarRutaCreationView ];
+		with: [ html submitButton
+				class: 'btn btn-dark mx-4 my-4' ;
+				with: 'Crear Ruta' ].
 ]
 
 { #category : #rendering }
@@ -64,6 +64,6 @@ RutasView >> renderizarRutas: html [
 				with: [ self model administrador rutas
 						do: [ :rut | 
 							html listItem
-								class: 'card col-sm-6 bg-success border-warning';
+								class: 'card col-md-3 bg-white border-warning mx-4 my-4';
 								with: [ html render: (RutaSelector of: rut andParent: self) ] ] ] ]
 ]

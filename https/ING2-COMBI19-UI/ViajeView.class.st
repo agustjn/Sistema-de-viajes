@@ -63,11 +63,14 @@ ViajeView >> parent: aParent [
 
 { #category : #rendering }
 ViajeView >> renderContentOn: html [
-	html heading: 'Viajes'.
+	html heading level4 with:'Listado de Viajes'.
+	
 	self renderizarViaje: html.
 	html anchor
 		callback: [ self parent activarViajeCreationView ];
-		with: [ html submitButton with: 'Crear Viaje' ]
+		with: [ html submitButton
+				class: 'btn btn-dark mx-4 my-4' ;
+				with: 'Crear Viaje' ].
 ]
 
 { #category : #'as yet unclassified' }

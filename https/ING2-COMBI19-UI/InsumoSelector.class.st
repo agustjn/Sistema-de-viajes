@@ -82,7 +82,7 @@ InsumoSelector >> renderizarBotonesABMOn: html [
 		with: [ html anchor
 				callback: [ self parent call: (InsumoEditorView newOf: self insumo) ];
 				with: [ html submitButton
-						class: 'btn btn-warning';
+						class: 'btn btn-primary';
 						with: 'Editar' ].
 			html space.
 			html anchor

@@ -28,23 +28,25 @@ InsumoView >> parent: aParent [
 
 { #category : #rendering }
 InsumoView >> renderContentOn: html [ 	
-	html heading: 'Insumos del sistema'.
+	html heading level4 with:'Listado de Insumos del sistema'.
 	self renderizarInsumos: html.
 	html anchor
 		callback: [ self parent activarInsumosCreationView ];
-		with: [ html submitButton with: 'Crear Insumo' ]
+		with: [ html submitButton
+				class: 'btn btn-dark mx-4 my-4' ;
+				with: 'Crear Insumo' ].
 ]
 
 { #category : #'as yet unclassified' }
 InsumoView >> renderizarInsumos: html [
 	self model administrador insumos isEmpty
 		ifTrue:
-				[ html heading level4 with: 'No hay Insumos cargadados en el sistema' ];
+				[ html heading level3 with: 'No hay Insumos cargadados en el sistema' ];
 		ifFalse: [ html unorderedList
 					class: 'row';
 					with: [ self model administrador insumos
 							do: [ :insumo | 
 								html listItem
-									class: 'card col-sm-3 bg-info border-warning';
+									class: 'card col-sm-3 bg-white border-warning mx-4 my-4';
 									with: [ html render: (InsumoSelector of: insumo andParent: self) ] ] ] ]
 ]

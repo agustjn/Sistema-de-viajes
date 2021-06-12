@@ -91,6 +91,11 @@ Combi >> string [
 	^ self modelo, ' patente ', self patente, ' tipo: ', self tipo 
 ]
 
+{ #category : #'as yet unclassified' }
+Combi >> stringChofer [
+	^' ', self chofer nombre, ' ' , self chofer apellido.
+]
+
 { #category : #accessing }
 Combi >> tipo [
 	^tipo

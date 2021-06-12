@@ -111,7 +111,7 @@ Ruta >> seAsociaCon: unLugar [
 
 { #category : #accessing }
 Ruta >> string [
-	^ 'Desde: ' , self origen string , ' hasta: ' , self destino string  , ' , con combi patente: ' , self combi patente.
+	^ 'Origen: ' , self origen string , ' Destino: ' , self destino string.
 ]
 
 { #category : #accessing }

@@ -24,9 +24,11 @@ HomeAdminComponent >> activarChoferCreationView [
 	combiView := nil.
 	lugarView := nil.
 	viajeView := nil.
+	insumosView := nil.
 	lugarCreationView := nil.
 	combiCreationView := nil.
 	viajeCreationView := nil.
+	insumoCreationView := nil.
 	choferCreationView := ChoferCreationView newWithParent: self
 ]
 

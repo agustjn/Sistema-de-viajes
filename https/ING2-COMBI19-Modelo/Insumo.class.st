@@ -65,3 +65,8 @@ Insumo >> precio [
 Insumo >> precio: anObject [
 	precio := anObject
 ]
+
+{ #category : #accessing }
+Insumo >> string [
+	^ (self nombre  , ' ' , self marca, ' ' , self precio) asString
+]

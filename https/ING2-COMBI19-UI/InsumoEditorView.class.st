@@ -5,7 +5,8 @@ Class {
 		'insumo',
 		'nombre',
 		'marca',
-		'precio'
+		'precio',
+		'errorAdvertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Insumo-CRUD-UI'
 }
@@ -17,12 +18,14 @@ InsumoEditorView class >> newOf: unInsumo [
 
 { #category : #event }
 InsumoEditorView >> guardarDatos [
-
-	self model administrador
+	(self model administrador
 		editarInsumo: self insumo
 		nombre: self nombre
 		marca: self marca
-		precio: self precio
+		precio: self precio)
+		ifTrue: [ errorAdvertencia := nil.
+			self answer ]
+		ifFalse: [ self renderAdvertencia ]
 ]
 
 { #category : #accessing }
@@ -71,11 +74,23 @@ InsumoEditorView >> precio: unPrecio [
 ]
 
 { #category : #rendering }
+InsumoEditorView >> renderAdvertencia [
+	errorAdvertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al editar un  insumo'
+		item1: ' El insumo  ' , self insumo string , ', ya existe en el sistema'
+		item2: 'Por favor ingrese un insumo editado que no exista'
+		item3: nil
+]
+
+{ #category : #rendering }
 InsumoEditorView >> renderContentOn: html [
 	html
-		form: [ self renderizarCamposBasicosOn: html.
+		form:
+			[ self renderizarCamposBasicosOn: html.
 			html horizontalRule.
-			self renderizarBotonesOn: html ]
+			self renderizarBotonesOn: html ]. html
+		render: errorAdvertencia
 ]
 
 { #category : #rendering }
@@ -93,8 +108,7 @@ InsumoEditorView >> renderizarAdvertencia: html [
 { #category : #rendering }
 InsumoEditorView >> renderizarBotonesOn: html [
 	html submitButton
-		callback: [ self guardarDatos.
-			self answer ];
+		callback: [ self guardarDatos ];
 		value: 'Confirmar!'.
 	html space.
 	html submitButton

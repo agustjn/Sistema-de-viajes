@@ -94,21 +94,20 @@ LugarCreationView >> provincia: anObject [
 
 { #category : #rendering }
 LugarCreationView >> renderContentOn: html [
-	html heading level2 with:'Creacion de nuevo lugar'.
+	html heading level2 with: 'Creacion de nuevo lugar'.
 	html horizontalRule.
-	html form:[ self renderizarFormularioOn: html.
-					html break.
-						html submitButton
-							callback: [ self guardarLugar ];
-							value: 'Guardar'.
-					html space. 
-					html space.
-					html submitButton
-								callback:[ self parent desactivarLugarCreationView ];
-								with:'Cancelar' .
-					].
-	html render:advertiseView. "FALTA APLICAR"
-	
+	html
+		form: [ self renderizarFormularioOn: html.
+			html break.
+			html submitButton
+				callback: [ self guardarLugar. self parent activarLugarView  ];
+				value: 'Guardar'.
+			html space.
+			html space.
+			html submitButton
+				callback: [ self parent desactivarLugarCreationView ];
+				with: 'Cancelar' ].
+	html render: advertiseView	"FALTA APLICAR"
 ]
 
 { #category : #rendering }

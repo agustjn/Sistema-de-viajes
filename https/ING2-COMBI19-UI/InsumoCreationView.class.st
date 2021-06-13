@@ -65,20 +65,20 @@ InsumoCreationView >> parent: anObject [
 
 { #category : #rendering }
 InsumoCreationView >> renderContentOn: html [
-	html heading level2 with:'Creacion de nuevo insumo'.
+	html heading level2 with: 'Creacion de nuevo insumo'.
 	html horizontalRule.
-	html form:[ self renderizarFormularioOn: html.
-					html break.
-						html submitButton
-							callback: [ self guardarInsumo ];
-							value: 'Guardar'.
-					html space. 
-					html space.
-					html submitButton
-								callback:[ self parent desactivarInsumoCreationView ];
-								with:'Cancelar' .
-					].
-	html render:advertiseView.
+	html
+		form: [ self renderizarFormularioOn: html.
+			html break.
+			html submitButton
+				callback: [ self guardarInsumo. self parent activarInsumoView ];
+				value: 'Guardar'.
+			html space.
+			html space.
+			html submitButton
+				callback: [ self parent desactivarInsumoCreationView ];
+				with: 'Cancelar' ].
+	html render: advertiseView
 ]
 
 { #category : #rendering }

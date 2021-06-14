@@ -71,7 +71,7 @@ InsumoCreationView >> renderContentOn: html [
 		form: [ self renderizarFormularioOn: html.
 			html break.
 			html submitButton
-				callback: [ self guardarInsumo. self parent activarInsumoView ];
+				callback: [ self guardarInsumo.];
 				value: 'Guardar'.
 			html space.
 			html space.

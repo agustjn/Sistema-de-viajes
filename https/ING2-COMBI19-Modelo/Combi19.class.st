@@ -20,7 +20,7 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 pub1 pub2|
+	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 insumo1 insumo2 pub1 pub2|
 	self soleInstance.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
@@ -101,10 +101,15 @@ Combi19 class >> instanciaDePrueba [
 	soleInstance administrador
 		agregarRuta: ruta1;
 		agregarRuta: ruta2.
+	"-----------------------Insumos-------------------------"
+	insumo1 := Insumo newNombre:'Galletitas' marca: 'Oreo' precio: '140'.
+	insumo2 := Insumo newNombre:'Gaseosa' marca: 'Sprite' precio: '85'.
+	soleInstance administrador agregarInsumo: insumo1 ; agregarInsumo: insumo2.
 	"-----------------------Publicaciones-------------------"
 	pub1 := Publicacion de: chofer1 conContenido: 'En el ultimo viaje me lleve una buena experiencia!'.
 	pub2 := Publicacion de: chofer2 conContenido: 'Estaria bueno que arreglen las combis.'.
 	soleInstance agregarPublicacion: pub1 ; agregarPublicacion: pub2.
+	
 ]
 
 { #category : #accessing }

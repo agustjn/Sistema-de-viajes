@@ -77,9 +77,9 @@ InsumoEditorView >> precio: unPrecio [
 InsumoEditorView >> renderAdvertencia [
 	errorAdvertencia := GenericAdvertiseView
 		newWithParent: self
-		heading: 'Error al editar un  insumo'
-		item1: ' El insumo  ' , self insumo string , ', ya existe en el sistema'
-		item2: 'Por favor ingrese un insumo editado que no exista'
+		heading: 'Error al editar el insumo'
+		item1: 'El insumo ingresado ya existe en el sistema.'
+		item2: nil
 		item3: nil
 ]
 

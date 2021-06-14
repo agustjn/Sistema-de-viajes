@@ -20,7 +20,7 @@ Insumo class >> newNombre: unNombre marca: unaMarca precio: unPrecio [
 
 { #category : #comparing }
 Insumo >> = unInsumo [
- ^ unInsumo marca = self marca & (unInsumo nombre = self nombre ) & (unInsumo precio = precio)
+ ^ unInsumo marca = self marca & (unInsumo nombre = self nombre )
 ]
 
 { #category : #'as yet unclassified' }

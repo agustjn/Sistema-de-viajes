@@ -92,7 +92,14 @@ MenuAdminView >> renderizarAnchors: aCanvas [
 				with: [ aCanvas anchor
 						class: 'nav-link';
 						callback: [ self parent activarInsumoView ];
-						with: 'Insumos' ] ]
+						with: 'Insumos' ].
+			aCanvas
+				listItem
+				class:'nav-item ml-4';
+				with: [ aCanvas anchor
+						class: 'nav-link';
+						callback: [ self parent activarForoView ];
+						with: 'Foro' ]. ]
 				
 			
 ]

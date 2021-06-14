@@ -39,7 +39,7 @@ InsumoView >> renderContentOn: html [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 InsumoView >> renderizarInsumos: html [
 	self model administrador insumos isEmpty
 		ifTrue:

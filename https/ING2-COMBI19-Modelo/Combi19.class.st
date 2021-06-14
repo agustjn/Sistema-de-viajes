@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'clientes',
 		'choferes',
-		'administrador'
+		'administrador',
+		'publicaciones'
 	],
 	#classInstVars : [
 		'soleInstance'
@@ -19,7 +20,7 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 |
+	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 pub1 pub2|
 	self soleInstance.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
@@ -99,7 +100,11 @@ Combi19 class >> instanciaDePrueba [
 		horario:'3 pm' asTime.
 	soleInstance administrador
 		agregarRuta: ruta1;
-		agregarRuta: ruta2
+		agregarRuta: ruta2.
+	"-----------------------Publicaciones-------------------"
+	pub1 := Publicacion de: chofer1 conContenido: 'En el ultimo viaje me lleve una buena experiencia!'.
+	pub2 := Publicacion de: chofer2 conContenido: 'Estaria bueno que arreglen las combis.'.
+	soleInstance agregarPublicacion: pub1 ; agregarPublicacion: pub2.
 ]
 
 { #category : #accessing }
@@ -120,6 +125,16 @@ Combi19 >> administrador: anObject [
 { #category : #accessing }
 Combi19 >> agregarChofer: unChofer [
 	choferes add: unChofer
+]
+
+{ #category : #accessing }
+Combi19 >> agregarPublicacion: unaPublicacion [
+	publicaciones add: unaPublicacion
+]
+
+{ #category : #accessing }
+Combi19 >> borrarPublicacion: aPublication [
+	self publicaciones remove: aPublication 
 ]
 
 { #category : #'as yet unclassified' }
@@ -243,6 +258,7 @@ Combi19 >> eliminarChofer: unChofer [
 Combi19 >> initialize [
 	clientes := OrderedCollection new.
 	choferes := OrderedCollection new.
+	publicaciones := OrderedCollection new.
 ]
 
 { #category : #queries }
@@ -271,6 +287,11 @@ Combi19 >> provinciasArgentinas [
 'Tucumán')
 ]
 
+{ #category : #accessing }
+Combi19 >> publicaciones [
+	^ publicaciones
+]
+
 { #category : #queries }
 Combi19 >> retornarChoferesAsString [
 
@@ -287,6 +308,11 @@ Combi19 >> usuario: unEmail protegidoPor: unaClave [
 		ifNil: [ (self buscarChoferMail: unEmail pass: unaClave)
 				ifNil: (self buscarAdminMail: unEmail pass: unaClave) ].
 	^ elUsuario
+]
+
+{ #category : #queries }
+Combi19 >> validarPublicacion: aPublication [
+	^ aPublication contenido byteSize > 10
 ]
 
 { #category : #queries }

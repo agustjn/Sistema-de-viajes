@@ -13,7 +13,8 @@ Class {
 		'rutasView',
 		'insumosView',
 		'rutasCreationView',
-		'insumoCreationView'
+		'insumoCreationView',
+		'foroView'
 	],
 	#category : #'ING2-COMBI19-UI-Admin-UI'
 }
@@ -21,6 +22,7 @@ Class {
 { #category : #event }
 HomeAdminComponent >> activarChoferCreationView [
 	choferView := nil.
+	foroView := nil.
 	combiView := nil.
 	lugarView := nil.
 	viajeView := nil.
@@ -35,7 +37,7 @@ HomeAdminComponent >> activarChoferCreationView [
 { #category : #event }
 HomeAdminComponent >> activarChoferView [
 	"Si se activa cualquier componente, los demas se desactivan para evitar errores de render"
-
+foroView := nil.
 	choferCreationView := nil.
 	combiView := nil.
 	lugarView := nil.
@@ -49,6 +51,7 @@ HomeAdminComponent >> activarChoferView [
 { #category : #event }
 HomeAdminComponent >> activarCombiCreationView [
 	choferView := nil.
+	foroView := nil.
 	combiView := nil.
 	lugarView := nil.
 	viajeView := nil.
@@ -70,6 +73,7 @@ HomeAdminComponent >> activarCombiView [
 	rutasView := nil.
 	insumosView := nil.
 	insumoCreationView := nil.
+	foroView := nil.
 	rutasCreationView := nil.
 	choferCreationView := nil.
 	lugarView := nil.
@@ -77,9 +81,25 @@ HomeAdminComponent >> activarCombiView [
 ]
 
 { #category : #event }
+HomeAdminComponent >> activarForoView [
+	viajeView := nil.
+	viajeCreationView := nil.
+	choferView := nil.
+	rutasView := nil.
+	insumosView := nil.
+	insumoCreationView := nil.
+	rutasCreationView := nil.
+	choferCreationView := nil.
+	lugarView := nil.
+	combiView := nil.
+	foroView := ForoView newWithParent: self.
+]
+
+{ #category : #event }
 HomeAdminComponent >> activarInsumoCreationView [
 	choferView := nil.
 	combiView := nil.
+	foroView := nil.
 	lugarView := nil.
 	viajeView := nil.
 	rutasView := nil.
@@ -104,13 +124,15 @@ HomeAdminComponent >> activarInsumoView [
 	combiCreationView := nil.
 	choferCreationView := nil.
 	viajeView := nil.
-	viajeCreationView := nil
+	viajeCreationView := nil.
+	foroView := nil.
 ]
 
 { #category : #event }
 HomeAdminComponent >> activarInsumosCreationView [
 	choferView := nil.
 	combiView := nil.
+	foroView := nil.
 	lugarView := nil.
 	viajeView := nil.
 	rutasView := nil.
@@ -126,6 +148,7 @@ HomeAdminComponent >> activarInsumosCreationView [
 HomeAdminComponent >> activarLugarCreationView [
 	choferView := nil.
 	combiView := nil.
+	foroView := nil.
 	lugarView := nil.
 	viajeView := nil.
 	rutasView := nil.
@@ -141,6 +164,7 @@ HomeAdminComponent >> activarLugarCreationView [
 HomeAdminComponent >> activarLugarView [
 	combiView := nil.
 	choferView := nil.
+	foroView := nil.
 	viajeView := nil.
 	rutasView := nil.
 	insumosView := nil.
@@ -156,6 +180,7 @@ HomeAdminComponent >> activarLugarView [
 { #category : #event }
 HomeAdminComponent >> activarRutaCreationView [
 	combiView := nil.
+	foroView := nil.
 	choferView := nil.
 	lugarView := nil.
 	rutasView := nil.
@@ -171,7 +196,7 @@ HomeAdminComponent >> activarRutaCreationView [
 
 { #category : #event }
 HomeAdminComponent >> activarRutasView [
-
+foroView := nil.
 	combiView := nil.
 	choferView := nil.
 	lugarView := nil.
@@ -191,6 +216,7 @@ HomeAdminComponent >> activarViajeCreationView [
 	choferView := nil.
 	combiView := nil.
 	lugarView := nil.
+	foroView := nil.
 	rutasView := nil.
 	insumosView := nil.
 	insumoCreationView := nil.
@@ -207,6 +233,7 @@ HomeAdminComponent >> activarViajeView [
 	choferView := nil.
 	lugarView := nil.
 	rutasView := nil.
+	foroView := nil.
 	insumosView := nil.
 	insumoCreationView := nil.
 	rutasCreationView := nil.
@@ -231,6 +258,11 @@ HomeAdminComponent >> desactivarChoferCreationView [
 { #category : #event }
 HomeAdminComponent >> desactivarCombiCreationView [
 	combiCreationView := nil
+]
+
+{ #category : #event }
+HomeAdminComponent >> desactivarForoView [
+	foroView:= nil
 ]
 
 { #category : #event }
@@ -277,7 +309,8 @@ HomeAdminComponent >> renderContentOn: aCanvas [
 		aCanvas render: rutasView.
 		aCanvas render: rutasCreationView.
 		aCanvas render: insumosView.
-		aCanvas render: insumoCreationView
+		aCanvas render: insumoCreationView.
+		aCanvas render: foroView.
 		].
 ]
 

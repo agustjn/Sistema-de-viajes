@@ -20,7 +20,7 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 insumo1 insumo2 pub1 pub2|
+	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 combi3 insumo1 insumo2 pub1 pub2 viaje1|
 	self soleInstance.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
@@ -63,7 +63,14 @@ Combi19 class >> instanciaDePrueba [
 		asientos: 35
 		chofer: chofer2
 		tipo: 'Cama'.
+		combi3 := Combi
+		initializeModelo: 'Chevrolet HH'
+		patente: 'PQP-333'
+		asientos: 25
+		chofer: chofer3
+		tipo: 'Semi-Cama'.
 	soleInstance administrador agregarCombi: combi2.
+	soleInstance administrador agregarCombi: combi3.
 	"---------------------------Lugares-----------------"
 	lugar1 := Lugar deProvincia: 'Buenos Aires' yLocalidad: 'La Plata'.
 	lugar2 := Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma'.
@@ -109,7 +116,13 @@ Combi19 class >> instanciaDePrueba [
 	pub1 := Publicacion de: chofer1 conContenido: 'En el ultimo viaje me lleve una buena experiencia!'.
 	pub2 := Publicacion de: chofer2 conContenido: 'Estaria bueno que arreglen las combis.'.
 	soleInstance agregarPublicacion: pub1 ; agregarPublicacion: pub2.
-	
+	"-----------------------Viajes------------------------"
+	viaje1 := Viaje
+		newCon: ruta1
+		fecha: '11/13/2021' asDate
+		precio: 1500
+		asientos: 30.
+	soleInstance administrador agregarViaje: viaje1.
 ]
 
 { #category : #accessing }

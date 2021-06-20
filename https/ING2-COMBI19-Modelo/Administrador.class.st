@@ -110,6 +110,11 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 			^ true ]
 ]
 
+{ #category : #accessing }
+Administrador >> agregarViaje: unViaje [
+	viajes add: unViaje
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> buscarCombi: unaCombiString [
 	^ combis detect: [ :unaCombi | unaCombi string = unaCombiString ]

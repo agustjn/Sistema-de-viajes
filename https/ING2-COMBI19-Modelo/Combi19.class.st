@@ -20,8 +20,13 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 chofer3 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 combi3 insumo1 insumo2 pub1 pub2 viaje1|
+	| chofer1 chofer2 chofer3 plan1 plan2 tarj1 client1 client2 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 combi3 insumo1 insumo2 pub1 pub2 viaje1|
 	self soleInstance.
+	"---------------------------Planes-------------------"
+	plan1 := PlanBasico new.
+	plan2 := PlanGold new.
+	"-----------------------TarjetasDeCredito----------------"
+	tarj1 := TarjetaCredito conNumero: '1640193823912345' mesVencimiento:'12' añoVencimiento:'2024' codSeguridad: '760'.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
 		initializeCon: 'Esteban'
@@ -41,6 +46,9 @@ Combi19 class >> instanciaDePrueba [
 		email: 'pedro@hotmail.com'
 		contraseña: '654321'
 		telefono: '2216688388'.
+	client1 := Cliente initializeCon: 'cliente1' contraseña: '123456' nombre: 'Javier' apellido: 'Gomez' dni: '23365435' fecha: '3/25/1985' plan: plan1.
+	client2 := Cliente initializeCon: 'cliente2' contraseña: '123456' nombre: 'Alberto' apellido: 'Cardenas' dni: '27365435' fecha: '7/12/1989' plan: plan2.
+	client2 agregarTarjeta: tarj1.
 	soleInstance
 		crearAdmin: 'ING'
 		apellido: 'SOFT 2'
@@ -49,6 +57,7 @@ Combi19 class >> instanciaDePrueba [
 	soleInstance agregarChofer: chofer1.
 	soleInstance agregarChofer: chofer2.
 	soleInstance agregarChofer: chofer3.
+	soleInstance agregarCliente: client1 ; agregarCliente: client2.
 	"---------------------------Combis-----------------"
 	combi1 := Combi
 		initializeModelo: 'Mercedes Benz Sprinter'
@@ -146,6 +155,11 @@ Combi19 >> agregarChofer: unChofer [
 ]
 
 { #category : #accessing }
+Combi19 >> agregarCliente: unCliente [
+	clientes add: unCliente
+]
+
+{ #category : #accessing }
 Combi19 >> agregarPublicacion: unaPublicacion [
 	publicaciones add: unaPublicacion
 ]
@@ -188,7 +202,7 @@ Combi19 >> buscarChoferNombre: unNombre [
 
 { #category : #queries }
 Combi19 >> buscarClienteMail: unEmail pass: unaClave [
-	^clientes
+	^self clientes
 		detect:
 			[ :unUsuario | unUsuario email = unEmail & (unUsuario contraseña = unaClave) ]
 		ifNone: [ ^ nil ]

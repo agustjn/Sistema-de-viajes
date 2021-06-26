@@ -164,22 +164,22 @@ Administrador >> editarRuta: unaRuta origen: unOrigen destino: unDestino combi: 
 	origenObj := self buscarLugar: unOrigen.
 	destinoObj := self buscarLugar: unDestino.
 	(viajes anySatisfy: [ :unViaje | unViaje ruta = unaRuta ])
-		|
-			(self
+		ifTrue: [ ^ 'la ruta Asociada a un viaje' ]
+		ifFalse: [ (self
 				existeRuta: unaRuta
 				Origen: origenObj
 				destino: destinoObj
 				combi: (self buscarCombi: unaCombi)
 				distancia: unaDistancia
 				horario: unHorario)
-		ifTrue: [ ^ false ]
-		ifFalse: [ unaRuta
-				editarOrigen: origenObj
-				destino: destinoObj
-				combi: (self buscarCombi: unaCombi)
-				distancia: unaDistancia
-				horario: unHorario.
-			^ true ]
+				ifTrue: [ ^ 'Existe la ruta que desea crear' ];
+				ifFalse: [ unaRuta
+							editarOrigen: origenObj
+							destino: destinoObj
+							combi: (self buscarCombi: unaCombi)
+							distancia: unaDistancia
+							horario: unHorario.
+						^ true ] ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -347,9 +347,11 @@ Administrador >> rutasNombre [
 { #category : #'as yet unclassified' }
 Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantidadDeAsientos [
 	"Crea un viaje y lo agrega a la coleccion de viajes "
-	| unViaje asientosAux|
-	asientosAux := unaCantidadDeAsientos . "Parche ya que si la cantidad de asientos quedaba vacia, daba error."
-	unaCantidadDeAsientos ifEmpty:[ asientosAux := unaRuta combi cantidadAsientos ].		
+
+	| unViaje asientosAux |
+	asientosAux := unaCantidadDeAsientos.	"Parche ya que si la cantidad de asientos quedaba vacia, daba error."
+	unaCantidadDeAsientos
+		ifEmpty: [ asientosAux := unaRuta combi cantidadAsientos ].
 	unViaje := Viaje
 		newCon: unaRuta
 		fecha: unaFecha
@@ -359,8 +361,9 @@ Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asie
 		ifTrue: [ viajes
 				ifNil: [ viajes add: unViaje ]
 				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
-						ifTrue: [ ^ false ]
+						ifTrue: [ ^ 'El viaje ya existe en el sistema' ]
 						ifFalse: [ viajes add: unViaje.
 							^ true ] ] ]
-		ifFalse: [ "Si la cantidad ingresada de asientos no supera la capacidad de la combi, entonces verifico si existe un viaje identico, sino retorno false" ^ false ]
+		ifFalse:
+			[ ^ 'La cantidad de asientos ingresadas es mayor a la capacidad de la combi' ]
 ]

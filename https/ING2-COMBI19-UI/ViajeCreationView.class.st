@@ -32,6 +32,15 @@ ViajeCreationView >> advertenciaCampoVacio [
 ]
 
 { #category : #'as yet unclassified' }
+ViajeCreationView >> advertenciaCorrecta [
+	GenericAdvertiseView
+		newWithParent: self
+		heading: 'Se agrego el viaje con exito   '
+		item1: nil		item2: nil
+		item3: nil
+]
+
+{ #category : #'as yet unclassified' }
 ViajeCreationView >> advertenciaSinRuta [
 	errorView := GenericAdvertiseView
 		newWithParent: self
@@ -63,17 +72,21 @@ ViajeCreationView >> fecha: aFecha [
 ]
 
 { #category : #event }
-ViajeCreationView >> guardarViaje: unaCantidad [ 
+ViajeCreationView >> guardarViaje: unaCantidad [
 	"self cantAsientos
 		ifEmpty: [ self cantAsientos: self rutaObj combi cantidadAsientos ]."
-	(self model administrador
+
+	| textAdvertencia |
+	self halt.
+	textAdvertencia := self model administrador
 		validarViajeRuta: self rutaObj
 		fecha: self fecha
 		precio: self precio
-		asientos: unaCantidad )
-		ifTrue: [ self parent desactivarViajeCreationView ]
-		ifFalse:
-			[ "Si el viaje es invalido, se retorna false, de lo contrario se agrega al sistema y retorna true" self renderizarError ]
+		asientos: unaCantidad.
+	textAdvertencia = true
+		ifTrue: [ self parent desactivarViajeCreationView: self advertenciaCorrecta.
+			 ]
+		ifFalse: [ self renderizarError: textAdvertencia ]
 ]
 
 { #category : #rendering }
@@ -143,16 +156,15 @@ ViajeCreationView >> renderizarAviso: html [
 ]
 
 { #category : #rendering }
-ViajeCreationView >> renderizarError [
-
+ViajeCreationView >> renderizarError: textAdvertencia [
 	errorView := GenericAdvertiseView
 		newWithParent: self
 		heading:
-			'Error al crear nuevo viaje debido a alguno de los siguientes motivos: '
-		item1: 'Se repite la misma ruta y fecha que posee otro viaje creado'
+			'Error al crear nuevo viaje debido al siguiente problema: '
+		item1: textAdvertencia 
 		item2:
-			'Se ingreso una cantidad de asientos que excede la capacidad de la combi'
-		item3: 'No se completo el campo "Precio del boleto "'
+			nil
+		item3: nil
 ]
 
 { #category : #rendering }

@@ -77,15 +77,14 @@ ViajeCreationView >> guardarViaje: unaCantidad [
 		ifEmpty: [ self cantAsientos: self rutaObj combi cantidadAsientos ]."
 
 	| textAdvertencia |
-	self halt.
 	textAdvertencia := self model administrador
 		validarViajeRuta: self rutaObj
 		fecha: self fecha
 		precio: self precio
 		asientos: unaCantidad.
 	textAdvertencia = true
-		ifTrue: [ self parent desactivarViajeCreationView: self advertenciaCorrecta.
-			 ]
+		ifTrue:
+			[ self parent desactivarViajeCreationView: self advertenciaCorrecta ]
 		ifFalse: [ self renderizarError: textAdvertencia ]
 ]
 

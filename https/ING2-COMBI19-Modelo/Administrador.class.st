@@ -110,11 +110,6 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 			^ true ]
 ]
 
-{ #category : #accessing }
-Administrador >> agregarViaje: unViaje [
-	viajes add: unViaje
-]
-
 { #category : #'as yet unclassified' }
 Administrador >> buscarCombi: unaCombiString [
 	^ combis detect: [ :unaCombi | unaCombi string = unaCombiString ]
@@ -134,6 +129,11 @@ Administrador >> buscarRuta: unaRutaString [
 	^ rutas
 		detect: [ :unaRuta | unaRuta string = unaRutaString ]
 		ifNone: [  false ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> buscarViajeDesde: unOrigen hasta: unDestino conFecha: unaFecha [
+	viajes detect: [ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha  ] ifNone: [ ^ 'No existe viaje filtrado por: ' ]
 ]
 
 { #category : #accessing }

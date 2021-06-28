@@ -6,7 +6,8 @@ Class {
 		'cantAsientosDisponibles',
 		'fecha',
 		'precio',
-		'estaActivo'
+		'estaActivo',
+		'clientes'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -23,6 +24,19 @@ Viaje class >> newCon: unaRuta fecha: unaFecha precio: unPrecio asientos:cantDeA
 { #category : #comparing }
 Viaje >> = unViaje [
 	  ^ ((self ruta = unViaje ruta ) & (self fecha = unViaje fecha ) )
+]
+
+{ #category : #'as yet unclassified' }
+Viaje >> agregarCliente: unCliente insumos: unosInsumos cantidadButacas: unaCantidad [
+	"Creo un cliente que es un diccionario, con el cliente , los insumos, y la cantidad de butacas adquiridas"
+
+	| cliente1 |
+	cantAsientosDisponibles := cantAsientosDisponibles - unaCantidad.
+	cliente1 := Dictionary new.
+	cliente1 at: unCliente nombre put: unCliente.
+	cliente1 at: 'insumos' put: unosInsumos.
+	cliente1 at: 'cantidad' put: unaCantidad.
+	clientes add: cliente1
 ]
 
 { #category : #accessing }
@@ -62,6 +76,12 @@ Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio asiento
 		ifFalse: [ precio := unPrecio ].
 	unaCantidad = ''
 		ifFalse: [ self cantAsientosDisponibles: unaCantidad ]
+]
+
+{ #category : #'as yet unclassified' }
+Viaje >> origen: unOrigen destino: unDestino fecha: unaFecha [
+	^ (self ruta origen = unOrigen )& (self ruta destino = unDestino)
+		& (self fecha = unaFecha)
 ]
 
 { #category : #accessing }

@@ -31,14 +31,14 @@ Combi19 class >> instanciaDePrueba [
 	chofer1 := Chofer
 		initializeCon: 'Esteban'
 		apellido: 'Perez'
-		email: 'esteban@hotmail.com'
+		email: 'chofer1'
 		contraseña: '123456'
 		telefono: '2218896545'.
 	chofer2 := Chofer
 		initializeCon: 'Carlos'
 		apellido: 'Mansilla'
-		email: 'carlos@hotmail.com'
-		contraseña: '1234567'
+		email: 'chofer2'
+		contraseña: '123456'
 		telefono: '22215312'.
 	chofer3 := Chofer
 		initializeCon: 'Pedro'

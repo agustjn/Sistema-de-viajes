@@ -6,7 +6,7 @@ Class {
 		'fechaNac',
 		'dni',
 		'plan',
-		'tarjetas'
+		'tarjeta'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -28,7 +28,18 @@ Cliente class >> initializeCon: unEmail contraseña: unaContraseña nombre: unNo
 
 { #category : #accessing }
 Cliente >> agregarTarjeta: aCreditCard [
-	tarjetas add: aCreditCard
+	tarjeta := aCreditCard 
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> agregarViaje: unViaje insumo: unosInsumos tarjeta: unaTarjeta cantidadButacas: unaCantidad [
+	|laTarjeta|
+	laTarjeta := unaTarjeta .
+	(viajes anySatisfy: [ :algunViaje | algunViaje fecha = unViaje fecha ])
+	ifTrue: [ ^ 'Ya posee un viaje en esta fecha' ];
+	ifFalse: [ laTarjeta  ifNil: [(self soyGold)  ifTrue: [ laTarjeta := (self tarjeta) ]; ifFalse: [ "Debe ingresar una tarjeta " ]].
+		 			unViaje agregarCliente: self insumos: unosInsumos cantidadButacas: unaCantidad ].
+				
 ]
 
 { #category : #accessing }
@@ -47,16 +58,16 @@ Cliente >> fechaNac: anObject [
 ]
 
 { #category : #initialization }
-Cliente >> initializeCon: unEmail contraseña: unaContraseña  nombre: unNombre apellido: unApellido dni: unDni  fecha: unaFecha plan: unPlan [
+Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre apellido: unApellido dni: unDni fecha: unaFecha plan: unPlan [
 	email := unEmail.
-	contraseña  := unaContraseña.
-	nombre := unNombre .
+	contraseña := unaContraseña.
+	nombre := unNombre.
 	apellido := unApellido.
-	dni := unDni .
+	dni := unDni.
 	fechaNac := unaFecha.
 	plan := unPlan.
-	viajes := OrderedCollection new.
-	tarjetas := OrderedCollection new.
+	tarjeta:= nil.
+	viajes := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -72,6 +83,16 @@ Cliente >> plan [
 { #category : #accessing }
 Cliente >> plan: anObject [
 	plan := anObject
+]
+
+{ #category : #accessing }
+Cliente >> soyGold [
+	^ (plan tipo = 'Gold') 
+]
+
+{ #category : #accessing }
+Cliente >> tarjeta [
+	^tarjeta
 ]
 
 { #category : #accessing }

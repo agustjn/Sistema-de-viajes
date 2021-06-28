@@ -27,10 +27,20 @@ RutaSelector >> advertencia1 [
 ]
 
 { #category : #'as yet unclassified' }
+RutaSelector >> advertenciaCorrecta [
+	^ GenericAdvertiseView
+		newWithParent: self
+		heading: 'La ruta se elimino con exito'
+		item1:nil
+		item2: nil
+		item3: nil
+]
+
+{ #category : #'as yet unclassified' }
 RutaSelector >> eliminarRuta [
 	(self model administrador eliminarRuta: self ruta)
-		ifTrue:  [ self parent advertencia:  nil ]
-		ifFalse: [ self parent advertencia:  self advertencia1 ]
+		ifTrue: [ self parent advertencia: self advertenciaCorrecta ]
+		ifFalse: [ self parent advertencia: self advertencia1 ]
 ]
 
 { #category : #'as yet unclassified' }

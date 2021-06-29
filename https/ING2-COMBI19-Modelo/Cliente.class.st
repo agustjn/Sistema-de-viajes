@@ -31,7 +31,7 @@ Cliente >> agregarTarjeta: aCreditCard [
 	tarjeta := aCreditCard 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 Cliente >> agregarViaje: unViaje insumo: unosInsumos tarjeta: unaTarjeta cantidadButacas: unaCantidad [
 	|laTarjeta|
 	laTarjeta := unaTarjeta .
@@ -70,6 +70,20 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 	viajes := OrderedCollection new
 ]
 
+{ #category : #modifying }
+Cliente >> modificarConMail: correo Nombre: name Apellido: lastname Dni: documento Contraseña: password FechaNacimiento: fechaNacimiento [
+	(correo = '')
+		ifFalse:[  
+						(self validarMail: correo) ifFalse:[ ^ 'errorEnMail' ] ].
+	(name = '')
+		ifFalse:[ nombre := name ].
+	(lastname = '')
+		ifFalse:[ apellido := lastname ].
+	documento = ''
+		ifFalse:[ dni := documento ].
+	"Falta validar contraseña y fecha de nacimiento"	
+]
+
 { #category : #accessing }
 Cliente >> nacimiento [
 	^ fechaNac 
@@ -103,4 +117,13 @@ Cliente >> telefono [
 { #category : #accessing }
 Cliente >> telefono: anObject [
 	telefono := anObject
+]
+
+{ #category : #queries }
+Cliente >> validarMail: unEmail [
+	 (Combi19 soleInstance existeMail: unEmail)
+		 ifTrue:[ ^ 'errorEnMail' ].
+	 ^ true
+		
+		
 ]

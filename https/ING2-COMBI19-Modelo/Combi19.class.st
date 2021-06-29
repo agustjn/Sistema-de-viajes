@@ -286,6 +286,16 @@ Combi19 >> eliminarChofer: unChofer [
 	^ false
 ]
 
+{ #category : #queries }
+Combi19 >> existeMail: unEmail [ 
+	^ (self clientes
+		anySatisfy:
+			[ :unUsuario | unUsuario email = unEmail ]) not
+		"Se niega lo retornado para un claro entendimiento del objeto que utiliza este mensaje. Si el
+		 email ya existe, se retorna un 'false' para entender que no se cumplio la condicion"
+		"Falta verificar si el mail recibido existe en la coleccion choferes..."
+]
+
 { #category : #initialization }
 Combi19 >> initialize [
 	clientes := OrderedCollection new.

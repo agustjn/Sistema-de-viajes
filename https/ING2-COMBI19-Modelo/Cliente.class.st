@@ -72,16 +72,25 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 
 { #category : #modifying }
 Cliente >> modificarConMail: correo Nombre: name Apellido: lastname Dni: documento Contraseña: password FechaNacimiento: fechaNacimiento [
-	(correo = '')
-		ifFalse:[  
-						(self validarMail: correo) ifFalse:[ ^ 'errorEnMail' ] ].
-	(name = '')
+ correo ifNotEmpty:[ (self validarMail: correo) ifFalse:[ ^ 'errorEnMail' ] ].
+ password ifNotEmpty: [(self validarContraseña: password) ifFalse:[ ^ 'errorEnContraseña' ] ].
+ fechaNacimiento ifNotEmpty:[(self validarFechaDeNacimiento: fechaNacimiento) ifFalse:[ ^ 'errorEnFechaNacimiento' ] ].
+ "Si no hubo ningun error en las validaciones, se procede a verificar los campos vacios y no vacios"
+	name isEmpty
 		ifFalse:[ nombre := name ].
-	(lastname = '')
+	lastname isEmpty
 		ifFalse:[ apellido := lastname ].
-	documento = ''
+	documento isEmpty
 		ifFalse:[ dni := documento ].
-	"Falta validar contraseña y fecha de nacimiento"	
+	correo isEmpty
+		ifFalse:[ email := correo ].
+	password isEmpty
+		ifFalse:[ contraseña := password ].
+	fechaNacimiento isEmpty
+		ifFalse:[ fechaNac := fechaNacimiento ].
+	
+
+	
 ]
 
 { #category : #accessing }
@@ -120,10 +129,21 @@ Cliente >> telefono: anObject [
 ]
 
 { #category : #queries }
+Cliente >> validarContraseña: password [ 
+	^ password size > 5
+		
+	
+]
+
+{ #category : #queries }
+Cliente >> validarFechaDeNacimiento: fechaNacimiento [
+	^ (Date today subtractDate: fechaNacimiento asDate) > 6570
+]
+
+{ #category : #queries }
 Cliente >> validarMail: unEmail [
-	 (Combi19 soleInstance existeMail: unEmail)
-		 ifTrue:[ ^ 'errorEnMail' ].
-	 ^ true
+	 ^ (Combi19 soleInstance existeMail: unEmail)
+
 		
 		
 ]

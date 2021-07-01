@@ -118,6 +118,20 @@ RutaEditorView >> rangoHorario: anObject [
 ]
 
 { #category : #rendering }
+RutaEditorView >> renderAdvertencia [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al editar'
+		item1:'A continuacion se listan los posibles errores: '
+			
+		item2:'La ruta   desde ' , origen , ' hasta ' , destino , ' Con combi: '
+				, combi , ' a las ' , self horario , ' ' , self rangoHorario
+				, ' ya existe'
+			
+		item3: 'La ruta esta asociada a un viaje existente, por favor finalice el viaje antes de continuar'
+]
+
+{ #category : #rendering }
 RutaEditorView >> renderAdvertencia2 [
 	advertencia := GenericAdvertiseView
 		newWithParent: self

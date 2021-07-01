@@ -74,7 +74,7 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 Cliente >> modificarConMail: correo Nombre: name Apellido: lastname Dni: documento Contraseña: password FechaNacimiento: fechaNacimiento [
  correo ifNotEmpty:[ (self validarMail: correo) ifFalse:[ ^ 'errorEnMail' ] ].
  password ifNotEmpty: [(self validarContraseña: password) ifFalse:[ ^ 'errorEnContraseña' ] ].
- fechaNacimiento ifNotEmpty:[(self validarFechaDeNacimiento: fechaNacimiento) ifFalse:[ ^ 'errorEnFechaNacimiento' ] ].
+ (fechaNacimiento asString) ifNotEmpty:[(self validarFechaDeNacimiento: fechaNacimiento) ifFalse:[ ^ 'errorEnFechaNacimiento' ] ].
  "Si no hubo ningun error en las validaciones, se procede a verificar los campos vacios y no vacios"
 	name isEmpty
 		ifFalse:[ nombre := name ].
@@ -86,7 +86,7 @@ Cliente >> modificarConMail: correo Nombre: name Apellido: lastname Dni: documen
 		ifFalse:[ email := correo ].
 	password isEmpty
 		ifFalse:[ contraseña := password ].
-	fechaNacimiento isEmpty
+	(fechaNacimiento asString) isEmpty
 		ifFalse:[ fechaNac := fechaNacimiento ].
 	
 

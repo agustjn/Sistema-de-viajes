@@ -21,6 +21,11 @@ Publication >> borrarComentario [
 	Combi19 soleInstance borrarPublicacion: (self publication).
 ]
 
+{ #category : #event }
+Publication >> editarComentario [
+	self parent call: (CommentEditorView of: self publication andParent: self parent).
+]
+
 { #category : #accessing }
 Publication >> parent [
 	^ parent

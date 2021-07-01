@@ -155,6 +155,19 @@ ViajeCreationView >> renderizarAviso: html [
 ]
 
 { #category : #rendering }
+ViajeCreationView >> renderizarError [
+
+	errorView := GenericAdvertiseView
+		newWithParent: self
+		heading:
+			'Error al crear nuevo viaje debido a alguno de los siguientes motivos: '
+		item1: 'Se repite la misma ruta y fecha que posee otro viaje creado'
+		item2:
+			'Se ingreso una cantidad de asientos que excede la capacidad de la combi'
+		item3: 'No se completo el campo "Precio del boleto "'
+]
+
+{ #category : #rendering }
 ViajeCreationView >> renderizarError: textAdvertencia [
 	errorView := GenericAdvertiseView
 		newWithParent: self

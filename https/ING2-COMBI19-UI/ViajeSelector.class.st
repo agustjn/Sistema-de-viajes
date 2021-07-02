@@ -82,7 +82,12 @@ html div
 					with: 'Combi: ' , viaje ruta combi string.
 					
 	html heading level6 class:' my-4';
-					with: 'Chofer: ' ,viaje ruta combi stringChofer].
+					with: 'Chofer: ' ,viaje ruta combi stringChofer.
+					
+	html heading level6 class:' my-4';
+					with: 'Estado: ' ,viaje estado.
+	]
+	
 
 	""
 ]

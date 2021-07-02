@@ -107,7 +107,7 @@ LugarCreationView >> renderContentOn: html [
 			html submitButton
 				callback: [ self parent desactivarLugarCreationView ];
 				with: 'Cancelar' ].
-	html render: advertiseView	"FALTA APLICAR"
+	html render: advertiseView	
 ]
 
 { #category : #rendering }

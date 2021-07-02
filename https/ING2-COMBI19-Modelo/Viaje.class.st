@@ -6,7 +6,7 @@ Class {
 		'cantAsientosDisponibles',
 		'fecha',
 		'precio',
-		'estaActivo',
+		'estado',
 		'clientes'
 	],
 	#category : #'ING2-COMBI19-Modelo'
@@ -40,6 +40,16 @@ Viaje >> agregarCliente: unCliente insumos: unosInsumos cantidadButacas: unaCant
 ]
 
 { #category : #accessing }
+Viaje >> asignarloActivo [
+	estado := 'Activo'
+]
+
+{ #category : #accessing }
+Viaje >> asignarloPendiente [
+	estado := 'Pendiente'
+]
+
+{ #category : #accessing }
 Viaje >> cantAsientosDisponibles [
 	^ cantAsientosDisponibles
 ]
@@ -47,6 +57,22 @@ Viaje >> cantAsientosDisponibles [
 { #category : #accessing }
 Viaje >> cantAsientosDisponibles: anObject [
 	cantAsientosDisponibles := anObject
+]
+
+{ #category : #queries }
+Viaje >> estaActivo [
+	estado = 'Activo'
+]
+
+{ #category : #queries }
+Viaje >> estaPendiente [
+	estado = 'Pendiente'
+]
+
+{ #category : #accessing }
+Viaje >> estado [
+	^ estado
+	
 ]
 
 { #category : #accessing }
@@ -58,12 +84,9 @@ Viaje >> fecha [
 Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientos [
 	"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
 	ruta:= unaRuta.
-	"unaCantDeAsientosIngresada
-		ifEmpty: [ cantAsientosDisponibles := unaRuta combi cantidadAsientos ]
-		ifNotEmpty: [ cantAsientosDisponibles := unaCantDeAsientosIngresada ]." "Esta expresion no hace falta debido a que en el frontend se toma la decision de
-																									  si asignar los asientos ingresados o los de por defecto de la combi"
 	cantAsientosDisponibles := unaCantDeAsientos.
 	fecha := unaFecha.
+	estado := 'Pendiente'.
 	precio := unPrecio
 ]
 

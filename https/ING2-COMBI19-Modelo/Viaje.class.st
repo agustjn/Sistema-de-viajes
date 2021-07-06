@@ -66,7 +66,7 @@ Viaje >> estaActivo [
 
 { #category : #queries }
 Viaje >> estaPendiente [
-	estado = 'Pendiente'
+	^ estado = 'Pendiente'
 ]
 
 { #category : #accessing }
@@ -104,7 +104,7 @@ Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio asiento
 { #category : #'as yet unclassified' }
 Viaje >> origen: unOrigen destino: unDestino fecha: unaFecha [
 	^ (self ruta origen = unOrigen )& (self ruta destino = unDestino)
-		& (self fecha = unaFecha)
+		& (self fecha = unaFecha) & (self estaPendiente)
 ]
 
 { #category : #accessing }

@@ -82,7 +82,7 @@ Combi19 class >> instanciaDePrueba [
 	soleInstance administrador agregarCombi: combi3.
 	"---------------------------Lugares-----------------"
 	lugar1 := Lugar deProvincia: 'Buenos Aires' yLocalidad: 'La Plata'.
-	lugar2 := Lugar deProvincia: 'Rio Negro' yLocalidad: 'Viedma'.
+	lugar2 := Lugar deProvincia: 'Río Negro' yLocalidad: 'Viedma'.
 	lugar3 := Lugar deProvincia: 'Córdoba' yLocalidad: 'Villa Carlos Paz'.
 	lugar4 := Lugar
 		deProvincia: 'Jujuy'

@@ -23,6 +23,16 @@ Administrador class >> initializeCon: unNombre apellido: unApellido mail: unEmai
 ]
 
 { #category : #accessing }
+Administrador >> FbuscarViajesIdenticosA: unViaje [
+	^ viajes
+		collect: [ :viaje | 
+			viaje
+				origen: unViaje origen
+				destino: unViaje destino
+				fecha: unViaje fecha ]
+]
+
+{ #category : #accessing }
 Administrador >> agregarCombi: unaCombi [
 	(combis anySatisfy: [ :vehiculo | vehiculo == unaCombi ])
 		ifFalse:[ combis add: unaCombi.
@@ -133,7 +143,13 @@ Administrador >> buscarRuta: unaRutaString [
 
 { #category : #'as yet unclassified' }
 Administrador >> buscarViajeDesde: unOrigen hasta: unDestino conFecha: unaFecha [
-	viajes detect: [ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha  ] ifNone: [ ^ 'No existe viaje filtrado por: ' ]
+	^ viajes detect: [ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha  ] ifNone: [ ^ nil  ] 
+]
+
+{ #category : #accessing }
+Administrador >> buscarViajesIdenticosA: unViaje [
+	^ viajes
+		select: [ :viaje | viaje origen:(unViaje ruta origen) destino:(unViaje ruta destino) fecha:(unViaje fecha) ]
 ]
 
 { #category : #accessing }

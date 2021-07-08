@@ -68,5 +68,5 @@ Insumo >> precio: anObject [
 
 { #category : #accessing }
 Insumo >> string [
-	^ (self nombre  , ' ' , self marca, ' ' , self precio) asString
+	^ (self nombre  , ' ' , self marca, ' $' , self precio) asString
 ]

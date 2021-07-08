@@ -6,7 +6,8 @@ Class {
 		'fechaNac',
 		'dni',
 		'plan',
-		'tarjeta'
+		'tarjeta',
+		'reservas'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -24,6 +25,11 @@ Cliente class >> initializeCon: unEmail contraseña: unaContraseña nombre: unNo
 			plan: unPlan.
 		^instance
 	
+]
+
+{ #category : #accessing }
+Cliente >> agregarReserva: unaReserva [
+	reservas add: unaReserva
 ]
 
 { #category : #accessing }
@@ -67,7 +73,8 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 	fechaNac := unaFecha.
 	plan := unPlan.
 	tarjeta:= nil.
-	viajes := OrderedCollection new
+	viajes := OrderedCollection new.
+	reservas := OrderedCollection new.
 ]
 
 { #category : #modifying }
@@ -108,6 +115,11 @@ Cliente >> plan: anObject [
 	plan := anObject
 ]
 
+{ #category : #queries }
+Cliente >> seRepiteViajeConFecha: unaFecha [
+	^ (self viajesPendientes) anySatisfy: [ :viaje | viaje fecha = unaFecha ]
+]
+
 { #category : #accessing }
 Cliente >> soyGold [
 	^ (plan tipo = 'Gold') 
@@ -146,4 +158,9 @@ Cliente >> validarMail: unEmail [
 
 		
 		
+]
+
+{ #category : #queries }
+Cliente >> viajesPendientes [
+	^ viajes select: [ :viaje | viaje estaPendiente ]
 ]

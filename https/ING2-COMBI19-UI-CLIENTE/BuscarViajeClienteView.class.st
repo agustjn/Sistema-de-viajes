@@ -110,7 +110,7 @@ BuscarViajeClienteView >> renderizarBotonesOn: html [
 	html break ; break.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 BuscarViajeClienteView >> renderizarFormulario: html [
 	html text: 'Origen provincia: '.
 	html break.

@@ -50,7 +50,7 @@ ViajeSeleccionView >> renderizarBotones: html [
 	html div
 		class: 'text-center';
 		with: [ html anchor
-				callback: [  ];
+				callback: [ self parent call: (ViajeCompraView newDelViaje: viaje) ];
 				with: [ html submitButton class:'btn btn-dark'; with: 'Comprar pasajes' ] ].
 			html space.
 			"html anchor

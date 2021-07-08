@@ -112,6 +112,13 @@ Viaje >> precio [
 	^precio
 ]
 
+{ #category : #operations }
+Viaje >> restarAsientos: cantAsientos [
+	( cantAsientosDisponibles >= cantAsientos)
+		ifTrue:[ cantAsientosDisponibles := cantAsientosDisponibles - cantAsientos ].
+	
+]
+
 { #category : #accessing }
 Viaje >> ruta [ 
 ^ ruta

@@ -23,16 +23,6 @@ Administrador class >> initializeCon: unNombre apellido: unApellido mail: unEmai
 ]
 
 { #category : #accessing }
-Administrador >> FbuscarViajesIdenticosA: unViaje [
-	^ viajes
-		collect: [ :viaje | 
-			viaje
-				origen: unViaje origen
-				destino: unViaje destino
-				fecha: unViaje fecha ]
-]
-
-{ #category : #accessing }
 Administrador >> agregarCombi: unaCombi [
 	(combis anySatisfy: [ :vehiculo | vehiculo == unaCombi ])
 		ifFalse:[ combis add: unaCombi.
@@ -123,6 +113,11 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 { #category : #'as yet unclassified' }
 Administrador >> buscarCombi: unaCombiString [
 	^ combis detect: [ :unaCombi | unaCombi string = unaCombiString ]
+]
+
+{ #category : #queries }
+Administrador >> buscarInsumoConString: insumoSelected [
+	^ insumos detect:[ :insumo | insumo string = insumoSelected ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -333,6 +328,11 @@ Administrador >> initializeCon: unNombre apellido: unApellido mail: unEmail cont
 { #category : #accessing }
 Administrador >> insumos [
 	^insumos
+]
+
+{ #category : #queries }
+Administrador >> insumosString [
+	^ insumos collect: [ :insumo | insumo string ]
 ]
 
 { #category : #accessing }

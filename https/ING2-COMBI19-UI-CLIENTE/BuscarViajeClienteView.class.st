@@ -84,8 +84,9 @@ BuscarViajeClienteView >> parent: aParent [
 	parent:= aParent
 ]
 
-{ #category : #accessing }
+{ #category : #rendering }
 BuscarViajeClienteView >> renderContentOn: html [
+	html render:errorView.
 	html div
 		class: 'container';
 		with: [ 
@@ -108,6 +109,11 @@ BuscarViajeClienteView >> renderizarBotonesOn: html [
 						callback: [ self parent desactivarViajeView ];
 						with: 'Cancelar'.
 	html break ; break.
+]
+
+{ #category : #rendering }
+BuscarViajeClienteView >> renderizarErrorViajesVacios [
+	errorView := GenericAdvertiseView newWithParent:self heading:'No existen viajes para mostrar.'  item1:nil  item2:nil   item3: nil 
 ]
 
 { #category : #rendering }
@@ -139,7 +145,7 @@ BuscarViajeClienteView >> siguiente [
 	lugarOrigen := Lugar deProvincia: origenProvincia yLocalidad: origenLocalidad.
 	lugarDestino := Lugar deProvincia: destinoProvincia yLocalidad: destinoLocalidad.
 	(self model administrador buscarViajeDesde: lugarOrigen  hasta:lugarDestino  conFecha: fecha asDate)
-	   ifNotNil:[ :viajes | self call: (SeleccionDeViajesView newOfViaje: viajes)]
+	   ifNotNil:[ :viajes | self call: (SeleccionDeViajesView newOfViaje: viajes withParent: self parent)]
 		ifNil:[ self renderizarErrorViajesVacios ].
 		
 	

@@ -35,27 +35,24 @@ MenuClientView >> renderContentOn: html [
 MenuClientView >> renderizarAnchors: html [
 	html unorderedList
 		class: 'nav justify-content-center nav-tabs mb-4';
-		with: [ 
-			html listItem
+		with: [ html listItem
 				class: 'nav-item ml-4 ';
 				with: [ html anchor
 						class: 'nav-link';
-						callback: [ self parent activarViajesClientView ];
+						callback: [ self session user renderizarEliminado.self parent activarViajesClientView ];
 						with: 'Viajes' ].
 			html listItem
 				class: 'nav-item ml-4';
 				with: [ html anchor
 						class: 'nav-link';
-						callback: [ self parent activarForoView ];
+						callback: [ self session user renderizarEliminado.  self parent activarForoView ];
 						with: 'Foro' ].
 			html listItem
 				class: 'nav-item ml-4 ';
 				with: [ html anchor
 						class: 'nav-link';
-						callback: [ self parent activarModificarCuentaView ];
-						with: 'Modificar datos' ].
-				
-			 ]
+						callback: [self session user renderizarEliminado. self parent activarModificarCuentaView ];
+						with: 'Modificar datos' ] ]
 ]
 
 { #category : #event }

@@ -58,7 +58,7 @@ User >> nombre: anObject [
 
 { #category : #accessing }
 User >> viajes [
-	^viajes
+	^ viajes
 ]
 
 { #category : #accessing }

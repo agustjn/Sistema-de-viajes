@@ -50,6 +50,11 @@ Viaje >> cantAsientosDisponibles: anObject [
 	cantAsientosDisponibles := anObject
 ]
 
+{ #category : #accessing }
+Viaje >> clientes [
+	^ clientes
+]
+
 { #category : #'as yet unclassified' }
 Viaje >> esta: unFiltro [
 	^ self estado = unFiltro 

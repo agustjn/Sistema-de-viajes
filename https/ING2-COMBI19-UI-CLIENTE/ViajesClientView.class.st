@@ -20,12 +20,16 @@ ViajesClientView >> buscarPorFiltro: html [
 				with: 'No hay Viajes ' , filtro , 'Para mostrar ' ]
 		ifFalse: [ html unorderedList
 				class: 'row';
-				with: [ self model administrador viajes
+				with: [ (self session user buscarViajeFiltradoPor: filtro)
 						do: [ :viaje | 
 							html listItem
 								class: 'card col-md-4 bg-white border-warning mx-5 my-3';
 								with: [ html
-										render: (ViajeSeleccionView newWithParent: self delViaje: viaje conFiltro: filtro) ] ] ] ]
+										render:
+											(ViajeSeleccionView
+												newWithParent: self
+												delViaje: viaje
+												conFiltro: filtro) ] ] ] ]
 ]
 
 { #category : #accessing }
@@ -55,10 +59,12 @@ ViajesClientView >> parent: anObject [
 
 { #category : #rendering }
 ViajesClientView >> renderContentOn: html [
+	html render: (self session user advertencia). 
 	self renderizarFiltro: html.
 	filtro
 		ifNil: [ self renderizarBotonBuscar: html ]
 		ifNotNil: [ self buscarPorFiltro: html ]
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -69,10 +75,10 @@ ViajesClientView >> renderizarBotonBuscar: html [
 	html space.
 	html space.
 	html anchor
-		callback: [ self call: BuscarViajeClienteView new ];
+		callback: [ self session user renderizarEliminado . self call: BuscarViajeClienteView new ];
 		with: [ html submitButton
 				class: 'btn btn-primary';
-				with: 'Buscar viaje' ].
+				with: 'Buscar viaje' ]
 ]
 
 { #category : #'as yet unclassified' }

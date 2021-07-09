@@ -14,6 +14,15 @@ ViajeSelector class >> of: aViaje andParent: aParent [
 ]
 
 { #category : #'as yet unclassified' }
+ViajeSelector >> eliminarViaje [
+	| adv |
+	adv := self model administrador eliminarViaje: self viaje.
+	adv
+		ifNil: [ self parent renderizarAdvertenciaFallida ]
+		ifNotNil: [ self parent renderizarAdvetencia: adv ]
+]
+
+{ #category : #'as yet unclassified' }
 ViajeSelector >> inicializeCon: aViaje parent: aParent [
 	viaje := aViaje.
 	parent := aParent
@@ -51,19 +60,22 @@ ViajeSelector >> renderContentOn: html [
 
 { #category : #rendering }
 ViajeSelector >> renderizarBotonesABMOn: html [
-
-		
 	html div
 		class: 'text-center';
 		with: [ html anchor
 				callback: [ self parent call: (ViajeEditView newOf: viaje) ];
-				with: [ html submitButton class:'btn btn-warning'; with: 'Editar' ].
+				with: [ html submitButton
+						class: 'btn btn-warning';
+						with: 'Editar' ].
 			html space.
 			html anchor
-				callback: [ self model administrador eliminarViaje: self viaje.
-					self answer ];
-				with: [ html submitButton class:'btn btn-danger'; with: 'Eliminar' ].
-				html break ; break. ]
+				callback: [self eliminarViaje ];
+				with: [ html submitButton
+						class: 'btn btn-danger';
+						with: 'Eliminar' ].
+			html
+				break;
+				break ]
 ]
 
 { #category : #rendering }

@@ -64,6 +64,7 @@ HomeClientComponent >> renderContentOn: aCanvas [
 		with: 'Cerrar sesion'.
 	aCanvas horizontalRule.
 	aCanvas render: (MenuClientView newWithParent: self).
+	aCanvas render: self session user advertencia .
 	aCanvas render: foroView.
 	aCanvas render: viajeView.
 	aCanvas render: viajesClientView.

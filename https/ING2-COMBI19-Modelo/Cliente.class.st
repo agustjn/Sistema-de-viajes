@@ -7,7 +7,8 @@ Class {
 		'dni',
 		'plan',
 		'tarjeta',
-		'reservas'
+		'reservas',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -25,6 +26,11 @@ Cliente class >> initializeCon: unEmail contraseña: unaContraseña nombre: unNo
 			plan: unPlan.
 		^instance
 	
+]
+
+{ #category : #queries }
+Cliente >> advertencia [ 
+	^ advertencia
 ]
 
 { #category : #accessing }
@@ -50,6 +56,11 @@ Cliente >> dni [
 { #category : #accessing }
 Cliente >> dni: anObject [
 	dni := anObject
+]
+
+{ #category : #queries }
+Cliente >> eliminado: unaAdvertencia [ 
+	advertencia := unaAdvertencia
 ]
 
 { #category : #accessing }
@@ -107,6 +118,11 @@ Cliente >> plan [
 { #category : #accessing }
 Cliente >> plan: anObject [
 	plan := anObject
+]
+
+{ #category : #queries }
+Cliente >> renderizarEliminado [
+	advertencia := nil.
 ]
 
 { #category : #queries }

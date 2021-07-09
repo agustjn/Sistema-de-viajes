@@ -7,7 +7,8 @@ Class {
 		'fecha',
 		'hora',
 		'precio',
-		'ruta'
+		'ruta',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-Viaje-CRUD-UI'
 }
@@ -63,14 +64,35 @@ ViajeView >> parent: aParent [
 
 { #category : #rendering }
 ViajeView >> renderContentOn: html [
-	html heading level4 with:'Listado de Viajes'.
+	html heading level4 with: 'Listado de Viajes'.
 	html horizontalRule.
-	html anchor
-		callback: [ self parent activarViajeCreationView ];
+	html
+		render: advertencia. html anchor
+			callback: [ self parent activarViajeCreationView ];
 		with: [ html submitButton
-				class: 'btn btn-dark mx-4 my-4' ;
+				class: 'btn btn-dark mx-4 my-4';
 				with: 'Crear Viaje' ].
-	self renderizarViaje: html.
+	self renderizarViaje: html
+]
+
+{ #category : #'as yet unclassified' }
+ViajeView >> renderizarAdvertenciaFallida [
+	advertencia = GenericAdvertiseView
+		newWithParent: self
+		heading: 'No se pudo eliminar el viaje   '
+		item1: 'Este viaje ya esta en curso'
+		item2: nil
+		item3: nil
+]
+
+{ #category : #'as yet unclassified' }
+ViajeView >> renderizarAdvetencia: adv [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Se cancelo el viaje correctamente   '
+		item1: adv 
+		item2: nil
+		item3: nil
 ]
 
 { #category : #'as yet unclassified' }

@@ -263,8 +263,27 @@ Administrador >> eliminarRuta: unaRuta [
 
 { #category : #'as yet unclassified' }
 Administrador >> eliminarViaje: aViaje [
-"No chequea, hay que ver cual era la restriccion"
-	viajes remove: aViaje
+	| clientes |
+	aViaje estaPendiente
+		ifTrue: [ clientes := aViaje clientes.
+			viajes remove: aViaje.
+			clientes
+				ifNil: [ ^ 'No habia pasajeros para este viaje' ]
+				ifNotNil: [ self enviarAdvertencia: clientes viaje: aViaje.
+					^ 'Se les devolvio el pago a los clientes correctamente' ] ]
+		ifFalse: [ ^ nil ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> enviarAdvertencia: unosClientes viaje: unViaje [
+	| advertencia |
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: 'Se le cancelo un Viaje  '
+		item1: 'El viaje desde ' , unViaje ruta origen string , '  hasta  ', unViaje ruta destino string
+		item2: 'Se te a devuelto el 100% del pasaje'
+		item3: nil.
+	unosClientes ifNotNil: [ unosClientes  do: [ :unCliente | unCliente eliminado: advertencia ]]
 ]
 
 { #category : #'as yet unclassified' }

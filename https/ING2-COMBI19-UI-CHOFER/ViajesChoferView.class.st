@@ -15,18 +15,20 @@ ViajesChoferView class >> newWithParent: aParent [
 
 { #category : #'as yet unclassified' }
 ViajesChoferView >> buscarPorFiltro: html [
-	self session user  viajes isEmpty
+	| viajesFiltrados |
+	viajesFiltrados := self session user buscarViajeFiltradoPor: filtro.
+	viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
 				with: 'No hay Viajes ' , filtro , 'Para mostrar ' ]
 		ifFalse: [ html unorderedList
 				class: 'row';
-				with: [ (self session user buscarViajeFiltradoPor: filtro)
+				with: [ viajesFiltrados
 						do: [ :viaje | 
 							html listItem
 								class: 'card col-md-4 bg-white border-warning mx-5 my-3';
 								with: [ html
 										render:
-											(ViajeSeleccionView
+											(ViajeSeleccionChoferView
 												newWithParent: self
 												delViaje: viaje
 												conFiltro: filtro) ] ] ] ]

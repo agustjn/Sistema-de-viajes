@@ -27,17 +27,9 @@ Viaje >> = unViaje [
 	  ^ ((self ruta = unViaje ruta ) & (self fecha = unViaje fecha ) )
 ]
 
-{ #category : #'as yet unclassified' }
-Viaje >> agregarCliente: unCliente insumos: unosInsumos cantidadButacas: unaCantidad [
-	"Creo un cliente que es un diccionario, con el cliente , los insumos, y la cantidad de butacas adquiridas"
-
-	| cliente1 |
-	cantAsientosDisponibles := cantAsientosDisponibles - unaCantidad.
-	cliente1 := Dictionary new.
-	cliente1 at: unCliente nombre put: unCliente.
-	cliente1 at: 'insumos' put: unosInsumos.
-	cliente1 at: 'cantidad' put: unaCantidad.
-	clientes add: cliente1
+{ #category : #accessing }
+Viaje >> agregarCliente: unCliente [
+	clientes add: unCliente 
 ]
 
 { #category : #accessing }
@@ -84,11 +76,13 @@ Viaje >> fecha [
 { #category : #initialization }
 Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientos [
 	"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
-	ruta:= unaRuta.
+
+	ruta := unaRuta.
 	cantAsientosDisponibles := unaCantDeAsientos.
 	fecha := unaFecha.
 	estado := 'Pendiente'.
-	precio := unPrecio
+	precio := unPrecio.
+	clientes:= OrderedCollection new 
 ]
 
 { #category : #accessing }

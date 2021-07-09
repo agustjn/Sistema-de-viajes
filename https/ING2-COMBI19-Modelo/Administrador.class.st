@@ -218,6 +218,11 @@ Administrador >> editarViaje: aTravel conRuta: unaRuta fecha: unaFecha precio: u
 ]
 
 { #category : #'as yet unclassified' }
+Administrador >> eliminar: unViaje de: unosClientes [
+	unosClientes do: [ :unCliente | unCliente eliminarElViaje: unViaje ]
+]
+
+{ #category : #'as yet unclassified' }
 Administrador >> eliminarCombi: unaCombi [
 	"Elimna una combi si no pertenece a ningun viaje y no pertenece a ninguna ruta, y devuelve un booleano confirmando o negando la accion"
 
@@ -270,6 +275,7 @@ Administrador >> eliminarViaje: aViaje [
 			clientes
 				ifNil: [ ^ 'No habia pasajeros para este viaje' ]
 				ifNotNil: [ self enviarAdvertencia: clientes viaje: aViaje.
+					self eliminar: aViaje de: clientes.
 					^ 'Se les devolvio el pago a los clientes correctamente' ] ]
 		ifFalse: [ ^ nil ]
 ]

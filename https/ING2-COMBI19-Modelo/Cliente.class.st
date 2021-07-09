@@ -64,6 +64,11 @@ Cliente >> eliminado: unaAdvertencia [
 	advertencia := unaAdvertencia
 ]
 
+{ #category : #'as yet unclassified' }
+Cliente >> eliminarElViaje: unViaje [
+	viajes remove: unViaje 
+]
+
 { #category : #queries }
 Cliente >> esSospechoso [
 	^ sospechoso

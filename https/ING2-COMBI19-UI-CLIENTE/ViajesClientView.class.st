@@ -24,7 +24,17 @@ ViajesClientView >> buscarPorFiltro: html [
 						do: [ :viaje | 
 							html listItem
 								class: 'card col-md-4 bg-white border-warning mx-5 my-3';
-								with: [ html render: (ViajeSelector of: viaje andParent: self) ] ] ] ]
+								with: [ html render: (SeleccionDeViajesView  of: viaje andParent: self) ] ] ] ]
+]
+
+{ #category : #accessing }
+ViajesClientView >> filtro [
+	^filtro
+]
+
+{ #category : #accessing }
+ViajesClientView >> filtro: unFiltro [
+	filtro := unFiltro 
 ]
 
 { #category : #accessing }
@@ -45,8 +55,9 @@ ViajesClientView >> parent: anObject [
 { #category : #rendering }
 ViajesClientView >> renderContentOn: html [
 	self renderizarFiltro: html.
-	filtro ifNil: [ self renderizarBotonBuscar: html ] ifNotNil: [ self buscarPorFiltro: html ] 
-	
+	filtro
+		ifNil: [ self renderizarBotonBuscar: html ]
+		ifNotNil: [ self buscarPorFiltro: html ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -65,7 +76,7 @@ ViajesClientView >> renderizarBotonBuscar: html [
 
 { #category : #'as yet unclassified' }
 ViajesClientView >> renderizarFiltro: html [
-	html div
+	html form: [ html div
 		class: 'form-group col-5';
 		with: [ html label: 'Filtrar por:  '.
 			html select
@@ -76,12 +87,12 @@ ViajesClientView >> renderizarFiltro: html [
 	html space.
 	html space.
 	html anchor
-		callback: [ html render: ViajesClientView ];
+		callback: [ filtro inspect ];
 		with: [ html submitButton
 				class: 'btn btn-outline-success';
 				with: 'Buscar' ].
 	html break.
 	html
 		horizontalRule;
-		break
+		break]
 ]

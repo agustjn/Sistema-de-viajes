@@ -26,6 +26,11 @@ ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje conFiltro: 
 		yourself
 ]
 
+{ #category : #'as yet unclassified' }
+ViajeSeleccionView >> eliminar [
+	"Agregar reglas de negocio"
+]
+
 { #category : #accessing }
 ViajeSeleccionView >> filtro: unFiltro [
 	filtro:= unFiltro 
@@ -57,8 +62,22 @@ ViajeSeleccionView >> renderContentOn: html [
 										class: 'col-md-12';
 										with: [ self renderizarItems: html ] ] ].
 					html space.
-					filtro ifNil: [  self renderizarBotones: html]
-					 ] ]
+					filtro ifNil: [ self renderizarBotones: html ] 
+					ifNotNil: [ filtro = 'Pendiente' ifTrue: [
+							self renderizarBotonElimnar: html ] ] ]]
+]
+
+{ #category : #rendering }
+ViajeSeleccionView >> renderizarBotonElimnar: html [
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self eliminar ];
+				with: [ html submitButton
+						class: 'btn btn-dark';
+						with: 'Cancelar' ] ].
+	html space
+
 ]
 
 { #category : #rendering }

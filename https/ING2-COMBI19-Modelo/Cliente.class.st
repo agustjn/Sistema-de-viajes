@@ -37,23 +37,6 @@ Cliente >> agregarTarjeta: aCreditCard [
 	tarjeta := aCreditCard 
 ]
 
-{ #category : #accessing }
-Cliente >> agregarViaje: unViaje insumo: unosInsumos tarjeta: unaTarjeta cantidadButacas: unaCantidad [
-	| laTarjeta |
-	laTarjeta := unaTarjeta.
-	(viajes
-		anySatisfy: [ :algunViaje | algunViaje fecha = unViaje fecha ])
-		ifTrue: [ ^ 'Ya posee un viaje en esta fecha' ];
-		ifFalse: [ laTarjeta
-					ifNil: [ self soyGold
-							ifTrue: [ laTarjeta := self tarjeta ];
-							ifFalse: [ 'Debe ingresar una tarjeta ' ] ].
-				unViaje
-					agregarCliente: self
-					insumos: unosInsumos
-					cantidadButacas: unaCantidad ]
-]
-
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
 	^ viajes anySatisfy: [ :unViaje | unViaje esta: unFiltro ]

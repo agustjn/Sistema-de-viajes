@@ -41,8 +41,8 @@ FormularioCantidadAsientos >> renderFormulario: html [
 	(html textInput on: #cantAsientos of: self)
 		placeholder: self ruta combi cantidadAsientos asString;
 		size: 2.
-	html horizontalRule
-	"	html submitButton
+	html horizontalRule.
+	"html submitButton
 		callback: [ self answer: self cantAsientos ];
 		value: 'Guardar'.
 	html space.

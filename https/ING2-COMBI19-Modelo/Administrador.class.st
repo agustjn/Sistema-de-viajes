@@ -382,7 +382,7 @@ Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asie
 				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
 						ifTrue: [ ^ 'El viaje ya existe en el sistema' ]
 						ifFalse: [ viajes add: unViaje.
-							^ true ] ] ]
+							^ nil ] ] ]
 		ifFalse:
 			[ ^ 'La cantidad de asientos ingresadas es mayor a la capacidad de la combi' ]
 ]

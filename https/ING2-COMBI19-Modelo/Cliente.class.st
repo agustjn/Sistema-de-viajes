@@ -127,7 +127,7 @@ Cliente >> renderizarEliminado [
 
 { #category : #queries }
 Cliente >> seRepiteViajeConFecha: unaFecha [
-	^ (self viajesPendientes) anySatisfy: [ :viaje | viaje fecha = unaFecha ]
+	^ (self buscarViajeFiltradoPor: 'Pendiente') anySatisfy: [ :viaje | viaje fecha = unaFecha ]
 ]
 
 { #category : #accessing }
@@ -168,9 +168,4 @@ Cliente >> validarMail: unEmail [
 
 		
 		
-]
-
-{ #category : #queries }
-Cliente >> viajesPendientes [
-	^ viajes select: [ :viaje | viaje esta: 'Pendiente' ]
 ]

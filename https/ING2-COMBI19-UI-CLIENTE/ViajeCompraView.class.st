@@ -37,6 +37,11 @@ ViajeCompraView >> agregarInsumo: html [
 ]
 
 { #category : #accessing }
+ViajeCompraView >> agregarViaje [
+  (	 self session user) agregarViaje: self viaje.
+]
+
+{ #category : #accessing }
 ViajeCompraView >> cantAsientos [
 	^ cantAsientos
 ]
@@ -48,7 +53,6 @@ ViajeCompraView >> cantAsientos: anObject [
 
 { #category : #event }
 ViajeCompraView >> confirmarCompra [
-	self halt.
 	( (self session user) seRepiteViajeConFecha: (viaje fecha) )
 		ifTrue:[ self renderizarError:'La fecha del viaje coincide con otro viaje pendiente que usted tiene.'.
 					^ self].

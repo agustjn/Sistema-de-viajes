@@ -15,12 +15,15 @@ ViajesClientView class >> newWithParent: aParent [
 
 { #category : #'as yet unclassified' }
 ViajesClientView >> buscarPorFiltro: html [
-	self model administrador viajes isEmpty
+	| viajesFiltrados |
+	"self model administrador viajes isEmpty"
+	viajesFiltrados := (self session user buscarViajeFiltradoPor: filtro).
+	  viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
-				with: 'No hay Viajes ' , filtro , 'Para mostrar ' ]
+				with: 'No hay viajes ' , filtro , 's para mostrar ' ]
 		ifFalse: [ html unorderedList
 				class: 'row';
-				with: [ (self session user buscarViajeFiltradoPor: filtro)
+				with: [ viajesFiltrados
 						do: [ :viaje | 
 							html listItem
 								class: 'card col-md-4 bg-white border-warning mx-5 my-3';
@@ -60,10 +63,12 @@ ViajesClientView >> parent: anObject [
 { #category : #rendering }
 ViajesClientView >> renderContentOn: html [
 	html render: (self session user advertencia). 
+			self renderizarBotonBuscar: html.
+	html break ; horizontalRule.
 	self renderizarFiltro: html.
 	filtro
-		ifNil: [ self renderizarBotonBuscar: html ]
-		ifNotNil: [ self buscarPorFiltro: html ]
+		ifNotNil: [ self buscarPorFiltro: html ].
+
 	
 ]
 
@@ -89,7 +94,7 @@ ViajesClientView >> renderizarFiltro: html [
 				with: [ html label: 'Filtrar por:  '.
 					html select
 						class: 'form-control required';
-						list: #(#Pendientes #Realizados #Rechazados);
+						list: #(#Pendiente #Realizado #Rechazado);
 						selected: filtro;
 						callback: [ :value | filtro := value ] ].
 			html space.

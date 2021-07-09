@@ -19,6 +19,7 @@ PagarViajeBasicoView class >> deReserva: unaReserva conParent: aParent [
 
 { #category : #event }
 PagarViajeBasicoView >> activarMensajeExito [
+	   (self session user) agregarViaje: (reserva viaje).
 		(self parent) parent parent activarMensajeExito:'La reserva del viaje se hizo exitosamente'.
 ]
 

@@ -13,12 +13,27 @@ Class {
 { #category : #event }
 HomeClientComponent >> activarForoView [
 self desactivarViajeView.
+	mensajeExito := nil.
 	foroView := ForoView newWithParent: self
+]
+
+{ #category : #event }
+HomeClientComponent >> activarMensajeExito: unMensaje [
+	mensajeExito := GenericAdvertiseView
+		newWithParent: self
+		heading: unMensaje
+		item1: nil
+		item2: nil
+		item3: nil.
+	viajesClientView := nil.
+	foroView := nil.
+	modificarCuentaView := nil.
 ]
 
 { #category : #event }
 HomeClientComponent >> activarModificarCuentaView [
 	foroView := nil.
+	mensajeExito := nil.
 	viajesClientView := nil.
 	modificarCuentaView := (ModificarCuentaView newWithParent: self)
 ]
@@ -27,6 +42,7 @@ HomeClientComponent >> activarModificarCuentaView [
 HomeClientComponent >> activarViajesClientView [
 	viajesClientView := (ViajesClientView newWithParent: self).
 	foroView := nil.
+	mensajeExito := nil.
 	modificarCuentaView := nil
 	
 ]
@@ -39,17 +55,20 @@ HomeClientComponent >> cerrarSesion [
 
 { #category : #event }
 HomeClientComponent >> desactivarForoView [ 
+	mensajeExito := nil.
 	foroView := nil.
 ]
 
 { #category : #event }
 HomeClientComponent >> desactivarModificarCuentaView [
-	modificarCuentaView := nil
+	modificarCuentaView := nil.
+	mensajeExito := nil.
 ]
 
 { #category : #event }
 HomeClientComponent >> desactivarViajeView [
 	viajeView := nil.
+	mensajeExito := nil.
 ]
 
 { #category : #rendering }

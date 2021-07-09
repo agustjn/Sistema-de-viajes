@@ -4,11 +4,11 @@ Class {
 	#instVars : [
 		'viaje',
 		'cantAsientos',
-		'cardPayView',
 		'insumo1',
 		'insumo2',
 		'insumo3',
-		'errorView'
+		'errorView',
+		'parent'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
@@ -16,6 +16,13 @@ Class {
 { #category : #'instance creation' }
 ViajeCompraView class >> newDelViaje: unViaje [
 	^ self new viaje: unViaje
+]
+
+{ #category : #'instance creation' }
+ViajeCompraView class >> newDelViaje: unViaje conParent: unParent [
+	^ self new viaje: unViaje;
+				  parent: unParent;
+				  yourself
 ]
 
 { #category : #accessing }
@@ -41,6 +48,7 @@ ViajeCompraView >> cantAsientos: anObject [
 
 { #category : #event }
 ViajeCompraView >> confirmarCompra [
+	self halt.
 	( (self session user) seRepiteViajeConFecha: (viaje fecha) )
 		ifTrue:[ self renderizarError:'La fecha del viaje coincide con otro viaje pendiente que usted tiene.'.
 					^ self].
@@ -100,10 +108,25 @@ ViajeCompraView >> model [
 	^ Combi19 soleInstance 
 ]
 
+{ #category : #accessing }
+ViajeCompraView >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+ViajeCompraView >> parent: anObject [
+	parent := anObject
+]
+
 { #category : #event }
 ViajeCompraView >> proceder [
+	| reserva |
+	reserva := Reserva conInsumos: (self insumosComprados) cupos: (cantAsientos asNumber) delViaje: viaje yTarjeta: nil.
 	self viaje restarAsientos: cantAsientos .
-	( self session user ) agregarReserva: ( Reserva conInsumos: (self insumosComprados) cupos: cantAsientos delViaje: viaje yTarjeta: (self tarjetaUtilizada) )
+	( self session user ) agregarReserva: reserva.
+	( self session user ) soyGold 
+			ifTrue:[ self renderizarCompraUsuarioGold ]
+			ifFalse:[ self call:(PagarViajeBasicoView deReserva: reserva conParent: self parent)]
 	
 ]
 
@@ -161,15 +184,10 @@ ViajeCompraView >> renderizarFormulario:html [
 			html render: insumo3.
 			html submitButton callback: [ self agregarInsumo: html ] ;
 				   value:'Agregar insumo'.
+			html horizontalRule.
+			"html render: cardPayView."
 			self renderizarBotones: html
 			 ]
-]
-
-{ #category : #queries }
-ViajeCompraView >> tarjetaUtilizada [
-	( ( self session user) soyGold )
-		ifTrue:[ ^ self session user tarjeta ].
-	"^ cardPayView datos..."    "Si el usuario que compra el pasaje no es gold, hay que retornar una instancia de Tarjeta con los datos ingresados"
 ]
 
 { #category : #accessing }

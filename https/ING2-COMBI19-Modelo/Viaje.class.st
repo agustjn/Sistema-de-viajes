@@ -115,8 +115,8 @@ Viaje >> precio [
 
 { #category : #operations }
 Viaje >> restarAsientos: cantAsientos [
-	cantAsientosDisponibles >= cantAsientos
-		ifTrue: [ cantAsientosDisponibles := cantAsientosDisponibles - cantAsientos ]
+	cantAsientosDisponibles >= (cantAsientos asNumber)
+		ifTrue: [ cantAsientosDisponibles := cantAsientosDisponibles - (cantAsientos asNumber) ]
 
 ]
 

@@ -2,19 +2,32 @@ Class {
 	#name : #SeleccionDeViajesView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'viajeBuscado'
+		'viajeBuscado',
+		'parent'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
 
 { #category : #'instance creation' }
-SeleccionDeViajesView class >> newOfViaje: viaje [
-	^ self new viajeBuscado: viaje
+SeleccionDeViajesView class >> newOfViaje: viaje withParent: aParent [
+	^ self new viajeBuscado: viaje;
+				  parent: aParent;
+					yourself
 ]
 
 { #category : #accessing }
 SeleccionDeViajesView >> model [
 	^ Combi19 soleInstance 
+]
+
+{ #category : #accessing }
+SeleccionDeViajesView >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+SeleccionDeViajesView >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #rendering }

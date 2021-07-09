@@ -75,7 +75,7 @@ ViajesClientView >> renderizarBotonBuscar: html [
 	html space.
 	html space.
 	html anchor
-		callback: [ self session user renderizarEliminado . self call: BuscarViajeClienteView new ];
+		callback: [ self session user renderizarEliminado . self call: (BuscarViajeClienteView newWithParent: self parent) ];
 		with: [ html submitButton
 				class: 'btn btn-primary';
 				with: 'Buscar viaje' ]

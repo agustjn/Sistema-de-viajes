@@ -5,7 +5,8 @@ Class {
 		'viajeView',
 		'foroView',
 		'viajesClientView',
-		'modificarCuentaView'
+		'modificarCuentaView',
+		'mensajeExito'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Principales-UI'
 }
@@ -84,6 +85,7 @@ HomeClientComponent >> renderContentOn: aCanvas [
 	aCanvas horizontalRule.
 	aCanvas render: (MenuClientView newWithParent: self).
 	aCanvas render: self session user advertencia.
+	aCanvas render: mensajeExito.
 	aCanvas render: foroView.
 	aCanvas render: viajesClientView.
 	aCanvas render: modificarCuentaView

@@ -138,7 +138,10 @@ Administrador >> buscarRuta: unaRutaString [
 
 { #category : #'as yet unclassified' }
 Administrador >> buscarViajeDesde: unOrigen hasta: unDestino conFecha: unaFecha [
-	^ viajes detect: [ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha  ] ifNone: [ ^ nil  ] 
+	^ viajes
+		detect:
+			[ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha ]
+		ifNone: [  nil ]
 ]
 
 { #category : #accessing }

@@ -7,7 +7,8 @@ Class {
 		'fecha',
 		'precio',
 		'estado',
-		'clientes'
+		'clientes',
+		'rechazados'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -40,16 +41,6 @@ Viaje >> agregarCliente: unCliente insumos: unosInsumos cantidadButacas: unaCant
 ]
 
 { #category : #accessing }
-Viaje >> asignarloActivo [
-	estado := 'Activo'
-]
-
-{ #category : #accessing }
-Viaje >> asignarloPendiente [
-	estado := 'Pendiente'
-]
-
-{ #category : #accessing }
 Viaje >> cantAsientosDisponibles [
 	^ cantAsientosDisponibles
 ]
@@ -59,19 +50,24 @@ Viaje >> cantAsientosDisponibles: anObject [
 	cantAsientosDisponibles := anObject
 ]
 
-{ #category : #queries }
-Viaje >> estaActivo [
-	estado = 'Activo'
+{ #category : #'as yet unclassified' }
+Viaje >> esta: unFiltro [
+	^ self estado = unFiltro 
+]
+
+{ #category : #'as yet unclassified' }
+Viaje >> estaPendiente [ 
+	^ self estado = 'Pendiente'
 ]
 
 { #category : #queries }
-Viaje >> estaPendiente [
-	^ estado = 'Pendiente'
-]
-
-{ #category : #accessing }
 Viaje >> estado [
 	^ estado
+]
+
+{ #category : #queries }
+Viaje >> estado: unEstado [
+	estado := unEstado.
 	
 ]
 
@@ -114,9 +110,9 @@ Viaje >> precio [
 
 { #category : #operations }
 Viaje >> restarAsientos: cantAsientos [
-	( cantAsientosDisponibles >= cantAsientos)
-		ifTrue:[ cantAsientosDisponibles := cantAsientosDisponibles - cantAsientos ].
-	
+	cantAsientosDisponibles >= cantAsientos
+		ifTrue: [ cantAsientosDisponibles := cantAsientosDisponibles - cantAsientos ]
+
 ]
 
 { #category : #accessing }

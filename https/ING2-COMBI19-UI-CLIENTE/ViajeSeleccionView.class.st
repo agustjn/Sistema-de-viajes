@@ -3,17 +3,32 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'viaje',
-		'parent'
+		'parent',
+		'filtro'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
 
 { #category : #'instance creation' }
-ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje [
+ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje [ 
 	^ self new
 		parent: aParent;
 		viaje: unViaje;
 		yourself
+]
+
+{ #category : #'instance creation' }
+ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje conFiltro: unFiltro [
+	^ self new
+		parent: aParent;
+		viaje: unViaje;
+		filtro: unFiltro;
+		yourself
+]
+
+{ #category : #accessing }
+ViajeSeleccionView >> filtro: unFiltro [
+	filtro:= unFiltro 
 ]
 
 { #category : #accessing }
@@ -41,8 +56,9 @@ ViajeSeleccionView >> renderContentOn: html [
 								with: [ html unorderedList
 										class: 'col-md-12';
 										with: [ self renderizarItems: html ] ] ].
-									html space.
-	self renderizarBotones: html ] ]
+					html space.
+					filtro ifNil: [  self renderizarBotones: html]
+					 ] ]
 ]
 
 { #category : #rendering }

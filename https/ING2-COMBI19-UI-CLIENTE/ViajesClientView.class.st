@@ -24,7 +24,8 @@ ViajesClientView >> buscarPorFiltro: html [
 						do: [ :viaje | 
 							html listItem
 								class: 'card col-md-4 bg-white border-warning mx-5 my-3';
-								with: [ html render: (SeleccionDeViajesView  of: viaje andParent: self) ] ] ] ]
+								with: [ html
+										render: (ViajeSeleccionView newWithParent: self delViaje: viaje conFiltro: filtro) ] ] ] ]
 ]
 
 { #category : #accessing }
@@ -76,23 +77,24 @@ ViajesClientView >> renderizarBotonBuscar: html [
 
 { #category : #'as yet unclassified' }
 ViajesClientView >> renderizarFiltro: html [
-	html form: [ html div
-		class: 'form-group col-5';
-		with: [ html label: 'Filtrar por:  '.
-			html select
-				class: 'form-control required';
-				list: #(#Pendientes #Realizados #Cancelados);
-				selected: filtro;
-				callback: [ :value | filtro := value ] ].
-	html space.
-	html space.
-	html anchor
-		callback: [ filtro inspect ];
-		with: [ html submitButton
-				class: 'btn btn-outline-success';
-				with: 'Buscar' ].
-	html break.
 	html
-		horizontalRule;
-		break]
+		form: [ html div
+				class: 'form-group col-5';
+				with: [ html label: 'Filtrar por:  '.
+					html select
+						class: 'form-control required';
+						list: #(#Pendientes #Realizados #Rechazados);
+						selected: filtro;
+						callback: [ :value | filtro := value ] ].
+			html space.
+			html space.
+			html anchor
+				callback: [ filtro inspect ];
+				with: [ html submitButton
+						class: 'btn btn-outline-success';
+						with: 'Buscar' ].
+			html break.
+			html
+				horizontalRule;
+				break ]
 ]

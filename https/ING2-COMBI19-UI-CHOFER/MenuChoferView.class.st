@@ -31,17 +31,25 @@ MenuChoferView >> renderContentOn: html [
 MenuChoferView >> renderizarAnchors: html [
 	html unorderedList
 		class: 'nav justify-content-center nav-tabs mb-4';
-		with: [ 
-			html listItem
+		with: [ html listItem
 				class: 'nav-item ml-4 ';
 				with: [ html anchor
 						class: 'nav-link';
-						callback: [ self parent activarViajesClientView ];
+						callback: [ self parent activarViajesChoferView ];
 						with: 'Viajes' ].
 			html listItem
 				class: 'nav-item ml-4';
 				with: [ html anchor
 						class: 'nav-link';
 						callback: [ self parent activarForoView ];
-						with: 'Foro' ] ]
+						with: 'Foro' ].
+	]
+]
+
+{ #category : #updating }
+MenuChoferView >> updateRoot: anHtmlRoot [
+	super updateRoot: anHtmlRoot.
+	anHtmlRoot stylesheet
+		url:
+			'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 ]

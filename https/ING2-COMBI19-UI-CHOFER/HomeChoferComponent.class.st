@@ -1,12 +1,22 @@
 Class {
 	#name : #HomeChoferComponent,
 	#superclass : #WAComponent,
+	#instVars : [
+		'foroView',
+		'viajesChoferView'
+	],
 	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
 }
 
 { #category : #event }
 HomeChoferComponent >> activarForoView [
 	foroView := ForoView newWithParent: self 
+]
+
+{ #category : #'as yet unclassified' }
+HomeChoferComponent >> activarViajesChoferView [
+	viajesChoferView := ViajesChoferView newWithParent: self.
+	foroView:= nil.
 ]
 
 { #category : #event }
@@ -27,7 +37,11 @@ HomeChoferComponent >> renderContentOn: aCanvas [
 	aCanvas break.
 	aCanvas anchor
 		callback: [ self cerrarSesion ];
-		with: 'Cerrar sesion'
+		with: 'Cerrar sesion'.
+	aCanvas horizontalRule.
+	aCanvas render: (MenuChoferView newWithParent: self).
+	aCanvas render: foroView.
+	aCanvas render: viajesChoferView
 ]
 
 { #category : #updating }

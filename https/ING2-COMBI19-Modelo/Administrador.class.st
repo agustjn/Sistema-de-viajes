@@ -396,11 +396,12 @@ Administrador >> validarViajeRuta: unaRuta fecha: unaFecha precio: unPrecio asie
 		precio: unPrecio
 		asientos: asientosAux.
 	asientosAux asInteger <= unaRuta combi cantidadAsientos
-		ifTrue: [ viajes
-				ifNil: [ viajes add: unViaje ]
+		ifTrue: [  
+			viajes
+				ifNil: [ viajes add: unViaje. unViaje ruta combi chofer agregarViaje: unViaje  ]
 				ifNotNil: [ (viajes anySatisfy: [ :viaje | viaje = unViaje ])
 						ifTrue: [ ^ 'El viaje ya existe en el sistema' ]
-						ifFalse: [ viajes add: unViaje.
+						ifFalse: [ viajes add: unViaje.unViaje ruta combi chofer agregarViaje: unViaje .
 							^ nil ] ] ]
 		ifFalse:
 			[ ^ 'La cantidad de asientos ingresadas es mayor a la capacidad de la combi' ]

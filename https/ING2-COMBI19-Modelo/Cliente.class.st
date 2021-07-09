@@ -45,7 +45,7 @@ Cliente >> agregarTarjeta: aCreditCard [
 
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
-	^ viajes anySatisfy: [ :unViaje | unViaje esta: unFiltro ]
+	^ viajes select:[ :unViaje | unViaje esta: unFiltro ]
 ]
 
 { #category : #accessing }

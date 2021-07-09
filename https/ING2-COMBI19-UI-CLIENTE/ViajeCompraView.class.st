@@ -56,9 +56,9 @@ ViajeCompraView >> confirmarCompra [
 	( (self session user) seRepiteViajeConFecha: (viaje fecha) )
 		ifTrue:[ self renderizarError:'La fecha del viaje coincide con otro viaje pendiente que usted tiene.'.
 					^ self].
-	"( (self session user) esSospechoso )
+	( (self session user) esSospechoso )
 		ifTrue:[ self renderizarError:'Usted es sospechoso de COVID-19'.
-												^ self]."
+												^ self].
 	(self viaje cantAsientosDisponibles <= cantAsientos asNumber) 
 		ifTrue: [ self renderizarError:'No hay la cantidad de asientos disponibles en el viaje para los cupos que usted reservo'.
 												   ^ self ].

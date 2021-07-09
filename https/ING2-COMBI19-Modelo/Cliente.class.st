@@ -8,7 +8,8 @@ Class {
 		'plan',
 		'tarjeta',
 		'reservas',
-		'advertencia'
+		'advertencia',
+		'sospechoso'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -63,6 +64,12 @@ Cliente >> eliminado: unaAdvertencia [
 	advertencia := unaAdvertencia
 ]
 
+{ #category : #queries }
+Cliente >> esSospechoso [
+	^ sospechoso
+	
+]
+
 { #category : #accessing }
 Cliente >> fechaNac: anObject [
 	fechaNac := anObject
@@ -80,6 +87,7 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 	tarjeta:= nil.
 	viajes := OrderedCollection new.
 	reservas := OrderedCollection new.
+	sospechoso := false.
 ]
 
 { #category : #modifying }
@@ -128,6 +136,11 @@ Cliente >> renderizarEliminado [
 { #category : #queries }
 Cliente >> seRepiteViajeConFecha: unaFecha [
 	^ (self buscarViajeFiltradoPor: 'Pendiente') anySatisfy: [ :viaje | viaje fecha = unaFecha ]
+]
+
+{ #category : #accessing }
+Cliente >> sospechoso: boolean [
+	sospechoso := boolean
 ]
 
 { #category : #accessing }

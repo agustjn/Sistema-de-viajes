@@ -276,8 +276,14 @@ Administrador >> eliminarViaje: aViaje [
 				ifNil: [ ^ 'No habia pasajeros para este viaje' ]
 				ifNotNil: [ self enviarAdvertencia: clientes viaje: aViaje.
 					self eliminar: aViaje de: clientes.
+					self eliminarViajeChofer: aViaje.
 					^ 'Se les devolvio el pago a los clientes correctamente' ] ]
 		ifFalse: [ ^ nil ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> eliminarViajeChofer: aViaje [
+	(aViaje ruta combi chofer ) elimina: aViaje
 ]
 
 { #category : #'as yet unclassified' }

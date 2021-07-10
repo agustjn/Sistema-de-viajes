@@ -17,8 +17,8 @@ ViajesClientView class >> newWithParent: aParent [
 ViajesClientView >> buscarPorFiltro: html [
 	| viajesFiltrados |
 	"self model administrador viajes isEmpty"
-	viajesFiltrados := (self session user buscarViajeFiltradoPor: filtro).
-	  viajesFiltrados isEmpty
+	viajesFiltrados := self session user buscarViajeFiltradoPor: filtro.
+	viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
 				with: 'No hay viajes ' , filtro , 's para mostrar ' ]
 		ifFalse: [ html unorderedList

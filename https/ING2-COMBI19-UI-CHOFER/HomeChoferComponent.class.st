@@ -3,20 +3,31 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'foroView',
-		'viajesChoferView'
+		'viajesChoferView',
+		'detallesViajeView'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
 }
 
+{ #category : #'as yet unclassified' }
+HomeChoferComponent >> activarDetallesViajeView: aViaje [
+	detallesViajeView := DetallesViajeView newWith: aViaje parent: self.
+	foroView := nil.
+	viajesChoferView := nil.
+]
+
 { #category : #event }
 HomeChoferComponent >> activarForoView [
-	foroView := ForoView newWithParent: self 
+	foroView := ForoView newWithParent: self.
+	viajesChoferView := nil.
+	detallesViajeView := nil.
 ]
 
 { #category : #'as yet unclassified' }
 HomeChoferComponent >> activarViajesChoferView [
 	viajesChoferView := ViajesChoferView newWithParent: self.
-	foroView:= nil.
+	detallesViajeView := nil.
+	foroView := nil
 ]
 
 { #category : #event }
@@ -25,9 +36,19 @@ HomeChoferComponent >> cerrarSesion [
 	self show: LoginComponent new
 ]
 
+{ #category : #'as yet unclassified' }
+HomeChoferComponent >> desactivarDetallesViajeView [
+	detallesViajeView := nil.
+]
+
 { #category : #event }
 HomeChoferComponent >> desactivarForoView [
 	foroView := nil
+]
+
+{ #category : #'as yet unclassified' }
+HomeChoferComponent >> desactivarViajesChoferView [
+	viajesChoferView := nil.
 ]
 
 { #category : #rendering }
@@ -40,6 +61,7 @@ HomeChoferComponent >> renderContentOn: aCanvas [
 		with: 'Cerrar sesion'.
 	aCanvas horizontalRule.
 	aCanvas render: (MenuChoferView newWithParent: self).
+	aCanvas render: detallesViajeView .
 	aCanvas render: foroView.
 	aCanvas render: viajesChoferView
 ]

@@ -141,13 +141,20 @@ BuscarViajeClienteView >> renderizarFormulario: html [
 
 { #category : #event }
 BuscarViajeClienteView >> siguiente [
-	| lugarOrigen lugarDestino|
-	lugarOrigen := Lugar deProvincia: origenProvincia yLocalidad: origenLocalidad.
-	lugarDestino := Lugar deProvincia: destinoProvincia yLocalidad: destinoLocalidad.
-	(self model administrador buscarViajeDesde: lugarOrigen  hasta:lugarDestino  conFecha: fecha asDate)
-	   ifNotNil:[ :viajes | self call: (SeleccionDeViajesView newOfViaje: viajes withParent: self parent)]
-		ifNil:[ self renderizarErrorViajesVacios ].
-		
-	
-	
+	| lugarOrigen lugarDestino |
+	lugarOrigen := Lugar
+		deProvincia: origenProvincia
+		yLocalidad: origenLocalidad.
+	lugarDestino := Lugar
+		deProvincia: destinoProvincia
+		yLocalidad: destinoLocalidad.
+		self halt.
+	(self model administrador
+		buscarViajeDesde: lugarOrigen
+		hasta: lugarDestino
+		conFecha: fecha asDate)
+		ifNotNil: [ :viajes | 
+			self
+				call: (SeleccionDeViajesView newOfViaje: viajes withParent: self parent) ]
+		ifNil: [ self renderizarErrorViajesVacios ]
 ]

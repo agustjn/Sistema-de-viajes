@@ -5,7 +5,7 @@ Class {
 		'parent',
 		'filtro'
 	],
-	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
+	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
 
 { #category : #'instance creation' }
@@ -13,13 +13,13 @@ ViajesChoferView class >> newWithParent: aParent [
 	^ self new parent: aParent
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 ViajesChoferView >> buscarPorFiltro: html [
 	| viajesFiltrados |
 	viajesFiltrados := self session user buscarViajeFiltradoPor: filtro.
 	viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
-				with: 'No hay Viajes ' , filtro , 'Para mostrar ' ]
+				with: 'No hay Viajes ' , filtro , 's Para mostrar ' ]
 		ifFalse: [ html unorderedList
 				class: 'row';
 				with: [ viajesFiltrados
@@ -32,6 +32,15 @@ ViajesChoferView >> buscarPorFiltro: html [
 												newWithParent: self
 												delViaje: viaje
 												conFiltro: filtro) ] ] ] ]
+]
+
+{ #category : #'as yet unclassified' }
+ViajesChoferView >> buscarProximoViaje: html [
+	| proximo |
+	proximo := self session user buscarProximoViaje.
+	html
+		render:
+			(ViajeSeleccionChoferView newWithParent: self  delViaje: proximo)
 ]
 
 { #category : #accessing }
@@ -61,13 +70,13 @@ ViajesChoferView >> parent: anObject [
 
 { #category : #rendering }
 ViajesChoferView >> renderContentOn: html [
-		self renderizarFiltro: html.
-	filtro
-		ifNil: [ self renderizarBotonBuscar: html ]
+	self renderizarBotonBuscar: html .
+	self renderizarFiltro: html.
+	filtro  
 		ifNotNil: [ self buscarPorFiltro: html ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 ViajesChoferView >> renderizarBotonBuscar: html [
 	html
 		break;
@@ -75,14 +84,15 @@ ViajesChoferView >> renderizarBotonBuscar: html [
 	html space.
 	html space.
 	html anchor
-		callback: [ self session user renderizarEliminado.
-			self call: BuscarViajeClienteView new ];
+		callback: [  self buscarProximoViaje: html];
 		with: [ html submitButton
 				class: 'btn btn-primary';
-				with: 'Buscar viaje' ]
+				with: 'Ver proximo viaje' ].
+	html break.
+	html break
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #rendering }
 ViajesChoferView >> renderizarFiltro: html [
 	html
 		form: [ html div
@@ -94,9 +104,12 @@ ViajesChoferView >> renderizarFiltro: html [
 						selected: filtro;
 						callback: [ :value | filtro := value ] ].
 			html space.
-			html space.
+			html
+				space;
+				space;
+				space.
 			html anchor
-				callback: [ filtro inspect ];
+				callback: [ self buscarProximoViaje: html  ];
 				with: [ html submitButton
 						class: 'btn btn-outline-success';
 						with: 'Buscar' ].

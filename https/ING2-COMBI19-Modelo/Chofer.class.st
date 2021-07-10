@@ -21,6 +21,24 @@ Chofer class >> initializeCon: unNombre apellido: unApellido email: unEmail cont
 	^instance.
 ]
 
+{ #category : #'as yet unclassified' }
+Chofer >> buscarProximoViaje [
+	| viajesPendientes viajesPendientesOrdenados |
+	viajesPendientes := viajes
+		select: [ :unViaje | unViaje estaPendiente ].
+	viajesPendientesOrdenados := viajesPendientes
+		sort: [ :a :b | a fecha < b fecha ].
+	^ viajesPendientesOrdenados first
+]
+
+{ #category : #'as yet unclassified' }
+Chofer >> buscarViajeFiltradoPor: filtro [
+	| viajesFiltrados |
+	viajesFiltrados := viajes select: [ :unViaje | unViaje esta: filtro ].
+	viajesFiltrados sort: [ :a :b | a fecha < b fecha ].
+	^ viajesFiltrados
+]
+
 { #category : #accessing }
 Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastname [
 	"Desde el componente EditorChoferView se envia el formulario.
@@ -36,6 +54,11 @@ Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTele
 		(aLastname = '')
 		ifFalse:[ apellido :=aLastname ].
 	 
+]
+
+{ #category : #'as yet unclassified' }
+Chofer >> elimina: aViaje [
+		 viajes remove: aViaje 
 ]
 
 { #category : #'as yet unclassified' }

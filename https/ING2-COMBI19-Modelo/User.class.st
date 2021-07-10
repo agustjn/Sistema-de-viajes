@@ -57,8 +57,13 @@ User >> nombre: anObject [
 ]
 
 { #category : #accessing }
+User >> string [
+	^ self nombre, ' ', self apellido
+]
+
+{ #category : #accessing }
 User >> viajes [
-	^ viajes
+	^ viajes sort: [ :a :b | a fecha < b fecha ]
 ]
 
 { #category : #accessing }

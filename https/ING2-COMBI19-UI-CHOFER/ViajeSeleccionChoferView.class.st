@@ -6,7 +6,7 @@ Class {
 		'parent',
 		'filtro'
 	],
-	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
+	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
 
 { #category : #'instance creation' }
@@ -29,6 +29,14 @@ ViajeSeleccionChoferView class >> newWithParent: aParent delViaje: unViaje conFi
 { #category : #accessing }
 ViajeSeleccionChoferView >> filtro: unFiltro [
 	filtro:= unFiltro 
+]
+
+{ #category : #'as yet unclassified' }
+ViajeSeleccionChoferView >> mostrarDetalles: html [
+	self parent parent desactivarViajesChoferView.
+	self parent parent activarDetallesViajeView: self viaje
+	"self
+		call: (DetallesViajeView newWith: self viaje parent: self parent parent)"
 ]
 
 { #category : #accessing }
@@ -57,22 +65,36 @@ ViajeSeleccionChoferView >> renderContentOn: html [
 										class: 'col-md-12';
 										with: [ self renderizarItems: html ] ] ].
 					html space.
-					filtro ifNil: [  self renderizarBotones: html]
-					 ] ]
+					self renderizarBotonVer: html.
+					filtro = 'Pendiente'
+						ifTrue: [ self renderizarBotonCancelar: html ] ] ]
 ]
 
 { #category : #rendering }
-ViajeSeleccionChoferView >> renderizarBotones: html [
+ViajeSeleccionChoferView >> renderizarBotonCancelar: html [
 	html div
 		class: 'text-center';
 		with: [ html anchor
-				callback: [ self parent call: (ViajeCompraView newDelViaje: viaje conParent:self) ];
-				with: [ html submitButton class:'btn btn-dark'; with: 'Comprar pasajes' ] ].
-			html space.
-			"html anchor
-				callback: [  ];
-				with: [ html submitButton class:'btn btn-danger'; with: 'Eliminar' ].
-				html break ; break. ]"
+				callback: [ self parent
+						call: (ViajeCompraView newDelViaje: viaje conParent: self) ];
+				with: [ html submitButton
+						class: 'btn btn-dark';
+						with: 'Cancelar' ] ].
+	html space
+
+]
+
+{ #category : #'as yet unclassified' }
+ViajeSeleccionChoferView >> renderizarBotonVer: html [
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self mostrarDetalles: html  ];
+				with: [ html submitButton
+						class: 'btn btn-outline-info';
+						with: '  Ver detalles  ' ] ].
+	html space.
+	html break
 ]
 
 { #category : #rendering }
@@ -96,7 +118,7 @@ ViajeSeleccionChoferView >> renderizarItems: html [
 				with: 'Estado: ' , viaje estado.
 			html heading level6
 				class: ' my-4';
-				with: 'Asientos disponibles: ' , (viaje cantAsientosDisponibles) asString   ]
+				with: 'Asientos disponibles: ' , viaje cantAsientosDisponibles asString ].
 ]
 
 { #category : #accessing }

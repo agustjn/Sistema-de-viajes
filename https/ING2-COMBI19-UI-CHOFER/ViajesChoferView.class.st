@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'parent',
-		'filtro'
+		'filtro',
+		'verProxViajeView'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -38,9 +39,10 @@ ViajesChoferView >> buscarPorFiltro: html [
 ViajesChoferView >> buscarProximoViaje: html [
 	| proximo |
 	proximo := self session user buscarProximoViaje.
-	html
+	verProxViajeView := (ViajeSeleccionChoferView newWithParent: self  delViaje: proximo).
+	"html
 		render:
-			(ViajeSeleccionChoferView newWithParent: self  delViaje: proximo)
+			(ViajeSeleccionChoferView newWithParent: self  delViaje: proximo)"
 ]
 
 { #category : #accessing }
@@ -71,6 +73,8 @@ ViajesChoferView >> parent: anObject [
 { #category : #rendering }
 ViajesChoferView >> renderContentOn: html [
 	self renderizarBotonBuscar: html .
+	html render: verProxViajeView.
+	html horizontalRule.
 	self renderizarFiltro: html.
 	filtro  
 		ifNotNil: [ self buscarPorFiltro: html ]

@@ -47,6 +47,12 @@ TarjetaCredito >> codSeguridad: anObject [
 ]
 
 { #category : #accessing }
+TarjetaCredito >> fechaVencimientoStr [
+	^ añoVencimiento,' / ', mesVencimiento 
+	
+]
+
+{ #category : #accessing }
 TarjetaCredito >> mesVencimiento [
 	^ mesVencimiento
 ]

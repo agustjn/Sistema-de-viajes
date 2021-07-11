@@ -41,6 +41,16 @@ ViajeCompraView >> agregarViaje [
   (	 self session user) agregarViaje: self viaje.
 ]
 
+{ #category : #calculations }
+ViajeCompraView >> calcularMontoTotal [
+	| total |
+	total:=0.
+	(self insumosComprados) 
+		ifNotNil:[ :insumos | insumos do:[ :insumo | total := total + (insumo valor asNumber)]  ] .
+	total := total + (cantAsientos asNumber) * 2000.
+	^ total
+]
+
 { #category : #accessing }
 ViajeCompraView >> cantAsientos [
 	^ cantAsientos
@@ -134,7 +144,7 @@ ViajeCompraView >> proceder [
 	self viaje restarAsientos: cantAsientos .
 	( self session user ) agregarReserva: reserva.
 	( self session user ) soyGold 
-			ifTrue:[ self renderizarCompraUsuarioGold ]
+			ifTrue:[ self call: ((InformeDeCompraView conMonto: (self calcularMontoTotal) yTarjeta: (self session user tarjeta) conParent: self parent ) ) ]
 			ifFalse:[ self call:(PagarViajeBasicoView deReserva: reserva conParent: self parent)]
 	
 ]
@@ -153,6 +163,8 @@ ViajeCompraView >> renderContentOn: html [
 	html render: errorView.
 	html div class:'container';
 				with:[ self renderizarFormulario:html].
+	html render:compraUsuarioGoldView .
+	html horizontalRule.
 	
 ]
 

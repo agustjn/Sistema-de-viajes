@@ -110,6 +110,12 @@ Administrador >> agregarRuta: unOrigen destino: unDestino combi: unaCombi distan
 			^ true ]
 ]
 
+{ #category : #accessing }
+Administrador >> agregarViaje: unViaje [
+	viajes add: unViaje.
+	(unViaje ruta combi chofer ) agregarViaje: unViaje.
+]
+
 { #category : #'as yet unclassified' }
 Administrador >> buscarCombi: unaCombiString [
 	^ combis detect: [ :unaCombi | unaCombi string = unaCombiString ]
@@ -148,6 +154,15 @@ Administrador >> buscarViajeDesde: unOrigen hasta: unDestino conFecha: unaFecha 
 Administrador >> buscarViajesIdenticosA: unViaje [
 	^ viajes
 		select: [ :viaje | viaje origen:(unViaje ruta origen) destino:(unViaje ruta destino) fecha:(unViaje fecha) ]
+]
+
+{ #category : #'as yet unclassified' }
+Administrador >> cancelarViaje: unViaje [
+	| clientes |
+	clientes := unViaje clientes.
+	self enviarAdvertencia: clientes viaje: unViaje.
+	self eliminar: unViaje de: clientes .
+	unViaje estado: 'Cancelado'
 ]
 
 { #category : #accessing }

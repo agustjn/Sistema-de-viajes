@@ -44,7 +44,6 @@ ConfirmacionView >> renderContentOn: html [
 
 { #category : #accessing }
 ConfirmacionView >> renderizarBotones: html [
-self halt.
 	html unorderedList
 		class: 'text-center my-0';
 		with: [ html anchor

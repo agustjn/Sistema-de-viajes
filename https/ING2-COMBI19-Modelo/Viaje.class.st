@@ -8,7 +8,8 @@ Class {
 		'precio',
 		'estado',
 		'clientes',
-		'rechazados'
+		'rechazados',
+		'pasajerosSinSubir'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -29,7 +30,8 @@ Viaje >> = unViaje [
 
 { #category : #accessing }
 Viaje >> agregarCliente: unCliente [
-	clientes add: unCliente 
+	clientes add: unCliente.
+	pasajerosSinSubir  add: unCliente
 ]
 
 { #category : #accessing }
@@ -78,6 +80,11 @@ Viaje >> fecha [
 	^fecha
 ]
 
+{ #category : #'as yet unclassified' }
+Viaje >> finalizarse [
+	estado:= 'Finalizado'
+]
+
 { #category : #initialization }
 Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientos [
 	"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
@@ -87,7 +94,8 @@ Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCa
 	fecha := unaFecha.
 	estado := 'Pendiente'.
 	precio := unPrecio.
-	clientes:= OrderedCollection new 
+	clientes := OrderedCollection new.
+	pasajerosSinSubir  := OrderedCollection new
 ]
 
 { #category : #accessing }
@@ -107,9 +115,19 @@ Viaje >> origen: unOrigen destino: unDestino fecha: unaFecha [
 		& (self fecha = unaFecha) & (self estaPendiente)
 ]
 
+{ #category : #'as yet unclassified' }
+Viaje >> pasajerosParaSubir [
+	^ pasajerosSinSubir
+]
+
 { #category : #accessing }
 Viaje >> precio [
 	^precio
+]
+
+{ #category : #'as yet unclassified' }
+Viaje >> presente: unCliente [
+	pasajerosSinSubir remove: unCliente 
 ]
 
 { #category : #operations }

@@ -20,13 +20,17 @@ Combi19 class >> clearSoleInstance [
 
 { #category : #'instance creation' }
 Combi19 class >> instanciaDePrueba [
-	| chofer1 chofer2 chofer3 plan1 plan2 tarj1 client1 client2 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 combi3 insumo1 insumo2 pub1 pub2 viaje1|
+	| chofer1 chofer2 chofer3 plan1 plan2 tarj1 client1 client2 ruta1 ruta2 lugar1 lugar2 lugar3 lugar4 lugar5 lugar6 combi1 combi2 combi3 insumo1 insumo2 pub1 pub2 viaje1 |
 	self soleInstance.
 	"---------------------------Planes-------------------"
 	plan1 := PlanBasico new.
 	plan2 := PlanGold new.
 	"-----------------------TarjetasDeCredito----------------"
-	tarj1 := TarjetaCredito conNumero: '1640193823912345' mesVencimiento:'12' añoVencimiento:'2024' codSeguridad: '760'.
+	tarj1 := TarjetaCredito
+		conNumero: '1640193823912345'
+		mesVencimiento: '12'
+		añoVencimiento: '2024'
+		codSeguridad: '760'.
 	"---------------------------Usuarios-----------------"
 	chofer1 := Chofer
 		initializeCon: 'Esteban'
@@ -46,8 +50,22 @@ Combi19 class >> instanciaDePrueba [
 		email: 'pedro@hotmail.com'
 		contraseña: '654321'
 		telefono: '2216688388'.
-	client1 := Cliente initializeCon: 'cliente1' contraseña: '123456' nombre: 'Javier' apellido: 'Gomez' dni: '23365435' fecha: '3/25/1985' plan: plan1.
-	client2 := Cliente initializeCon: 'cliente2' contraseña: '123456' nombre: 'Alberto' apellido: 'Cardenas' dni: '27365435' fecha: '7/12/1989' plan: plan2.
+	client1 := Cliente
+		initializeCon: 'cliente1'
+		contraseña: '123456'
+		nombre: 'Javier'
+		apellido: 'Gomez'
+		dni: '23365435'
+		fecha: '3/25/1985'
+		plan: plan1.
+	client2 := Cliente
+		initializeCon: 'cliente2'
+		contraseña: '123456'
+		nombre: 'Alberto'
+		apellido: 'Cardenas'
+		dni: '27365435'
+		fecha: '7/12/1989'
+		plan: plan2.
 	client2 agregarTarjeta: tarj1.
 	soleInstance
 		crearAdmin: 'ING'
@@ -57,7 +75,9 @@ Combi19 class >> instanciaDePrueba [
 	soleInstance agregarChofer: chofer1.
 	soleInstance agregarChofer: chofer2.
 	soleInstance agregarChofer: chofer3.
-	soleInstance agregarCliente: client1 ; agregarCliente: client2.
+	soleInstance
+		agregarCliente: client1;
+		agregarCliente: client2.
 	"---------------------------Combis-----------------"
 	combi1 := Combi
 		initializeModelo: 'Mercedes Benz Sprinter'
@@ -72,7 +92,7 @@ Combi19 class >> instanciaDePrueba [
 		asientos: 35
 		chofer: chofer2
 		tipo: 'Cama'.
-		combi3 := Combi
+	combi3 := Combi
 		initializeModelo: 'Chevrolet HH'
 		patente: 'PQP-333'
 		asientos: 25
@@ -87,12 +107,8 @@ Combi19 class >> instanciaDePrueba [
 	lugar4 := Lugar
 		deProvincia: 'Jujuy'
 		yLocalidad: 'San Salvador de Jujuy'.
-	lugar5:= Lugar
-		deProvincia: 'La Rioja'
-		yLocalidad: 'Rioja City'.
-	lugar6 := Lugar
-		deProvincia: 'Chaco'
-		yLocalidad: 'Resistencia'.
+	lugar5 := Lugar deProvincia: 'La Rioja' yLocalidad: 'Rioja City'.
+	lugar6 := Lugar deProvincia: 'Chaco' yLocalidad: 'Resistencia'.
 	soleInstance administrador
 		agregarLugar: lugar1;
 		agregarLugar: lugar2;
@@ -107,31 +123,39 @@ Combi19 class >> instanciaDePrueba [
 		destino: lugar2
 		combi: combi1
 		distancia: '700'
-		horario:'5 pm' asTime.
+		horario: '5 pm' asTime.
 	ruta2 := Ruta
 		newCon: lugar3
 		destino: lugar4
 		combi: combi2
 		distancia: '650'
-		horario:'3 pm' asTime.
+		horario: '3 pm' asTime.
 	soleInstance administrador
 		agregarRuta: ruta1;
 		agregarRuta: ruta2.
 	"-----------------------Insumos-------------------------"
-	insumo1 := Insumo newNombre:'Galletitas' marca: 'Oreo' precio: '140'.
-	insumo2 := Insumo newNombre:'Gaseosa' marca: 'Sprite' precio: '85'.
-	soleInstance administrador agregarInsumo: insumo1 ; agregarInsumo: insumo2.
+	insumo1 := Insumo newNombre: 'Galletitas' marca: 'Oreo' precio: '140'.
+	insumo2 := Insumo newNombre: 'Gaseosa' marca: 'Sprite' precio: '85'.
+	soleInstance administrador
+		agregarInsumo: insumo1;
+		agregarInsumo: insumo2.
 	"-----------------------Publicaciones-------------------"
-	pub1 := Publicacion de: chofer1 conContenido: 'En el ultimo viaje me lleve una buena experiencia!'.
-	pub2 := Publicacion de: chofer2 conContenido: 'Estaria bueno que arreglen las combis.'.
-	soleInstance agregarPublicacion: pub1 ; agregarPublicacion: pub2.
+	pub1 := Publicacion
+		de: chofer1
+		conContenido: 'En el ultimo viaje me lleve una buena experiencia!'.
+	pub2 := Publicacion
+		de: chofer2
+		conContenido: 'Estaria bueno que arreglen las combis.'.
+	soleInstance
+		agregarPublicacion: pub1;
+		agregarPublicacion: pub2.
 	"-----------------------Viajes------------------------"
 	viaje1 := Viaje
 		newCon: ruta1
 		fecha: '11/13/2021' asDate
 		precio: 1500
 		asientos: 30.
-	soleInstance administrador agregarViaje: viaje1.
+	soleInstance administrador agregarViaje: viaje1 
 ]
 
 { #category : #accessing }

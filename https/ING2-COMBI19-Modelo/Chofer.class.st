@@ -39,6 +39,12 @@ Chofer >> buscarViajeFiltradoPor: filtro [
 	^ viajesFiltrados
 ]
 
+{ #category : #'as yet unclassified' }
+Chofer >> cancelarViaje: 	unViaje [
+	viajes remove: unViaje
+	
+]
+
 { #category : #accessing }
 Chofer >> editarDatosEmail: unEmail contraseña: unaContraseña telefono: unTelefono nombre: aName apellido: aLastname [
 	"Desde el componente EditorChoferView se envia el formulario.

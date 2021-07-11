@@ -232,6 +232,14 @@ Combi19 >> buscarClienteMail: unEmail pass: unaClave [
 		ifNone: [ ^ nil ]
 ]
 
+{ #category : #'as yet unclassified' }
+Combi19 >> buscarPasajeroString: unPasajero [
+"Busca el pasajero desde un string enviado como parametro"
+	^ clientes
+		detect: [ :unCliente | unCliente string = unPasajero ]
+		ifNone: [ nil ]
+]
+
 { #category : #accessing }
 Combi19 >> choferes [
 	^choferes

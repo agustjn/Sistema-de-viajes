@@ -33,8 +33,9 @@ DetallesViajeView >> ausente: html [
 
 { #category : #'as yet unclassified' }
 DetallesViajeView >> cancelarViaje [
+"Le cancela el viaje al chofer y luego le avisa al administrador que haga todo para avisar el cancelamiento del viaje y setear el estado del viaje en cancelado"
 	self session user cancelarViaje: self viaje.
-	self model administrador cancelarViaje: self viaje.
+	self model administrador cancelarViaje: self viaje
 ]
 
 { #category : #'as yet unclassified' }
@@ -65,12 +66,12 @@ DetallesViajeView >> pasajero [
 
 { #category : #accessing }
 DetallesViajeView >> pasajero: unPasajero [
-
-	pasajero := unPasajero
+	pasajero := self model administrador buscarPasajeroString: unPasajero.
 ]
 
 { #category : #accessing }
 DetallesViajeView >> pasajeros: html [
+"Muestra un select con las personas "
 	| pasajerosNombres text |
 	pasajeros
 		ifEmpty: [ text := 'No hay pasajeros' ]
@@ -81,12 +82,11 @@ DetallesViajeView >> pasajeros: html [
 		with: [ html heading level3
 				class: 'card-header text-center border-warning';
 				with: text.
-			 html heading level4
-						class: ' my-1 text-center';
-						with: [ html select
-								list: pasajerosNombres;
-								callback: [ :value | self pasajero: value ] ].
-					 ]
+			html heading level4
+				class: ' my-1 text-center';
+				with: [ html select
+						list: pasajerosNombres;
+						callback: [ :value | self pasajero: value ] ] ]
 ]
 
 { #category : #accessing }
@@ -100,10 +100,12 @@ DetallesViajeView >> renderContentOn: html [
 
 { #category : #rendering }
 DetallesViajeView >> renderizarBotones: html [
+"Muestra los botones asociados a las acciones"
 	html unorderedList
 		class: 'text-center my-0';
 		with: [ html anchor
-				callback: [  html call: (FormularioCovidView newWith: pasajero parent: self parent) ];
+				callback: [ html
+						call: (FormularioCovidView newWith: pasajero parent: self parent) ];
 				with: [ html submitButton
 						class: 'btn btn-outline-success mx-4';
 						with: 'Ingresar sintomas covid' ].
@@ -149,6 +151,7 @@ DetallesViajeView >> renderizarFormulario: html [
 
 { #category : #rendering }
 DetallesViajeView >> renderizarItems: html [
+"Muestra todos los datos del viaje"
 	html div
 		class: 'col-md-12';
 		with: [ ""
@@ -165,8 +168,7 @@ DetallesViajeView >> renderizarItems: html [
 				with: 'Estado: ' , viaje estado.
 			html heading level5
 				class: ' my-3 text-center';
-				with: 'Chofer: ' , viaje ruta combi stringChofer.
-		]
+				with: 'Chofer: ' , viaje ruta combi stringChofer ]
 ]
 
 { #category : #accessing }

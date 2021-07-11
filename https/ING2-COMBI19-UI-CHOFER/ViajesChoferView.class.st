@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'parent',
 		'filtro',
-		'verProxViajeView'
+		'verProxViajeView',
+		'advertencia'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -14,9 +15,21 @@ ViajesChoferView class >> newWithParent: aParent [
 	^ self new parent: aParent
 ]
 
+{ #category : #'as yet unclassified' }
+ViajesChoferView >> advertenciaCorrecta [
+	advertencia:=  GenericAdvertiseView
+		newWithParent: self
+		heading: 'Error al buscar proximo viaje   '
+		item1: 'Usted no posee proximos viajes '
+		item2: nil
+		item3: nil
+]
+
 { #category : #accessing }
 ViajesChoferView >> buscarPorFiltro: html [
 	| viajesFiltrados |
+
+	verProxViajeView := nil.
 	viajesFiltrados := self session user buscarViajeFiltradoPor: filtro.
 	viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
@@ -38,11 +51,15 @@ ViajesChoferView >> buscarPorFiltro: html [
 { #category : #'as yet unclassified' }
 ViajesChoferView >> buscarProximoViaje: html [
 	| proximo |
+	filtro := nil.
 	proximo := self session user buscarProximoViaje.
-	verProxViajeView := (ViajeSeleccionChoferView newWithParent: self  delViaje: proximo).
-	"html
-		render:
-			(ViajeSeleccionChoferView newWithParent: self  delViaje: proximo)"
+	proximo
+		ifNil: [ self advertenciaCorrecta ]
+		ifNotNil: [ advertencia := nil.
+			verProxViajeView := ViajeSeleccionChoferView
+				newWithParent: self
+				delViaje: proximo
+				]
 ]
 
 { #category : #accessing }
@@ -72,12 +89,12 @@ ViajesChoferView >> parent: anObject [
 
 { #category : #rendering }
 ViajesChoferView >> renderContentOn: html [
-	self renderizarBotonBuscar: html .
-	html render: verProxViajeView.
+	html render: advertencia.
+	self renderizarBotonBuscar: html.
 	html horizontalRule.
 	self renderizarFiltro: html.
-	filtro  
-		ifNotNil: [ self buscarPorFiltro: html ]
+	filtro ifNotNil: [ self buscarPorFiltro: html ].
+		html render: verProxViajeView.
 ]
 
 { #category : #rendering }
@@ -88,7 +105,7 @@ ViajesChoferView >> renderizarBotonBuscar: html [
 	html space.
 	html space.
 	html anchor
-		callback: [  self buscarProximoViaje: html];
+		callback: [ self buscarProximoViaje: html ];
 		with: [ html submitButton
 				class: 'btn btn-primary';
 				with: 'Ver proximo viaje' ].
@@ -113,7 +130,7 @@ ViajesChoferView >> renderizarFiltro: html [
 				space;
 				space.
 			html anchor
-				callback: [ self buscarProximoViaje: html  ];
+				callback: [ self buscarPorFiltro: html ];
 				with: [ html submitButton
 						class: 'btn btn-outline-success';
 						with: 'Buscar' ].

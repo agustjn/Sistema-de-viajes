@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'foroView',
 		'viajesChoferView',
-		'detallesViajeView'
+		'detallesViajeView',
+		'formularioCovidView'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
 }
@@ -14,6 +15,17 @@ HomeChoferComponent >> activarDetallesViajeView: aViaje [
 	detallesViajeView := DetallesViajeView newWith: aViaje parent: self.
 	foroView := nil.
 	viajesChoferView := nil.
+	formularioCovidView :=nil.
+]
+
+{ #category : #'as yet unclassified' }
+HomeChoferComponent >> activarFomularioCovidViewWith: unPasajero [
+	formularioCovidView := FormularioCovidView
+		newWith: unPasajero
+		parent: self.
+	detallesViajeView := nil.
+	foroView := nil.
+	viajesChoferView := nil
 ]
 
 { #category : #event }
@@ -21,13 +33,15 @@ HomeChoferComponent >> activarForoView [
 	foroView := ForoView newWithParent: self.
 	viajesChoferView := nil.
 	detallesViajeView := nil.
+	formularioCovidView :=nil.
 ]
 
 { #category : #'as yet unclassified' }
 HomeChoferComponent >> activarViajesChoferView [
 	viajesChoferView := ViajesChoferView newWithParent: self.
 	detallesViajeView := nil.
-	foroView := nil
+	foroView := nil.
+	formularioCovidView :=nil.
 ]
 
 { #category : #event }
@@ -61,9 +75,10 @@ HomeChoferComponent >> renderContentOn: aCanvas [
 		with: 'Cerrar sesion'.
 	aCanvas horizontalRule.
 	aCanvas render: (MenuChoferView newWithParent: self).
-	aCanvas render: detallesViajeView .
+	aCanvas render: detallesViajeView.
 	aCanvas render: foroView.
-	aCanvas render: viajesChoferView
+	aCanvas render: viajesChoferView.
+	aCanvas render: formularioCovidView 
 ]
 
 { #category : #updating }

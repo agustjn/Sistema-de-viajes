@@ -8,6 +8,15 @@ Class {
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
 
+{ #category : #'instance creation' }
+FormularioCovidView class >> newWith: unPasajero parent: aParent [
+^ self new
+		parent: aParent;
+		pasajero: unPasajero;
+		yourself
+	
+]
+
 { #category : #accessing }
 FormularioCovidView >> parent [
 	^parent

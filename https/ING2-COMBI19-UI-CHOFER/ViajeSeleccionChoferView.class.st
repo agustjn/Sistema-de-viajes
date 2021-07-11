@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'viaje',
 		'parent',
-		'filtro'
+		'filtro',
+		'txt'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -51,6 +52,7 @@ ViajeSeleccionChoferView >> parent: anObject [
 
 { #category : #rendering }
 ViajeSeleccionChoferView >> renderContentOn: html [
+	filtro ifNil: [ txt := 'Proximo viaje' ] ifNotNil: [ txt := 'Viaje' ].
 	html div
 		with: [ html div
 				class: '';
@@ -58,16 +60,17 @@ ViajeSeleccionChoferView >> renderContentOn: html [
 						class: 'card-body';
 						with: [ html heading level5
 								class: 'card-header text-center border-warning';
-								with: 'Viaje'.
+								with: txt.
 							html paragraph
-								class: 'card-text';
+								class: 'card-text text-center';
 								with: [ html unorderedList
 										class: 'col-md-12';
 										with: [ self renderizarItems: html ] ] ].
 					html space.
 					self renderizarBotonVer: html.
 					filtro = 'Pendiente'
-						ifTrue: [ self renderizarBotonCancelar: html ] ] ]
+						ifTrue: [ self renderizarBotonCancelar: html ].
+					filtro ifNil:[self renderizarBotonCancelar:html ] ]]
 ]
 
 { #category : #rendering }
@@ -100,17 +103,17 @@ ViajeSeleccionChoferView >> renderizarBotonVer: html [
 { #category : #rendering }
 ViajeSeleccionChoferView >> renderizarItems: html [
 	html div
-		class: 'col-md-12';
+		class: 'col-md-12 text-center';
 		with: [ ""
-			html heading level6
+			html heading level5
 				class: ' my-4';
 				with: viaje ruta string.
-			html heading level6
+			html heading level5
 				class: ' my-4';
 				with:
 					'Fecha: ' , viaje fecha asString , ' a las '
 						, viaje ruta horario asString.
-			html heading level6
+			html heading level5
 				class: ' my-4';
 				with: 'Chofer: ' , viaje ruta combi stringChofer.
 			html heading level6
@@ -118,7 +121,7 @@ ViajeSeleccionChoferView >> renderizarItems: html [
 				with: 'Estado: ' , viaje estado.
 			html heading level6
 				class: ' my-4';
-				with: 'Asientos disponibles: ' , viaje cantAsientosDisponibles asString ].
+				with: 'Asientos disponibles: ' , viaje cantAsientosDisponibles asString ]
 ]
 
 { #category : #accessing }

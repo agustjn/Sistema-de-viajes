@@ -28,7 +28,8 @@ Chofer >> buscarProximoViaje [
 		select: [ :unViaje | unViaje estaPendiente ].
 	viajesPendientesOrdenados := viajesPendientes
 		sort: [ :a :b | a fecha < b fecha ].
-	^ viajesPendientesOrdenados first
+	viajesPendientesOrdenados ifEmpty: [ ^ nil ] ifNotEmpty:[ ^viajesPendientesOrdenados first]
+	
 ]
 
 { #category : #'as yet unclassified' }

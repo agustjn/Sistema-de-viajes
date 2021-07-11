@@ -100,27 +100,20 @@ class: 'ml-3';
 
 { #category : #rendering }
 LoginComponent >> renderizarFormularioOn: aCanvas [
-
 	aCanvas div
-			class: 'form-group col-2';
-			with:[
-			aCanvas label: 'Correo electronico'.	
-			aCanvas textInput 
-			placeholder:'Pedro@correo.com';
-			class: 'form-control required ml-4';
-			on: #mail of: self.].
-	
+		class: 'form-group col-2 ';
+		with: [ aCanvas label: 'Correo electronico'.
+			aCanvas textInput
+				placeholder: 'Pedro@correo.com';
+				class: 'form-control required ml-4';
+				on: #mail of: self ].
 	aCanvas div
-			class: 'form-group col-2';
-			with:[
-			aCanvas label: 'Contraseña'.
-			aCanvas passwordInput 
-			placeholder:'Ingrese su clave';
-			class: 'form-control required ml-4';
-			on: #password of: self.].
-	
-	
-	
+		class: 'form-group col-2 ';
+		with: [ aCanvas label: 'Contraseña'.
+			aCanvas passwordInput
+				placeholder: 'Ingrese su clave';
+				class: 'form-control required ml-4';
+				on: #password of: self ]
 ]
 
 { #category : #updating }

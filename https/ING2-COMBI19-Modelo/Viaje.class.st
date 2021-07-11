@@ -48,6 +48,11 @@ Viaje >> clientes [
 ]
 
 { #category : #'as yet unclassified' }
+Viaje >> eliminarCliente: unCliente [
+	clientes remove: unCliente
+]
+
+{ #category : #'as yet unclassified' }
 Viaje >> esta: unFiltro [
 	^ self estado = unFiltro 
 ]

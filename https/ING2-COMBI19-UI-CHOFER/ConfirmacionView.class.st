@@ -38,24 +38,23 @@ ConfirmacionView >> parent: aParent [
 
 { #category : #rendering }
 ConfirmacionView >> renderContentOn: html [
-	html render: msj.
-	 self renderizarBotones: html
+	"html render: msj."
+	self renderizarBotones: html
 ]
 
 { #category : #accessing }
 ConfirmacionView >> renderizarBotones: html [
+self halt.
 	html unorderedList
-		class: 'nav justify-content-center nav-tabs my-0';
+		class: 'text-center my-0';
 		with: [ html anchor
-				class: 'nav-item ml-4 my-0 py-0';
+				callback: [  ];
 				with: [ html submitButton
-						class: 'btn btn-outline-success';
-						callback: [ self answer: true ];
-						with: 'Confirmar' ].
+						class: 'btn btn--success';
+						with: 'Confirmar ausentismo' ].
 			html anchor
-				class: 'nav-item ml-4';
+				callback: [  ];
 				with: [ html submitButton
-						class: 'btn btn-outline-secondary';
-						callback: [ self answer: false ];
-						with: 'Cancelar' ] ]
+						class: 'btn btn-outline-danger';
+						with: 'Cancelar ausentismo ' ] ]
 ]

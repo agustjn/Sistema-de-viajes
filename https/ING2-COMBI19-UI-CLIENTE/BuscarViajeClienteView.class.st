@@ -148,7 +148,6 @@ BuscarViajeClienteView >> siguiente [
 	lugarDestino := Lugar
 		deProvincia: destinoProvincia
 		yLocalidad: destinoLocalidad.
-		self halt.
 	(self model administrador
 		buscarViajeDesde: lugarOrigen
 		hasta: lugarDestino

@@ -29,6 +29,9 @@ ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje conFiltro: 
 { #category : #'as yet unclassified' }
 ViajeSeleccionView >> eliminar [
 	"Agregar reglas de negocio"
+	
+	self session user eliminarElViaje: self viaje.
+	self viaje eliminarCliente: self session user
 ]
 
 { #category : #accessing }

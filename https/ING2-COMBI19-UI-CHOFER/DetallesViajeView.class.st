@@ -18,17 +18,18 @@ DetallesViajeView class >> newWith: aViaje parent: aParent [
 	
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DetallesViajeView >> ausente: html [
 	| msj opc |
 	msj := GenericAdvertiseView
 		newWithParent: self
 		heading: 'Confirme la operacion   '
-		item1: 'Desea eliminar a  ' , pasajero string
+		item1: 'Desea eliminar a  ' , self pasajero 
 		item2: 'Confirme o cancele la operacion'
 		item3: nil.
-	self halt.
-	opc := html render: (ConfirmacionView newWith: msj parent: self)
+
+	opc := html render: (ConfirmacionView newWith: msj parent: self).
+
 ]
 
 { #category : #accessing }
@@ -48,43 +49,36 @@ DetallesViajeView >> pasajero [
 
 { #category : #accessing }
 DetallesViajeView >> pasajero: unPasajero [
-	pasajero := unPasajero 
+
+	pasajero := unPasajero
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 DetallesViajeView >> pasajeros: html [
-	"Si hay pasajeros muestra una lista con ellos, sino un strin 'No hay pasajeros"
-
 	| pasajeros pasajerosNombres text |
 	pasajeros := self viaje clientes.
 	pasajeros
-		ifEmpty: [ text := 'No hay clientes' ]
+		ifEmpty: [ text := 'No hay pasajeros' ]
 		ifNotEmpty: [ text := 'Elija un pasajero'.
 			pasajerosNombres := pasajeros collect: [ :a | a string ] ].
 	html div
-		with: [ html div
-				class: '';
-				with: [ html div
-						class: 'card-body';
-						with: [ html heading level3
-								class: 'card-header text-center border-warning';
-								with: text.
-							html paragraph
-								class: 'card-text';
-								with: [ html unorderedList
-										class: '';
-										with: [ html heading level4
-												class: ' my-1 text-center';
-												with: [ html select
-														list: pasajerosNombres;
-														callback: [ :value | self pasajero: value ] ] ].
-									self renderizarBotones: html ] ] ] ]
+		class: 'card-body';
+		with: [ html heading level3
+				class: 'card-header text-center border-warning';
+				with: text.
+			html paragraph
+				class: 'card-text';
+				with: [ html heading level4
+						class: ' my-1 text-center';
+						with: [ html select
+								list: pasajerosNombres;
+								callback: [ :value | self pasajero: value ] ] ] ].
+
 ]
 
 { #category : #accessing }
 DetallesViajeView >> renderContentOn: html [
-	html div
-		with: [ html div
+html div
 				class: '';
 				with: [ html div
 						class: 'card-body';
@@ -95,40 +89,43 @@ DetallesViajeView >> renderContentOn: html [
 								class: 'card-text';
 								with: [ html unorderedList
 										class: 'col-md-12';
-										with: [ self renderizarItems: html ] ] ].
-					html space.
-					 ] ]
+										with: [ self renderizarItems: html ] ] ] ].
+			self renderizarBotones: html 
 ]
 
 { #category : #rendering }
 DetallesViajeView >> renderizarBotones: html [
 	html unorderedList
-		class: 'nav justify-content-center nav-tabs my-0';
+		class: 'text-center my-0';
 		with: [ html anchor
-				class: 'nav-item ml-4 my-0 py-0';
+				callback: [ 
+					self ausente: html ];
 				with: [ html submitButton
-						class: 'btn btn-outline-success';
-						callback: [ self halt ];
+						class: 'btn btn-outline-success mx-4';
 						with: 'Ingresar sintomas covid' ].
 			html anchor
-				class: 'nav-item ml-4';
+				callback: [ self halt.self ausente: html ];
 				with: [ html submitButton
-						class: 'btn btn-outline-secondary';
-						callback: [ self halt ];
-						with: 'Ausente' ] ].
+						class: 'btn btn-outline-danger mx-4';
+						with: '  Ausente   ' ] ].
+	html
+		break;
+		break;
+		break;
+		horizontalRule.
 	html unorderedList
-		class: 'nav justify-content-center nav-tabs my-0';
+		class: 'text-center my-2';
 		with: [ html anchor
-				class: 'nav-item ml-4 my-4 ';
+				callback: [ self ausente: html ];
 				with: [ html submitButton
-						class: 'btn btn-primary btn-lg ';
-						callback: [  ];
-						with: 'Iniciar Viaje' ].
-			html anchor
-				class: 'nav-item ml-4 my-4 ';
+						class: 'btn btn-primary btn-lg';
+						with: 'Iniciar viaje' ] ].
+	html unorderedList
+		class: 'text-center my-2 mx-8 px-8 ';
+		with: [ html anchor
+				callback: [ self ausente: html ];
 				with: [ html submitButton
-						class: 'btn btn-danger btn-lg ';
-						callback: [ self halt ];
+						class: 'btn btn-danger btn-lg';
 						with: 'Cancelar viaje' ] ]
 ]
 

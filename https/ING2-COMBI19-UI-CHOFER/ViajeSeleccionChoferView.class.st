@@ -31,7 +31,7 @@ ViajeSeleccionChoferView class >> newWithParent: aParent delViaje: unViaje conFi
 ViajeSeleccionChoferView >> cancelar [
 	self model administrador
 		cancelarViaje: self viaje .self parent parent
-		activarMensajeExito: 'Se elimino exitosamente el viaje'
+		activarMensajeExito: 'Se cancelo exitosamente el viaje'
 ]
 
 { #category : #accessing }

@@ -44,7 +44,8 @@ LugarSelector >> buttonsOff: anObject [
 { #category : #accessing }
 LugarSelector >> eliminarLugar [
 	(self model administrador eliminarLugar: place)
-		ifTrue: [ self parent  renderAdvertencia: 'El lugar se elimino con exito' ]
+		
+		ifTrue: [ self parent renderAdvertencia: 'El lugar se elimino con exito' ]
 		ifFalse: [ self parent 
 				renderAdvertencia:
 					'No se puede eliminar el lugar ya que esta asociado a una ruta , por favor elimine la ruta para seguir.' ]

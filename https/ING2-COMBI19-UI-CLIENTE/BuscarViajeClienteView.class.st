@@ -112,8 +112,8 @@ BuscarViajeClienteView >> renderizarBotonesOn: html [
 ]
 
 { #category : #rendering }
-BuscarViajeClienteView >> renderizarErrorViajesVacios [
-	errorView := GenericAdvertiseView newWithParent:self heading:'No existen viajes para mostrar.'  item1:nil  item2:nil   item3: nil 
+BuscarViajeClienteView >> renderizarError:unString [
+	errorView := GenericAdvertiseView newWithParent:self heading:unString  item1:nil  item2:nil   item3: nil 
 ]
 
 { #category : #rendering }
@@ -141,19 +141,22 @@ BuscarViajeClienteView >> renderizarFormulario: html [
 
 { #category : #event }
 BuscarViajeClienteView >> siguiente [
-	| lugarOrigen lugarDestino |
+	| lugarOrigen lugarDestino res|
 	lugarOrigen := Lugar
 		deProvincia: origenProvincia
 		yLocalidad: origenLocalidad.
 	lugarDestino := Lugar
 		deProvincia: destinoProvincia
 		yLocalidad: destinoLocalidad.
-	(self model administrador
+	res := (self model administrador
 		buscarViajeDesde: lugarOrigen
 		hasta: lugarDestino
-		conFecha: fecha asDate)
-		ifNotNil: [ :viajes | 
+		conFecha: fecha asDate).
+		
+		res isString
+		ifFalse:[ 
 			self
-				call: (SeleccionDeViajesView newOfViaje: viajes withParent: self parent) ]
-		ifNil: [ self renderizarErrorViajesVacios ]
+				call: (SeleccionDeViajesView newOfViaje: res withParent: self parent) ]
+		ifTrue:[ self renderizarError: res ]
+		
 ]

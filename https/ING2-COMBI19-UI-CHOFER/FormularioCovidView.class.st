@@ -40,9 +40,15 @@ FormularioCovidView >> pasajero: unPasajero [
 { #category : #accessing }
 FormularioCovidView >> renderContentOn: html [
 	self
-		renderizarAviso: html .html
-		form: [ self renderizarFormularioOn: html.
-			self renderizarBotones: html ]
+		renderizarAviso: html .
+		html
+		 form: [ self renderizarFormularioOn: html.
+					self renderizarBotones: html ]
+]
+
+{ #category : #rendering }
+FormularioCovidView >> renderizarAviso: html [
+	html label:'Un aviso'.
 ]
 
 { #category : #rendering }

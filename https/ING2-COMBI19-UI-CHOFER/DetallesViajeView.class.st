@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'parent',
 		'viaje',
-		'pasajeros'
+		'pasajeros',
+		'ausenteConfirmacionView'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -22,6 +23,18 @@ DetallesViajeView >> cancelarViaje [
 "Le cancela el viaje al chofer y luego le avisa al administrador que haga todo para avisar el cancelamiento del viaje y setear el estado del viaje en cancelado"
 	self session user cancelarViaje: self viaje.
 	self model administrador cancelarViaje: self viaje
+]
+
+{ #category : #event }
+DetallesViajeView >> confirmacionAusentismoMsj: unMensaje deUnPasajero: unPasajero [
+	ausenteConfirmacionView := (ConfirmacionView newWith: unMensaje parent: self deUnPasajero: unPasajero).
+	
+	
+]
+
+{ #category : #event }
+DetallesViajeView >> desactivarConfirmacionView [
+	ausenteConfirmacionView := nil.
 ]
 
 { #category : #'as yet unclassified' }
@@ -70,6 +83,7 @@ DetallesViajeView >> renderContentOn: html [
 		with: [ html submitButton
 				class: 'btn btn-danger mx-4 my-4';
 				with: 'Cancelar viaje' ].
+	html render:ausenteConfirmacionView .
 	self renderizarPasajeros: html
 ]
 

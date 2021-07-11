@@ -7,7 +7,7 @@ Class {
 		'parent',
 		'errorView'
 	],
-	#category : #'ING2-COMBI19-UI-ADMIN-Foro-UI'
+	#category : #'ING2-COMBI19-UI-Foro-UI'
 }
 
 { #category : #'instance creation' }

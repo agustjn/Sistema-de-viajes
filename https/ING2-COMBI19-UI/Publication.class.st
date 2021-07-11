@@ -52,6 +52,12 @@ Publication >> renderContentOn: html [
 	html horizontalRule.
 	html paragraph with: self publication contenido.
 	html break.
+	(self publication autor = (self session user) ) 
+		ifTrue:[ html anchor
+								callback:[ self editarComentario ];
+								class:'my-1';
+								with:[ html submitButton class:'btn btn-dark'; with:'Editar comentario'].
+					].
 	(Administrador allInstances includes: self session user) "Solo si es el admin, se le renderiza la opcion de borrar"
 		ifTrue: [ html anchor
 								callback:[ self borrarComentario ] ;

@@ -73,6 +73,7 @@ ModificarCuentaView >> guardar [
 	valorRetornado isString
 		ifTrue:[ self renderizarErrorDe: valorRetornado]
 		ifFalse:[ self parent desactivarModificarCuentaView ].
+	self parent activarMensajeExito: 'Los datos de su cuenta se modificaron exitosamente!'.
 	
 		
 		

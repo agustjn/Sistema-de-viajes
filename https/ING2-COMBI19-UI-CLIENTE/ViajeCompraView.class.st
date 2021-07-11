@@ -158,12 +158,11 @@ ViajeCompraView >> renderContentOn: html [
 	html break.
 	html strong:'Fecha del viaje: ', viaje fecha asString.
 	html break.
-	html strong:'Precio de boleto: $2000'.
+	html strong:'Precio de boleto: $' , viaje precio asString.
 	html break ; break.
 	html render: errorView.
 	html div class:'container';
 				with:[ self renderizarFormulario:html].
-	html render:compraUsuarioGoldView .
 	html horizontalRule.
 	
 ]

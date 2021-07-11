@@ -76,9 +76,9 @@ RutaEditorView >> guardarDatos [
 						distancia: self distancia
 						horario: self formatearHorario.
 					resp = 'la ruta Asociada a un viaje'
-						ifTrue: [ self renderAdvertencia: 'la ruta Asociada a un viaje' ].
+						ifTrue: [ self renderAdvertencia: 'la ruta esta asociada a un viaje' ].
 					resp = 'Existe la ruta que desea crear'
-						ifTrue: [ self renderAdvertencia: 'Existe la ruta que desea crear' ].
+						ifTrue: [ self renderAdvertencia: 'Ya existe la ruta que desea crear' ].
 					resp = true
 						ifTrue: [ self answer ] ] ]
 ]

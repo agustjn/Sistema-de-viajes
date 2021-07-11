@@ -33,19 +33,19 @@ LugarView >> parent: anObject [
 
 { #category : #event }
 LugarView >> renderAdvertencia: text [ 
-	deleteErrorView := GenericAdvertiseView
+	deleteErrorView := (GenericAdvertiseView
 		newWithParent: self
 		heading: 'Eliminacion del lugar '
 		item1: text
 		item2: nil
-		item3: nil
+		item3: nil)
 ]
 
 { #category : #rendering }
 LugarView >> renderContentOn: html [
-	deleteErrorView := nil.
 	html heading level4 with: 'Listado de Lugares del sistema'.
 	html horizontalRule. 
+	html render: deleteErrorView.
 	html anchor
 		callback: [ self parent activarLugarCreationView ];
 		with: [ html submitButton
@@ -55,7 +55,7 @@ LugarView >> renderContentOn: html [
 		ifTrue:
 				[ html heading level4 with: 'No hay lugares cargadados en el sistema' ];
 		ifFalse: [ self renderizarLugares: html ].
-	html render: deleteErrorView.
+	
 	
 ]
 

@@ -23,17 +23,17 @@ PasajeroSelector >> ausente: html [
 	msj := GenericAdvertiseView
 		newWithParent: self
 		heading: 'Confirme la operacion   '
-		item1: 'Desea eliminar a  ' , self pasajero
+		item1: 'Desea eliminar a  ' , (self pasajero string)
 		item2: 'Confirme o cancele la operacion'
 		item3: nil.
-	opc := html render: (ConfirmacionView newWith: msj parent: self).
-	opc ifTrue: [ self viaje presente: self pasajero  ] ifFalse: [ self answer  ]
+	self parent confirmacionAusentismoMsj:msj deUnPasajero: self pasajero.
+	
 ]
 
 { #category : #'as yet unclassified' }
 PasajeroSelector >> cargarFormularioSintomas: html [
-	self parent parent desactivarDetallesViajeView .
-	self parent parent activarFomularioCovidViewWith: pasajero.
+"	self parent parent desactivarDetallesViajeView ."
+	self parent call: (FormularioCovidView newWith: pasajero parent: self parent)
 
 ]
 
@@ -96,11 +96,10 @@ PasajeroSelector >> renderizarBotonesOn: html [
 						with: 'Cargar sintomas covid' ].
 			html space.
 			html anchor
-				callback: [ self ausente: html.
-					self answer ];
+				callback: [ self ausente: html.  ];
 				with: [ html submitButton
 						class: 'btn btn-outline-danger';
-						with: 'Eliminar' ].
+						with: 'Ausente' ].
 			html
 				break;
 				break ]

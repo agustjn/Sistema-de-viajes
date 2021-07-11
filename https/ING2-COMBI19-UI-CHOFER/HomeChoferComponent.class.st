@@ -5,7 +5,8 @@ Class {
 		'foroView',
 		'viajesChoferView',
 		'detallesViajeView',
-		'formularioCovidView'
+		'formularioCovidView',
+		'mensajeExito'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-Principals-UI'
 }
@@ -15,7 +16,8 @@ HomeChoferComponent >> activarDetallesViajeView: aViaje [
 	detallesViajeView := DetallesViajeView newWith: aViaje parent: self.
 	foroView := nil.
 	viajesChoferView := nil.
-	formularioCovidView :=nil.
+	formularioCovidView := nil.
+	mensajeExito :=nil
 ]
 
 { #category : #'as yet unclassified' }
@@ -25,7 +27,8 @@ HomeChoferComponent >> activarFomularioCovidViewWith: unPasajero [
 		parent: self.
 	detallesViajeView := nil.
 	foroView := nil.
-	viajesChoferView := nil
+	viajesChoferView := nil.
+	mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -33,7 +36,23 @@ HomeChoferComponent >> activarForoView [
 	foroView := ForoView newWithParent: self.
 	viajesChoferView := nil.
 	detallesViajeView := nil.
-	formularioCovidView :=nil.
+	formularioCovidView := nil.
+	mensajeExito :=nil
+]
+
+{ #category : #event }
+HomeChoferComponent >> activarMensajeExito: unMensaje [
+	mensajeExito := GenericAdvertiseView
+		newWithParent: self
+		heading: unMensaje
+		item1: nil
+		item2: nil
+		item3: nil.
+	detallesViajeView := nil.
+	foroView := nil.
+	formularioCovidView := nil.
+	viajesChoferView := nil.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -41,7 +60,8 @@ HomeChoferComponent >> activarViajesChoferView [
 	viajesChoferView := ViajesChoferView newWithParent: self.
 	detallesViajeView := nil.
 	foroView := nil.
-	formularioCovidView :=nil.
+	formularioCovidView := nil.
+	mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -75,10 +95,11 @@ HomeChoferComponent >> renderContentOn: aCanvas [
 		with: 'Cerrar sesion'.
 	aCanvas horizontalRule.
 	aCanvas render: (MenuChoferView newWithParent: self).
+	aCanvas render: mensajeExito .
 	aCanvas render: detallesViajeView.
 	aCanvas render: foroView.
 	aCanvas render: viajesChoferView.
-	aCanvas render: formularioCovidView 
+	aCanvas render: formularioCovidView
 ]
 
 { #category : #updating }

@@ -158,11 +158,10 @@ Administrador >> buscarViajesIdenticosA: unViaje [
 
 { #category : #'as yet unclassified' }
 Administrador >> cancelarViaje: unViaje [
-	| clientes |
-	clientes := unViaje clientes.
-	self enviarAdvertencia: clientes viaje: unViaje.
-	self eliminar: unViaje de: clientes .
-	unViaje estado: 'Cancelado'
+	| pasajeros |
+	unViaje estado: 'Cancelado'.
+	pasajeros := unViaje clientes.
+	self enviarAdvertencia: pasajeros viaje: unViaje  
 ]
 
 { #category : #accessing }
@@ -307,10 +306,13 @@ Administrador >> enviarAdvertencia: unosClientes viaje: unViaje [
 	advertencia := GenericAdvertiseView
 		newWithParent: self
 		heading: 'Se le cancelo un Viaje  '
-		item1: 'El viaje desde ' , unViaje ruta origen string , '  hasta  ', unViaje ruta destino string
-		item2: 'Se te a devuelto el 100% del pasaje'
-		item3: nil.
-	unosClientes ifNotNil: [ unosClientes  do: [ :unCliente | unCliente eliminado: advertencia ]]
+		item1:
+			'El viaje desde ' , unViaje ruta origen string , '  hasta  '
+				, unViaje ruta destino string
+		item2: 'Con fecha ', unViaje fecha asString
+		item3: 'Se te a devuelto el 100% del pasaje'.
+	unosClientes
+		ifNotNil: [ unosClientes do: [ :unCliente | unCliente eliminado: advertencia ] ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -27,9 +27,21 @@ ViajeSeleccionChoferView class >> newWithParent: aParent delViaje: unViaje conFi
 		yourself
 ]
 
+{ #category : #event }
+ViajeSeleccionChoferView >> cancelar [
+	self model administrador
+		cancelarViaje: self viaje .self parent parent
+		activarMensajeExito: 'Se elimino exitosamente el viaje'
+]
+
 { #category : #accessing }
 ViajeSeleccionChoferView >> filtro: unFiltro [
 	filtro:= unFiltro 
+]
+
+{ #category : #accessing }
+ViajeSeleccionChoferView >> model [
+	^ Combi19 soleInstance 
 ]
 
 { #category : #'as yet unclassified' }
@@ -78,13 +90,11 @@ ViajeSeleccionChoferView >> renderizarBotonCancelar: html [
 	html div
 		class: 'text-center';
 		with: [ html anchor
-				callback: [ self parent
-						call: (ViajeCompraView newDelViaje: viaje conParent: self) ];
+				callback: [ self cancelar ];
 				with: [ html submitButton
 						class: 'btn btn-dark';
 						with: 'Cancelar' ] ].
 	html space
-
 ]
 
 { #category : #'as yet unclassified' }

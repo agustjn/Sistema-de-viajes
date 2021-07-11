@@ -28,8 +28,8 @@ ViajesChoferView >> advertenciaCorrecta [
 { #category : #accessing }
 ViajesChoferView >> buscarPorFiltro: html [
 	| viajesFiltrados |
-
 	verProxViajeView := nil.
+	 advertencia := nil.
 	viajesFiltrados := self session user buscarViajeFiltradoPor: filtro.
 	viajesFiltrados isEmpty
 		ifTrue: [ html heading level4
@@ -130,7 +130,8 @@ ViajesChoferView >> renderizarFiltro: html [
 				space;
 				space.
 			html anchor
-				callback: [ self buscarPorFiltro: html ];
+				callback: [
+					self buscarPorFiltro: html ];
 				with: [ html submitButton
 						class: 'btn btn-outline-success';
 						with: 'Buscar' ].

@@ -101,7 +101,6 @@ Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCa
 
 { #category : #accessing }
 Viaje >> marcarComoAusenteA: unPasajero [
-
 	pasajerosSinSubir remove: unPasajero
 ]
 

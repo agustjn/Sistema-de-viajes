@@ -28,9 +28,11 @@ ConfirmacionView class >> newWith: unMsj parent: aParent deUnPasajero: unPasajer
 
 { #category : #'as yet unclassified' }
 ConfirmacionView >> confirmar [
+
 	self parent viaje marcarComoAusenteA: pasajero.
 	self parent desactivarConfirmacionView.
-	self parent activarMensaje: 'Se confirmo el ausentismo de ' pasajero string.
+	self parent
+		activarMensaje: 'Se confirmo el ausentismo de ' ,pasajero string
 ]
 
 { #category : #accessing }

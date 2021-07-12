@@ -52,8 +52,12 @@ DetallesViajeView >> desactivarConfirmacionView [
 
 { #category : #'as yet unclassified' }
 DetallesViajeView >> iniciarViaje [
-	self viaje estado: 'En curso'.
-
+	self viaje pasajerosParaSubir
+		ifEmpty: [ self viaje estado: 'Iniciado'.
+			self parent activarMensajeExito: 'El viaje fue iniciado' ]
+		ifNotEmpty: [ self
+				activarMensaje:
+					'Debe registrar los sintomas o marcar como ausentes a todos los pasajeros' ]
 ]
 
 { #category : #accessing }

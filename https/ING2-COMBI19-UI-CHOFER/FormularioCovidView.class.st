@@ -55,7 +55,6 @@ FormularioCovidView >> advertenciaTemperatura [
 FormularioCovidView >> confirmar [
 	| cant |
 	cant := 0.
-	self halt.
 	temperatura = 'Si'
 		ifTrue: [ self darDeBaja.
 			self advertenciaTemperatura ]

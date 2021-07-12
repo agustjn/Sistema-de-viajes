@@ -121,7 +121,7 @@ ViajesChoferView >> renderizarFiltro: html [
 				with: [ html label: 'Filtrar por:  '.
 					html select
 						class: 'form-control required';
-						list: #(#Pendiente #Realizado #Cancelado);
+						list: #(#Pendiente #Realizado #Cancelado #Iniciado);
 						selected: filtro;
 						callback: [ :value | filtro := value ] ].
 			html space.
@@ -130,8 +130,7 @@ ViajesChoferView >> renderizarFiltro: html [
 				space;
 				space.
 			html anchor
-				callback: [
-					self buscarPorFiltro: html ];
+				callback: [ self buscarPorFiltro: html ];
 				with: [ html submitButton
 						class: 'btn btn-outline-success';
 						with: 'Buscar' ].

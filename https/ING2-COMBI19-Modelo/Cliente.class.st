@@ -154,6 +154,11 @@ Cliente >> soyGold [
 ]
 
 { #category : #accessing }
+Cliente >> string [ 	
+	^ self nombre, ' ', self apellido
+]
+
+{ #category : #accessing }
 Cliente >> tarjeta [
 	^tarjeta
 ]

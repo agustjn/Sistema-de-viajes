@@ -19,15 +19,17 @@ PasajeroSelector class >> of:unPasajero andParent: aParent [
 
 { #category : #accessing }
 PasajeroSelector >> ausente: html [
-	| msj opc |
+	| msj |
+
 	msj := GenericAdvertiseView
 		newWithParent: self
 		heading: 'Confirme la operacion   '
-		item1: 'Desea eliminar a  ' , (self pasajero string)
+		item1: 'Desea eliminar a  ' , self pasajero string
 		item2: 'Confirme o cancele la operacion'
 		item3: nil.
-	self parent confirmacionAusentismoMsj:msj deUnPasajero: self pasajero.
-	
+	self parent
+		confirmacionAusentismoMsj: msj
+		deUnPasajero: self pasajero
 ]
 
 { #category : #'as yet unclassified' }

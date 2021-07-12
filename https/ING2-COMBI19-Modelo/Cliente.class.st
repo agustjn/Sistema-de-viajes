@@ -9,7 +9,8 @@ Class {
 		'tarjeta',
 		'reservas',
 		'advertencia',
-		'sospechoso'
+		'sospechoso',
+		'fechaSospecha'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -55,6 +56,15 @@ Cliente >> buscarViajeFiltradoPor: unFiltro [
 ]
 
 { #category : #accessing }
+Cliente >> darDeBajaViajesProximos [
+	| viajesAeliminar |
+	viajesAeliminar := viajes select:[ :viaje |( ( (viaje fecha subtractDate:fechaSospecha)  <= 15 ) & (viaje estaPendiente) )].
+	viajesAeliminar do: [ :unViaje | viajes remove: unViaje ].
+	self eliminado:(GenericAdvertiseView newWithParent:nil  heading:'Usted se considera como sospechoso de COVID-19'  item1:'Dia de la sospecha: ',(fechaSospecha asString) item2:'No podra comprar pasajes por 15 dias a partir de la fecha que se lo considero sospechoso' item3:nil )
+	
+]
+
+{ #category : #accessing }
 Cliente >> dni [
 	^dni
 ]
@@ -83,6 +93,11 @@ Cliente >> esSospechoso [
 { #category : #accessing }
 Cliente >> fechaNac: anObject [
 	fechaNac := anObject
+]
+
+{ #category : #accessing }
+Cliente >> fechaSospecha: aDate [ 
+	fechaSospecha := aDate
 ]
 
 { #category : #initialization }

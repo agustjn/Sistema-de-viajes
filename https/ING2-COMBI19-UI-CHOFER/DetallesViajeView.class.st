@@ -21,6 +21,7 @@ DetallesViajeView class >> newWith: unViaje parent: aParent [
 
 { #category : #'as yet unclassified' }
 DetallesViajeView >> activarMensaje: unMsj [
+	ausenteConfirmacionView := nil.
 	msj := GenericAdvertiseView
 		newWithParent: self
 		heading: unMsj

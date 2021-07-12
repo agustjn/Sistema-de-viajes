@@ -19,8 +19,8 @@ Viaje class >> newCon: unaRuta fecha: unaFecha precio: unPrecio asientos:cantDeA
 	^ self new
 		initializeCon: unaRuta
 		fecha: unaFecha
-		precio: unPrecio
-		asientos: cantDeAsientos
+		precio: (unPrecio asNumber)
+		asientos: (cantDeAsientos asNumber)
 ]
 
 { #category : #comparing }
@@ -144,8 +144,8 @@ Viaje >> rechazado: unPasajero [
 
 { #category : #operations }
 Viaje >> restarAsientos: cantAsientos [
-	cantAsientosDisponibles >= (cantAsientos asNumber)
-		ifTrue: [ cantAsientosDisponibles := cantAsientosDisponibles - (cantAsientos asNumber) ]
+	cantAsientosDisponibles asNumber >= (cantAsientos asNumber)
+		ifTrue: [ cantAsientosDisponibles := cantAsientosDisponibles asNumber - (cantAsientos asNumber) ]
 
 ]
 

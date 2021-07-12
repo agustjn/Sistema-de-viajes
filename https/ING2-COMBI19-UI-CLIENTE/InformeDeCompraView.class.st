@@ -31,7 +31,6 @@ InformeDeCompraView >> finalizarCompra [
 
 { #category : #event }
 InformeDeCompraView >> finalizarCompraConTarjetaExistente [
-	self halt.
 	self session user agregarViaje: reserva viaje.
 	reserva viaje agregarCliente: self session user.
 	(self parent parent parent) activarMensajeExito:'La reserva se ha hecho exitosamente!'.

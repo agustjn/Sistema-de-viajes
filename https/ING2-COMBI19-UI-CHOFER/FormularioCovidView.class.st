@@ -76,6 +76,10 @@ FormularioCovidView >> confirmar [
 { #category : #'as yet unclassified' }
 FormularioCovidView >> darDeBaja [
 	self viaje rechazado: self pasajero.
+	self pasajero sospechoso: true.
+	self pasajero fechaSospecha: (viaje fecha asDate).
+	self pasajero darDeBajaViajesProximos.
+	
 ]
 
 { #category : #accessing }

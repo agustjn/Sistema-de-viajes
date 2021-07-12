@@ -26,17 +26,23 @@ ViajeSeleccionView class >> newWithParent: aParent delViaje: unViaje conFiltro: 
 		yourself
 ]
 
+{ #category : #event }
+ViajeSeleccionView >> calcularPorcentajeDeDevolucion [
+	( self viaje fecha subtractDate: (Date today)) > 2 
+			ifTrue:[ ^ '100%' ]
+			ifFalse:[	^'50%']
+]
+
 { #category : #'as yet unclassified' }
 ViajeSeleccionView >> eliminar [
 	| auxtemp |
 	auxtemp := self session user viajes.
-	self halt.
 	"Agregar reglas de negocio"
 	
 	self session user eliminarElViaje: self viaje.
 	self viaje eliminarCliente: self session user.
 	self viaje sumarAsientos: ( ( (self session user) buscarReservaDelViaje: (self viaje) ) cupos ) .
-	self parent parent activarMensajeExito: 'Se cancelo el viaje correctamente y se le reintegro el 100% del valor del mismo'
+	self parent parent activarMensajeExito: 'Se cancelo el viaje correctamente y se le reintegro el ', self calcularPorcentajeDeDevolucion, ' del valor del mismo'
 ]
 
 { #category : #accessing }

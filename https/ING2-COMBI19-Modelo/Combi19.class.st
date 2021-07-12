@@ -158,6 +158,9 @@ Combi19 class >> instanciaDePrueba [
 	soleInstance administrador agregarViaje: viaje1.
 	
 	viaje1 agregarCliente: client1.
+	client1 agregarReserva:(Reserva conInsumos: nil cupos: 2 delViaje: viaje1 yTarjeta: tarj1).
+	viaje1 restarAsientos:2.
+	
 	client1 agregarViaje: viaje1
 ]
 

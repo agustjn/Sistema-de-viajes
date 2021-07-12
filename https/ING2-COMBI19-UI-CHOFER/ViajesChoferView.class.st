@@ -21,6 +21,16 @@ ViajesChoferView >> activarConfirmacion: unaConfirmacionView [
 	confirmacion := unaConfirmacionView 
 ]
 
+{ #category : #event }
+ViajesChoferView >> activarMensaje: unString [
+	advertencia := GenericAdvertiseView
+		newWithParent: self
+		heading: unString
+		item1: nil
+		item2: nil
+		item3: nil
+]
+
 { #category : #'as yet unclassified' }
 ViajesChoferView >> advertenciaCorrecta [
 	advertencia:=  GenericAdvertiseView

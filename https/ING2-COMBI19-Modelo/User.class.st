@@ -13,7 +13,6 @@ Class {
 
 { #category : #accessing }
 User >> agregarViaje: unViaje [
-	self halt.
 	viajes add: unViaje
 ]
 

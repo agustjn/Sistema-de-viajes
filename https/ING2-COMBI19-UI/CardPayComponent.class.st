@@ -66,7 +66,6 @@ CardPayComponent >> codSeguridad: anObject [
 
 { #category : #event }
 CardPayComponent >> confirmarPago [
-	self halt.
 		( nro size = 16)
 		ifFalse:[ self parent renderizarError:'El numero de su tarjeta debe ser de 16 digitos.'.
 					 ^ self ].

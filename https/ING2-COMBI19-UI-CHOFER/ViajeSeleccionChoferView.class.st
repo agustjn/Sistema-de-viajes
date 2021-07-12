@@ -47,7 +47,8 @@ ViajeSeleccionChoferView >> filtro: unFiltro [
 
 { #category : #'as yet unclassified' }
 ViajeSeleccionChoferView >> finalizar [
-	self viaje estado: 'Realizado'
+	self viaje estado: 'Realizado'.
+	self parent activarMensaje:' El viaje fue Finalizado'.
 ]
 
 { #category : #accessing }

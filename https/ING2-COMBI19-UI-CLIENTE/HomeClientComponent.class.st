@@ -15,6 +15,9 @@ Class {
 HomeClientComponent >> activarForoView [
 self desactivarViajeView.
 	mensajeExito := nil.
+	viajeView:=nil.
+	viajesClientView := nil.
+	modificarCuentaView := nil.
 	foroView := ForoView newWithParent: self
 ]
 

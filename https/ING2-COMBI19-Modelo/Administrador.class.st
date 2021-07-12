@@ -285,16 +285,20 @@ Administrador >> eliminarRuta: unaRuta [
 { #category : #'as yet unclassified' }
 Administrador >> eliminarViaje: aViaje [
 	| clientes |
-	aViaje estaPendiente
-		ifTrue: [ clientes := aViaje clientes.
-			viajes remove: aViaje.
-			clientes
-				ifNil: [ ^ 'No habia pasajeros para este viaje' ]
-				ifNotNil: [ self enviarAdvertencia: clientes viaje: aViaje.
-					self eliminar: aViaje de: clientes.
-					self eliminarViajeChofer: aViaje.
-					^ 'Se les devolvio el pago a los clientes correctamente' ] ]
-		ifFalse: [ ^ nil ]
+	aViaje estado = 'Iniciado'
+		ifTrue: [ ^ nil ]
+		ifFalse: [ aViaje estado = 'Realizado'
+				ifTrue: [ 		viajes remove: aViaje.
+									^ 'Se elimino el viaje ya realizado' ]
+				ifFalse: [ clientes := aViaje clientes.
+					viajes remove: aViaje.
+					clientes
+						ifNil: [ ^ 'No habia pasajeros para este viaje' ]
+						ifNotNil: [ self enviarAdvertencia: clientes viaje: aViaje.
+							self eliminar: aViaje de: clientes.
+							
+							self eliminarViajeChofer: aViaje.
+							^ 'Se les devolvio el pago a los clientes correctamente' ] ] ]
 ]
 
 { #category : #'as yet unclassified' }

@@ -84,7 +84,7 @@ ViajeCompraView >> confirmarCompra [
 	self cantAsientos
 		ifEmpty: [ self renderizarError: 'Debe ingresar una cantidad de boletos a comprar'.
 			^ self ].
-	self viaje cantAsientosDisponibles <= cantAsientos asNumber
+	self viaje cantAsientosDisponibles asNumber <= cantAsientos asNumber
 		ifTrue: [ self
 				renderizarError:
 					'No hay la cantidad de asientos disponibles en el viaje para los cupos que usted reservo'.

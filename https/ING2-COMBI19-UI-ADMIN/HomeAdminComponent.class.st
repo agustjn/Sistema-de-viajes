@@ -198,6 +198,7 @@ HomeAdminComponent >> activarMensajeExito: unMensaje [
 		item1: nil
 		item2: nil
 		item3: nil.
+
 	choferCreationView := nil.
 	choferView := nil.
 	combiCreationView := nil.
@@ -210,8 +211,7 @@ HomeAdminComponent >> activarMensajeExito: unMensaje [
 	rutasCreationView := nil.
 	rutasView := nil.
 	viajeCreationView := nil.
-	viajeView := nil.
-		mensajeExito :=nil
+	viajeView := nil
 ]
 
 { #category : #event }
@@ -335,7 +335,7 @@ HomeAdminComponent >> desactivarViajeCreationView: advertenciaCorrecta [
 
 { #category : #rendering }
 HomeAdminComponent >> renderContentOn: aCanvas [
- aCanvas render: mensajeExito . 
+	
 	aCanvas div
 		class: 'container';
 		with: [ aCanvas heading level1 with: 'Combi-19'.
@@ -346,6 +346,7 @@ HomeAdminComponent >> renderContentOn: aCanvas [
 				with: 'Cerrar sesion'.
 			aCanvas horizontalRule.
 			aCanvas render: (MenuAdminView newWithParent: self).
+			aCanvas render: mensajeExito.
 			aCanvas render: advertenciaCorrectaViaje.
 			aCanvas render: choferView.
 			aCanvas render: choferCreationView.

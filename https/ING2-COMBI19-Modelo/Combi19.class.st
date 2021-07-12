@@ -225,6 +225,14 @@ Combi19 >> buscarChoferNombre: unNombre [
 ]
 
 { #category : #queries }
+Combi19 >> buscarClienteMail: unCorreo [
+	^ self clientes
+		detect:
+			[ :unUsuario | unUsuario email = unCorreo ]
+		ifNone: [ ^ nil ]
+]
+
+{ #category : #queries }
 Combi19 >> buscarClienteMail: unEmail pass: unaClave [
 	^self clientes
 		detect:

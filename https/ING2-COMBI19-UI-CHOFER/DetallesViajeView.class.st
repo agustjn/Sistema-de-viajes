@@ -83,6 +83,11 @@ DetallesViajeView >> renderContentOn: html [
 		with: [ html submitButton
 				class: 'btn btn-danger mx-4 my-4';
 				with: 'Cancelar viaje' ].
+	html anchor
+		callback: [ self venderNuevoBoleto ];
+		with: [ html submitButton
+				class: 'btn btn-warning mx-4 my-4';
+				with: 'Vender nuevo boleto' ].
 	html render:ausenteConfirmacionView .
 	self renderizarPasajeros: html
 ]
@@ -100,6 +105,12 @@ DetallesViajeView >> renderizarPasajeros: html [
 							html listItem
 								class: 'card col-sm-3 bg-white border-warning mx-4 my-4';
 								with: [ html render: (PasajeroSelector of: unPasajero andParent: self) ] ] ] ]
+]
+
+{ #category : #event }
+DetallesViajeView >> venderNuevoBoleto [
+	self call:(VenderBoletoView newWithParent: self parent delViaje: viaje)
+	
 ]
 
 { #category : #accessing }

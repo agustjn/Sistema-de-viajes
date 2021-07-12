@@ -123,7 +123,7 @@ CardPayComponent >> renderContentOn: aCanvas [
 		class: 'text-center';
 		with: [ aCanvas
 				form: [ aCanvas div
-						class: 'form-group col-6';
+						class: 'form-group col-6 text-center';
 						with: [ aCanvas label: 'Numero de tarjeta : '.
 							aCanvas numberInput
 								placeholder: 'Ingrese los 16 digitos de su tarjeta';

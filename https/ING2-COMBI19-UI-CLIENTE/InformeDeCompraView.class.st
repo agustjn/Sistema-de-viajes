@@ -6,7 +6,8 @@ Class {
 		'tarjeta',
 		'parent',
 		'cardPayView',
-		'reserva'
+		'reserva',
+		'errorView'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
@@ -31,7 +32,6 @@ InformeDeCompraView >> finalizarCompra [
 
 { #category : #event }
 InformeDeCompraView >> finalizarCompraConTarjetaExistente [
-self halt.
 	self session user agregarViaje: reserva viaje.
 	reserva viaje agregarCliente: self session user.
 	self parent parent parent
@@ -72,6 +72,8 @@ InformeDeCompraView >> renderContentOn: html [
 			html break.
 			html label: 'Fecha de vencimiento: ' , tarjeta fechaVencimientoStr asString.
 			html horizontalRule.
+			html render:errorView.
+			html horizontalRule.
 			html render: cardPayView .
 			cardPayView ifNil:[ html form:[self renderizarOpciones: html] ] ]
 ]
@@ -84,6 +86,16 @@ InformeDeCompraView >> renderizarBotones: html [
 	html anchor 
 				callback:[ self answer];
 				with:[ html submitButton with:'Cancelar'].
+]
+
+{ #category : #rendering }
+InformeDeCompraView >> renderizarError: unString [
+	errorView := GenericAdvertiseView
+		newWithParent:self
+		heading:'Error con los datos de la tarjeta ingresada'
+		item1:unString
+		item2: nil
+		item3: nil
 ]
 
 { #category : #rendering }

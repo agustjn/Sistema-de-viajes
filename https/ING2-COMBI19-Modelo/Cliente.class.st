@@ -53,7 +53,6 @@ Cliente >> buscarReservaDelViaje: unViaje [
 
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
-	self halt.
 	unFiltro = 'Baja'
 		ifTrue: [ ^ baja ]
 		ifFalse: [ unFiltro = 'Rechazado'

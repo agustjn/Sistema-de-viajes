@@ -207,13 +207,14 @@ RutaEditorView >> renderizarBotonesOn: html [
 	html submitButton
 		callback: [ self answer ];
 		value: 'Cancelar'.
-	advertencia ifNotNil: [ html render: advertencia  ]
+	
 ]
 
 { #category : #rendering }
 RutaEditorView >> renderizarCamposBasicosOn: html [
 	html horizontalRule.
 	html heading: 'Editar datos'.
+	advertencia ifNotNil: [ html render: advertencia  ].
 	self renderizarAdvertencia: html.
 	self renderizarCamposOn: html
 ]

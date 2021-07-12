@@ -56,19 +56,35 @@ Publication >> publication: aPublication [
 
 { #category : #rendering }
 Publication >> renderContentOn: html [
-	html strong: self publication autor nombre , ' ' , self publication autor apellido.
+	html
+		strong: self publication autor nombre , ' ' , self publication autor apellido.
 	html horizontalRule.
 	html paragraph with: self publication contenido.
 	html break.
-	(self publication autor = (self session user) ) 
-		ifTrue:[ html anchor
-								callback:[ self editarComentario ];
-								class:'my-1';
-								with:[ html submitButton class:'btn btn-dark'; with:'Editar comentario'].
-					].
-	(Administrador allInstances includes: self session user) "Solo si es el admin, se le renderiza la opcion de borrar"
+	self publication autor = self session user
+		& (Administrador allInstances includes: self session user) not
 		ifTrue: [ html anchor
-								callback:[ self borrarComentario ] ;
-								with:[ html submitButton class:'btn btn-dark'; with:'Borrar comentario'] ].
-	
+				callback: [ self editarComentario ];
+				class: 'my-1';
+				with: [ html submitButton
+						class: 'btn btn-dark mx-2';
+						with: 'Editar comentario' ].
+			html anchor
+				callback: [ self borrarComentario ];
+				with: [ html submitButton
+						class: 'btn btn-dark';
+						with: 'Borrar comentario' ] ].
+	(Administrador allInstances includes: self session user)
+		ifTrue: [ (self publication autor = self session user)
+				ifTrue:
+					[ html anchor
+						callback: [ self editarComentario ];
+						class: 'my-1';
+						with: [ html submitButton
+								class: 'btn btn-dark mx-2';
+								with: 'Editar comentario' ] ]. html anchor
+					callback: [ self borrarComentario ];
+				with: [ html submitButton
+						class: 'btn btn-dark';
+						with: 'Borrar comentario' ] ]
 ]

@@ -66,17 +66,24 @@ ModificarCuentaView >> fechaNac: anObject [
 ]
 
 { #category : #event }
-ModificarCuentaView >> guardar [ 
-	|auxAccount valorRetornado| "Se tuvo que crear esta variable auxiliar porque sino no funciona"
+ModificarCuentaView >> guardar [
+	| auxAccount valorRetornado |
+	"Se tuvo que crear esta variable auxiliar porque sino no funciona"
 	auxAccount := self userAccount.
-	valorRetornado := ( ( auxAccount ) modificarConMail: mail Nombre: nombre Apellido: apellido Dni: dni Contraseña: contraseña FechaNacimiento: fechaNac ).
+	valorRetornado := auxAccount
+		modificarConMail: mail
+		Nombre: nombre
+		Apellido: apellido
+		Dni: dni
+		Contraseña: contraseña
+		FechaNacimiento: fechaNac.
+
 	valorRetornado isString
-		ifTrue:[ self renderizarErrorDe: valorRetornado]
-		ifFalse:[ self parent desactivarModificarCuentaView ].
-	self parent activarMensajeExito: 'Los datos de su cuenta se modificaron exitosamente!'.
+		ifTrue: [ self renderizarErrorDe: valorRetornado ]
+		ifFalse: [ 
+			self parent
+		activarMensajeExito: 'Los datos de su cuenta se modificaron exitosamente!' ].
 	
-		
-		
 ]
 
 { #category : #accessing }

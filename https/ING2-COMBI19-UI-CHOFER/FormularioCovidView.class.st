@@ -50,8 +50,8 @@ FormularioCovidView >> advertenciaTemperatura [
 		activarMensaje:
 			' no se puede dar de alta a ' , pasajero string
 				,
-					' por ser sospechoso de covid 19 y se lo bloquea por 15 dias para cualquier proximo viaje'.
-						self answer
+					' por ser sospechoso de covid 19, teniendo mas de 38 grados y se lo bloquea por 15 dias para cualquier proximo viaje'.
+	self answer
 ]
 
 { #category : #'as yet unclassified' }

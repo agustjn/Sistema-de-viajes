@@ -79,10 +79,12 @@ ViajeCompraView >> confirmarCompra [
 					'La fecha del viaje coincide con otro viaje pendiente que usted tiene.'.
 			^ self ].
 	self session user esSospechoso
+		ifTrue: [ (self viaje fecha subtractDays: 15) < self session user fechaSospecha
 		ifTrue: [ self renderizarError: 'Usted es sospechoso de COVID-19'.
-			^ self ].
+			^ self ]].
 	self cantAsientos
-		ifEmpty: [ self renderizarError: 'Debe ingresar una cantidad de boletos a comprar'.
+		ifEmpty: [ self
+				renderizarError: 'Debe ingresar una cantidad de boletos a comprar'.
 			^ self ].
 	self viaje cantAsientosDisponibles asNumber <= cantAsientos asNumber
 		ifTrue: [ self
@@ -228,6 +230,14 @@ ViajeCompraView >> renderizarFormulario:html [
 			"html render: cardPayView."
 			self renderizarBotones: html
 			 ]
+]
+
+{ #category : #'as yet unclassified' }
+ViajeCompraView >> sospecho [
+	self halt.
+	((self viaje fecha  subtractDays: 15) < self session user fechaSospecha )
+		ifTrue: [ self renderizarError: 'Usted es sospechoso de COVID-19'.
+			^ self ]
 ]
 
 { #category : #accessing }

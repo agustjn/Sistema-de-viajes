@@ -67,7 +67,8 @@ Cliente >> buscarViajeFiltradoPor: unFiltro [
 { #category : #'as yet unclassified' }
 Cliente >> cancelarViaje: unViaje [
 	cancelados add: unViaje.
-	viajes remove: unViaje.
+	(viajes anySatisfy: [ :elViaje | elViaje = unViaje   ] )ifTrue:[viajes remove: unViaje  ]
+
 ]
 
 { #category : #accessing }
@@ -119,6 +120,12 @@ Cliente >> esSospechoso [
 { #category : #accessing }
 Cliente >> fechaNac: anObject [
 	fechaNac := anObject
+]
+
+{ #category : #accessing }
+Cliente >> fechaSospecha [
+
+	^ fechaSospecha
 ]
 
 { #category : #accessing }

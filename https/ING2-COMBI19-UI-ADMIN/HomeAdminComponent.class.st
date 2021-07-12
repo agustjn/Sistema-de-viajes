@@ -15,7 +15,8 @@ Class {
 		'rutasCreationView',
 		'insumoCreationView',
 		'foroView',
-		'advertenciaCorrectaViaje'
+		'advertenciaCorrectaViaje',
+		'mensajeExito'
 	],
 	#category : #'ING2-COMBI19-UI-ADMIN-Components'
 }
@@ -32,13 +33,15 @@ HomeAdminComponent >> activarChoferCreationView [
 	combiCreationView := nil.
 	viajeCreationView := nil.
 	insumoCreationView := nil.
-	choferCreationView := ChoferCreationView newWithParent: self
+	choferCreationView := ChoferCreationView newWithParent: self.
+	mensajeExito :=nil
 ]
 
 { #category : #event }
 HomeAdminComponent >> activarChoferView [
 	"Si se activa cualquier componente, los demas se desactivan para evitar errores de render"
-foroView := nil.
+
+	foroView := nil.
 	choferCreationView := nil.
 	combiView := nil.
 	lugarView := nil.
@@ -46,7 +49,8 @@ foroView := nil.
 	viajeCreationView := nil.
 	lugarCreationView := nil.
 	combiCreationView := nil.
-	choferView := ChoferView newWithParent: self
+	choferView := ChoferView newWithParent: self.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -63,7 +67,8 @@ HomeAdminComponent >> activarCombiCreationView [
 	viajeCreationView := nil.
 	lugarCreationView := nil.
 	choferCreationView := nil.
-	combiCreationView := CombiCreationView newWithParent: self
+	combiCreationView := CombiCreationView newWithParent: self.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -78,7 +83,8 @@ HomeAdminComponent >> activarCombiView [
 	rutasCreationView := nil.
 	choferCreationView := nil.
 	lugarView := nil.
-	combiView := CombiView newWithParent: self
+	combiView := CombiView newWithParent: self.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -94,6 +100,7 @@ HomeAdminComponent >> activarForoView [
 	lugarView := nil.
 	combiView := nil.
 	foroView := ForoView newWithParent: self.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -109,7 +116,8 @@ HomeAdminComponent >> activarInsumoCreationView [
 	rutasCreationView := nil.
 	viajeCreationView := nil.
 	lugarCreationView := nil.
-	choferCreationView := nil
+	choferCreationView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -117,8 +125,8 @@ HomeAdminComponent >> activarInsumoView [
 	combiView := nil.
 	choferView := nil.
 	lugarView := nil.
-	rutasView := nil. 
-	insumosView := InsumoView newWithParent: self..
+	rutasView := nil.
+	insumosView := InsumoView newWithParent: self.
 	insumoCreationView := nil.
 	rutasCreationView := nil.
 	lugarCreationView := nil.
@@ -127,6 +135,7 @@ HomeAdminComponent >> activarInsumoView [
 	viajeView := nil.
 	viajeCreationView := nil.
 	foroView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -138,11 +147,12 @@ HomeAdminComponent >> activarInsumosCreationView [
 	viajeView := nil.
 	rutasView := nil.
 	insumosView := nil.
-	insumoCreationView := InsumoCreationView newWithParent: self..
+	insumoCreationView := InsumoCreationView newWithParent: self.
 	rutasCreationView := nil.
 	viajeCreationView := nil.
 	lugarCreationView := nil.
-	choferCreationView := nil
+	choferCreationView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -158,7 +168,8 @@ HomeAdminComponent >> activarLugarCreationView [
 	rutasCreationView := nil.
 	viajeCreationView := nil.
 	lugarCreationView := LugarCreationView newWithParent: self.
-	choferCreationView := nil
+	choferCreationView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -175,7 +186,32 @@ HomeAdminComponent >> activarLugarView [
 	lugarCreationView := nil.
 	combiCreationView := nil.
 	choferCreationView := nil.
-	lugarView := LugarView newWithParent: self
+	lugarView := LugarView newWithParent: self.
+		mensajeExito :=nil
+]
+
+{ #category : #event }
+HomeAdminComponent >> activarMensajeExito: unMensaje [
+	mensajeExito := GenericAdvertiseView
+		newWithParent: self
+		heading: unMensaje
+		item1: nil
+		item2: nil
+		item3: nil.
+	choferCreationView := nil.
+	choferView := nil.
+	combiCreationView := nil.
+	combiView := nil.
+	foroView := nil.
+	insumoCreationView := nil.
+	insumosView := nil.
+	lugarCreationView := nil.
+	lugarView := nil.
+	rutasCreationView := nil.
+	rutasView := nil.
+	viajeCreationView := nil.
+	viajeView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -187,17 +223,18 @@ HomeAdminComponent >> activarRutaCreationView [
 	rutasView := nil.
 	insumosView := nil.
 	insumoCreationView := nil.
-	rutasCreationView := (RutaCreationView newWithParent: self).
+	rutasCreationView := RutaCreationView newWithParent: self.
 	lugarCreationView := nil.
 	combiCreationView := nil.
 	choferCreationView := nil.
 	viajeView := nil.
-	viajeCreationView := nil
+	viajeCreationView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
 HomeAdminComponent >> activarRutasView [
-foroView := nil.
+	foroView := nil.
 	combiView := nil.
 	choferView := nil.
 	lugarView := nil.
@@ -209,7 +246,8 @@ foroView := nil.
 	combiCreationView := nil.
 	choferCreationView := nil.
 	viajeView := nil.
-	viajeCreationView := nil
+	viajeCreationView := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -225,7 +263,8 @@ HomeAdminComponent >> activarViajeCreationView [
 	lugarCreationView := nil.
 	choferCreationView := nil.
 	viajeView := nil.
-	viajeCreationView := (ViajeCreationView newWithParent: self)
+	viajeCreationView := ViajeCreationView newWithParent: self.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -243,7 +282,8 @@ HomeAdminComponent >> activarViajeView [
 	choferCreationView := nil.
 	viajeView := ViajeView newWithParent: self.
 	viajeCreationView := nil.
-	advertenciaCorrectaViaje := nil 
+	advertenciaCorrectaViaje := nil.
+		mensajeExito :=nil
 ]
 
 { #category : #event }
@@ -295,6 +335,7 @@ HomeAdminComponent >> desactivarViajeCreationView: advertenciaCorrecta [
 
 { #category : #rendering }
 HomeAdminComponent >> renderContentOn: aCanvas [
+ aCanvas render: mensajeExito . 
 	aCanvas div
 		class: 'container';
 		with: [ aCanvas heading level1 with: 'Combi-19'.

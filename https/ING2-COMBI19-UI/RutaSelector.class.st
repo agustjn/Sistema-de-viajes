@@ -85,14 +85,20 @@ RutaSelector >> renderizarBotonesABMOn: html [
 	html div
 		class: 'text-center';
 		with: [ html anchor
-				callback: [ self parent call: (RutaEditorView newOf: ruta) ];
-				with: [ html submitButton class:'btn btn-warning'; with: 'Editar' ].
+				callback: [ self parent call: (RutaEditorView newOf: ruta  parent: self) ];
+				with: [ html submitButton
+						class: 'btn btn-warning';
+						with: 'Editar' ].
 			html space.
 			html anchor
 				callback: [ self eliminarRuta.
 					self answer ];
-				with: [ html submitButton class:'btn btn-danger'; with: 'Eliminar' ].
-				html break ; break. ]
+				with: [ html submitButton
+						class: 'btn btn-danger';
+						with: 'Eliminar' ].
+			html
+				break;
+				break ]
 ]
 
 { #category : #rendering }

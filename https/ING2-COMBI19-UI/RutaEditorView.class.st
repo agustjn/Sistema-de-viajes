@@ -10,7 +10,8 @@ Class {
 		'distancia',
 		'advertencia',
 		'horario',
-		'rangoHorario'
+		'rangoHorario',
+		'parent'
 	],
 	#category : #'ING2-COMBI19-UI-Rutas-CRUD-UI'
 }
@@ -18,6 +19,11 @@ Class {
 { #category : #'instance creation' }
 RutaEditorView class >> newOf: aRuta [
 	^self new ruta: aRuta
+]
+
+{ #category : #'instance creation' }
+RutaEditorView class >> newOf: aRuta parent: aParent [
+	^ self new ruta: aRuta; parent: aParent ;yourself .
 ]
 
 { #category : #accessing }
@@ -79,8 +85,9 @@ RutaEditorView >> guardarDatos [
 						ifTrue: [ self renderAdvertencia: 'la ruta esta asociada a un viaje' ].
 					resp = 'Existe la ruta que desea crear'
 						ifTrue: [ self renderAdvertencia: 'Ya existe la ruta que desea crear' ].
-					resp = true
-						ifTrue: [ self answer ] ] ]
+					resp = true 
+						ifTrue: [ self parent parent advertencia:( GenericAdvertiseView newWithParent: self parent heading: 'Se edito la ruta con exito'  item1:nil  item2:nil  item3:nil ).
+							self answer ] ] ]
 ]
 
 { #category : #accessing }
@@ -105,6 +112,16 @@ RutaEditorView >> origen [ ^origen
 { #category : #accessing }
 RutaEditorView >> origen: anOrigen [
 	origen := anOrigen 
+]
+
+{ #category : #accessing }
+RutaEditorView >> parent [
+	^ parent
+]
+
+{ #category : #accessing }
+RutaEditorView >> parent: anObject [
+	parent := anObject
 ]
 
 { #category : #accessing }

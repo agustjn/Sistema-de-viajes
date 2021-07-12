@@ -10,7 +10,8 @@ Class {
 		'reservas',
 		'advertencia',
 		'sospechoso',
-		'fechaSospecha'
+		'fechaSospecha',
+		'baja'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -52,16 +53,32 @@ Cliente >> buscarReservaDelViaje: unViaje [
 
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
-	^ viajes select:[ :unViaje | unViaje esta: unFiltro ]
+	self halt.
+	unFiltro = 'Baja'
+		ifTrue: [ ^ baja ]
+		ifFalse: [ unFiltro = 'Rechazado'
+				ifTrue: [ ^ viajes select: [ :unViaje | unViaje fuiRechazado: self ] ]
+				ifFalse: [ ^ viajes select: [ :unViaje | (unViaje esta: unFiltro) & unViaje noEstoyRechasado: self ] ] ]
 ]
 
 { #category : #accessing }
 Cliente >> darDeBajaViajesProximos [
-	| viajesAeliminar |
-	viajesAeliminar := viajes select:[ :viaje |( ( (viaje fecha subtractDate:fechaSospecha)  <= 15 ) & (viaje estaPendiente) )].
-	viajesAeliminar do: [ :unViaje | viajes remove: unViaje ].
-	self eliminado:(GenericAdvertiseView newWithParent:nil  heading:'Usted se considera como sospechoso de COVID-19'  item1:'Dia de la sospecha: ',(fechaSospecha asString) item2:'No podra comprar pasajes por 15 dias a partir de la fecha que se lo considero sospechoso' item3:nil )
+	| viajesAeliminar viajeRechazado |
+	viajesAeliminar := viajes
+		select:
+			[ :viaje | (viaje fecha subtractDate: fechaSospecha) <= 15 & viaje estaPendiente  & viaje noEstoyRechasado: self].
 	
+	viajesAeliminar do: [ :unViaje | viajes remove: unViaje ].
+	viajesAeliminar do: [ :unViaje | baja add: unViaje ].
+	self
+		eliminado:
+			(GenericAdvertiseView
+				newWithParent: nil
+				heading: 'Usted se considera como sospechoso de COVID-19'
+				item1: 'Dia de la sospecha: ' , fechaSospecha asString
+				item2:
+					'No podra comprar pasajes por 15 dias a partir de la fecha que se lo considero sospechoso'
+				item3: nil)
 ]
 
 { #category : #accessing }
@@ -109,10 +126,11 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 	dni := unDni.
 	fechaNac := unaFecha.
 	plan := unPlan.
-	tarjeta:= nil.
+	tarjeta := nil.
 	viajes := OrderedCollection new.
 	reservas := OrderedCollection new.
 	sospechoso := false.
+	baja := OrderedCollection new.
 ]
 
 { #category : #modifying }

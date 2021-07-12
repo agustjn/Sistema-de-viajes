@@ -26,14 +26,16 @@ InformeDeCompraView >> finalizarCompra [
 	self session user agregarViaje: reserva viaje.
 	reserva viaje agregarCliente: self session user.
 	self parent parent parent
-		activarMensajeExito: 'La reserva del viaje se hizo exitosamente'.
+		activarMensajeExito: 'La reserva del viaje se hizo exitosamente, con 10% descuento'
 ]
 
 { #category : #event }
 InformeDeCompraView >> finalizarCompraConTarjetaExistente [
+self halt.
 	self session user agregarViaje: reserva viaje.
 	reserva viaje agregarCliente: self session user.
-	(self parent parent parent) activarMensajeExito:'La reserva se ha hecho exitosamente!'.
+	self parent parent parent
+		activarMensajeExito: 'La reserva se ha hecho exitosamente!, con 10% de descuento'
 ]
 
 { #category : #accessing }

@@ -85,6 +85,11 @@ Viaje >> finalizarse [
 	estado:= 'Finalizado'
 ]
 
+{ #category : #'as yet unclassified' }
+Viaje >> fuiRechazado: unPasajero [
+	^ rechazados anySatisfy: [ :unRechaso | unRechaso = unPasajero ]
+]
+
 { #category : #initialization }
 Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCantDeAsientos [
 	"Si la cantidad de asientos ingresada por el admin es vacia, asigno la cantidad de asientos por defecto de la combi"
@@ -116,6 +121,14 @@ Viaje >> modificarDatosConRuta: unaRuta fecha: unaFecha precio: unPrecio asiento
 ]
 
 { #category : #'as yet unclassified' }
+Viaje >> noEstoyRechasado: unPasajero [
+	(rechazados
+		anySatisfy: [ :unRechazo | unRechazo == unPasajero ])
+		ifTrue: [ ^ false ]
+		ifFalse: [ ^ true ]
+]
+
+{ #category : #'as yet unclassified' }
 Viaje >> origen: unOrigen destino: unDestino fecha: unaFecha [
 	^ (self ruta origen = unOrigen )& (self ruta destino = unDestino)
 		& (self fecha = unaFecha) & (self estaPendiente)
@@ -138,8 +151,9 @@ Viaje >> presente: unCliente [
 
 { #category : #'as yet unclassified' }
 Viaje >> rechazado: unPasajero [
+self halt.
 	rechazados add: unPasajero.
-	pasajerosSinSubir remove: unPasajero.
+	pasajerosSinSubir remove: unPasajero
 ]
 
 { #category : #operations }

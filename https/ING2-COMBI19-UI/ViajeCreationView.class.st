@@ -89,7 +89,7 @@ ViajeCreationView >> guardarViaje [
 		precio: self precio
 		asientos: self cantidad.
 	textAdvertencia
-		ifNil: [ self parent activarViajeView ]
+		ifNil: [ self parent activarMensajeExito: 'Se creo el viaje correctamente' ]
 		ifNotNil: [ self renderizarError: textAdvertencia ]
 ]
 

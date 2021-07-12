@@ -18,7 +18,15 @@ Publication class >> of: aPublication andParent: aParent [
 
 { #category : #event }
 Publication >> borrarComentario [
-	Combi19 soleInstance borrarPublicacion: (self publication).
+	self parent
+		errorView:
+			(GenericAdvertiseView
+				newWithParent: self parent
+				heading: ''
+				item1: 'Se elimino exitosamente'
+				item2: nil
+				item3: nil).
+	Combi19 soleInstance borrarPublicacion: self publication
 ]
 
 { #category : #event }

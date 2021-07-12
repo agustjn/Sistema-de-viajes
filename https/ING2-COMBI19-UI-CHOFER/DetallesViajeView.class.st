@@ -5,7 +5,8 @@ Class {
 		'parent',
 		'viaje',
 		'pasajeros',
-		'ausenteConfirmacionView'
+		'ausenteConfirmacionView',
+		'msj'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -19,10 +20,22 @@ DetallesViajeView class >> newWith: unViaje parent: aParent [
 ]
 
 { #category : #'as yet unclassified' }
+DetallesViajeView >> activarMensaje: unMsj [
+	msj := GenericAdvertiseView
+		newWithParent: self
+		heading: unMsj
+		item1: nil
+		item2: nil
+		item3: nil
+]
+
+{ #category : #'as yet unclassified' }
 DetallesViajeView >> cancelarViaje [
-"Le cancela el viaje al chofer y luego le avisa al administrador que haga todo para avisar el cancelamiento del viaje y setear el estado del viaje en cancelado"
-	self session user cancelarViaje: self viaje.
-	self model administrador cancelarViaje: self viaje
+	"Le cancela el viaje al chofer y luego le avisa al administrador que haga todo para avisar el cancelamiento del viaje y setear el estado del viaje en cancelado"
+
+	self model administrador cancelarViaje: self viaje.
+	self parent 
+		activarMensajeExito: 'Se cancelo exitosamente el viaje'
 ]
 
 { #category : #event }
@@ -73,6 +86,8 @@ DetallesViajeView >> renderContentOn: html [
 		class: 'text-center ';
 		with: self viaje fecha.
 	html horizontalRule.
+	html render: msj.
+	html horizontalRule.
 	html anchor
 		callback: [ self iniciarViaje ];
 		with: [ html submitButton
@@ -88,17 +103,16 @@ DetallesViajeView >> renderContentOn: html [
 		with: [ html submitButton
 				class: 'btn btn-warning mx-4 my-4';
 				with: 'Vender nuevo boleto' ].
-	html render:ausenteConfirmacionView .
+	html render: ausenteConfirmacionView.
 	self renderizarPasajeros: html
 ]
 
 { #category : #'as yet unclassified' }
 DetallesViajeView >> renderizarPasajeros: html [
-
 	pasajeros := self viaje pasajerosParaSubir.
 	self pasajeros
-		ifNil: [ html heading level3 with: 'No hay pasajeros para el micro' ];
-		ifNotNil: [ html unorderedList
+		ifEmpty: [ html heading level3 with: 'No hay pasajeros para el micro' ];
+		ifNotEmpty: [ html unorderedList
 				class: 'row';
 				with: [ self pasajeros
 						do: [ :unPasajero | 

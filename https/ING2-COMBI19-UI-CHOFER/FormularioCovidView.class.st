@@ -3,7 +3,13 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'parent',
-		'pasajero'
+		'pasajero',
+		'temperatura',
+		'fiebre',
+		'garganta',
+		'olfato',
+		'respiratoria',
+		'viaje'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -15,6 +21,92 @@ FormularioCovidView class >> newWith: unPasajero parent: aParent [
 		pasajero: unPasajero;
 		yourself
 	
+]
+
+{ #category : #'instance creation' }
+FormularioCovidView class >> newWith: unPasajero parent: aParent viaje: unViaje [
+	^ self new
+		parent: aParent;
+		pasajero: unPasajero;
+		viaje: unViaje ;yourself
+]
+
+{ #category : #'as yet unclassified' }
+FormularioCovidView >> advertenciaCorrecta [
+	self parent
+		activarMensaje: 'Se le dio el presente a el pasajero: ' , self pasajero string. self answer
+]
+
+{ #category : #'as yet unclassified' }
+FormularioCovidView >> advertenciaSintomas [
+	self parent
+		activarMensaje: pasajero string , ' Se lo dio de baja por tener 2 sintomas de covid'.
+	self answer
+]
+
+{ #category : #'as yet unclassified' }
+FormularioCovidView >> advertenciaTemperatura [
+	self parent
+		activarMensaje: 'Se lo dio de baja por temperatura elevada a ' , pasajero string.
+	self answer
+]
+
+{ #category : #'as yet unclassified' }
+FormularioCovidView >> confirmar [
+	| cant |
+	cant := 0.
+
+	temperatura = 'Si'
+		ifTrue: [ self darDeBaja.
+			self advertenciaTemperatura ]
+		ifFalse: [ fiebre = 'Si'
+				ifTrue: [ cant := cant + 1 ].
+			garganta = 'Si'
+				ifTrue: [ cant := cant + 1 ].
+			olfato = 'Si'
+				ifTrue: [ cant := cant + 1 ].
+			respiratoria = 'Si'
+				ifTrue: [ cant := cant + 1 ].
+			cant > 1
+				ifTrue: [ self darDeBaja.
+					self advertenciaSintomas ]
+				ifFalse: [ self viaje presente: self pasajero.
+					self advertenciaCorrecta ] ]
+]
+
+{ #category : #'as yet unclassified' }
+FormularioCovidView >> darDeBaja [
+	self viaje rechazado: self pasajero.
+]
+
+{ #category : #accessing }
+FormularioCovidView >> fiebre [
+	^ fiebre
+]
+
+{ #category : #accessing }
+FormularioCovidView >> fiebre: anObject [
+	fiebre := anObject
+]
+
+{ #category : #accessing }
+FormularioCovidView >> garganta [
+	^ garganta
+]
+
+{ #category : #accessing }
+FormularioCovidView >> garganta: anObject [
+	garganta := anObject
+]
+
+{ #category : #accessing }
+FormularioCovidView >> olfato [
+	^ olfato
+]
+
+{ #category : #accessing }
+FormularioCovidView >> olfato: anObject [
+	olfato := anObject
 ]
 
 { #category : #accessing }
@@ -48,44 +140,111 @@ FormularioCovidView >> renderContentOn: html [
 
 { #category : #rendering }
 FormularioCovidView >> renderizarAviso: html [
-	html label:'Un aviso'.
+html space.
+	html horizontalRule.
+	html
+		strong: 'Aviso';
+		break.
+	html
+		text: 'Si tiene mas de 38 grados  o   tiene mas de 1 sintoma';
+		break.
+	html
+		text: 'Sera rechazado y puesto en una lista por 15 dias ';
+		break;
+		break;
+		horizontalRule
 ]
 
 { #category : #rendering }
-FormularioCovidView >> renderizarFormularioOn:html [
+FormularioCovidView >> renderizarBotones: html [
 	html div
-		class: 'form-group col-2 ';
-		with: [ html label: 'Ingrese su temperatura'.
-			html textInput
-				placeholder: '37';
-				class: 'form-control required ml-4';
-				on: #temperatura of: self ].
+		class: ' my-0';
+		with: [ html submitButton
+				callback: [ self confirmar ];
+				class: 'btn btn-success mx-2';
+				with:  'Confirmar ' .
+			html submitButton
+				class: 'btn btn-outline-danger';
+				callback: [ self answer ];
+				with:  'Cancelar '  ]
+]
+
+{ #category : #rendering }
+FormularioCovidView >> renderizarFormularioOn: html [
 	html div
-		class: 'form-group col-2 ';
-		with: [ html label: '¿El pasajero tuvo fiebre en la ultima semana?'.
-			html textInput
-				placeholder: 'NO';
-				class: 'form-control required ml-4';
-				on: #temperatura of: self ].
-		html div
-		class: 'form-group col-2 ';
-		with: [ html label: '¿ El pasajero tuvo perdida de gusto u olfato?'.
-			html textInput
-				placeholder: 'NO';
-				class: 'form-control required ml-4';
-				on: #temperatura of: self ].
-			html div
-		class: 'form-group col-2 ';
-		with: [ html label: '¿EL pasajero tuvo dificultad respiratori?'.
-			html textInput
-				placeholder: 'NO';
-				class: 'form-control required ml-4';
-				on: #temperatura of: self ].
-		html div
-		class: 'form-group col-2 ';
+		class: 'form-group col-12 ';
+		with: [ html
+				label: '¿El pasajero tiene mas de 38 grados en la ultima semana?'.
+			html select
+				class: 'form-control required col-2 text-center';
+				list: #(#Si #No);
+				selected: temperatura;
+				callback: [ :value | temperatura := value ] ].
+	html div
+		class: 'form-group col-12 ';
+		with: [ html label: '¿El pasajero tuvo fiebre la ultima semana?'.
+			html select
+				class: 'form-control required col-2 text-center';
+				list: #(#Si #No);
+				selected: temperatura;
+				callback: [ :value | temperatura := value ] ].
+	html div
+		class: 'form-group col-12 ';
+		with: [ html label: '¿El pasajero tuvo perdida de gusto  u olfato?'.
+			html select
+				class: 'form-control required col-2 text-center';
+				list: #(#Si #No);
+				selected: temperatura;
+				callback: [ :value | temperatura := value ] ].
+	html div
+		class: 'form-group col-12 ';
+		with: [ html label: '¿El pasajero tuvo dificultad respiratoria?'.
+			html select
+				class: 'form-control required col-2 text-center';
+				list: #(#Si #No);
+				selected: temperatura;
+				callback: [ :value | temperatura := value ] ].
+	html div
+		class: 'form-group col-12 ';
 		with: [ html label: '¿El pasajero tuvo dolor de garganta?'.
-			html textInput
-				placeholder: 'No';
-				class: 'form-control required ml-4';
-				on: #temperatura of: self ].
+			html select
+				class: 'form-control required col-2 text-center';
+				list: #(#Si #No);
+				selected: temperatura;
+				callback: [ :value | temperatura := value ] ]
+]
+
+{ #category : #accessing }
+FormularioCovidView >> respiratoria [
+	^ respiratoria
+]
+
+{ #category : #accessing }
+FormularioCovidView >> respiratoria: anObject [
+	respiratoria := anObject
+]
+
+{ #category : #accessing }
+FormularioCovidView >> temperatura [
+	^ temperatura
+]
+
+{ #category : #accessing }
+FormularioCovidView >> temperatura1: anObject [
+	^ temperatura := anObject
+]
+
+{ #category : #accessing }
+FormularioCovidView >> temperatura: anObject [
+	temperatura := anObject
+]
+
+{ #category : #accessing }
+FormularioCovidView >> viaje [
+	^ viaje
+]
+
+{ #category : #accessing }
+FormularioCovidView >> viaje: anObject [
+	viaje := anObject
 ]

@@ -32,9 +32,10 @@ PasajeroSelector >> ausente: html [
 
 { #category : #'as yet unclassified' }
 PasajeroSelector >> cargarFormularioSintomas: html [
-"	self parent parent desactivarDetallesViajeView ."
-	self parent call: (FormularioCovidView newWith: pasajero parent: self parent)
+	"	self parent parent desactivarDetallesViajeView ."
 
+	self parent
+		call: (FormularioCovidView newWith: pasajero parent: self parent viaje: self parent viaje )
 ]
 
 { #category : #accessing }

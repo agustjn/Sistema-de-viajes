@@ -95,7 +95,8 @@ Viaje >> initializeCon: unaRuta fecha: unaFecha precio: unPrecio asientos: unaCa
 	estado := 'Pendiente'.
 	precio := unPrecio.
 	clientes := OrderedCollection new.
-	pasajerosSinSubir  := OrderedCollection new
+	pasajerosSinSubir := OrderedCollection new.
+	rechazados:= OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -133,6 +134,12 @@ Viaje >> precio [
 { #category : #'as yet unclassified' }
 Viaje >> presente: unCliente [
 	pasajerosSinSubir remove: unCliente 
+]
+
+{ #category : #'as yet unclassified' }
+Viaje >> rechazado: unPasajero [
+	rechazados add: unPasajero.
+	pasajerosSinSubir remove: unPasajero.
 ]
 
 { #category : #operations }

@@ -155,7 +155,10 @@ Combi19 class >> instanciaDePrueba [
 		fecha: '11/13/2021' asDate
 		precio: 1500
 		asientos: 30.
-	soleInstance administrador agregarViaje: viaje1 
+	soleInstance administrador agregarViaje: viaje1.
+	
+	viaje1 agregarCliente: client1.
+	client1 agregarViaje: viaje1
 ]
 
 { #category : #accessing }

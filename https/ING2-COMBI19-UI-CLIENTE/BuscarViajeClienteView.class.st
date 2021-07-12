@@ -99,16 +99,22 @@ BuscarViajeClienteView >> renderContentOn: html [
 
 { #category : #rendering }
 BuscarViajeClienteView >> renderizarBotonesOn: html [
-	html break;break.
+	html
+		break;
+		break.
 	html submitButton
-						callback: [ self siguiente ];
-						value: 'Siguiente'.
-					html space.
-					html space.
-					html submitButton
-						callback: [ self parent desactivarViajeView ];
-						with: 'Cancelar'.
-	html break ; break.
+		callback: [ self siguiente ];
+		class: 'btn btn-success';
+		value: 'Siguiente'.
+	html space.
+	html space.
+	html submitButton
+		callback: [ self parent desactivarViajeView ];
+		class: 'btn btn-danger';
+		with: 'Cancelar'.
+	html
+		break;
+		break
 ]
 
 { #category : #rendering }

@@ -55,7 +55,7 @@ FormularioCovidView >> advertenciaTemperatura [
 FormularioCovidView >> confirmar [
 	| cant |
 	cant := 0.
-
+	self halt.
 	temperatura = 'Si'
 		ifTrue: [ self darDeBaja.
 			self advertenciaTemperatura ]
@@ -186,32 +186,32 @@ FormularioCovidView >> renderizarFormularioOn: html [
 			html select
 				class: 'form-control required col-2 text-center';
 				list: #(#Si #No);
-				selected: temperatura;
-				callback: [ :value | temperatura := value ] ].
+				selected: fiebre;
+				callback: [ :value | fiebre := value ] ].
 	html div
 		class: 'form-group col-12 ';
 		with: [ html label: '¿El pasajero tuvo perdida de gusto  u olfato?'.
 			html select
 				class: 'form-control required col-2 text-center';
 				list: #(#Si #No);
-				selected: temperatura;
-				callback: [ :value | temperatura := value ] ].
+				selected: olfato;
+				callback: [ :value | olfato := value ] ].
 	html div
 		class: 'form-group col-12 ';
 		with: [ html label: '¿El pasajero tuvo dificultad respiratoria?'.
 			html select
 				class: 'form-control required col-2 text-center';
 				list: #(#Si #No);
-				selected: temperatura;
-				callback: [ :value | temperatura := value ] ].
+				selected: respiratoria;
+				callback: [ :value | respiratoria := value ] ].
 	html div
 		class: 'form-group col-12 ';
 		with: [ html label: '¿El pasajero tuvo dolor de garganta?'.
 			html select
 				class: 'form-control required col-2 text-center';
 				list: #(#Si #No);
-				selected: temperatura;
-				callback: [ :value | temperatura := value ] ]
+				selected: garganta;
+				callback: [ :value | garganta := value ] ]
 ]
 
 { #category : #accessing }

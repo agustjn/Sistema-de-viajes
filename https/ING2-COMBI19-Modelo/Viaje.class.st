@@ -151,7 +151,7 @@ Viaje >> presente: unCliente [
 
 { #category : #'as yet unclassified' }
 Viaje >> rechazado: unPasajero [
-self halt.
+
 	rechazados add: unPasajero.
 	pasajerosSinSubir remove: unPasajero
 ]

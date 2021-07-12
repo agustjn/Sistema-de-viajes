@@ -144,12 +144,15 @@ Administrador >> buscarRuta: unaRutaString [
 
 { #category : #'as yet unclassified' }
 Administrador >> buscarViajeDesde: unOrigen hasta: unDestino conFecha: unaFecha [
-	^ viajes
-		detect:
-			[ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha ]
-		ifNone: [  unOrigen = unDestino 
-										ifTrue:[ ^ 'El origen y el destino son identicos.'].
-										^ 'No hay viajes para mostrar' ]
+	unaFecha < Date today
+		ifTrue: [ ^ 'La fecha de busqueda tiene que ser igual o posterior a el '
+				, Date today asString ]
+		ifFalse: [ ^ viajes
+				detect:
+					[ :unViaje | unViaje origen: unOrigen destino: unDestino fecha: unaFecha ]
+				ifNone: [ unOrigen = unDestino
+						ifTrue: [ ^ 'El origen y el destino son identicos.' ].
+					^ 'No existe viaje para realizar el: ' , unaFecha asString ] ]
 ]
 
 { #category : #accessing }

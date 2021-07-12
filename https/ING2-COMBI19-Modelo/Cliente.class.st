@@ -75,7 +75,7 @@ Cliente >> darDeBajaViajesProximos [
 	| viajesAeliminar viajeRechazado |
 	viajesAeliminar := viajes
 		select:
-			[ :viaje | (viaje fecha subtractDate: fechaSospecha) <= 15 & viaje estaPendiente  & viaje noEstoyRechasado: self].
+			[ :viaje | (viaje fecha subtractDate: fechaSospecha) <= 15 & (viaje estaPendiente)  & (viaje noEstoyRechasado: self)].
 	
 	viajesAeliminar do: [ :unViaje | viajes remove: unViaje ].
 	viajesAeliminar do: [ :unViaje | baja add: unViaje ].

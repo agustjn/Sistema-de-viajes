@@ -40,15 +40,18 @@ FormularioCovidView >> advertenciaCorrecta [
 { #category : #'as yet unclassified' }
 FormularioCovidView >> advertenciaSintomas [
 	self parent
-		activarMensaje: pasajero string , ' Se lo dio de baja por tener 2 sintomas de covid'.
+		activarMensaje:  'no se puede dar de alta a ',pasajero string, ' por ser sospechoso de covid 19  y se lo bloquea por 15 dias para cualquier proximo viaje'.
 	self answer
 ]
 
 { #category : #'as yet unclassified' }
 FormularioCovidView >> advertenciaTemperatura [
 	self parent
-		activarMensaje: 'Se lo dio de baja por temperatura elevada a ' , pasajero string.
-	self answer
+		activarMensaje:
+			' no se puede dar de alta a ' , pasajero string
+				,
+					' por ser sospechoso de covid 19 y se lo bloquea por 15 dias para cualquier proximo viaje'.
+						self answer
 ]
 
 { #category : #'as yet unclassified' }

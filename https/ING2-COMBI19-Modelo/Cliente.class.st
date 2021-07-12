@@ -11,7 +11,8 @@ Class {
 		'advertencia',
 		'sospechoso',
 		'fechaSospecha',
-		'baja'
+		'baja',
+		'cancelados'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
@@ -53,11 +54,20 @@ Cliente >> buscarReservaDelViaje: unViaje [
 
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
+	unFiltro = 'Cancelado' ifTrue:[ ^ cancelados ] ifFalse:[
 	unFiltro = 'Baja'
 		ifTrue: [ ^ baja ]
 		ifFalse: [ unFiltro = 'Rechazado'
 				ifTrue: [ ^ viajes select: [ :unViaje | unViaje fuiRechazado: self ] ]
-				ifFalse: [ ^ viajes select: [ :unViaje | (unViaje esta: unFiltro) & unViaje noEstoyRechasado: self ] ] ]
+				ifFalse: [ ^ viajes
+						select:
+							[ :unViaje | (unViaje esta: unFiltro) & (unViaje noEstoyRechasado: self) ] ] ]]
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> cancelarViaje: unViaje [
+	cancelados add: unViaje.
+	viajes remove: unViaje.
 ]
 
 { #category : #accessing }
@@ -130,6 +140,7 @@ Cliente >> initializeCon: unEmail contraseña: unaContraseña nombre: unNombre a
 	reservas := OrderedCollection new.
 	sospechoso := false.
 	baja := OrderedCollection new.
+	cancelados:= OrderedCollection new.
 ]
 
 { #category : #modifying }

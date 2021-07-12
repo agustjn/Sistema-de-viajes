@@ -94,7 +94,7 @@ ViajesClientView >> renderizarFiltro: html [
 				with: [ html label: 'Filtrar por:  '.
 					html select
 						class: 'form-control required';
-						list: #(#Pendiente #Realizado #Rechazado #Baja);
+						list: #(#Pendiente #Realizado #Rechazado  #Cancelado #Baja);
 						selected: filtro;
 						callback: [ :value | filtro := value ] ].
 			html space.

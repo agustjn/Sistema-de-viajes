@@ -38,11 +38,14 @@ ViajeSeleccionView >> eliminar [
 	| auxtemp |
 	auxtemp := self session user viajes.
 	"Agregar reglas de negocio"
-	
-	self session user eliminarElViaje: self viaje.
+	self session user cancelarViaje: self viaje.
 	self viaje eliminarCliente: self session user.
-	self viaje sumarAsientos: ( ( (self session user) buscarReservaDelViaje: (self viaje) ) cupos ) .
-	self parent parent activarMensajeExito: 'Se cancelo el viaje correctamente y se le reintegro el ', self calcularPorcentajeDeDevolucion, ' del valor del mismo'
+	self viaje
+		sumarAsientos: (self session user buscarReservaDelViaje: self viaje) cupos.
+	self parent parent
+		activarMensajeExito:
+			'Se cancelo el viaje correctamente y se le reintegro el '
+				, self calcularPorcentajeDeDevolucion , ' del valor del mismo'
 ]
 
 { #category : #accessing }

@@ -29,9 +29,15 @@ ViajeSeleccionChoferView class >> newWithParent: aParent delViaje: unViaje conFi
 
 { #category : #event }
 ViajeSeleccionChoferView >> cancelar [
-	self model administrador
-		cancelarViaje: self viaje .self parent parent
-		activarMensajeExito: 'Se cancelo exitosamente el viaje'
+	| msj |
+	msj := GenericAdvertiseView
+		newWithParent: self
+		heading: '¿Esta seguro que desea cancelar el viaje?'
+		item1: nil
+		item2: nil
+		item3: nil.
+	self parent
+		activarConfirmacion: (ConfirmacionView newWith: msj parent: self parent viaje: self viaje)
 ]
 
 { #category : #accessing }

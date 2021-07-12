@@ -5,7 +5,8 @@ Class {
 		'parent',
 		'filtro',
 		'verProxViajeView',
-		'advertencia'
+		'advertencia',
+		'confirmacion'
 	],
 	#category : #'ING2-COMBI19-UI-CHOFER-viajes-UI'
 }
@@ -13,6 +14,11 @@ Class {
 { #category : #'instance creation' }
 ViajesChoferView class >> newWithParent: aParent [
 	^ self new parent: aParent
+]
+
+{ #category : #'as yet unclassified' }
+ViajesChoferView >> activarConfirmacion: unaConfirmacionView [
+	confirmacion := unaConfirmacionView 
 ]
 
 { #category : #'as yet unclassified' }
@@ -59,7 +65,12 @@ ViajesChoferView >> buscarProximoViaje: html [
 			verProxViajeView := ViajeSeleccionChoferView
 				newWithParent: self
 				delViaje: proximo
-				]
+				conFiltro: 'Pendiente']
+]
+
+{ #category : #event }
+ViajesChoferView >> desactivarConfirmacionView [
+	confirmacion:= nil.
 ]
 
 { #category : #accessing }
@@ -90,11 +101,12 @@ ViajesChoferView >> parent: anObject [
 { #category : #rendering }
 ViajesChoferView >> renderContentOn: html [
 	html render: advertencia.
+	html render: confirmacion.
 	self renderizarBotonBuscar: html.
 	html horizontalRule.
 	self renderizarFiltro: html.
 	filtro ifNotNil: [ self buscarPorFiltro: html ].
-		html render: verProxViajeView.
+	html render: verProxViajeView
 ]
 
 { #category : #rendering }

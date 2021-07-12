@@ -77,7 +77,7 @@ ViajeView >> renderContentOn: html [
 
 { #category : #'as yet unclassified' }
 ViajeView >> renderizarAdvertenciaFallida [
-	advertencia = GenericAdvertiseView
+	advertencia := GenericAdvertiseView
 		newWithParent: self
 		heading: 'No se pudo eliminar el viaje   '
 		item1: 'Este viaje ya esta en curso'

@@ -39,6 +39,11 @@ ViajeSeleccionChoferView >> filtro: unFiltro [
 	filtro:= unFiltro 
 ]
 
+{ #category : #'as yet unclassified' }
+ViajeSeleccionChoferView >> finalizar [
+	self viaje estado: 'Realizado'
+]
+
 { #category : #accessing }
 ViajeSeleccionChoferView >> model [
 	^ Combi19 soleInstance 
@@ -79,10 +84,13 @@ ViajeSeleccionChoferView >> renderContentOn: html [
 										class: 'col-md-12';
 										with: [ self renderizarItems: html ] ] ].
 					html space.
-					self renderizarBotonVer: html.
+					
 					filtro = 'Pendiente'
-						ifTrue: [ self renderizarBotonCancelar: html ].
-					filtro ifNil:[self renderizarBotonCancelar:html ] ]]
+						ifTrue: [ self renderizarBotonCancelar: html.
+							self renderizarBotonVer: html. ].
+					filtro = 'Iniciado' ifTrue:[ self renderizarBotonFinalizar:html].
+					
+					filtro ifNil: [ self renderizarBotonCancelar: html ] ] ]
 ]
 
 { #category : #rendering }
@@ -94,6 +102,18 @@ ViajeSeleccionChoferView >> renderizarBotonCancelar: html [
 				with: [ html submitButton
 						class: 'btn btn-dark';
 						with: 'Cancelar' ] ].
+	html space
+]
+
+{ #category : #rendering }
+ViajeSeleccionChoferView >> renderizarBotonFinalizar: html [
+	html div
+		class: 'text-center';
+		with: [ html anchor
+				callback: [ self finalizar ];
+				with: [ html submitButton
+						class: 'btn btn-outline-dark btn-lg ';
+						with: '  Finalizar  '  ] ].
 	html space
 ]
 
@@ -112,6 +132,7 @@ ViajeSeleccionChoferView >> renderizarBotonVer: html [
 
 { #category : #rendering }
 ViajeSeleccionChoferView >> renderizarItems: html [
+
 	html div
 		class: 'col-md-12 text-center';
 		with: [ ""

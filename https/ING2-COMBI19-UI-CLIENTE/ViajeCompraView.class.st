@@ -8,7 +8,8 @@ Class {
 		'insumo2',
 		'insumo3',
 		'errorView',
-		'parent'
+		'parent',
+		'monto'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
@@ -22,6 +23,14 @@ ViajeCompraView class >> newDelViaje: unViaje [
 ViajeCompraView class >> newDelViaje: unViaje conParent: unParent [
 	^ self new viaje: unViaje;
 				  parent: unParent;
+				  yourself
+]
+
+{ #category : #'instance creation' }
+ViajeCompraView class >> newDelViaje: unViaje conParent: unParent conMonto: unMonto [
+	^ self new viaje: unViaje;
+				  parent: unParent;
+				monto: unMonto
 				  yourself
 ]
 
@@ -43,11 +52,12 @@ ViajeCompraView >> agregarViaje [
 
 { #category : #calculations }
 ViajeCompraView >> calcularMontoTotal [
-	| total |
+	| total temp|
 	total:=0.
 	(self insumosComprados) 
 		ifNotNil:[ :insumos | insumos do:[ :insumo | total := total + (insumo valor asNumber)]  ] .
-	total := total + (cantAsientos asNumber) * 2000.
+	temp := (cantAsientos asNumber) * (self viaje precio).
+	total := total + temp.
 	^ total
 ]
 
@@ -128,6 +138,16 @@ ViajeCompraView >> model [
 ]
 
 { #category : #accessing }
+ViajeCompraView >> monto [
+	^ monto
+]
+
+{ #category : #accessing }
+ViajeCompraView >> monto: anObject [
+	monto := anObject
+]
+
+{ #category : #accessing }
 ViajeCompraView >> parent [
 	^ parent
 ]
@@ -144,8 +164,8 @@ ViajeCompraView >> proceder [
 	self viaje restarAsientos: cantAsientos .
 	( self session user ) agregarReserva: reserva.
 	( self session user ) soyGold 
-			ifTrue:[ self call: ((InformeDeCompraView conMonto: (self calcularMontoTotal) yTarjeta: (self session user tarjeta) conParent: self parent ) ) ]
-			ifFalse:[ self call:(PagarViajeBasicoView deReserva: reserva conParent: self parent)]
+			ifTrue:[ self call: ((InformeDeCompraView conMonto: (self calcularMontoTotal) yTarjeta: (self session user tarjeta) conParent: self parent yReserva: reserva ) ) ]
+			ifFalse:[ self call:(PagarViajeBasicoView deReserva: reserva conParent: (self parent) conMonto: (self calcularMontoTotal) )]
 	
 ]
 
@@ -158,7 +178,7 @@ ViajeCompraView >> renderContentOn: html [
 	html break.
 	html strong:'Fecha del viaje: ', viaje fecha asString.
 	html break.
-	html strong:'Precio de boleto: $' , viaje precio asString.
+	html strong:'Precio del boleto: $' , (self viaje precio) asString.
 	html break ; break.
 	html render: errorView.
 	html div class:'container';
@@ -179,7 +199,7 @@ ViajeCompraView >> renderizarBotones: html [
 			html submitButton
 				class: 'btn btn-dark';
 				callback: [ self confirmarCompra ];
-				value: 'Confirmar compra' ]
+				value: 'Siguiente' ]
 ]
 
 { #category : #rendering }

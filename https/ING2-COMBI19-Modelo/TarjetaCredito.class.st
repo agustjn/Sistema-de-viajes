@@ -5,10 +5,20 @@ Class {
 		'nro',
 		'codSeguridad',
 		'mesVencimiento',
-		'añoVencimiento'
+		'añoVencimiento',
+		'fechaVencimiento'
 	],
 	#category : #'ING2-COMBI19-Modelo'
 }
+
+{ #category : #'instance creation' }
+TarjetaCredito class >> conNumero: nro fechaVencimiento: unaFechaVencimiento codSeguridad: unCodigo [
+	^ self new
+		nro: nro;
+		fechaVencimiento: unaFechaVencimiento;
+		codSeguridad: unCodigo;
+		yourself
+]
 
 { #category : #'instance creation' }
 TarjetaCredito class >> conNumero: aNumbers mesVencimiento:aMonth añoVencimiento:aYear codSeguridad: aCode [
@@ -47,8 +57,20 @@ TarjetaCredito >> codSeguridad: anObject [
 ]
 
 { #category : #accessing }
+TarjetaCredito >> fechaVencimiento [
+	^ fechaVencimiento
+]
+
+{ #category : #accessing }
+TarjetaCredito >> fechaVencimiento: anObject [
+	fechaVencimiento := anObject
+]
+
+{ #category : #accessing }
 TarjetaCredito >> fechaVencimientoStr [
-	^ añoVencimiento,' / ', mesVencimiento 
+	fechaVencimiento ifNil:[ ^ añoVencimiento,' / ', mesVencimiento ]
+						  ifNotNil:[ ^ fechaVencimiento]
+
 	
 ]
 

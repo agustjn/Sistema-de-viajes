@@ -155,6 +155,11 @@ Viaje >> ruta [
 ]
 
 { #category : #accessing }
+Viaje >> sumarAsientos: cantAsientos [ 
+	cantAsientosDisponibles := cantAsientosDisponibles + cantAsientos
+]
+
+{ #category : #accessing }
 Viaje >> tiene: unaCombi [
 	^ ruta combi = unaCombi
 ]

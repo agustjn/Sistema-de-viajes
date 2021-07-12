@@ -66,6 +66,7 @@ CardPayComponent >> codSeguridad: anObject [
 
 { #category : #event }
 CardPayComponent >> confirmarPago [
+	self halt.
 		( nro size = 16)
 		ifFalse:[ self parent renderizarError:'El numero de su tarjeta debe ser de 16 digitos.'.
 					 ^ self ].
@@ -75,8 +76,10 @@ CardPayComponent >> confirmarPago [
 	( ( self fechaVencimiento subtractDate: Date today ) <= 31 ) "Si la fecha de vencimiento es el mismo mes de la fecha de pago, se rechaza"
 		ifTrue:[ self parent renderizarError:'La fecha de vencimiento ingresada es invalida'.
 					^ self].
-		self parent activarMensajeExito.
-		"self parent activarMensajeExito:'La reserva del viaje se hizo exitosamente'."
+		card := TarjetaCredito conNumero: nro fechaVencimiento: (self fechaVencimiento) codSeguridad: codSeguridad .
+		client agregarTarjeta: card.
+		self parent finalizarCompra.
+	( self parent parent parent parent activarMensajeExito: 'La reserva se hizo correctamente')
 ]
 
 { #category : #queries }
@@ -117,45 +120,35 @@ CardPayComponent >> parent: anObject [
 { #category : #rendering }
 CardPayComponent >> renderContentOn: aCanvas [
 	aCanvas render: errorView.
-	aCanvas form:[	aCanvas div
-			class: 'form-group col-6';
-			with:[
-			aCanvas label: 'Numero de tarjeta : '.
-			aCanvas numberInput 
-			placeholder:'Ingrese los 16 digitos de su tarjeta';
-			class: 'form-control required ';
-			on: #nro of: self].
-		
 	aCanvas div
-			class: 'form-group col-1';
-			with:[
-			aCanvas label: 'Codigo de seguridad:  '.
-			aCanvas passwordInput 
-			class: 'form-control required ';
-			placeholder:'123';
-			on: #codSeguridad of: self].
-		
-		aCanvas div
-			class: 'form-group col-4';
-			with:[
-			aCanvas label:'Fecha de vencimiento'.	
-			aCanvas break.	
-			(aCanvas select on:#mesVencimiento of:self	) list:Date monthNames .
-			"aCanvas select 
+		class: 'text-center';
+		with: [ aCanvas
+				form: [ aCanvas div
+						class: 'form-group col-6';
+						with: [ aCanvas label: 'Numero de tarjeta : '.
+							aCanvas numberInput
+								placeholder: 'Ingrese los 16 digitos de su tarjeta';
+								class: 'form-control required ';
+								on: #nro of: self ].
+					aCanvas div
+						class: 'form-group col-1';
+						with: [ aCanvas label: 'Codigo de seguridad:  '.
+							aCanvas passwordInput
+								class: 'form-control required ';
+								placeholder: '123';
+								on: #codSeguridad of: self ].
+					aCanvas div
+						class: 'form-group col-4';
+						with: [ aCanvas label: 'Fecha de vencimiento'.
+							aCanvas break.
+							(aCanvas select on: #mesVencimiento of: self)
+								list: Date monthNames.
+							"aCanvas select 
 			list: Date monthNames ; 
 				selected:self mesVencimiento."
-			aCanvas space.
-			(aCanvas textInput 
-			on:#añoVencimiento of:self) size:2].
-	  self renderizarBotones: aCanvas.
-		].
-
-					  
-		
-			
-			
-	
-
+							aCanvas space.
+							(aCanvas textInput on: #añoVencimiento of: self) size: 2 ].
+					self renderizarBotones: aCanvas ] ]
 ]
 
 { #category : #rendering }

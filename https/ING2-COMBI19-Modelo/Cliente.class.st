@@ -44,6 +44,11 @@ Cliente >> agregarTarjeta: aCreditCard [
 	tarjeta := aCreditCard 
 ]
 
+{ #category : #accessing }
+Cliente >> buscarReservaDelViaje: unViaje [
+	^ reservas detect:[ :reserva | reserva viaje == unViaje] ifNone:[ nil]
+]
+
 { #category : #'as yet unclassified' }
 Cliente >> buscarViajeFiltradoPor: unFiltro [
 	^ viajes select:[ :unViaje | unViaje esta: unFiltro ]

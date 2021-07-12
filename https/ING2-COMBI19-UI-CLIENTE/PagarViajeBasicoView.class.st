@@ -5,15 +5,24 @@ Class {
 		'reserva',
 		'cardPayView',
 		'parent',
-		'errorView'
+		'errorView',
+		'monto'
 	],
 	#category : #'ING2-COMBI19-UI-CLIENTE-Viajes-UI'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #deprecated }
 PagarViajeBasicoView class >> deReserva: unaReserva conParent: aParent [
 	^ self new reserva: unaReserva	;
 				  parent: aParent ;
+				  yourself 
+]
+
+{ #category : #'as yet unclassified' }
+PagarViajeBasicoView class >> deReserva: unaReserva conParent: aParent conMonto: unMonto [
+	^ self new reserva: unaReserva	;
+				  parent: aParent ;
+				  monto: unMonto ;
 				  yourself 
 ]
 
@@ -35,6 +44,24 @@ PagarViajeBasicoView >> cardPayView: anObject [
 	cardPayView := anObject
 ]
 
+{ #category : #event }
+PagarViajeBasicoView >> finalizarCompra [
+	self session user agregarViaje: reserva viaje.
+	reserva viaje agregarCliente: self session user.
+	self parent parent parent
+		activarMensajeExito: 'La reserva del viaje se hizo exitosamente'.
+]
+
+{ #category : #accessing }
+PagarViajeBasicoView >> monto [
+	^ monto
+]
+
+{ #category : #accessing }
+PagarViajeBasicoView >> monto: anObject [
+	monto := anObject
+]
+
 { #category : #accessing }
 PagarViajeBasicoView >> parent [
 	^ parent
@@ -53,8 +80,8 @@ PagarViajeBasicoView >> renderContentOn: html [
 	html strong:'Viaje con Ruta ', reserva viaje ruta string.
 	html break.
 	html strong:'Fecha del viaje: ', reserva viaje fecha asString.
-	html break.
-	html strong:'Precio de boleto: $2000'.
+	html break;break.
+	html strong:'Total a pagar: $' , monto asString.
 	html break ; break.
 	html render:errorView.
 	html render:cardPayView.
